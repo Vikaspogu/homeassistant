@@ -1,0 +1,177 @@
+- alias: Push notification when the garage door is open
+  trigger:
+    platform: state
+    entity_id: cover.garage_door
+    from: 'closed'
+    to: 'open'
+    for: '0:15:00'
+  action:
+    service: notify.mobile_app_sm_g781v
+    data:
+      message: "The garage has been left open"
+      data:
+        actions:
+          - action: "close_garage"
+            title: "Close Garage Door" # The button title
+            
+- alias: Actionable notification - close garage door
+  trigger:
+    platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: close_garage
+  action:
+    service: cover.close_cover
+    entity_id: cover.garage_door
+    data: {}
+
+- alias: Close garage door if its open for 15 minutes after 10PM
+  trigger:
+    platform: state
+    entity_id: cover.garage_door
+    from: 'closed'
+    to: 'open'
+    for: '0:15:00'
+  condition:
+    condition: time
+    after: '22:00:00'
+    before: '05:00:00'
+  action:
+    service: cover.close_cover
+    entity_id: cover.garage_door
+    data: {}
+
+######################################
+#####    Air purifier            #####
+######################################
+
+- alias: "Turnon air filter at 4PM"
+  trigger:
+    platform: time
+    at: '16:00:00'
+  condition:
+    condition: time
+    after: '16:00:00'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.bedroom
+      data: {}
+
+- alias: "Turnoff air filter at 6AM"
+  trigger:
+    platform: time
+    at: '06:00:00'
+  condition:
+    condition: time
+    after: '06:00:00'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.bedroom
+      data: {}
+
+- alias: "Turnon air filter at 5AM"
+  trigger:
+    platform: time
+    at: '05:00:00'
+  condition:
+    condition: time
+    after: '05:00:00'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.office_area
+      data: {}
+
+- alias: "Turnoff air filter at 6PM"
+  trigger:
+    platform: time
+    at: '18:00:00'
+  condition:
+    condition: time
+    after: '18:00:00'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.office_area
+      data: {}
+
+######################################
+#####    Teslamate               #####
+######################################
+
+- alias: Update Tesla location as MQTT location updates
+  initial_state: on
+  trigger:
+    - platform: mqtt
+      topic: teslamate/cars/1/latitude
+    - platform: mqtt
+      topic: teslamate/cars/1/longitude
+  action:
+    - service: device_tracker.see
+      data_template:
+        dev_id: tesla_location
+        gps:
+          [
+            "{{ states.sensor.tesla_latitude.state }}",
+            "{{ states.sensor.tesla_longitude.state }}",
+          ]
+
+- alias: Open garage if car returns home
+  initial_state: on
+  trigger:
+    - platform: state
+      entity_id: device_tracker.tesla_location
+      from: "not_home"
+      to: "home"
+  action:
+    - service: cover.open_cover
+      entity_id: cover.garage_door
+
+- alias: Close garage if car is away
+  initial_state: on
+  trigger:
+    - platform: state
+      entity_id: device_tracker.tesla_location
+      from: "home"
+      to: "not_home"
+  action:
+    - service: cover.close_cover
+      entity_id: cover.garage_door
+
+- alias: Set timer if teslamate reports something is open to alert us
+  initial_state: on
+  trigger:
+    - platform: mqtt
+      topic: teslamate/cars/1/windows_open
+      payload: "true"
+    - platform: mqtt
+      topic: teslamate/cars/1/doors_open
+      payload: "true"
+    - platform: mqtt
+      topic: teslamate/cars/1/trunk_open
+      payload: "true"
+    - platform: mqtt
+      topic: teslamate/cars/1/frunk_open
+      payload: "true"
+  action:
+    - service: script.turn_on
+      data_template:
+        entity_id: script.notify_tesla_{{trigger.topic.split('/')[3]}}
+
+- alias: Cancel notification if said door/window is closed
+  initial_state: on
+  trigger:
+    - platform: mqtt
+      topic: teslamate/cars/1/windows_open
+      payload: "false"
+    - platform: mqtt
+      topic: teslamate/cars/1/doors_open
+      payload: "false"
+    - platform: mqtt
+      topic: teslamate/cars/1/trunk_open
+      payload: "false"
+    - platform: mqtt
+      topic: teslamate/cars/1/frunk_open
+      payload: "false"
+  action:
+    - service: script.turn_off
+      data_template:
+        entity_id: script.notify_tesla_{{trigger.topic.split('/')[3]}}

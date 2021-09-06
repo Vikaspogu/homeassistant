@@ -1,0 +1,29 @@
+# Ignore folders
+.idea
+.well-known
+.DS_Store
+.cloud
+.storage
+.vscode
+Thumbs.db
+custom_components
+deps
+esphome
+image
+node-red
+ssh
+tts
+www/sound
+www/community
+
+# Ignore files
+.HA_VERSION
+home-assistant.log
+home-assistant.log.*
+home-assistant_v2.db
+home-assistant_v2.db-*
+known_devices.yaml
+options.xml
+pyozw.sqlite
+secrets.yaml
+zigbee.db

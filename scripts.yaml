@@ -1,0 +1,58 @@
+notify_tesla_open:
+  alias: "Notify when something on the tesla is left open"
+  sequence:
+    - service: notify.mobile_app_sm_g781v
+      data_template:
+        title: "Tesla Notification"
+        message: "You have left the {{ whatsopen }} open on the Tesla!"
+    - service: script.turn_on
+      data_template:
+        entity_id: script.notify_tesla_{{ whatsopen }}_open
+
+notify_tesla_doors_open:
+  sequence:
+    - delay:
+        minutes: 5
+    - delay:
+        seconds: "{{ range(0, 30)|random|int }}"
+    - service: script.turn_on
+      entity_id: script.notify_tesla_open
+      data:
+        variables:
+          whatsopen: "doors"
+
+notify_tesla_frunk_open:
+  sequence:
+    - delay:
+        minutes: 5
+    - delay:
+        seconds: "{{ range(0, 30)|random|int }}"
+    - service: script.turn_on
+      entity_id: script.notify_tesla_open
+      data:
+        variables:
+          whatsopen: "frunk"
+
+notify_tesla_trunk_open:
+  sequence:
+    - delay:
+        minutes: 5
+    - delay:
+        seconds: "{{ range(0, 30)|random|int }}"
+    - service: script.turn_on
+      entity_id: script.notify_tesla_open
+      data:
+        variables:
+          whatsopen: "trunk"
+
+notify_tesla_windows_open:
+  sequence:
+    - delay:
+        minutes: 5
+    - delay:
+        seconds: "{{ range(0, 30)|random|int }}"
+    - service: script.turn_on
+      entity_id: script.notify_tesla_open
+      data:
+        variables:
+          whatsopen: "windows"

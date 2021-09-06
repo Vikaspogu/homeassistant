@@ -1,0 +1,102 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+sensor: !include sensor.yaml
+binary_sensor: !include binary_sensor.yaml
+google_assistant: !include google_assistant_integ.yaml
+
+frontend:
+  themes: !include themes.yaml
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 192.168.20.0/24
+
+proximity:
+  home_tesla:
+    zone: home
+    devices:
+      - device_tracker.tesla_location
+    tolerance: 10
+    unit_of_measurement: mi
+
+mqtt:
+  broker: vernemq.default
+  discovery: true
+
+cover:
+  - platform: mqtt
+    name: "Garage Door"
+    unique_id: "12345677"
+    command_topic: "garage/set"
+    state_topic: "zigbee2mqtt/GarageDoor"
+    availability:
+      - topic: "garage/availability"
+    qos: 0
+    retain: false
+    payload_open: "OPEN"
+    payload_close: "CLOSE"
+    state_open: "open"
+    state_opening: "opening"
+    state_closed: "closed"
+    state_closing: "closing"
+    payload_available: "online"
+    payload_not_available: "offline"
+    value_template: >-
+      {% if value_json.contact == true %}
+        closed
+      {% elif  value_json.contact == false %}
+        open
+      {% else %} 
+        Unknown 
+      {% endif %}
+
+tplink:
+  discovery: false
+  switch:
+    - host: 192.168.10.199
+    - host: 192.168.10.198
+
+ble_monitor:
+  bt_interface: '18:56:80:A8:8E:B3'
+  discovery: False
+  active_scan: False
+  report_unknown: False
+  decimals: 1
+  period: 60
+  log_spikes: False
+  use_median: False
+  restore_state: False
+  devices:
+    # sensor
+    - mac: 'A4:C1:38:03:09:DB'
+      name: 'Work room'
+      encryption_key: 'b0d3d8a4f978a8c9a68be0a7c75aa9fd'
+      temperature_unit: F
+      decimals: 2
+    - mac: 'A4:C1:38:EC:E3:1F'
+      name: 'Living room'
+      encryption_key: '5b9d03362d3a8a511212f40e8cb9e147'
+      temperature_unit: F
+      decimals: 2
+    - mac: 'A4:C1:38:EF:5D:F5'
+      name: 'Bed room'
+      encryption_key: '2cd3c05b4556799e42799fa80d87bb4f'
+      temperature_unit: F
+      decimals: 2
+
+nest:
+  client_id: !secret nest_client_id
+  client_secret: !secret nest_client_secret
+  project_id: !secret nest_project_id
+  subscriber_id: !secret nest_sub
