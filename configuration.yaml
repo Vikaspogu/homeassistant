@@ -68,7 +68,7 @@ tplink:
     - host: 192.168.10.198
 
 ble_monitor:
-  bt_interface: '18:56:80:A8:8E:B3'
+  bt_interface: !secret ble_interface
   discovery: False
   active_scan: False
   report_unknown: False
@@ -79,19 +79,19 @@ ble_monitor:
   restore_state: False
   devices:
     # sensor
-    - mac: 'A4:C1:38:03:09:DB'
+    - mac: !secret work_room_mac
       name: 'Work room'
-      encryption_key: 'b0d3d8a4f978a8c9a68be0a7c75aa9fd'
+      encryption_key: !secret work_room_encryption_key
       temperature_unit: F
       decimals: 2
-    - mac: 'A4:C1:38:EC:E3:1F'
+    - mac: !secret living_room_mac
       name: 'Living room'
-      encryption_key: '5b9d03362d3a8a511212f40e8cb9e147'
+      encryption_key: !secret living_room_encryption_key
       temperature_unit: F
       decimals: 2
-    - mac: 'A4:C1:38:EF:5D:F5'
+    - mac: !secret bed_room_mac
       name: 'Bed room'
-      encryption_key: '2cd3c05b4556799e42799fa80d87bb4f'
+      encryption_key: !secret bed_room_encryption_key
       temperature_unit: F
       decimals: 2
 
