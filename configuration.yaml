@@ -100,3 +100,42 @@ nest:
   client_secret: !secret nest_client_secret
   project_id: !secret nest_project_id
   subscriber_id: !secret nest_sub
+
+## LOVELACE UI ##########################################################################
+# OLD ?
+lovelace_gen:
+
+lovelace:
+  mode: yaml
+  # Include external resources only add when mode is yaml
+  resources:
+    # Plugins
+    - url: /local/custom-lovelace/bar-card/bar-card.js
+      type: module
+    - url: /local/custom-lovelace/button-card/button-card.js
+      type: module
+    - url: /local/custom-lovelace/lovelace-multiple-entity-row/multiple-entity-row.js
+      type: module
+    - url: /local/custom-lovelace/mini-graph-card-bundle/mini-graph-card-bundle.js
+      type: module
+    - url: /local/custom-lovelace/simple-thermostat/simple-thermostat.js
+      type: module
+    - url: /local/custom-lovelace/transmission/transmission-card.js
+      type: module
+    - url: /local/custom-lovelace/vacuum-card/vacuum-card.js
+      type: module
+    - url: /local/custom-lovelace/vertical-stack-in-card/vertical-stack-in-card.js
+      type: module
+    # Styles
+    - url: "https://fonts.googleapis.com/css2?family=Raleway&display=swap"
+      type: css
+    - url: "https://fonts.googleapis.com/css2?family=Comfortaa&display=swap"
+      type: css
+  dashboards:
+    lovelace-generated:
+      mode: yaml
+      filename: notexist.yaml
+      title: Generated
+      icon: mdi:rotate-right
+      show_in_sidebar: true
+      require_admin: true

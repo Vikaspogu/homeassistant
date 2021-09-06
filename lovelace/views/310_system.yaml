@@ -1,0 +1,58 @@
+icon: mdi:server-network
+title: System
+path: system
+id: system
+
+cards:
+  - type: vertical-stack
+    style: |
+      ha-card {
+        border: solid 1px var(--border-color);
+        font-family: var(--primary-font-family);
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+    cards:
+      - type: custom:transmission-card
+        hide_type: false
+        default_type: active
+      - type: custom:vertical-stack-in-card
+        title: Frigate Object Detection
+        cards:
+          - type: glance
+            entities:
+              - sensor.coral_inference_speed
+              - sensor.detection_fps
+      - type: picture-entity
+        image: https://demo.home-assistant.io/stub_config/bedroom.png
+        entity: camera.doorbell
+      - type: picture-entity
+        image: https://demo.home-assistant.io/stub_config/bedroom.png
+        entity: camera.doorbell_person
+      - type: picture-entity
+        image: https://demo.home-assistant.io/stub_config/bedroom.png
+        entity: camera.doorbell_dog
+      - type: horizontal-stack
+        title: INTERNET
+        cards:
+          - type: custom:mini-graph-card
+            name: Download
+            entities:
+              - sensor.speedtest_download
+            line_color: blue
+            line_width: 8
+            font_size: 75
+          - type: custom:mini-graph-card
+            name: Upload
+            entities:
+              - sensor.speedtest_upload
+            line_color: '#e74c3c'
+            line_width: 8
+            font_size: 75
+          - type: custom:mini-graph-card
+            name: Ping
+            entities:
+              - sensor.speedtest_ping
+            line_color: var(--accent-color)
+            line_width: 8
+            font_size: 75

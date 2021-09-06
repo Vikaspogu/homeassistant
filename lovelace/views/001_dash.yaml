@@ -1,0 +1,113 @@
+icon: mdi:home-assistant
+title: Dashboard
+path: dashboard
+id: dash
+
+cards:
+  ## ROW 1 ###################################################################################################################
+  - type: custom:button-card
+    color_type: icon
+    entity: cover.garage_door
+    icon: mdi:garage
+    name: Garage Door
+    size: 100%
+    show_state: true
+    show_name: false
+    state:
+      - value: open
+        color: var(--color-error)
+        icon: mdi:garage-open
+        animation: blink 2s ease infinite
+      - operator: default
+        color: var(--color-green-bright-1)
+        icon: mdi:garage
+    tap_action:
+      action: toggle
+    styles:
+      card:
+        - color: >
+            [[[ if (states['cover.garage_door'].state == "open") return
+            "var(--color-error)"; else return
+            "var(--color-green-bright-1)";  ]]]
+        - height: 200px
+        - font-size: 25px
+  - type: vertical-stack
+    cards:
+      - type: custom:button-card
+        color_type: label-card
+        color: rgb(44, 109, 214)
+        name: Air purifier
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            entity: switch.bedroom
+            color_type: card
+            name: BED ROOM
+            color: rgb(66, 134, 244)
+            icon: mdi:air-purifier
+          - type: custom:button-card
+            entity: switch.office_area
+            name: OFFICE
+            color_type: card
+            color: rgb(66, 134, 244)
+            icon: mdi:air-purifier
+  - type: custom:weather-card
+    entity: weather.home
+    current: true
+    details: false
+    forecast: true
+    hourly_forecast: false
+    number_of_forecasts: 5
+  - type: custom:simple-thermostat
+    entity: climate.living_room
+  - type: horizontal-stack
+    title: BED ROOM
+    cards:
+      - type: custom:mini-graph-card
+        name: Temperature
+        entities:
+          - sensor.ble_temperature_bed_room_2
+        line_color: blue
+        line_width: 8
+        font_size: 75
+      - type: custom:mini-graph-card
+        name: Humidity
+        entities:
+          - sensor.ble_humidity_bed_room
+        line_color: '#e74c3c'
+        line_width: 8
+        font_size: 75
+  - type: horizontal-stack
+    title: OFFICE
+    cards:
+      - type: custom:mini-graph-card
+        name: Temperature
+        entities:
+          - sensor.ble_temperature_work_room_2
+        line_color: blue
+        line_width: 8
+        font_size: 75
+      - type: custom:mini-graph-card
+        name: Humidity
+        entities:
+          - sensor.ble_humidity_work_room
+        line_color: '#e74c3c'
+        line_width: 8
+        font_size: 75
+  - type: horizontal-stack
+    title: LIVING ROOM
+    cards:
+      - type: custom:mini-graph-card
+        name: Temperature
+        entities:
+          - sensor.ble_temperature_living_room_2
+        line_color: blue
+        line_width: 8
+        font_size: 75
+      - type: custom:mini-graph-card
+        name: Humidity
+        entities:
+          - sensor.ble_humidity_living_room
+        line_color: '#e74c3c'
+        line_width: 8
+        font_size: 75
