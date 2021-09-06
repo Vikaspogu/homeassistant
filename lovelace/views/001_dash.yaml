@@ -56,8 +56,54 @@ cards:
     current: true
     details: false
     forecast: true
-    hourly_forecast: false
-    number_of_forecasts: 5
+    style: |
+      ha-card {
+        border: solid 1px var(--border-color);
+        font-family: var(--primary-font-family);
+        margin-top: 5px !important;
+        margin-bottom: 5px !important;
+      }
+      .spacer {
+        padding-top: 0em !important;
+      }
+      .current {
+        padding-top: 0em !important;
+        padding-left: 1em !important;
+        margin-top: 0.5em !important;
+        margin-bottom: 0em !important;
+      }
+      .temp {
+        font-size: 3.2em !important;
+        position: sticky !important;
+      }
+      .tempc {
+        font-size: 1.5em !important;
+        position: sticky !important;
+      }
+      .forecast {
+        margin-top: -4.5em !important;
+        margin-bottom: -0.7em !important;
+      }
+      .forecast .day:first-child {
+        margin-left: 7.5em !important;
+      }
+      .day {
+        border-right: none !important;
+        line-height: 2 !important;
+      }
+      .precipitation {
+        display: none !important;
+      }
+      .icon {
+        width: 40px !important;
+        height: 40px !important;
+      }
+      .icon.bigger {
+        width: 4.5em !important;
+        height: 4.5em !important;
+        left: 2.5em !important;
+        top: 8em !important;
+      }
   - type: custom:simple-thermostat
     entity: climate.living_room
   - type: horizontal-stack

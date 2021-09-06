@@ -126,7 +126,7 @@ lovelace:
       type: module
     - url: /local/custom-lovelace/vertical-stack-in-card/vertical-stack-in-card.js
       type: module
-    - url: /local/custom-lovelace/weather-card/weather-card.js
+    - url: https://cdn.jsdelivr.net/gh/bramkragten/weather-card/dist/weather-card.min.js
       type: module
     # Styles
     - url: "https://fonts.googleapis.com/css2?family=Raleway&display=swap"
