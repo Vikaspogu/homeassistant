@@ -13,6 +13,67 @@ cards:
         margin-bottom: 5px;
       }
     cards:
+      # SERVICE OPTION
+      - type: markdown
+        style: |
+          ha-card {
+            font-size: var(--font-size-title);
+            font-family: var(--font-title);
+            line-height: 30px;
+            background: none;
+            margin-top: 0.4em;
+            margin-left: 8px;
+            margin-bottom: 0em;
+            box-shadow: none;
+            background: none;
+          }
+          ha-markdown {
+            padding: 0px 0px 0px 8px !important;
+            border-left: 3px solid var(--accent-color);
+          }
+        content: SERVICE - Home Assistant
+
+      - type: horizontal-stack
+        cards:
+          - type: "custom:button-card"
+            template: dash_button
+            entity: sensor.time #fake
+            icon: "mdi:restart"
+            name: Lovelace Restart
+            tap_action:
+              action: call-service
+              service: browser_mod.lovelace_reload
+            hold_action:
+              action: none
+            styles:
+              card:
+                - color: var(--color-green-bright-1)
+          - type: "custom:button-card"
+            template: dash_button
+            entity: sensor.time #fake
+            icon: "mdi:restart"
+            name: Theme Restart
+            tap_action:
+              action: call-service
+              service: frontend.reload_themes
+            hold_action:
+              action: none
+            styles:
+              card:
+                - color: var(--color-green-bright-1)
+          - type: "custom:button-card"
+            template: dash_button
+            entity: sensor.time #fake
+            icon: "mdi:restart"
+            name: HA Restart
+            tap_action:
+              action: none
+            hold_action:
+              action: call-service
+              service: homeassistant.restart
+            styles:
+              card:
+                - color: var(--color-orange-1)
       - type: custom:transmission-card
         hide_type: false
         default_type: active
