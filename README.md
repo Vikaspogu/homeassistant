@@ -4,7 +4,7 @@ This is my [Home Assistant](https://www.home-assistant.io/) configuration.
 
 ## Screenshot
 
-![](https://raw.githubusercontent.com/ingeniumdesign/homeassistant/master/docs/ha-dash.JPG)
+![](./docs/hass_dash.png)
 
 ## Hass.io Addons
 
