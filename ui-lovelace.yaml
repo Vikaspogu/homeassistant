@@ -70,11 +70,11 @@ button_card_templates:
         - height: 70px
         - font-size: 11px
         - margin: 0px
-        - background: >
-            [[[
-            if (entity.state == "on") return "var(--accent-color)";
-            else return "var(--ha-card-background)"; 
-            ]]]
+        # - background: >
+        #     [[[
+        #     if (entity.state == "on") return "var(--accent-color)";
+        #     else return "var(--ha-card-background)"; 
+        #     ]]]
     style: !include lovelace/includes/style.yaml
   popup_button:
     size: 25px
