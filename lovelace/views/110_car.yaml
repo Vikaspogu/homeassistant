@@ -4,6 +4,7 @@ path: car
 id: car
 cards:
   ## ROW 1 ###################################################################################################################
+  - !include './includes/tesla.yaml'
   - type: map
     aspect_ratio: '16:9'
     default_zoom: 13

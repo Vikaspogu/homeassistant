@@ -1,0 +1,116 @@
+type: picture-elements
+image: !file /local/images/other/tesla.jpg
+elements:
+{% set sensors = [
+  ('sensor.tesla_state, False),
+  ('binary_sensor.tesla_park_brake', True)
+]
+%}
+{% set lock_sensors = [
+  ('Doors', 'binary_sensor.tesla_doors_open'),
+  ('Frunk', 'binary_sensor.tesla_frunk_open'),
+  ('Trunk','binary_sensor.tesla_trunk_open')
+]
+%}
+{% set battery_sensors = [
+  ('Battery', 'sensor.tesla_battery_level'),
+  ('Charging', 'binary_sensor.tesla_plugged_in'),
+  ('Range', 'sensor.tesla_ideal_battery_range_mi')
+]
+%}
+{% set temp_sensors = [
+  ('Inside', 'sensor.tesla_inside_temp'),
+  ('Outside' ,'sensor.tesla_outside_temp')
+] 
+%}
+{% for g in sensors %}
+- type: state-icon
+  entity: {{ g.0 }}
+  style:
+    right: 0
+    top: 5px
+    margin-top: {{ loop.index0*32 }}px
+    transform: initial
+    font-size: 1em
+    line-height: 2em
+    "--paper-item-icon-color": white
+- type: state-label
+  entity: {{ g.0 }}
+  {% if g.1 %}attribute: 'friendly_name'{% endif %}
+  style:
+    transform: initial
+    font-size: 1em
+    line-height: 2em
+    top: 5px
+    right: 30px
+    margin-top: {{ loop.index0*32 }}px
+{% endfor -%}
+{% for g in lock_sensors %}
+- type: state-icon
+  entity: {{ g.1 }}
+  style:
+    left: 0
+    top: 5px
+    margin-top: {{ loop.index0*32 }}px
+    transform: initial
+    font-size: 1em
+    line-height: 2em
+    "--paper-item-icon-color": white
+- type: state-label
+  entity: {{ g.1 }}
+  title: {{ g.0 }}
+  attribute: 'friendly_name'
+  style:
+    transform: initial
+    font-size: 1em
+    line-height: 2em
+    top: 5px
+    left: 30px
+    margin-top: {{ loop.index0*32 }}px
+{% endfor -%}
+{% for g in battery_sensors %}
+- type: state-icon
+  entity: {{ g.1 }}
+  style:
+    left: 0
+    bottom: 10px
+    margin-bottom: {{ loop.index0*32 }}px
+    transform: initial
+    font-size: 1em
+    line-height: 2em
+    "--paper-item-icon-color": white
+- type: state-label
+  entity: {{ g.1 }}
+  title: {{ g.0 }}
+  prefix: "{{ g.0 }}: "
+  style:
+    transform: initial
+    font-size: 1em
+    line-height: 2em
+    bottom: 5px
+    left: 30px
+    margin-bottom: {{ loop.index0*32 }}px
+{% endfor -%}
+{% for g in temp_sensors %}
+- type: state-icon
+  entity: {{ g.1 }}
+  style:
+    right: 0
+    bottom: 10px
+    margin-bottom: {{ loop.index0*32 }}px
+    transform: initial
+    font-size: 1em
+    line-height: 2em
+    "--paper-item-icon-color": white
+- type: state-label
+  entity: {{ g.1 }}
+  title: {{ g.0 }}
+  prefix: "{{ g.0 }}: "
+  style:
+    transform: initial
+    font-size: 1em
+    line-height: 2em
+    bottom: 5px
+    right: 30px
+    margin-bottom: {{ loop.index0*32 }}px
+{% endfor -%}
