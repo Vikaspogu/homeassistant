@@ -316,7 +316,7 @@ const LitElement = Object.getPrototypeOf(
         width: calc(100% - 60px);
         overflow: hidden;
         z-index: 2;
-        // color: var(--text-light-primary-color, var(--primary-text-color));
+        color: var(--accent-color);
         line-height: 1.4em;
       }
       .percent {
@@ -324,7 +324,7 @@ const LitElement = Object.getPrototypeOf(
         z-index: 2;
         margin-left: 1.7em;
         margin-right: 0.7em;
-        // color: var(--text-light-primary-color, var(--primary-text-color));
+        color: var(--accent-color);
         line-height: 1.4em;
       }
       .downloading {

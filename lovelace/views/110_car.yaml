@@ -10,15 +10,6 @@ cards:
     default_zoom: 13
     entities:
       - device_tracker.tesla_location
-  - type: custom:mini-graph-card
-    entities:
-      - entity: sensor.tesla_battery_level
-        name: Battery
-      - entity: sensor.tesla_ideal_battery_range_mi
-        name: Range
-    name: Battery Level
-    hours_to_show: 24
-    points_per_hour: 2
   - type: custom:bar-card
     width: 70%
     entities:
@@ -31,16 +22,6 @@ cards:
       icon: 'off'
       indicator: inside
       name: outside
-  - type: custom:mini-graph-card
-    name: Temperature
-    points_per_hour: 2
-    icon: mdi:battery
-    entities:
-      - entity: sensor.tesla_inside_temp
-        name: Inside
-      - entity: sensor.tesla_outside_temp
-        name: Outside
-    line_color: blue
   - type: glance
     entities:
       - entity: binary_sensor.tesla_healthy
