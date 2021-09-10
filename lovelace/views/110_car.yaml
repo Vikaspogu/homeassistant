@@ -36,8 +36,8 @@ cards:
         name: Park Brake
       - entity: binary_sensor.tesla_sentry_mode
         name: Sentry Mode
-      - entity: sensor.tesla_speed
-        name: Speed
+      - entity: sensor.tesla_speed_mph
+        name: Speed (MPH)
   - type: entities
     entities:
       - entity: sensor.tesla_display_name
