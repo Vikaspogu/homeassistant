@@ -1,18 +1,20 @@
-# Home Assistant Configuration :metal:
+# Home Assistant Configuration
 
 This is my [Home Assistant](https://www.home-assistant.io/) configuration.
 
 ## Screenshot
 
-![](./docs/hass_dash.png)
+![screenshot](./docs/hass_dash.png)
 
 ## Hass.io Addons
 
-![](https://raw.githubusercontent.com/ingeniumdesign/homeassistant/master/docs/ha-logo-small.png)
+![logo](https://raw.githubusercontent.com/ingeniumdesign/homeassistant/master/docs/ha-logo-small.png)
 
-- Check Home Assistant configuration
-- [Visual Studio Code](https://github.com/hassio-addons/addon-vscode)
-- [deCONZ](https://www.home-assistant.io/integrations/deconz/) - Conbee II
+- Roomba
+- Internet Printing Protocol
+- Nest
+- TP Link Smart Home
+- Transmission
 - [Speedtest.net](https://www.speedtest.net/)
 - [MQTT](https://www.home-assistant.io/integrations/mqtt/)
 
@@ -46,26 +48,31 @@ This is my [Home Assistant](https://www.home-assistant.io/) configuration.
 
 1. Plugged it into the USB.
 2. Popped out the SD card and used [USB reader *](https://amzn.to/3pOwVI1) to access on another computer.
-3. Edited config.txt <br />
-   Config Device Pi3B, Pi3B+ or Pi4: <br />
-   **Raspberry Pi 3B** or older: <br/>
-```yaml
-enable_uart=1
-dtoverlay=pi3-disable-bt
-```
-3.  **Raspberry Pi 3B+ or 4** <br/>
-```yaml
-enable_uart=1
-dtoverlay=pi3-miniuart-bt
-```
-4. Put SD card back in RPi and turned it on.
-5. Went to Configuration > deCONZ. <br/>
-```yaml
-device: >-
-  /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2408889-if00
-```
+3. Edited config.txt
+   Config Device Pi3B, Pi3B+ or Pi4:
+   **Raspberry Pi 3B** or older:
 
-### DEBUGGING and Errors :neckbeard:
+    ```yaml
+    enable_uart=1
+    dtoverlay=pi3-disable-bt
+    ```
+
+4. **Raspberry Pi 3B+ or 4**
+
+    ```yaml
+    enable_uart=1
+    dtoverlay=pi3-miniuart-bt
+    ```
+
+5. Put SD card back in RPi and turned it on.
+6. Went to Configuration > deCONZ.
+
+    ```yaml
+    device: >-
+      /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2408889-if00
+    ```
+
+### DEBUGGING and Errors
 
 - [x] **ERROR** ~~vacuum-card/vacuum-card.js Error: Cannot read property 'states' of undefined~~ [~~GitHub #169~~](https://github.com/denysdovhan/vacuum-card/issues/169)
 - [ ] **ERROR** synology_dsm dont work. Go in long loading point.
