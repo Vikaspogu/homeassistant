@@ -59,6 +59,25 @@ cards:
         hide_type: false
         default_type: active
       - type: custom:vertical-stack-in-card
+        title: HP Printer
+        cards:
+          - type: entities
+            entities:
+              - entity: sensor.hp_envy_photo_6200_series
+                type: custom:multiple-entity-row
+                name: Printer Status
+                secondary_info: last-changed
+          - type: custom:bar-card
+            width: 70%
+            entities:
+              - name: Black Ink
+                entity: sensor.hp_envy_photo_6200_series_black_ink
+              - name: Color Ink
+                entity: sensor.hp_envy_photo_6200_series_tri_color_ink
+      - type: picture-entity
+        image: https://demo.home-assistant.io/stub_config/bedroom.png
+        entity: camera.doorbell_person
+      - type: custom:vertical-stack-in-card
         title: Frigate Object Detection
         cards:
           - type: glance
@@ -68,9 +87,6 @@ cards:
       - type: picture-entity
         image: https://demo.home-assistant.io/stub_config/bedroom.png
         entity: camera.doorbell
-      - type: picture-entity
-        image: https://demo.home-assistant.io/stub_config/bedroom.png
-        entity: camera.doorbell_person
       - type: picture-entity
         image: https://demo.home-assistant.io/stub_config/bedroom.png
         entity: camera.doorbell_dog
