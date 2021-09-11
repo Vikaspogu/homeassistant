@@ -106,6 +106,9 @@ cards:
       }
   - type: custom:simple-thermostat
     entity: climate.living_room
+  - type: picture-entity
+    entity: camera.doorbell
+    camera_view: live
   - type: horizontal-stack
     title: BED ROOM
     cards:

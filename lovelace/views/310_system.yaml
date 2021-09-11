@@ -86,9 +86,6 @@ cards:
               - sensor.detection_fps
       - type: picture-entity
         image: https://demo.home-assistant.io/stub_config/bedroom.png
-        entity: camera.doorbell
-      - type: picture-entity
-        image: https://demo.home-assistant.io/stub_config/bedroom.png
         entity: camera.doorbell_dog
       - type: horizontal-stack
         title: INTERNET
