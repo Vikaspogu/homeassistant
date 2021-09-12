@@ -30,6 +30,28 @@ cards:
             padding: 0px 0px 0px 8px !important;
             border-left: 3px solid var(--accent-color);
           }
+        content: TRANSMISSION
+      - type: custom:transmission-card
+        hide_type: false
+        hide_header: true
+        default_type: active
+      - type: markdown
+        style: |
+          ha-card {
+            font-size: var(--font-size-title);
+            font-family: var(--font-title);
+            line-height: 30px;
+            background: none;
+            margin-top: 0.4em;
+            margin-left: 8px;
+            margin-bottom: 0em;
+            box-shadow: none;
+            background: none;
+          }
+          ha-markdown {
+            padding: 0px 0px 0px 8px !important;
+            border-left: 3px solid var(--accent-color);
+          }
         content: PLEX RECENTLY ADDED
       - type: custom:upcoming-media-card
         entity: sensor.recently_added_movies
@@ -70,31 +92,9 @@ cards:
             padding: 0px 0px 0px 8px !important;
             border-left: 3px solid var(--accent-color);
           }
-        content: TRANSMISSION
-      - type: custom:transmission-card
-        hide_type: false
-        hide_header: true
-        default_type: active
-      - type: markdown
-        style: |
-          ha-card {
-            font-size: var(--font-size-title);
-            font-family: var(--font-title);
-            line-height: 30px;
-            background: none;
-            margin-top: 0.4em;
-            margin-left: 8px;
-            margin-bottom: 0em;
-            box-shadow: none;
-            background: none;
-          }
-          ha-markdown {
-            padding: 0px 0px 0px 8px !important;
-            border-left: 3px solid var(--accent-color);
-          }
-        content: Upcoming
+        content: UPCOMING MEDIA
       - type: custom:upcoming-media-card
-        entity: sensor.sonarr_upcoming
+        entity: sensor.sonarr_upcoming_media
         accent_color: var(--color-blue-deepdark-2)
         border_color: rgba(45,53,82,0)
         text_shadows: false
