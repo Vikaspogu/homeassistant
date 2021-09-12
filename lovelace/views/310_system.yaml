@@ -89,6 +89,27 @@ cards:
             padding: 0px 0px 0px 8px !important;
             border-left: 3px solid var(--accent-color);
           }
+        content: PLEX RECENTLY ADDED
+      - type: custom:upcoming-media-card
+        entity: sensor.plex_recently_added
+        title: Recently Downloaded
+      - type: markdown
+        style: |
+          ha-card {
+            font-size: var(--font-size-title);
+            font-family: var(--font-title);
+            line-height: 30px;
+            background: none;
+            margin-top: 0.4em;
+            margin-left: 8px;
+            margin-bottom: 0em;
+            box-shadow: none;
+            background: none;
+          }
+          ha-markdown {
+            padding: 0px 0px 0px 8px !important;
+            border-left: 3px solid var(--accent-color);
+          }
         content: TRANSMISSION
       - type: custom:transmission-card
         hide_type: false

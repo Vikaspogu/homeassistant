@@ -259,3 +259,9 @@
    state_topic: "teslamate/cars/1/time_to_full_charge"
    unit_of_measurement: h
    icon: mdi:clock-outline
+
+ - platform: plex_recently_added
+   name: Recently Added Movies # will create sensor.recently_added_movies
+   token: !secret plex_token
+   host: !secret plex_host
+   port: 32400
