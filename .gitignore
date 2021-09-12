@@ -15,6 +15,7 @@ ssh
 tts
 www/sound
 www/community
+www/upcoming-media-card-images
 
 # Ignore files
 .HA_VERSION
