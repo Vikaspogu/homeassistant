@@ -13,8 +13,25 @@ cards:
         margin-bottom: 5px;
       }
     cards:
+      - type: markdown
+        style: |
+          ha-card {
+            font-size: var(--font-size-title);
+            font-family: var(--font-title);
+            line-height: 30px;
+            background: none;
+            margin-top: 0.4em;
+            margin-left: 8px;
+            margin-bottom: 0em;
+            box-shadow: none;
+            background: none;
+          }
+          ha-markdown {
+            padding: 0px 0px 0px 8px !important;
+            border-left: 3px solid var(--accent-color);
+          }
+        content: SERVICE - Home Assistant
       - type: horizontal-stack
-        title: SERVICE - Home Assistant
         cards:
           - type: "custom:button-card"
             template: dash_button
@@ -55,11 +72,47 @@ cards:
             styles:
               card:
                 - color: var(--color-orange-1)
+      - type: markdown
+        style: |
+          ha-card {
+            font-size: var(--font-size-title);
+            font-family: var(--font-title);
+            line-height: 30px;
+            background: none;
+            margin-top: 0.4em;
+            margin-left: 8px;
+            margin-bottom: 0em;
+            box-shadow: none;
+            background: none;
+          }
+          ha-markdown {
+            padding: 0px 0px 0px 8px !important;
+            border-left: 3px solid var(--accent-color);
+          }
+        content: TRANSMISSION
       - type: custom:transmission-card
         hide_type: false
+        hide_header: true
         default_type: active
+      - type: markdown
+        style: |
+          ha-card {
+            font-size: var(--font-size-title);
+            font-family: var(--font-title);
+            line-height: 30px;
+            background: none;
+            margin-top: 0.4em;
+            margin-left: 8px;
+            margin-bottom: 0em;
+            box-shadow: none;
+            background: none;
+          }
+          ha-markdown {
+            padding: 0px 0px 0px 8px !important;
+            border-left: 3px solid var(--accent-color);
+          }
+        content: HP Printer
       - type: custom:vertical-stack-in-card
-        title: HP Printer
         cards:
           - type: entities
             entities:
@@ -77,8 +130,25 @@ cards:
       - type: picture-entity
         image: https://demo.home-assistant.io/stub_config/bedroom.png
         entity: camera.doorbell_person
+      - type: markdown
+        style: |
+          ha-card {
+            font-size: var(--font-size-title);
+            font-family: var(--font-title);
+            line-height: 30px;
+            background: none;
+            margin-top: 0.4em;
+            margin-left: 8px;
+            margin-bottom: 0em;
+            box-shadow: none;
+            background: none;
+          }
+          ha-markdown {
+            padding: 0px 0px 0px 8px !important;
+            border-left: 3px solid var(--accent-color);
+          }
+        content: FRIGATE Object Detection
       - type: custom:vertical-stack-in-card
-        title: Frigate Object Detection
         cards:
           - type: glance
             entities:
@@ -87,27 +157,104 @@ cards:
       - type: picture-entity
         image: https://demo.home-assistant.io/stub_config/bedroom.png
         entity: camera.doorbell_dog
+      ## DOWNLOAD / UPLOAD ##
+      - type: markdown
+        style: |
+          ha-card {
+            font-size: var(--font-size-title);
+            font-family: var(--font-title);
+            line-height: 30px;
+            background: none;
+            margin-top: 0.4em;
+            margin-left: 8px;
+            margin-bottom: 0em;
+            box-shadow: none;
+            background: none;
+          }
+          ha-markdown {
+            padding: 0px 0px 0px 8px !important;
+            border-left: 3px solid var(--accent-color);
+          }
+        content: INTERNET SPEED
       - type: horizontal-stack
-        title: INTERNET
         cards:
           - type: custom:mini-graph-card
-            name: Download
+            style: |
+              ha-card {
+                border: solid 1px var(--border-color);
+                font-family: var(--primary-font-family);
+                margin-top: 5px;
+                margin-bottom: 5px;
+              }
+              .graph {
+                padding-top: 15px;
+                padding-bottom: 0px;
+              }
+              .info {
+                padding-bottom: 0px;
+              }
+              .flex {
+                padding-bottom: 10px;
+              }
             entities:
               - sensor.speedtest_download
-            line_color: blue
-            line_width: 8
-            font_size: 75
+            name: Download
+            align_state: center
+            align_icon: left
+            font_size: 60
+            font_size_header: 11
+            hours_to_show: 24
+            line_color: var(--accent-color)
+            line_width: 4
+            animate: true
+            points_per_hour: 1.0
+            lower_bound_secondary: 0
+            show:
+              fill: fade
+              graph: line
+              extrema: false
+            # @ToDo link disable
+            #tap_action:
+            #  action: none
+            #hold_action:
+            #  action: none
           - type: custom:mini-graph-card
-            name: Upload
+            style: |
+              ha-card {
+                border: solid 1px var(--border-color);
+                font-family: var(--primary-font-family);
+                margin-top: 5px;
+                margin-bottom: 5px;
+              }
+              .graph {
+                padding-top: 15px;
+                padding-bottom: 0px;
+              }
+              .info {
+                padding-bottom: 0px;
+              }
+              .flex {
+                padding-bottom: 10px;
+              }
             entities:
               - sensor.speedtest_upload
-            line_color: '#e74c3c'
-            line_width: 8
-            font_size: 75
-          - type: custom:mini-graph-card
-            name: Ping
-            entities:
-              - sensor.speedtest_ping
+            name: Upload
+            align_state: center
+            align_icon: left
+            font_size: 60
+            font_size_header: 11
+            hours_to_show: 24
             line_color: var(--accent-color)
-            line_width: 8
-            font_size: 75
+            line_width: 4
+            animate: true
+            points_per_hour: 1.0
+            lower_bound_secondary: 0
+            show:
+              fill: fade
+              graph: line
+              extrema: false
+            # @ToDo link disable
+            #tap_action:
+            #  action: none
+            #hold_action:
+            #  action: none

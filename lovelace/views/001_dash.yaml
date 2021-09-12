@@ -5,11 +5,28 @@ id: dash
 
 cards:
   ## ROW 1 ###################################################################################################################
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: GARAGE
   - type: custom:button-card
     color_type: icon
     entity: cover.garage_door
     icon: mdi:garage
-    name: Garage Door
     size: 100%
     show_state: true
     show_name: false
@@ -31,12 +48,26 @@ cards:
             "var(--color-green-bright-1)";  ]]]
         - height: 200px
         - font-size: 25px
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: AIR PURIFIER
   - type: vertical-stack
     cards:
-      - type: custom:button-card
-        color_type: label-card
-        color: rgb(44, 109, 214)
-        name: Air purifier
       - type: horizontal-stack
         cards:
           - type: custom:button-card
@@ -51,6 +82,24 @@ cards:
             color_type: card
             color: rgb(66, 134, 244)
             icon: mdi:air-purifier
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: WEATHER
   - type: custom:weather-card
     entity: weather.home
     current: true
@@ -104,59 +153,191 @@ cards:
         left: 2.5em !important;
         top: 8em !important;
       }
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: NEST THERMOSTAT
   - type: custom:simple-thermostat
     entity: climate.living_room
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: DOORBELL CAMERA
   - type: picture-entity
     entity: camera.doorbell
     camera_view: live
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: TEMPERATURE SENSORS
   - type: horizontal-stack
-    title: BED ROOM
     cards:
-      - type: custom:mini-graph-card
-        name: Temperature
+      - type: "custom:mini-graph-card"
+        style: |
+          ha-card {
+            border: solid 1px var(--border-color);
+            font-family: var(--primary-font-family);
+            margin-top: 5px;
+            margin-bottom: 5px;
+          }
+          .graph {
+            padding-top: 15px;
+            padding-bottom: 0px;
+          }
+          .info {
+            padding-bottom: 0px;
+          }
+          .flex {
+            padding-bottom: 10px;
+          }
         entities:
-          - sensor.ble_temperature_bed_room_2
-        line_color: blue
-        line_width: 8
-        font_size: 75
-      - type: custom:mini-graph-card
-        name: Humidity
-        entities:
-          - sensor.ble_humidity_bed_room
-        line_color: '#e74c3c'
-        line_width: 8
-        font_size: 75
+          - entity: sensor.ble_temperature_living_room_2
+            name: Temperature
+            color: var(--color-ocher-1)
+          - entity: sensor.ble_humidity_living_room
+            name: Humidity
+            color: var(--accent-color)
+            show_state: true
+        name: Living Room
+        align_state: center
+        align_icon: left
+        font_size: 60
+        font_size_header: 11
+        hours_to_show: 48
+        line_color: var(--color-red-1)
+        line_width: 4
+        animate: true
+        points_per_hour: 0.5
+        lower_bound_secondary: 0
+        show:
+          fill: fade
+          graph: line
+          extrema: false
   - type: horizontal-stack
-    title: OFFICE
     cards:
-      - type: custom:mini-graph-card
-        name: Temperature
+      - type: "custom:mini-graph-card"
+        style: |
+          ha-card {
+            border: solid 1px var(--border-color);
+            font-family: var(--primary-font-family);
+            margin-top: 5px;
+            margin-bottom: 5px;
+          }
+          .graph {
+            padding-top: 15px;
+            padding-bottom: 0px;
+          }
+          .info {
+            padding-bottom: 0px;
+          }
+          .flex {
+            padding-bottom: 10px;
+          }
         entities:
-          - sensor.ble_temperature_work_room_2
-        line_color: blue
-        line_width: 8
-        font_size: 75
-      - type: custom:mini-graph-card
-        name: Humidity
-        entities:
-          - sensor.ble_humidity_work_room
-        line_color: '#e74c3c'
-        line_width: 8
-        font_size: 75
+          - entity: sensor.ble_temperature_bed_room_2
+            name: Temperature
+            color: var(--color-ocher-1)
+          - entity: sensor.ble_humidity_bed_room
+            name: Humidity
+            color: var(--accent-color)
+            show_state: true
+        name: Bed Room
+        align_state: center
+        align_icon: left
+        font_size: 60
+        font_size_header: 11
+        hours_to_show: 48
+        line_color: var(--color-red-1)
+        line_width: 4
+        animate: true
+        points_per_hour: 0.5
+        lower_bound_secondary: 0
+        show:
+          fill: fade
+          graph: line
+          extrema: false
   - type: horizontal-stack
-    title: LIVING ROOM
     cards:
-      - type: custom:mini-graph-card
-        name: Temperature
+      - type: "custom:mini-graph-card"
+        style: |
+          ha-card {
+            border: solid 1px var(--border-color);
+            font-family: var(--primary-font-family);
+            margin-top: 5px;
+            margin-bottom: 5px;
+          }
+          .graph {
+            padding-top: 15px;
+            padding-bottom: 0px;
+          }
+          .info {
+            padding-bottom: 0px;
+          }
+          .flex {
+            padding-bottom: 10px;
+          }
         entities:
-          - sensor.ble_temperature_living_room_2
-        line_color: blue
-        line_width: 8
-        font_size: 75
-      - type: custom:mini-graph-card
-        name: Humidity
-        entities:
-          - sensor.ble_humidity_living_room
-        line_color: '#e74c3c'
-        line_width: 8
-        font_size: 75
+          - entity: sensor.ble_temperature_work_room_2
+            name: Temperature
+            color: var(--color-ocher-1)
+          - entity: sensor.ble_humidity_work_room
+            name: Humidity
+            color: var(--accent-color)
+            show_state: true
+        name: Office
+        align_state: center
+        align_icon: left
+        font_size: 60
+        font_size_header: 11
+        hours_to_show: 48
+        line_color: var(--color-red-1)
+        line_width: 4
+        animate: true
+        points_per_hour: 0.5
+        lower_bound_secondary: 0
+        show:
+          fill: fade
+          graph: line
+          extrema: false

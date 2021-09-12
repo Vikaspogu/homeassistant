@@ -129,9 +129,9 @@ lovelace:
       type: module
     - url: /local/custom-lovelace/button-card/button-card.js
       type: module
-    - url: /local/custom-lovelace/card-mod/card-mod.js
+    - url: /local/custom-lovelace/lovelace-card-mod/card-mod.js
       type: module
-    - url: /local/custom-lovelace/card-tools/card-tools.js
+    - url: /local/custom-lovelace/lovelace-card-tools/card-tools.js
       type: module
     - url: /local/custom-lovelace/lovelace-multiple-entity-row/multiple-entity-row.js
       type: module
