@@ -2,6 +2,19 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Pogu's
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret homeassistant_latitude
+  longitude: !secret homeassistant_longitude
+  elevation: 5
+  # 'metric' for Metric, 'imperial' for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/Chicago
+  external_url: !secret homeassistant_external_url
+
 # Text to speech
 tts:
   - platform: google_translate
@@ -16,6 +29,8 @@ google_assistant: !include google_assistant_integ.yaml
 
 frontend:
   themes: !include themes.yaml
+  extra_module_url:
+    - /local/custom-ui/custom-ui.js
 
 http:
   use_x_forwarded_for: true
