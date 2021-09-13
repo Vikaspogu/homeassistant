@@ -1,0 +1,6 @@
+icon: mdi:clock-outline
+title: Scheduler
+path: scheduler
+id: scheduler
+cards:
+  - type: custom:scheduler-card
