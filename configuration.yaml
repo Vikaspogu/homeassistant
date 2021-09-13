@@ -137,6 +137,8 @@ lovelace:
       type: module
     - url: /local/custom-lovelace/mini-graph-card-bundle/mini-graph-card-bundle.js
       type: module
+    - url: /local/custom-lovelace/scheduler-card/scheduler-card.js
+      type: module
     - url: /local/custom-lovelace/simple-thermostat/simple-thermostat.js
       type: module
     - url: /local/custom-lovelace/transmission/transmission-card.js
