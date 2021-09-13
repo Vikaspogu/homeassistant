@@ -24,15 +24,21 @@ This is my [Home Assistant](https://www.home-assistant.io/) configuration.
 - [browser-mod](https://github.com/thomasloven/hass-browser_mod)
 - [Frigate](https://github.com/blakeblackshear/frigate-hass-integration)
 - [Lovelace Gen](https://github.com/thomasloven/hass-lovelace_gen)
+- [Plex recently added](https://github.com/custom-components/sensor.plex_recently_added)
+- [Scheduler](https://github.com/nielsfaber/scheduler-component.git)
+- [Sonarr upcoming media](https://github.com/custom-components/sensor.sonarr_upcoming_media)
 
 ## Lovelace Plugins
 
 - [bar-card](https://github.com/custom-cards/bar-card)
 - [button-card](https://github.com/custom-cards/button-card)
+- [card-mod](https://github.com/thomasloven/lovelace-card-mod)
+- [card-tools](https://github.com/thomasloven/lovelace-card-tools)
 - [multiple-entity-row](https://github.com/benct/lovelace-multiple-entity-row)
 - [mini-graph-card-bundle](https://github.com/kalkih/mini-graph-card)
 - [simple-thermostat](https://github.com/nervetattoo/simple-thermostat)
 - [transmission-card](https://github.com/amaximus/transmission-card)
+- [upcoming-media-card](https://github.com/custom-cards/upcoming-media-card/)
 - [vacuum-card](https://github.com/denysdovhan/vacuum-card)
 - [vertical-stack-in-card](https://github.com/ofekashery/vertical-stack-in-card)
 - [weather-card](https://github.com/bramkragten/weather-card)
