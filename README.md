@@ -36,6 +36,7 @@ This is my [Home Assistant](https://www.home-assistant.io/) configuration.
 - [card-tools](https://github.com/thomasloven/lovelace-card-tools)
 - [multiple-entity-row](https://github.com/benct/lovelace-multiple-entity-row)
 - [mini-graph-card-bundle](https://github.com/kalkih/mini-graph-card)
+- [scheduler-card](https://github.com/nielsfaber/scheduler-card)
 - [simple-thermostat](https://github.com/nervetattoo/simple-thermostat)
 - [transmission-card](https://github.com/amaximus/transmission-card)
 - [upcoming-media-card](https://github.com/custom-cards/upcoming-media-card/)
