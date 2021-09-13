@@ -4,3 +4,10 @@ path: scheduler
 id: scheduler
 cards:
   - type: custom:scheduler-card
+    groups:
+      - name: "Air Purifier"
+        icon: "mdi:air-purifier"
+        include:
+          - switch.bedroom
+          - switch.office_area
+          - climate.living_room
