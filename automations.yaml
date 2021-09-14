@@ -45,53 +45,53 @@
 #####    Air purifier            #####
 ######################################
 
-- alias: "Turnon air filter at 4PM"
-  trigger:
-    platform: time
-    at: '16:00:00'
-  condition:
-    condition: time
-    after: '16:00:00'
-  action:
-    - service: switch.turn_on
-      entity_id: switch.bedroom
-      data: {}
+# - alias: "Turnon air filter at 4PM"
+#   trigger:
+#     platform: time
+#     at: '16:00:00'
+#   condition:
+#     condition: time
+#     after: '16:00:00'
+#   action:
+#     - service: switch.turn_on
+#       entity_id: switch.bedroom
+#       data: {}
 
-- alias: "Turnoff air filter at 6AM"
-  trigger:
-    platform: time
-    at: '06:00:00'
-  condition:
-    condition: time
-    after: '06:00:00'
-  action:
-    - service: switch.turn_off
-      entity_id: switch.bedroom
-      data: {}
+# - alias: "Turnoff air filter at 6AM"
+#   trigger:
+#     platform: time
+#     at: '06:00:00'
+#   condition:
+#     condition: time
+#     after: '06:00:00'
+#   action:
+#     - service: switch.turn_off
+#       entity_id: switch.bedroom
+#       data: {}
 
-- alias: "Turnon air filter at 5AM"
-  trigger:
-    platform: time
-    at: '05:00:00'
-  condition:
-    condition: time
-    after: '05:00:00'
-  action:
-    - service: switch.turn_on
-      entity_id: switch.office_area
-      data: {}
+# - alias: "Turnon air filter at 5AM"
+#   trigger:
+#     platform: time
+#     at: '05:00:00'
+#   condition:
+#     condition: time
+#     after: '05:00:00'
+#   action:
+#     - service: switch.turn_on
+#       entity_id: switch.office_area
+#       data: {}
 
-- alias: "Turnoff air filter at 6PM"
-  trigger:
-    platform: time
-    at: '18:00:00'
-  condition:
-    condition: time
-    after: '18:00:00'
-  action:
-    - service: switch.turn_off
-      entity_id: switch.office_area
-      data: {}
+# - alias: "Turnoff air filter at 6PM"
+#   trigger:
+#     platform: time
+#     at: '18:00:00'
+#   condition:
+#     condition: time
+#     after: '18:00:00'
+#   action:
+#     - service: switch.turn_off
+#       entity_id: switch.office_area
+#       data: {}
 
 ######################################
 #####    Teslamate               #####
