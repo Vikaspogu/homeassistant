@@ -10,4 +10,7 @@ cards:
         include:
           - switch.bedroom
           - switch.office_area
+      - name: Thermostat
+        icon: "mdi:thermostat"
+        include:
           - climate.living_room
