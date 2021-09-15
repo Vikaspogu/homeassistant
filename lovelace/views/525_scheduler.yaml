@@ -14,3 +14,8 @@ cards:
         icon: "mdi:thermostat"
         include:
           - climate.living_room
+      - name: Vacuum's
+        icon: "mdi:robot-vacuum"
+        include:
+          - vacuum.roomba
+          - vacuum.robovac

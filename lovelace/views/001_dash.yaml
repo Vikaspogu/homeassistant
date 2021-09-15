@@ -235,19 +235,6 @@ cards:
         entities:
           - entity: sensor.air_quality_pm_2_5
             name: PM 2.5
-            color_thresholds:
-            - value: 12
-              color: green
-            - value: 35.4
-              color: yellow
-            - value: 55.4
-              color: "#c0392b"
-            - value: 150.4
-              color: red
-            - value: 250.4
-              color: var(--color-ocher-1)
-            - value: 500.4
-              color: maroon
           - entity: sensor.air_quality_pm_10
             name: PM 10
             color: var(--accent-color)
@@ -263,6 +250,19 @@ cards:
         animate: true
         points_per_hour: 0.5
         lower_bound_secondary: 0
+        color_thresholds:
+          - value: 12
+            color: green
+          - value: 35.4
+            color: yellow
+          - value: 55.4
+            color: "#c0392b"
+          - value: 150.4
+            color: red
+          - value: 250.4
+            color: var(--color-ocher-1)
+          - value: 500.4
+            color: maroon
         show:
           fill: fade
           graph: line
@@ -290,23 +290,23 @@ cards:
         entities:
           - entity: sensor.air_quality_pm_2_5_2
             name: PM 2.5
-            color_thresholds:
-            - value: 12
-              color: green
-            - value: 35.4
-              color: yellow
-            - value: 55.4
-              color: "#c0392b"
-            - value: 150.4
-              color: red
-            - value: 250.4
-              color: var(--color-ocher-1)
-            - value: 500.4
-              color: maroon
           - entity: sensor.air_quality_pm_10_2
             name: PM 10
             color: var(--accent-color)
             show_state: true
+        color_thresholds:
+          - value: 12
+            color: green
+          - value: 35.4
+            color: yellow
+          - value: 55.4
+            color: "#c0392b"
+          - value: 150.4
+            color: red
+          - value: 250.4
+            color: var(--color-ocher-1)
+          - value: 500.4
+            color: maroon
         name: Bed Room
         align_state: center
         align_icon: left

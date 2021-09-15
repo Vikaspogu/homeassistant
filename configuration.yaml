@@ -169,3 +169,11 @@ lovelace:
 browser_mod:
   disable:
     - all
+
+eufy_vacuum:
+  devices:
+  - name: Robovac
+    address: !secret eufy_ip
+    access_token: !secret eufy_local_key
+    id: !secret eufy_device_id
+    type: T2118
