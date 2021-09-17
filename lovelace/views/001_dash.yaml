@@ -65,23 +65,65 @@ cards:
         padding: 0px 0px 0px 8px !important;
         border-left: 3px solid var(--accent-color);
       }
-    content: AIR PURIFIER
-  - type: vertical-stack
+    content: Office Room
+  - type: grid
+    columns: 2
     cards:
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            entity: switch.bedroom
-            color_type: card
-            name: BED ROOM
-            color: rgb(66, 134, 244)
-            icon: mdi:air-purifier
-          - type: custom:button-card
-            entity: switch.office_area
-            name: OFFICE
-            color_type: card
-            color: rgb(66, 134, 244)
-            icon: mdi:air-purifier
+      - type: custom:button-card
+        entity: light.office_ceiling_lights
+        name: Office Ceiling
+        template:
+          - light
+          - icon_hue
+      - type: custom:button-card
+        entity: switch.office_area
+        name: Purifier
+        template:
+          - base
+          - icon_fan
+        variables:
+          circle_input: >
+            [[[
+              if (entity) {
+                return entity.state == 'on' ?
+                  'On' : 'Off';
+              }
+            ]]]
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: Bed Room
+  - type: grid
+    columns: 2
+    cards:
+      - type: custom:button-card
+        entity: switch.bedroom
+        name: Purifier
+        template:
+          - base
+          - icon_fan
+        variables:
+          circle_input: >
+            [[[
+              if (entity) {
+                return entity.state == 'on' ?
+                  'On' : 'Off';
+              }
+            ]]]
   - type: markdown
     style: |
       ha-card {

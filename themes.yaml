@@ -153,6 +153,17 @@ ING Dark:
   hacs-status-pending-restart: "var(--text-dark-color)"
   hacs-status-pending-update: "var(--accent-color)"
 
+  #custom variables
+  ha-card-background-color: rgba(34,38,39,0.9)
+  ha-card-header-background-color: rgba(48,52,52,0.8)
+  custom-layout-card-padding: 3.3vw
+  custom-button-card-border-radius: 8%
+  sidebar-time-font-size: 5vw
+  sidebar-time-line-height: 4vw
+  sidebar-font-size: 1.5vw
+  sidebar-line-height: 2.1vw
+  card-content-padding: 1.8em 2.2em 1.8em 2em
+
   # Card-Mod
   card-mod-theme: "ING Dark"
 
