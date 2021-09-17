@@ -71,7 +71,7 @@ cards:
     cards:
       - type: custom:button-card
         entity: light.office_ceiling_lights
-        name: Office Ceiling
+        name: Ceiling Light
         template:
           - light
           - icon_hue
