@@ -179,3 +179,10 @@ eufy_vacuum:
     access_token: !secret eufy_local_key
     id: !secret eufy_device_id
     type: T2118
+
+light:
+  - platform: group
+    name: Office Ceiling Lights
+    entities:
+      - light.0xb0ce1814033b2fbf
+      - light.officeceiling_2
