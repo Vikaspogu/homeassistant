@@ -129,6 +129,8 @@ lovelace:
       type: module
     - url: /local/custom-lovelace/button-card/button-card.js
       type: module
+    - url: /local/custom-lovelace/hui-element/hui-element.js
+      type: module
     - url: /local/custom-lovelace/lovelace-card-mod/card-mod.js
       type: module
     - url: /local/custom-lovelace/lovelace-card-tools/card-tools.js
