@@ -75,7 +75,6 @@ cards:
         template:
           - light
           - icon_hue
-        tap_action: !include ../popup/office_light.yaml
       - type: custom:button-card
         entity: switch.office_area
         name: Purifier
