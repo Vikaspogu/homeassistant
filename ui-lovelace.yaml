@@ -423,6 +423,8 @@ button_card_templates:
         [[[ return entity === undefined || Math.round(entity.attributes.brightness / 2.54); ]]]
     hold_action:
       action: fire-dom-event
+      deviceID:
+        - this
       browser_mod:
         command: popup
         title: >
