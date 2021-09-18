@@ -1,5 +1,10 @@
 # Home Assistant Configuration
 
+![HAVERSION](https://img.shields.io/badge/homeassistant-2021.9.x-blue)
+![ISSUES](https://img.shields.io/github/issues-raw/vikaspogu/homeassistant?style=flat-square)
+![LASTCOMMIT](https://img.shields.io/github/last-commit/vikaspogu/homeassistant?style=flat-square)
+![SIZE](https://img.shields.io/github/repo-size/vikaspogu/homeassistant?style=flat-square)
+
 This is my [Home Assistant](https://www.home-assistant.io/) configuration.
 
 ## Screenshot
@@ -8,7 +13,7 @@ This is my [Home Assistant](https://www.home-assistant.io/) configuration.
 
 ## Hass.io Addons
 
-![logo](https://raw.githubusercontent.com/ingeniumdesign/homeassistant/master/docs/ha-logo-small.png)
+![logo](https://raw.githubusercontent.com/vikaspogu/homeassistant/master/docs/ha-logo-small.png)
 
 - Roomba
 - Internet Printing Protocol
