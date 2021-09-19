@@ -5,3 +5,4 @@ service_account:
 report_state: true
 exposed_domains:
   - cover
+  - lights
