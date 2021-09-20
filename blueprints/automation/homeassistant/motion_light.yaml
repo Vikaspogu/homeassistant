@@ -31,6 +31,19 @@ blueprint:
 mode: restart
 max_exceeded: silent
 
+condition:
+  - condition: or
+    conditions:
+      - condition: time
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+        after: '17:00:00'
+        before: '08:00:00'
+
 trigger:
   platform: state
   entity_id: !input motion_entity
