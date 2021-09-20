@@ -19,3 +19,7 @@ cards:
         include:
           - vacuum.roomba
           - vacuum.robovac
+      - name: Light's
+        icon: "mdi:light"
+        include:
+          - light.office_ceiling_lights
