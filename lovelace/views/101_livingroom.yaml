@@ -40,6 +40,82 @@ cards:
         padding: 0px 0px 0px 8px !important;
         border-left: 3px solid var(--accent-color);
       }
+    content: VACUUM
+  - type: custom:vacuum-card
+    entity: vacuum.robovac
+    show_name: true
+    compact_view: false
+    style: |
+      ha-card {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+      .preview {
+        background: var(--ha-card-background) !important;
+      }
+      .stats {
+        border-top: 3px solid var(--background-color) !important;
+      }
+      .stats-block {
+        margin: 5px 0px;
+        border-right: 0px !important;
+      }
+      .toolbar {
+        background: (var(--ha-card-background), var(--primary-background-color)) !important;
+        border-top: 3px solid var(--background-color) !important;
+        min-height: 30px;
+      }
+      .toolbar ha-icon-button {
+        color: var(--text-color) !important;
+      }
+      .vacuum {
+        max-height: 200px !important;
+        margin: 10px auto 10px auto !important;
+      }
+      .battery {
+        font-weight: normal !important;
+      }
+      .stats-hours {
+        font-size: 16px !important;
+      }
+    stats:
+      default:
+        - attribute: filter_left
+          unit: hours
+          subtitle: Filter
+        - attribute: side_brush_left
+          unit: hours
+          subtitle: Side brush
+        - attribute: main_brush_left
+          unit: hours
+          subtitle: Main brush
+        - attribute: sensor_dirty_left
+          unit: hours
+          subtitle: Sensors
+      cleaning:
+        - attribute: cleaned_area
+          unit: m2
+          subtitle: Cleaning area
+        - attribute: cleaning_time
+          unit: minutes
+          subtitle: Cleaning time
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
     content: AIR QUALITY SENSORS
   - type: horizontal-stack
     cards:
