@@ -44,9 +44,6 @@ cards:
                   'On' : 'Off';
               }
             ]]]
-    - type: picture-entity
-    entity: camera.doorbell
-    camera_view: live
   - type: markdown
     style: |
       ha-card {
