@@ -1,0 +1,159 @@
+icon: mdi:sofa
+title: Living Room
+path: livingroom
+id: livingroom
+cards:
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: NEST THERMOSTAT
+  - type: custom:simple-thermostat
+    entity: climate.living_room
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: AIR QUALITY SENSORS
+  - type: horizontal-stack
+    cards:
+      - type: "custom:mini-graph-card"
+        style: |
+          ha-card {
+            border: solid 1px var(--border-color);
+            font-family: var(--primary-font-family);
+            margin-top: 5px;
+            margin-bottom: 5px;
+          }
+          .graph {
+            padding-top: 15px;
+            padding-bottom: 0px;
+          }
+          .info {
+            padding-bottom: 0px;
+          }
+          .flex {
+            padding-bottom: 10px;
+          }
+        entities:
+          - entity: sensor.air_quality_pm_2_5
+            name: PM 2.5
+          - entity: sensor.air_quality_pm_10
+            name: PM 10
+            color: var(--accent-color)
+            show_state: true
+        name: Living Room
+        align_state: center
+        align_icon: left
+        font_size: 60
+        font_size_header: 11
+        hours_to_show: 48
+        line_color: var(--color-red-1)
+        line_width: 4
+        animate: true
+        points_per_hour: 0.5
+        lower_bound_secondary: 0
+        color_thresholds:
+          - value: 12
+            color: green
+          - value: 35.4
+            color: yellow
+          - value: 55.4
+            color: "#c0392b"
+          - value: 150.4
+            color: red
+          - value: 250.4
+            color: var(--color-ocher-1)
+          - value: 500.4
+            color: maroon
+        show:
+          fill: fade
+          graph: line
+          extrema: false
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: TEMPERATURE SENSORS
+  - type: horizontal-stack
+    cards:
+      - type: "custom:mini-graph-card"
+        style: |
+          ha-card {
+            border: solid 1px var(--border-color);
+            font-family: var(--primary-font-family);
+            margin-top: 5px;
+            margin-bottom: 5px;
+          }
+          .graph {
+            padding-top: 15px;
+            padding-bottom: 0px;
+          }
+          .info {
+            padding-bottom: 0px;
+          }
+          .flex {
+            padding-bottom: 10px;
+          }
+        entities:
+          - entity: sensor.ble_temperature_living_room_2
+            name: Temperature
+            color: var(--color-ocher-1)
+          - entity: sensor.ble_humidity_living_room
+            name: Humidity
+            color: var(--accent-color)
+            show_state: true
+        name: Living Room
+        align_state: center
+        align_icon: left
+        font_size: 60
+        font_size_header: 11
+        hours_to_show: 48
+        line_color: var(--color-red-1)
+        line_width: 4
+        animate: true
+        points_per_hour: 0.5
+        lower_bound_secondary: 0
+        show:
+          fill: fade
+          graph: line
+          extrema: false
