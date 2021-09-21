@@ -443,6 +443,17 @@ button_card_templates:
               sliderColor: '#c7c7c7'
               sliderTrackColor: rgba(25, 25, 25, 0.9)
               displayType: slider
+              style: >
+                ha-card {
+                  border: none;
+                  font-family: var(--primary-font-family);
+                  background: none;
+                  box-shadow: none;
+                }
+                .card-content {
+                  padding-top: 0px;
+                  padding-bottom: 0px;
+                }
             - type: custom:hui-horizontal-stack-card
               style: >
                 #root {
