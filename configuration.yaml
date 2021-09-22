@@ -125,11 +125,11 @@ lovelace:
   # Include external resources only add when mode is yaml
   resources:
     # Plugins
+    - url: /local/custom-lovelace/auto-entities/auto-entities.js
+      type: module
     - url: /local/custom-lovelace/bar-card/bar-card.js
       type: module
     - url: /local/custom-lovelace/button-card/button-card.js
-      type: module
-    - url: /local/custom-lovelace/homekit-panel-card/homekit-panel-card.js
       type: module
     - url: /local/custom-lovelace/hui-element/hui-element.js
       type: module

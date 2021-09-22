@@ -36,10 +36,15 @@ This is my [Home Assistant](https://www.home-assistant.io/) configuration.
 
 ## Lovelace Plugins
 
+- [auto-entities](https://github.com/thomasloven/lovelace-auto-entities)
 - [bar-card](https://github.com/custom-cards/bar-card)
 - [button-card](https://github.com/custom-cards/button-card)
 - [card-mod](https://github.com/thomasloven/lovelace-card-mod)
 - [card-tools](https://github.com/thomasloven/lovelace-card-tools)
+- [hui-element](https://github.com/thomasloven/lovelace-hui-element)
+- [light-entity-card](https://github.com/ljmerza/light-entity-card)
+- [light-popup-card](https://github.com/DBuit/light-popup-card)
+- [lovelace-layout-card](https://github.com/thomasloven/lovelace-layout-card)
 - [multiple-entity-row](https://github.com/benct/lovelace-multiple-entity-row)
 - [mini-graph-card-bundle](https://github.com/kalkih/mini-graph-card)
 - [scheduler-card](https://github.com/nielsfaber/scheduler-card)
