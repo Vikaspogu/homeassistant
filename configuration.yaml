@@ -155,6 +155,8 @@ lovelace:
       type: module
     - url: /local/custom-lovelace/transmission/transmission-card.js
       type: module
+    - url: /local/custom-lovelace/template-entity-row/template-entity-row.js
+      type: module
     - url: /local/custom-lovelace/upcoming-media-card/upcoming-media-card.js
       type: module
     - url: /local/custom-lovelace/vacuum-card/vacuum-card.js
