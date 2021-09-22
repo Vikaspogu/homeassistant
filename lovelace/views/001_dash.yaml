@@ -5,49 +5,58 @@ id: dash
 
 cards:
   ## ROW 1 ###################################################################################################################
-  - type: markdown
-    style: |
-      ha-card {
-        font-size: var(--font-size-title);
-        font-family: var(--font-title);
-        line-height: 30px;
-        background: none;
-        margin-top: 0.4em;
-        margin-left: 8px;
-        margin-bottom: 0em;
-        box-shadow: none;
-        background: none;
-      }
-      ha-markdown {
-        padding: 0px 0px 0px 8px !important;
-        border-left: 3px solid var(--accent-color);
-      }
-    content: GARAGE
-  - type: custom:button-card
-    color_type: icon
-    entity: cover.garage_door
-    icon: mdi:garage
-    size: 100%
-    show_state: true
-    show_name: false
-    state:
-      - value: open
-        color: var(--color-error)
-        icon: mdi:garage-open
-        animation: blink 2s ease infinite
-      - operator: default
-        color: var(--color-green-bright-1)
-        icon: mdi:garage
-    tap_action:
-      action: toggle
-    styles:
-      card:
-        - color: >
-            [[[ if (states['cover.garage_door'].state == "open") return
-            "var(--color-error)"; else return
-            "var(--color-green-bright-1)";  ]]]
-        - height: 200px
-        - font-size: 25px
+  - type: grid
+    columns: 2
+    cards:
+      - type: custom:button-card
+        entity: cover.garage_door
+        template:
+          - base
+          - circle
+          - icon_garage
+  # - type: markdown
+  #   style: |
+  #     ha-card {
+  #       font-size: var(--font-size-title);
+  #       font-family: var(--font-title);
+  #       line-height: 30px;
+  #       background: none;
+  #       margin-top: 0.4em;
+  #       margin-left: 8px;
+  #       margin-bottom: 0em;
+  #       box-shadow: none;
+  #       background: none;
+  #     }
+  #     ha-markdown {
+  #       padding: 0px 0px 0px 8px !important;
+  #       border-left: 3px solid var(--accent-color);
+  #     }
+  #   content: GARAGE
+  # - type: custom:button-card
+  #   color_type: icon
+  #   entity: cover.garage_door
+  #   icon: mdi:garage
+  #   size: 100%
+  #   show_state: true
+  #   show_name: false
+  #   state:
+  #     - value: open
+  #       color: var(--color-error)
+  #       icon: mdi:garage-open
+  #       animation: blink 2s ease infinite
+  #     - operator: default
+  #       color: var(--color-green-bright-1)
+  #       icon: mdi:garage
+  #   tap_action:
+  #     action: toggle
+  #   styles:
+  #     card:
+  #       - color: >
+  #           [[[ if (states['cover.garage_door'].state == "open") return
+  #           "var(--color-error)"; else return
+  #           "var(--color-green-bright-1)";  ]]]
+  #       - height: 200px
+  #       - font-size: 25px
   - type: markdown
     style: |
       ha-card {
@@ -140,3 +149,34 @@ cards:
   - type: picture-entity
     entity: camera.doorbell
     camera_view: live
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: TRASH/RECYCLE
+  - type: grid
+    columns: 2
+    cards:
+      - type: custom:button-card
+        entity: sensor.garbage
+        template:
+          - garbage
+          - icon_garbage
+      - type: custom:button-card
+        entity: sensor.recycling
+        template:
+          - garbage
+          - icon_recycle
