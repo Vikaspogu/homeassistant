@@ -105,9 +105,22 @@ cards:
                 entity: sensor.hp_envy_photo_6200_series_black_ink
               - name: Color Ink
                 entity: sensor.hp_envy_photo_6200_series_tri_color_ink
-      - type: picture-entity
-        image: https://demo.home-assistant.io/stub_config/bedroom.png
-        entity: camera.doorbell_person
+      - type: custom:swipe-card
+        start_card: 1
+        parameters:
+          roundLengths: true
+          effect: coverflow
+          speed: 650
+          spaceBetween: 20
+          threshold: 7
+          coverflowEffect:
+            rotate: 80
+            depth: 300
+        cards:
+          - type: picture-entity
+            entity: camera.doorbell_person
+          - type: picture-entity
+            entity: camera.doorbell_dog
       - type: markdown
         style: |
           ha-card {
@@ -125,16 +138,50 @@ cards:
             padding: 0px 0px 0px 8px !important;
             border-left: 3px solid var(--accent-color);
           }
-        content: FRIGATE Object Detection
-      - type: custom:vertical-stack-in-card
-        cards:
-          - type: glance
-            entities:
-              - sensor.coral_inference_speed
-              - sensor.detection_fps
-      - type: picture-entity
-        image: https://demo.home-assistant.io/stub_config/bedroom.png
-        entity: camera.doorbell_dog
+        content: Recent Automations
+      - type: custom:auto-entities
+        card:
+          type: entities
+          show_header_toggle: false
+        filter:
+          include:
+            - domain: automation
+              not:
+                attributes:
+                  current: 0
+              options:
+                type: custom:template-entity-row
+                active: true
+                secondary: '{{ relative_time(state_attr(config.entity, ''last_triggered'')) }} ago'
+                state: '{{ state_attr(config.entity, ''current'') }} Running'
+                hold_action: |
+                  {
+                    "action": "navigate",
+                    "navigation_path": "/config/automation/trace/{{ state_attr(config.entity, 'id') }}"
+                  }
+            - domain: automation
+              last_triggered: < 5
+              options:
+                type: custom:template-entity-row
+                active: '{{ (state_attr(config.entity, ''current'') | int) > 0 }}'
+                secondary: |
+                  {%- if state_attr(config.entity, 'last_triggered') -%}
+                    {{ relative_time(state_attr(config.entity, 'last_triggered')) }} ago
+                  {%- else -%}
+                    Never triggered
+                  {%- endif -%}
+                state: Not Running
+                hold_action: |
+                  {
+                    "action": "navigate",
+                    "navigation_path": "/config/automation/trace/{{ state_attr(config.entity, 'id') }}"
+                  }
+        show_empty: false
+        unique: entity
+        sort:
+          method: last_triggered
+        reverse: true
+
       ## DOWNLOAD / UPLOAD ##
       - type: markdown
         style: |

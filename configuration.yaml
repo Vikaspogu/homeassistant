@@ -46,7 +46,7 @@ proximity:
     unit_of_measurement: mi
 
 mqtt:
-  broker: vernemq.default
+  broker: emqx.default
   discovery: true
 
 cover:

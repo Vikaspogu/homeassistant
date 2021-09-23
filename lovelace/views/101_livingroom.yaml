@@ -3,6 +3,15 @@ title: Living Room
 path: livingroom
 id: livingroom
 cards:
+  - type: grid
+    columns: 2
+    cards:
+      - type: custom:button-card
+        entity: light.living_room_dining_lights_2
+        name: Ceiling Light
+        template:
+          - light
+          - icon_hue
   - type: markdown
     style: |
       ha-card {

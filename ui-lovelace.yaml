@@ -822,7 +822,7 @@ button_card_templates:
         - justify-self: start
         - line-height: 115%
         - text-overflow: unset
-        - white-space: unset
+        - white-space: break-all
         - word-break: break-word
       card:
         - font-family: Sf Display
@@ -830,11 +830,26 @@ button_card_templates:
         - -webkit-tap-highlight-color: rgba(0,0,0,0)
         - transition: none
         - padding: 10%
-        - --mdc-ripple-color: 'rgba(255, 255, 255, 0.3)'
-        - color: 'rgba(255, 255, 255, 0.3)'
-        - background-color: 'rgba(115, 115, 115, 0.2)'
+        - --mdc-ripple-color: >
+            [[[
+              return (entity.attributes.days <= 1) ?
+                'var(--ha-card-background)' :
+                'rgba(255, 255, 255, 0.3)';
+            ]]]
+        - color: >
+            [[[
+              return (entity.attributes.days <= 1) ?
+                'var(--ha-card-background)' :
+                'rgba(255, 255, 255, 0.3)';
+            ]]]
+        - background-color: >
+            [[[
+              return (entity.attributes.days <= 1) ?
+                'rgba(255, 255, 255, 0.8)' :
+                'rgba(115, 115, 115, 0.2)';
+            ]]]
     extra_styles: |
-      #name, #state {
+      #name {
         font-size: 1.34vw;
         letter-spacing: 0.05vw;
       }
@@ -970,7 +985,7 @@ button_card_templates:
           - margin-left: 1%
           - fill: >
               [[[
-                return variables.state === 'open' ? '#a81e14' : '#9da0a2';
+                return variables.state === 'open' ? 'var(--color-red-bright-1)' : '#9da0a2';
               ]]]
     custom_fields:
       icon: >
@@ -1018,7 +1033,10 @@ button_card_templates:
           - height: 77%
           - margin-top: -7%
           - margin-left: 1%
-          - fill: '#9da0a2'
+          - fill: >
+              [[[
+                return entity.attributes.days <= 1 ? 'var(--accent-color)' : '#9da0a2';
+              ]]]
     custom_fields:
       icon: >
         <svg viewBox="0 0 297 297">
