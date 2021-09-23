@@ -14,49 +14,73 @@ cards:
           - base
           - circle
           - icon_garage
-  # - type: markdown
-  #   style: |
-  #     ha-card {
-  #       font-size: var(--font-size-title);
-  #       font-family: var(--font-title);
-  #       line-height: 30px;
-  #       background: none;
-  #       margin-top: 0.4em;
-  #       margin-left: 8px;
-  #       margin-bottom: 0em;
-  #       box-shadow: none;
-  #       background: none;
-  #     }
-  #     ha-markdown {
-  #       padding: 0px 0px 0px 8px !important;
-  #       border-left: 3px solid var(--accent-color);
-  #     }
-  #   content: GARAGE
-  # - type: custom:button-card
-  #   color_type: icon
-  #   entity: cover.garage_door
-  #   icon: mdi:garage
-  #   size: 100%
-  #   show_state: true
-  #   show_name: false
-  #   state:
-  #     - value: open
-  #       color: var(--color-error)
-  #       icon: mdi:garage-open
-  #       animation: blink 2s ease infinite
-  #     - operator: default
-  #       color: var(--color-green-bright-1)
-  #       icon: mdi:garage
-  #   tap_action:
-  #     action: toggle
-  #   styles:
-  #     card:
-  #       - color: >
-  #           [[[ if (states['cover.garage_door'].state == "open") return
-  #           "var(--color-error)"; else return
-  #           "var(--color-green-bright-1)";  ]]]
-  #       - height: 200px
-  #       - font-size: 25px
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: SWITCHES
+  - type: grid
+    columns: 2
+    cards:
+      - type: custom:button-card
+        entity: light.office_ceiling_lights
+        name: Office Ceiling Light
+        template:
+          - light
+          - icon_hue
+      - type: custom:button-card
+        entity: switch.office_area
+        name: Office Purifier
+        template:
+          - base
+          - icon_fan
+        variables:
+          circle_input: >
+            [[[
+              if (entity) {
+                return entity.state == 'on' ?
+                  'On' : 'Off';
+              }
+            ]]]
+      - type: custom:button-card
+        entity: switch.bedroom
+        name: Bedroom Purifier
+        template:
+          - base
+          - icon_fan
+        variables:
+          circle_input: >
+            [[[
+              if (entity) {
+                return entity.state == 'on' ?
+                  'On' : 'Off';
+              }
+            ]]]
+      - type: custom:button-card
+        entity: light.bedroom_ceiling_lights
+        name: Bed Room Ceiling Light
+        template:
+          - light
+          - icon_hue
+      - type: custom:button-card
+        entity: light.living_room_dining_lights_2
+        name: Living Room Dining Light
+        template:
+          - light
+          - icon_hue
   - type: markdown
     style: |
       ha-card {
