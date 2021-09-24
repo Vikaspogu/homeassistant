@@ -159,26 +159,3 @@
     target:
       entity_id: timer.officelight
   mode: single
-- id: '1632446126239'
-  alias: Office Room Lights
-  description: ''
-  use_blueprint:
-    path: homeassistant/yet_another_motion_light.yaml
-    input:
-      motion_entity: binary_sensor.office_motionsensor_occupancy
-      light_target:
-        entity_id: light.office_ceiling_lights
-      no_motion_wait: 90
-      timer_blocker: timer.officelight
-      timer_blocker_boolean: true
-- id: '1632446796658'
-  alias: Living Room Dine Lights
-  description: ''
-  use_blueprint:
-    path: homeassistant/yet_another_motion_light.yaml
-    input:
-      motion_entity: binary_sensor.living_motionsensor_occupancy
-      light_target:
-        entity_id: light.living_room_dining_lights_2
-      illuminance_sensor: sensor.living_motionsensor_illuminance_lux
-      illuminance_level: 50
