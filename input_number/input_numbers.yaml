@@ -1,0 +1,4 @@
+no_motion_turn_off_delay:
+  name: 'Time in minutes automation waits to turn off lights after no motion'
+  min: 1
+  max: 320

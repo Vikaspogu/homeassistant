@@ -41,27 +41,6 @@
       icon_template: mdi:image-filter-hdr
       value_template: >
        {{ (states('sensor.tesla_elevation') | float * 3.2808 ) | round(2) }}
-    
-    ble_temperature_bed_room:
-      friendly_name : "Bed Room Temp F"
-      value_template: >-
-        {% set t = states('sensor.ble_temperature_bed_room') | float %}
-        {{((t)*9/5)+32}}
-      unit_of_measurement: "F"
-
-    ble_temperature_work_room:
-      friendly_name : "Work Room Temp F"
-      value_template: >-
-        {% set t = states('sensor.ble_temperature_work_room') | float %}
-        {{((t)*9/5)+32}}
-      unit_of_measurement: "F"
-
-    ble_temperature_living_room:
-      friendly_name : "Living Room Temp F"
-      value_template: >-
-        {% set t = states('sensor.ble_temperature_living_room') | float %}
-        {{((t)*9/5)+32}}
-      unit_of_measurement: "F"
 
  - platform: mqtt
    name: tesla_display_name
@@ -259,49 +238,3 @@
    state_topic: "teslamate/cars/1/time_to_full_charge"
    unit_of_measurement: h
    icon: mdi:clock-outline
-
- - platform: plex_recently_added
-   name: Recently Added Movies # will create sensor.recently_added_movies
-   token: !secret plex_token
-   host: !secret plex_host
-   port: 32400
-
- - platform: sonarr_upcoming_media
-   api_key: !secret sonarr_apikey
-   host: sonarr
-   port: 8989
-   days: 7
-   ssl: false
-   max: 10
-
- - platform: mqtt
-   state_topic: "sds011-mqtt/air-quality/master-2-pi4"
-   unit_of_measurement: "μg/m³"
-   icon: "mdi:weather-fog"
-   value_template: '{{value_json.PM10 | float}}'
-   name: 'Master PI 4 Air Quality PM 10'
-   unique_id: 'master-2-pi4:air-quality-pm-10'
-
- - platform: mqtt
-   state_topic: "sds011-mqtt/air-quality/master-2-pi4"
-   unit_of_measurement: "μg/m³"
-   icon: "mdi:weather-fog"
-   value_template: '{{value_json.PM25 | float}}'
-   name: 'Master PI-4 Air Quality PM 2.5'
-   unique_id: 'master-2-pi4:air-quality-pm-2.5'
-
- - platform: mqtt
-   state_topic: "sds011-mqtt/air-quality/pi3-host"
-   unit_of_measurement: "μg/m³"
-   icon: "mdi:weather-fog"
-   value_template: '{{value_json.PM10 | float}}'
-   name: 'PI-3 Host Air Quality PM 10'
-   unique_id: 'pi3-host:air-quality-pm-10'
-  
- - platform: mqtt
-   state_topic: "sds011-mqtt/air-quality/pi3-host"
-   unit_of_measurement: "μg/m³"
-   icon: "mdi:weather-fog"
-   value_template: '{{value_json.PM25 | float}}'
-   name: 'PI-3 Host Air Quality PM 2.5'
-   unique_id: 'pi3-host:air-quality-pm-2.5'

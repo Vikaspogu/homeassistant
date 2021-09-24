@@ -19,14 +19,6 @@ homeassistant:
 tts:
   - platform: google_translate
 
-group: !include groups.yaml
-automation: !include automations.yaml
-script: !include scripts.yaml
-scene: !include scenes.yaml
-sensor: !include sensor.yaml
-binary_sensor: !include binary_sensor.yaml
-google_assistant: !include google_assistant_integ.yaml
-
 frontend:
   themes: !include themes.yaml
   extra_module_url:
@@ -194,13 +186,17 @@ eufy_vacuum:
     id: !secret eufy_device_id
     type: T2118
 
-light:
-  - platform: group
-    name: Office Ceiling Lights
-    entities:
-      - light.officeceiling_1
-      - light.officeceiling_2
-
 timer:
   officelight:
     duration: '01:00:00'
+
+input_number: !include_dir_merge_named input_number
+input_datetime: !include_dir_merge_named input_datetime
+sensor: !include_dir_merge_list sensor
+light: !include lights.yaml
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+binary_sensor: !include binary_sensor.yaml
+google_assistant: !include google_assistant_integ.yaml
