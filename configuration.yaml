@@ -186,9 +186,15 @@ eufy_vacuum:
     id: !secret eufy_device_id
     type: T2118
 
-timer:
-  officelight:
-    duration: '01:00:00'
+notify:
+  - name: ha_message_group
+    platform: group
+    services:
+    - service: mobile_app_sm_g781v
+  - name: ha_message
+    platform: group
+    services:
+    - service: mobile_app_sm_g781v
 
 input_number: !include_dir_merge_named input_number
 input_datetime: !include_dir_merge_named input_datetime
