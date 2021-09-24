@@ -1,14 +1,14 @@
 office_ceiling_no_motion_turn_off_delay:
   name: 'Time in minutes automation waits to turn off office ceiling lights after no motion'
   min: 1
-  max: 120
-  initial: 60
+  max: 10
+  initial: 1
 
 living_room_no_motion_turn_off_delay:
   name: 'Time in minutes automation waits to turn off living room lights after no motion'
   min: 1
-  max: 320
-  initial: 120
+  max: 20
+  initial: 2
 
 living_room_illumination_low_cutoff:
   name: 'Illumination living low cutoff value'

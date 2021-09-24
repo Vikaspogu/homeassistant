@@ -1,3 +1,11 @@
+- alias: 'Set Home Assistant theme at startup'
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    service: frontend.set_theme
+    data:
+      name: "ING Dark"
 - alias: Push notification when the garage door is open
   trigger:
     platform: state
@@ -159,3 +167,25 @@
     target:
       entity_id: timer.officelight
   mode: single
+- id: '1632507422366'
+  alias: Office Ceiling Lights
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_illuminance_activated_entity.yaml
+    input:
+      motion_sensor: binary_sensor.office_motionsensor_occupancy
+      target_entity: light.office_ceiling_lights
+      time_limit_after: input_datetime.office_ceiling_lights_turn_on_after_limit
+      time_limit_before: input_datetime.office_ceiling_lights_turn_on_before_limit
+      no_motion_wait: input_number.office_ceiling_no_motion_turn_off_delay
+- id: '1632508104178'
+  alias: Living Room Lights
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_illuminance_activated_entity.yaml
+    input:
+      motion_sensor: binary_sensor.living_motionsensor_occupancy
+      target_entity: light.living_room_dining_lights_2
+      illuminance_sensor: sensor.living_motionsensor_illuminance_lux
+      illuminance_cutoff: input_number.living_room_illumination_low_cutoff
+      no_motion_wait: input_number.living_room_no_motion_turn_off_delay
