@@ -10,8 +10,8 @@ living_room_no_motion_turn_off_delay:
   max: 320
   initial: 120
 
-living_room_illumination_bedroom_low_cutoff:
-  name: 'Illumination bedroom low cutoff value'
+living_room_illumination_low_cutoff:
+  name: 'Illumination living low cutoff value'
   min: 1
   max: 100
   initial: 60
