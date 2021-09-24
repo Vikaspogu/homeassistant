@@ -32,6 +32,7 @@ blueprint:
       description: Motion Sensor or a group with Motion Sensors (But can be anything switching between "on" and "off")
       selector:
         entity:
+          device_class: motion
     light_target:
       name: Light
       selector:
@@ -46,7 +47,35 @@ blueprint:
         number:
           min: 0
           max: 3600
-          unit_of_measurement: seconds            
+          unit_of_measurement: seconds    
+    illuminance_sensor:
+      name: illuminance Sensor
+      default:
+      selector:
+        entity:
+          domain: sensor
+          device_class: illuminance
+    illuminance_level:
+      name: illuminance
+      default: none
+      selector:
+        number:
+          min: 0
+          max: 100
+          unit_of_measurement: lx 
+    timer_blocker:
+      name: Timer Blocker (Optional)
+      description: Only run if this boolean is in desired state (see next input)
+      default:
+      selector:
+        entity: 
+          domain: timer
+    timer_blocker_boolean:
+      name: Timer Blocker Chooser (Optional)
+      description: Desired state of automation blocker, choose on for active and off for idle
+      default: false
+      selector:
+        boolean: 
     automation_blocker:
       name: Automation Blocker (Optional)
       description: Only run if this boolean is in desired state (see next input)
@@ -167,11 +196,15 @@ variables:
   scene_night: !input scene_night
   automation_blocker: !input automation_blocker
   automation_blocker_boolean : !input automation_blocker_boolean
+  timer_blocker: !input timer_blocker
+  timer_blocker_boolean: !input timer_blocker_boolean
   no_motion_blocker: !input no_motion_blocker
   no_motion_blocker_boolean: !input no_motion_blocker_boolean
   elevation_check: !input elevation_check
   scene_no_motion: !input scene_no_motion
   motion_entity: !input motion_entity
+  illuminance_sensor: !input illuminance_sensor
+  illuminance_level: !input illuminance_level
 
 trigger:
   - platform: state
@@ -193,6 +226,12 @@ condition:
       - "{{ automation_blocker == none }}"
       - "{{ automation_blocker_boolean and states[automation_blocker].state == 'on' }}"
       - "{{ not automation_blocker_boolean and states[automation_blocker].state == 'off' }}"
+      - "{{ states[illuminance_sensor].state <= illuminance_level }}"
+  - condition: or
+    conditions:
+      - "{{ timer_blocker == none }}"
+      - "{{ timer_blocker_boolean and states[timer_blocker].state == 'active' }}"
+      - "{{ not timer_blocker_boolean and states[timer_blocker].state == 'idle' }}"
   - condition: time
     weekday:
     - mon

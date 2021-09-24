@@ -37,7 +37,7 @@ cards:
     cards:
       - type: custom:button-card
         entity: light.office_ceiling_lights
-        name: Office Ceiling Light
+        name: Office Ceiling
         template:
           - light
           - icon_hue
@@ -56,6 +56,12 @@ cards:
               }
             ]]]
       - type: custom:button-card
+        entity: light.bedroom_ceiling_lights
+        name: Bedroom Ceiling
+        template:
+          - light
+          - icon_hue
+      - type: custom:button-card
         entity: switch.bedroom
         name: Bedroom Purifier
         template:
@@ -70,14 +76,8 @@ cards:
               }
             ]]]
       - type: custom:button-card
-        entity: light.bedroom_ceiling_lights
-        name: Bed Room Ceiling Light
-        template:
-          - light
-          - icon_hue
-      - type: custom:button-card
         entity: light.living_room_dining_lights_2
-        name: Living Room Dining Light
+        name: Living Room Dine
         template:
           - light
           - icon_hue

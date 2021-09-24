@@ -132,7 +132,7 @@ button_card_templates:
     show_state: true
     show_icon: false
     state_display: >
-      [[[ if (variables.state === true) return 'Okänt'; ]]]
+      [[[ if (variables.state === true) return 'Unknown'; ]]]
     tap_action:
       ui_sound_tablet: |
         [[[

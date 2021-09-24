@@ -118,13 +118,67 @@
     data_template:
       entity_id: script.notify_tesla_{{trigger.topic.split('/')[3]}}
   id: c0eaba319f6746dbb5b7a2b3f2ea600c
-- id: '1632174039429'
-  alias: Yet Another Motion Automation
-  description: Motion Lights Office
+- id: '1632438333035'
+  alias: Tag CarTag is scanned to toggle garage door
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: b9353dee-6334-4bab-8957-9793fff7c3e5
+  condition: []
+  action:
+  - service: cover.toggle
+    target:
+      entity_id: cover.garage_door
+  mode: single
+- id: '1632441585625'
+  alias: Tag OfficeDeskTag to start timer
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: aa7982d0-2248-4655-9c8f-d987d9e1229f
+  condition: []
+  action:
+  - service: timer.start
+    data:
+      duration: '0'
+    target:
+      entity_id: timer.officelight
+  mode: single
+- id: '1632442918507'
+  alias: Tag OfficeDeskTag to finish timer
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: aa7982d0-2248-4655-9c8f-d987d9e1229f
+  condition:
+  - condition: state
+    entity_id: timer.officelight
+    state: active
+  action:
+  - service: timer.finish
+    target:
+      entity_id: timer.officelight
+  mode: single
+- id: '1632446126239'
+  alias: Office Room Lights
+  description: ''
   use_blueprint:
     path: homeassistant/yet_another_motion_light.yaml
     input:
       motion_entity: binary_sensor.office_motionsensor_occupancy
       light_target:
         entity_id: light.office_ceiling_lights
-      no_motion_wait: 60
+      no_motion_wait: 90
+      timer_blocker: timer.officelight
+      timer_blocker_boolean: true
+- id: '1632446796658'
+  alias: Living Room Dine Lights
+  description: ''
+  use_blueprint:
+    path: homeassistant/yet_another_motion_light.yaml
+    input:
+      motion_entity: binary_sensor.living_motionsensor_occupancy
+      light_target:
+        entity_id: light.living_room_dining_lights_2
+      illuminance_sensor: sensor.living_motionsensor_illuminance_lux
+      illuminance_level: 50

@@ -200,3 +200,7 @@ light:
     entities:
       - light.officeceiling_1
       - light.officeceiling_2
+
+timer:
+  officelight:
+    duration: '01:00:00'
