@@ -72,7 +72,6 @@ ING Dark:
   secondary-background-color: "transparent"
   markdown-code-background-color: "var(--background-color)"
   st-mode-active-background: "var(--accent-color)"
-
   # Card
   card-background-color: "var(--ha-card-background)"
   ha-card-background: "var(--color-blue-deepdark-2)"
