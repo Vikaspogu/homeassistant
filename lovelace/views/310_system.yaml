@@ -109,7 +109,7 @@ cards:
         start_card: 1
         parameters:
           roundLengths: true
-          effect: coverflow
+          effect: flip
           speed: 650
           spaceBetween: 20
           threshold: 7

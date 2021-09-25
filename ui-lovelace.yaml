@@ -2037,4 +2037,9 @@ button_card_templates:
 
 
 title: ""
+swipe_nav:
+  wrap: false
+  animate: flip
+  prevent_default: true
+  swipe_amount: 30
 views: !include_dir_list lovelace/views/

@@ -147,6 +147,8 @@ lovelace:
       type: module
     - url: /local/custom-lovelace/swipe-card/swipe-card.js
       type: module
+    - url: /local/community/lovelace-swipe-navigation/swipe-navigation.js
+      type: module
     - url: /local/custom-lovelace/transmission/transmission-card.js
       type: module
     - url: /local/custom-lovelace/template-entity-row/template-entity-row.js
