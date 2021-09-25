@@ -7,22 +7,49 @@
     data:
       name: ING Dark
   id: 51b3acf4a69e40d796b7ae21d35a5ed5
-- alias: Push notification when the garage door is open
+- id: 769638308a0a4973b8930f7a6f2a2693
+  alias: 'Garage Door Opened'
   trigger:
-    platform: state
+    - platform: state
+      entity_id: cover.garage_door
+      to: 'open'
+  condition:
+    condition: state
     entity_id: cover.garage_door
-    from: closed
-    to: open
-    for: 0:15:00
+    state: 'open'
   action:
-    service: notify.ha_message
-    data:
-      message: The garage has been left open
+    - service: timer.start
+      entity_id: timer.garage_door
+- id: garage_closed
+  alias: 'Garage Door Closed'
+  trigger:
+    - platform: state
+      entity_id: cover.garage_door
+      to: 'closed'
+  action:
+    - service: timer.cancel
+      entity_id:  timer.garage_door
+- id: garage_opened_timer_finished
+  alias: 'Garage Opened Timer Finished'
+  trigger:
+    - platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.garage_door
+  condition:
+    condition: state
+    entity_id: cover.garage_door
+    state: 'open'
+  action:
+    - service: timer.start
+      entity_id: timer.garage_door
+    - service: notify.ha_message
       data:
-        actions:
-        - action: close_garage
-          title: Close Garage Door
-  id: 769638308a0a4973b8930f7a6f2a2693
+        message: The garage has been left open
+        data:
+          actions:
+          - action: close_garage
+            title: Close Garage Door
 - alias: Actionable notification - close garage door
   trigger:
     platform: event
@@ -161,3 +188,30 @@
       illuminance_sensor: sensor.living_motionsensor_illuminance_lux
       illuminance_cutoff: input_number.living_room_illumination_low_cutoff
       no_motion_wait: input_number.living_room_no_motion_turn_off_delay
+- id: '1632578706807'
+  alias: Zigbee Device Not Found
+  description: ''
+  use_blueprint:
+    path: homeassistant/offline-notification-for-sensors-with-last_seen.yaml
+    input:
+      hours: 12
+      actions:
+      - service: notify.ha_message
+        data:
+          title: Zigbee device not available!
+          message: '{{sensors}}'
+- id: vacuum_notifications
+  alias: Vacuum Notifications
+  trigger:
+  - platform: state
+    entity_id: vacuum.robovac
+  - platform: state
+    entity_id: vacuum.roomba
+  condition:
+    condition: template
+    value_template: "{{ not (trigger.to_state.state == trigger.from_state.state) }}"
+  action:
+  - service: notify.ha_message
+    data_template:
+      title: 'Vacuum'
+      message: "{{ trigger.to_state.name }} vacuum has been turned {{ trigger.to_state.state }}"

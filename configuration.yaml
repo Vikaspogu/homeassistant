@@ -206,3 +206,4 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 binary_sensor: !include binary_sensor.yaml
 google_assistant: !include google_assistant_integ.yaml
+timer: !include_dir_merge_named timer
