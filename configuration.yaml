@@ -118,49 +118,49 @@ lovelace:
   # Include external resources only add when mode is yaml
   resources:
     # Plugins
-    - url: /local/custom-lovelace/auto-entities/auto-entities.js
+    - url: /hacsfiles/auto-entities/auto-entities.js
       type: module
-    - url: /local/custom-lovelace/bar-card/bar-card.js
+    - url: /hacsfiles/bar-card/bar-card.js
       type: module
-    - url: /local/custom-lovelace/button-card/button-card.js
+    - url: /hacsfiles/button-card/button-card.js
       type: module
-    - url: /local/custom-lovelace/hui-element/hui-element.js
+    - url: /hacsfiles/hui-element/hui-element.js
       type: module
-    - url: /local/custom-lovelace/light-entity-card/light-entity-card.js
+    - url: /hacsfiles/light-entity-card/light-entity-card.js
       type: module
-    - url: /local/custom-lovelace/light-popup-card/light-popup-card.js
+    - url: /hacsfiles/light-popup-card/light-popup-card.js
       type: module
-    - url: /local/custom-lovelace/lovelace-card-mod/card-mod.js
+    - url: /hacsfiles/lovelace-card-mod/card-mod.js
       type: module
-    - url: /local/custom-lovelace/lovelace-card-tools/card-tools.js
+    - url: /hacsfiles/lovelace-card-tools/card-tools.js
       type: module
-    - url: /local/custom-lovelace/lovelace-layout-card/layout-card.js
+    - url: /hacsfiles/lovelace-layout-card/layout-card.js
       type: module
-    - url: /local/custom-lovelace/lovelace-multiple-entity-row/multiple-entity-row.js
+    - url: /hacsfiles/lovelace-multiple-entity-row/multiple-entity-row.js
       type: module
-    - url: /local/custom-lovelace/lovelace-slider-entity-row/slider-entity-row.js
+    - url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js
       type: module
-    - url: /local/custom-lovelace/mini-graph-card-bundle/mini-graph-card-bundle.js
+    - url: /hacsfiles/mini-graph-card-bundle/mini-graph-card-bundle.js
       type: module
-    - url: /local/custom-lovelace/scheduler-card/scheduler-card.js
+    - url: /hacsfiles/scheduler-card/scheduler-card.js
       type: module
-    - url: /local/custom-lovelace/simple-thermostat/simple-thermostat.js
+    - url: /hacsfiles/simple-thermostat/simple-thermostat.js
       type: module
-    - url: /local/custom-lovelace/swipe-card/swipe-card.js
+    - url: /hacsfiles/swipe-card/swipe-card.js
       type: module
     - url: /hacsfiles/lovelace-swipe-navigation/swipe-navigation.js
       type: module
-    - url: /local/custom-lovelace/transmission/transmission-card.js
+    - url: /hacsfiles/transmission/transmission-card.js
       type: module
-    - url: /local/custom-lovelace/template-entity-row/template-entity-row.js
+    - url: /hacsfiles/upcoming-media-card/upcoming-media-card.js
       type: module
-    - url: /local/custom-lovelace/upcoming-media-card/upcoming-media-card.js
+    - url: /hacsfiles/vacuum-card/vacuum-card.js
       type: module
-    - url: /local/custom-lovelace/vacuum-card/vacuum-card.js
+    - url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
       type: module
-    - url: /local/custom-lovelace/vertical-stack-in-card/vertical-stack-in-card.js
+    - url: /hacsfiles/weather-card/weather-card.js
       type: module
-    - url: https://cdn.jsdelivr.net/gh/bramkragten/weather-card/dist/weather-card.min.js
+    - url: /hacsfiles/battery-state-card/battery-state-card.js
       type: module
     # Styles
     - url: "https://fonts.googleapis.com/css2?family=Raleway&display=swap"

@@ -8,48 +8,48 @@
       name: ING Dark
   id: 51b3acf4a69e40d796b7ae21d35a5ed5
 - id: 769638308a0a4973b8930f7a6f2a2693
-  alias: 'Garage Door Opened'
+  alias: Garage Door Opened
   trigger:
-    - platform: state
-      entity_id: cover.garage_door
-      to: 'open'
+  - platform: state
+    entity_id: cover.garage_door
+    to: open
   condition:
     condition: state
     entity_id: cover.garage_door
-    state: 'open'
+    state: open
   action:
-    - service: timer.start
-      entity_id: timer.garage_door
+  - service: timer.start
+    entity_id: timer.garage_door
 - id: garage_closed
-  alias: 'Garage Door Closed'
+  alias: Garage Door Closed
   trigger:
-    - platform: state
-      entity_id: cover.garage_door
-      to: 'closed'
+  - platform: state
+    entity_id: cover.garage_door
+    to: closed
   action:
-    - service: timer.cancel
-      entity_id:  timer.garage_door
+  - service: timer.cancel
+    entity_id: timer.garage_door
 - id: garage_opened_timer_finished
-  alias: 'Garage Opened Timer Finished'
+  alias: Garage Opened Timer Finished
   trigger:
-    - platform: event
-      event_type: timer.finished
-      event_data:
-        entity_id: timer.garage_door
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.garage_door
   condition:
     condition: state
     entity_id: cover.garage_door
-    state: 'open'
+    state: open
   action:
-    - service: timer.start
-      entity_id: timer.garage_door
-    - service: notify.ha_message
+  - service: timer.start
+    entity_id: timer.garage_door
+  - service: notify.ha_message
+    data:
+      message: The garage has been left open
       data:
-        message: The garage has been left open
-        data:
-          actions:
-          - action: close_garage
-            title: Close Garage Door
+        actions:
+        - action: close_garage
+          title: Close Garage Door
 - alias: Actionable notification - close garage door
   trigger:
     platform: event
@@ -166,17 +166,6 @@
     target:
       entity_id: cover.garage_door
   mode: single
-- id: '1632507422366'
-  alias: Office Ceiling Lights
-  description: ''
-  use_blueprint:
-    path: homeassistant/motion_illuminance_activated_entity.yaml
-    input:
-      motion_sensor: binary_sensor.office_motionsensor_occupancy
-      target_entity: light.office_ceiling_lights
-      no_motion_wait: input_number.office_ceiling_no_motion_turn_off_delay
-      time_limit_after: input_datetime.office_ceiling_lights_turn_on_after_limit
-      time_limit_before: input_datetime.office_ceiling_lights_turn_on_before_limit
 - id: '1632508104178'
   alias: Living Room Lights
   description: ''
@@ -209,9 +198,20 @@
     entity_id: vacuum.roomba
   condition:
     condition: template
-    value_template: "{{ not (trigger.to_state.state == trigger.from_state.state) }}"
+    value_template: '{{ not (trigger.to_state.state == trigger.from_state.state) }}'
   action:
   - service: notify.ha_message
     data_template:
-      title: 'Vacuum'
-      message: "{{ trigger.to_state.name }} vacuum has been turned {{ trigger.to_state.state }}"
+      title: Vacuum
+      message: '{{ trigger.to_state.name }} vacuum has been turned {{ trigger.to_state.state
+        }}'
+- id: '1632682032143'
+  alias: Office Room Lights
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      motion_entity: binary_sensor.office_motionsensor_occupancy
+      light_target:
+        entity_id: light.office_ceiling_lights
+      no_motion_wait: 60

@@ -138,6 +138,43 @@ cards:
             padding: 0px 0px 0px 8px !important;
             border-left: 3px solid var(--accent-color);
           }
+        content: Battery Levels
+      - type: custom:battery-state-card
+        title: "Color gradient"
+        color_gradient:
+          - "#ff0000" # red
+          - "#ffff00" # yellow
+          - "#00ff00" # green
+        entities:
+          - entity: sensor.ble_battery_bed_room
+            name: "Bedroom temp sensor"
+          - entity: sensor.ble_battery_living_room
+            name: "Living temp sensor"
+          - entity: sensor.ble_battery_work_room
+            name: "Work temp sensor"
+          - entity: sensor.garagedoor_battery
+            name: "Garage door sensor"
+          - entity: sensor.living_motionsensor_battery
+            name: "Living motion sensor"
+          - entity: sensor.office_motionsensor_battery
+            name: "Office motion sensor"
+      - type: markdown
+        style: |
+          ha-card {
+            font-size: var(--font-size-title);
+            font-family: var(--font-title);
+            line-height: 30px;
+            background: none;
+            margin-top: 0.4em;
+            margin-left: 8px;
+            margin-bottom: 0em;
+            box-shadow: none;
+            background: none;
+          }
+          ha-markdown {
+            padding: 0px 0px 0px 8px !important;
+            border-left: 3px solid var(--accent-color);
+          }
         content: Motion
       - type: entities
         entities:
