@@ -140,7 +140,7 @@ lovelace:
       type: module
     - url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js
       type: module
-    - url: /hacsfiles/mini-graph-card-bundle/mini-graph-card-bundle.js
+    - url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
       type: module
     - url: /hacsfiles/scheduler-card/scheduler-card.js
       type: module
@@ -150,7 +150,7 @@ lovelace:
       type: module
     - url: /hacsfiles/lovelace-swipe-navigation/swipe-navigation.js
       type: module
-    - url: /hacsfiles/transmission/transmission-card.js
+    - url: /hacsfiles/transmission-card/transmission-card.js
       type: module
     - url: /hacsfiles/upcoming-media-card/upcoming-media-card.js
       type: module
@@ -210,3 +210,11 @@ scene: !include scenes.yaml
 binary_sensor: !include binary_sensor.yaml
 google_assistant: !include google_assistant_integ.yaml
 timer: !include_dir_merge_named timer
+
+circadian_lighting:
+
+switch:
+  - platform: circadian_lighting
+    name: circadian lighting living room
+    lights_ct:
+      - light.living_room_dining_lights_2

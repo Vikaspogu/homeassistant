@@ -193,15 +193,15 @@ condition:
       - "{{ automation_blocker == none }}"
       - "{{ automation_blocker_boolean and states[automation_blocker].state == 'on' }}"
       - "{{ not automation_blocker_boolean and states[automation_blocker].state == 'off' }}"
-      - condition: time
-        weekday:
-        - mon
-        - tue
-        - wed
-        - thu
-        - fri
-        after: '17:00:00'
-        before: '08:00:00'
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    after: '17:00:00'
+    before: '08:00:00'
   # Check if elevation input exist or is below desired value, otherwise do not run
   - condition: template
     value_template: "{{ (elevation_check == none) or (state_attr('sun.sun','elevation') <= elevation_check | float(90)) }}"

@@ -98,6 +98,34 @@ cards:
         padding: 0px 0px 0px 8px !important;
         border-left: 3px solid var(--accent-color);
       }
+    content: Circadian Lighting
+  - type: custom:vertical-stack-in-card
+    cards:
+      - type: entities
+        entities:
+          - entity: switch.circadian_lighting_circadian_lighting_living_room
+            type: custom:multiple-entity-row
+            name: Circadian Living Lights
+            secondary_info: last-changed
+            toggle: true
+            state_color: true
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
     content: WEATHER
   - type: custom:weather-card
     entity: weather.home
