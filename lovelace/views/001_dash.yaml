@@ -198,9 +198,9 @@ cards:
         border-left: 3px solid var(--accent-color);
       }
     content: DOORBELL CAMERA
-  - type: picture-entity
-    entity: camera.doorbell
-    camera_view: live
+  - type: 'custom:frigate-card'
+    camera_entity: camera.doorbell
+    frigate_url: http://frigate
   - type: markdown
     style: |
       ha-card {

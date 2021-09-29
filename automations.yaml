@@ -205,13 +205,13 @@
       title: Vacuum
       message: '{{ trigger.to_state.name }} vacuum has been turned {{ trigger.to_state.state
         }}'
-- id: '1632682032143'
-  alias: Office Room Lights
+- id: '1632750110501'
+  alias: Office Lights Automation
   description: ''
   use_blueprint:
     path: homeassistant/motion_light.yaml
     input:
       motion_entity: binary_sensor.office_motionsensor_occupancy
+      no_motion_wait: 60
       light_target:
         entity_id: light.office_ceiling_lights
-      no_motion_wait: 60

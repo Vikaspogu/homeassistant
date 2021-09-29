@@ -531,6 +531,143 @@ button_card_templates:
                         consolidate_entities: false
                   template: color_light
 
+  #################################################
+  #                                               #
+  #                     TRUNK                     #
+  #                                               #
+  #################################################
+
+  trunk:
+    template:
+      - base
+    tap_action:
+      action: fire-dom-event
+      deviceID:
+        - this
+      browser_mod:
+        command: popup
+        style:
+          hui-vertical-stack-card:
+            $hui-conditional-card>hui-vertical-stack-card$: |
+              hui-horizontal-stack-card {
+                padding: 0em 2em 2.3em 2em;
+              }
+            $hui-conditional-card>hui-vertical-stack-card$hui-horizontal-stack-card$: |
+              #root {
+                justify-content: space-evenly;
+              }
+        title: Tesla Trunk
+        card:
+          type: vertical-stack
+          cards:
+            ### ON ###
+            - type: conditional
+              conditions:
+                - entity: binary_sensor.tesla_trunk_open
+                  state: 'on'
+              card:
+                type: vertical-stack
+                cards:
+                  - type: horizontal-stack
+                    cards:
+                    - type: custom:button-card
+                      name: Close
+                      icon: mdi:lock
+                      tap_action:
+                        action: call-service
+                        service: lock.lock
+                        service_data:
+                          entity_id: lock.quinjet_trunk_lock
+                      template: icon_only
+
+            ### OFF ###
+            - type: conditional
+              conditions:
+                - entity: binary_sensor.tesla_trunk_open
+                  state: 'off'
+              card:
+                type: vertical-stack
+                cards:
+                  - type: horizontal-stack
+                    cards:
+                    - type: custom:button-card
+                      name: Open
+                      icon: mdi:lock-open-variant
+                      tap_action:
+                        action: call-service
+                        service: lock.unlock
+                        service_data:
+                          entity_id: lock.quinjet_trunk_lock
+                      template: icon_only
+          
+  #################################################
+  #                                               #
+  #                     FRUNK                     #
+  #                                               #
+  #################################################
+
+  frunk:
+    template:
+      - base
+    tap_action:
+      action: fire-dom-event
+      deviceID:
+        - this
+      browser_mod:
+        command: popup
+        style:
+          hui-vertical-stack-card:
+            $hui-conditional-card>hui-vertical-stack-card$: |
+              hui-horizontal-stack-card {
+                padding: 0em 2em 2.3em 2em;
+              }
+            $hui-conditional-card>hui-vertical-stack-card$hui-horizontal-stack-card$: |
+              #root {
+                justify-content: space-evenly;
+              }
+        title: Tesla Frunk
+        card:
+          type: vertical-stack
+          cards:
+            ### ON ###
+            - type: conditional
+              conditions:
+                - entity: binary_sensor.tesla_frunk_open
+                  state: 'on'
+              card:
+                type: vertical-stack
+                cards:
+                  - type: horizontal-stack
+                    cards:
+                    - type: custom:button-card
+                      name: Close
+                      icon: mdi:lock
+                      tap_action:
+                        action: call-service
+                        service: lock.lock
+                        service_data:
+                          entity_id: lock.quinjet_frunk_lock
+                      template: icon_only
+
+            ### OFF ###
+            - type: conditional
+              conditions:
+                - entity: binary_sensor.tesla_frunk_open
+                  state: 'off'
+              card:
+                type: vertical-stack
+                cards:
+                  - type: horizontal-stack
+                    cards:
+                    - type: custom:button-card
+                      name: Open
+                      icon: mdi:lock-open-variant
+                      tap_action:
+                        action: call-service
+                        service: lock.unlock
+                        service_data:
+                          entity_id: lock.quinjet_frunk_lock
+                      template: icon_only
 
   #################################################
   #                                               #
@@ -974,6 +1111,78 @@ button_card_templates:
   #                     ICONS                     #
   #                                               #
   #################################################
+
+  icon_lock:
+    styles:
+      custom_fields:
+        icon:
+          - width: 89%
+          - height: 77%
+          - margin-top: -7%
+          - margin-left: 1%
+          - fill: >
+              [[[
+                return variables.state === 'off' ? 'var(--color-green-bright-1)' : 'var(--color-red-bright-1)';
+              ]]]
+    custom_fields:
+      icon: >
+        [[[
+          const style = `
+            <style>
+              @keyframes on {
+                from {
+                  transform: scaleY(0);
+                }
+                to {
+                  transform: scaleY(1);
+                }
+              }
+              .on {
+                animation: on 1s;
+                transform-origin: -100% 46%;
+                animation-fill-mode: forwards;
+              }
+              @keyframes off {
+                from {
+                  transform: scaleY(1);
+                }
+                to {
+                  transform: scaleY(0);
+                }
+              }
+              .off {
+                animation: off 1s;
+                transform-origin: -100% 46%;
+                animation-fill-mode: forwards;
+              }
+            </style>
+          `;
+          const lock = `
+            <path d="M15.8 8H14V5.6C14 2.703 12.665 1 10 1 7.334 1 6 2.703 6 5.6V8H4c-.553 0-1 .646-1 1.199V17c0 .549.428 1.139.951 1.307l1.197.387A7.731 7.731 0 0 0 7.1 19h5.8a7.68 7.68 0 0 0 1.951-.307l1.196-.387c.524-.167.953-.757.953-1.306V9.199C17 8.646 16.352 8 15.8 8zM12 8H8V5.199C8 3.754 8.797 3 10 3s2 .754 2 2.199V8z"/>
+          `;
+          const unlock = `
+            <path d="M400 256H152V152.9c0-39.6 31.7-72.5 71.3-72.9 40-.4 72.7 32.1 72.7 72v16c0 13.3 10.7 24 24 24h32c13.3 0 24-10.7 24-24v-16C376 68 307.5-.3 223.5 0 139.5.3 72 69.5 72 153.5V256H48c-26.5 0-48 21.5-48 48v160c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z"/>
+          `;
+          const gradient = `
+            <linearGradient id="A" gradientUnits="userSpaceOnUse" x1="5.401" y1="34.714" x2="43.817" y2="11.74">
+              <stop offset="0" stop-color="#64acb7"/>
+              <stop offset="1" stop-color="#7fdbe9"/>
+            </linearGradient>
+          `;
+          if (variables.state === 'off') {
+            return `
+              <svg viewBox="0 0 20 20"> ${style} ${gradient} 
+                ${lock} 
+              </svg>
+            `;
+          } else {
+            return `
+              <svg viewBox="-32 0 512 512"> ${style} 
+                ${unlock}
+              </svg>
+            `;
+          }
+        ]]]
 
   icon_garage:
     styles:

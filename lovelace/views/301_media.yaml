@@ -13,6 +13,44 @@ cards:
         margin-bottom: 5px;
       }
     cards:
+      - type: custom:mini-media-player
+        entity: media_player.sony_bravia_tv
+        icon: 'mdi:television'
+        artwork: cover
+        source: icon
+        hide:
+          power_state: false
+        volume_stateless: true
+        shortcuts:
+          columns: 3
+          buttons:
+            - icon: mdi:home
+              type: tvshow
+              id: Home
+            - icon: mdi:arrow-up-circle
+              type: tvshow
+              id: Up
+            - icon: mdi:plex
+              type: script
+              id: script.tv_open_plex
+            - icon: mdi:arrow-left-circle
+              type: tvshow
+              id: Left
+            - icon: mdi:check-circle
+              type: tvshow
+              id: Confirm
+            - icon: mdi:arrow-right-circle
+              type: tvshow
+              id: Right
+            - icon: mdi:volume-mute
+              type: tvshow
+              id: Mute
+            - icon: mdi:arrow-down-circle
+              type: tvshow
+              id: :quit:Down
+            - icon: mdi:exit-to-app
+              type: tvshow
+              id: Return
       - type: markdown
         style: |
           ha-card {

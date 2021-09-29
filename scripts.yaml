@@ -56,3 +56,11 @@ notify_tesla_windows_open:
       data:
         variables:
           whatsopen: "windows"
+
+tv_open_plex:
+  alias: Plex
+  sequence:
+    - service: braviatv_psk.bravia_open_app
+      data:
+        entity_id: media_player.sony_bravia_tv
+        uri: com.sony.dtv.com.plexapp.android.com.plexapp.plex.activities.SplashActivity
