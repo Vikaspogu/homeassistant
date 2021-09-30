@@ -166,12 +166,19 @@ lovelace:
       type: module
     - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
       type: module
+    - url: '/local/custom-ui/calendar-card.js?v=3.109.1'
+      type: module
+    - url: '/local/custom-ui/custom_icons.js?v=28082021'
+      type: module
                 
     # Styles
     - url: "https://fonts.googleapis.com/css2?family=Raleway&display=swap"
       type: css
     - url: "https://fonts.googleapis.com/css2?family=Comfortaa&display=swap"
       type: css
+    - url: /local/stylesheets/font.css
+      type: css
+
   dashboards:
     lovelace-generated:
       mode: yaml
