@@ -36,7 +36,8 @@ cards:
 
           - type: entities
             entities:
-              - sensor.hacs
+              - entity: sensor.hacs
+                name: Plugins/Components
             style: |
               ha-card {
                 color: var(--color-orange-1);
