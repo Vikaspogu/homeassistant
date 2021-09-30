@@ -5,342 +5,333 @@ id: system
 
 cards:
   - type: vertical-stack
-    style: |
-      ha-card {
-        border: solid 1px var(--border-color);
-        font-family: var(--primary-font-family);
-        margin-top: 5px;
-        margin-bottom: 5px;
-      }
     cards:
-      - type: vertical-stack
-        cards:
-          - type: markdown
-            style: |
-              ha-card {
-                font-size: var(--font-size-title);
-                font-family: var(--font-title);
-                line-height: 30px;
-                background: none;
-                margin-top: 0.4em;
-                margin-left: 8px;
-                margin-bottom: 0em;
-                box-shadow: none;
-                background: none;
-              }
-              ha-markdown {
-                padding: 0px 0px 0px 8px !important;
-                border-left: 3px solid var(--accent-color);
-              }
-            content: HACS / Home Assistant Community Store
+      - type: markdown
+        style: |
+          ha-card {
+            font-size: var(--font-size-title);
+            font-family: var(--font-title);
+            line-height: 30px;
+            background: none;
+            margin-top: 0.4em;
+            margin-left: 8px;
+            margin-bottom: 0em;
+            box-shadow: none;
+            background: none;
+          }
+          ha-markdown {
+            padding: 0px 0px 0px 8px !important;
+            border-left: 3px solid var(--accent-color);
+          }
+        content: HACS / Home Assistant Community Store
 
-          - type: entities
-            entities:
-              - entity: sensor.hacs
-                name: Plugins/Components
-            style: |
-              ha-card {
-                color: var(--color-orange-1);
-                --paper-item-icon-color: var(--color-orange-1);
-              }
-      - type: markdown
-        style: |
-          ha-card {
-            font-size: var(--font-size-title);
-            font-family: var(--font-title);
-            line-height: 30px;
-            background: none;
-            margin-top: 0.4em;
-            margin-left: 8px;
-            margin-bottom: 0em;
-            box-shadow: none;
-            background: none;
-          }
-          ha-markdown {
-            padding: 0px 0px 0px 8px !important;
-            border-left: 3px solid var(--accent-color);
-          }
-        content: SERVICE - Home Assistant
-      - type: horizontal-stack
-        cards:
-          - type: "custom:button-card"
-            template: dash_button
-            entity: sensor.time #fake
-            icon: "mdi:restart"
-            name: Lovelace Restart
-            tap_action:
-              action: call-service
-              service: browser_mod.lovelace_reload
-            hold_action:
-              action: none
-            styles:
-              card:
-                - color: var(--color-green-bright-1)
-          - type: "custom:button-card"
-            template: dash_button
-            entity: sensor.time #fake
-            icon: "mdi:restart"
-            name: Theme Restart
-            tap_action:
-              action: call-service
-              service: frontend.reload_themes
-            hold_action:
-              action: none
-            styles:
-              card:
-                - color: var(--color-green-bright-1)
-          - type: "custom:button-card"
-            template: dash_button
-            entity: sensor.time #fake
-            icon: "mdi:restart"
-            name: HA Restart
-            tap_action:
-              action: none
-            hold_action:
-              action: call-service
-              service: homeassistant.restart
-            styles:
-              card:
-                - color: var(--color-orange-1)
-      - type: markdown
-        style: |
-          ha-card {
-            font-size: var(--font-size-title);
-            font-family: var(--font-title);
-            line-height: 30px;
-            background: none;
-            margin-top: 0.4em;
-            margin-left: 8px;
-            margin-bottom: 0em;
-            box-shadow: none;
-            background: none;
-          }
-          ha-markdown {
-            padding: 0px 0px 0px 8px !important;
-            border-left: 3px solid var(--accent-color);
-          }
-        content: HP Printer
-      - type: custom:vertical-stack-in-card
-        cards:
-          - type: entities
-            entities:
-              - entity: sensor.hp_envy_photo_6200_series
-                type: custom:multiple-entity-row
-                name: Printer Status
-                secondary_info: last-changed
-          - type: custom:bar-card
-            width: 70%
-            entities:
-              - name: Black Ink
-                entity: sensor.hp_envy_photo_6200_series_black_ink
-              - name: Color Ink
-                entity: sensor.hp_envy_photo_6200_series_tri_color_ink
-      - type: markdown
-        style: |
-          ha-card {
-            font-size: var(--font-size-title);
-            font-family: var(--font-title);
-            line-height: 30px;
-            background: none;
-            margin-top: 0.4em;
-            margin-left: 8px;
-            margin-bottom: 0em;
-            box-shadow: none;
-            background: none;
-          }
-          ha-markdown {
-            padding: 0px 0px 0px 8px !important;
-            border-left: 3px solid var(--accent-color);
-          }
-        content: Frigate
-      - type: 'custom:frigate-card'
-        camera_entity: camera.doorbell
-        frigate_url: http://frigate
-        view_default: clip
-      - type: custom:swipe-card
-        start_card: 1
-        parameters:
-          roundLengths: true
-          effect: flip
-          speed: 650
-          spaceBetween: 20
-          threshold: 7
-          coverflowEffect:
-            rotate: 80
-            depth: 300
-        cards:
-          - type: picture-entity
-            entity: camera.doorbell_person
-          - type: picture-entity
-            entity: camera.doorbell_dog
-      - type: markdown
-        style: |
-          ha-card {
-            font-size: var(--font-size-title);
-            font-family: var(--font-title);
-            line-height: 30px;
-            background: none;
-            margin-top: 0.4em;
-            margin-left: 8px;
-            margin-bottom: 0em;
-            box-shadow: none;
-            background: none;
-          }
-          ha-markdown {
-            padding: 0px 0px 0px 8px !important;
-            border-left: 3px solid var(--accent-color);
-          }
-        content: Battery Levels
-      - type: custom:battery-state-card
-        color_gradient:
-          - "#ff0000" # red
-          - "#ffff00" # yellow
-          - "#00ff00" # green
-        entities:
-          - entity: sensor.ble_battery_bed_room
-            name: "Bedroom temp sensor"
-          - entity: sensor.ble_battery_living_room
-            name: "Living temp sensor"
-          - entity: sensor.ble_battery_work_room
-            name: "Work temp sensor"
-          - entity: sensor.garagedoor_battery
-            name: "Garage door sensor"
-          - entity: sensor.living_motionsensor_battery
-            name: "Living motion sensor"
-          - entity: sensor.office_motionsensor_battery
-            name: "Office motion sensor"
-      - type: markdown
-        style: |
-          ha-card {
-            font-size: var(--font-size-title);
-            font-family: var(--font-title);
-            line-height: 30px;
-            background: none;
-            margin-top: 0.4em;
-            margin-left: 8px;
-            margin-bottom: 0em;
-            box-shadow: none;
-            background: none;
-          }
-          ha-markdown {
-            padding: 0px 0px 0px 8px !important;
-            border-left: 3px solid var(--accent-color);
-          }
-        content: Motion
       - type: entities
         entities:
-          - entity: binary_sensor.living_motionsensor_occupancy
-            type: custom:multiple-entity-row
-            name: Living room motion
-            secondary_info: last-changed
-            entities:
-              - entity: sensor.living_motionsensor_illuminance_lux
-                name: Illuminance
-          - entity: binary_sensor.office_motionsensor_occupancy
-            type: custom:multiple-entity-row
-            name: Office room motion
-            secondary_info: last-changed
-            entities:
-              - entity: sensor.office_motionsensor_illuminance_lux
-                name: Illuminance
-      ## DOWNLOAD / UPLOAD ##
-      - type: markdown
+          - entity: sensor.hacs
+            name: Plugins/Components
         style: |
           ha-card {
-            font-size: var(--font-size-title);
-            font-family: var(--font-title);
-            line-height: 30px;
-            background: none;
-            margin-top: 0.4em;
-            margin-left: 8px;
-            margin-bottom: 0em;
-            box-shadow: none;
-            background: none;
+            color: var(--color-orange-1);
+            --paper-item-icon-color: var(--color-orange-1);
           }
-          ha-markdown {
-            padding: 0px 0px 0px 8px !important;
-            border-left: 3px solid var(--accent-color);
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: SERVICE - Home Assistant
+  - type: horizontal-stack
+    cards:
+      - type: "custom:button-card"
+        template: dash_button
+        entity: sensor.time #fake
+        icon: "mdi:restart"
+        name: Lovelace Restart
+        tap_action:
+          action: call-service
+          service: browser_mod.lovelace_reload
+        hold_action:
+          action: none
+        styles:
+          card:
+            - color: var(--color-green-bright-1)
+      - type: "custom:button-card"
+        template: dash_button
+        entity: sensor.time #fake
+        icon: "mdi:restart"
+        name: Theme Restart
+        tap_action:
+          action: call-service
+          service: frontend.reload_themes
+        hold_action:
+          action: none
+        styles:
+          card:
+            - color: var(--color-green-bright-1)
+      - type: "custom:button-card"
+        template: dash_button
+        entity: sensor.time #fake
+        icon: "mdi:restart"
+        name: HA Restart
+        tap_action:
+          action: none
+        hold_action:
+          action: call-service
+          service: homeassistant.restart
+        styles:
+          card:
+            - color: var(--color-orange-1)
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: HP Printer
+  - type: custom:vertical-stack-in-card
+    cards:
+      - type: entities
+        entities:
+          - entity: sensor.hp_envy_photo_6200_series
+            type: custom:multiple-entity-row
+            name: Printer Status
+            secondary_info: last-changed
+      - type: custom:bar-card
+        width: 70%
+        entities:
+          - name: Black Ink
+            entity: sensor.hp_envy_photo_6200_series_black_ink
+          - name: Color Ink
+            entity: sensor.hp_envy_photo_6200_series_tri_color_ink
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: Frigate
+  - type: 'custom:frigate-card'
+    camera_entity: camera.doorbell
+    frigate_url: http://frigate
+    view_default: clip
+  - type: custom:swipe-card
+    start_card: 1
+    parameters:
+      roundLengths: true
+      effect: flip
+      speed: 650
+      spaceBetween: 20
+      threshold: 7
+      coverflowEffect:
+        rotate: 80
+        depth: 300
+    cards:
+      - type: picture-entity
+        entity: camera.doorbell_person
+      - type: picture-entity
+        entity: camera.doorbell_dog
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: Battery Levels
+  - type: custom:battery-state-card
+    color_gradient:
+      - "#ff0000" # red
+      - "#ffff00" # yellow
+      - "#00ff00" # green
+    entities:
+      - entity: sensor.ble_battery_bed_room
+        name: "Bedroom temp sensor"
+      - entity: sensor.ble_battery_living_room
+        name: "Living temp sensor"
+      - entity: sensor.ble_battery_work_room
+        name: "Work temp sensor"
+      - entity: sensor.garagedoor_battery
+        name: "Garage door sensor"
+      - entity: sensor.living_motionsensor_battery
+        name: "Living motion sensor"
+      - entity: sensor.office_motionsensor_battery
+        name: "Office motion sensor"
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: Motion
+  - type: entities
+    entities:
+      - entity: binary_sensor.living_motionsensor_occupancy
+        type: custom:multiple-entity-row
+        name: Living room motion
+        secondary_info: last-changed
+        entities:
+          - entity: sensor.living_motionsensor_illuminance_lux
+            name: Illuminance
+      - entity: binary_sensor.office_motionsensor_occupancy
+        type: custom:multiple-entity-row
+        name: Office room motion
+        secondary_info: last-changed
+        entities:
+          - entity: sensor.office_motionsensor_illuminance_lux
+            name: Illuminance
+  ## DOWNLOAD / UPLOAD ##
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: INTERNET SPEED
+  - type: horizontal-stack
+    cards:
+      - type: custom:mini-graph-card
+        style: |
+          ha-card {
+            border: solid 1px var(--border-color);
+            font-family: var(--primary-font-family);
+            margin-top: 5px;
+            margin-bottom: 5px;
           }
-        content: INTERNET SPEED
-      - type: horizontal-stack
-        cards:
-          - type: custom:mini-graph-card
-            style: |
-              ha-card {
-                border: solid 1px var(--border-color);
-                font-family: var(--primary-font-family);
-                margin-top: 5px;
-                margin-bottom: 5px;
-              }
-              .graph {
-                padding-top: 15px;
-                padding-bottom: 0px;
-              }
-              .info {
-                padding-bottom: 0px;
-              }
-              .flex {
-                padding-bottom: 10px;
-              }
-            entities:
-              - sensor.speedtest_download
-            name: Download
-            align_state: center
-            align_icon: left
-            font_size: 60
-            font_size_header: 11
-            hours_to_show: 24
-            line_color: var(--accent-color)
-            line_width: 4
-            animate: true
-            points_per_hour: 1.0
-            lower_bound_secondary: 0
-            show:
-              fill: fade
-              graph: line
-              extrema: false
-            # @ToDo link disable
-            #tap_action:
-            #  action: none
-            #hold_action:
-            #  action: none
-          - type: custom:mini-graph-card
-            style: |
-              ha-card {
-                border: solid 1px var(--border-color);
-                font-family: var(--primary-font-family);
-                margin-top: 5px;
-                margin-bottom: 5px;
-              }
-              .graph {
-                padding-top: 15px;
-                padding-bottom: 0px;
-              }
-              .info {
-                padding-bottom: 0px;
-              }
-              .flex {
-                padding-bottom: 10px;
-              }
-            entities:
-              - sensor.speedtest_upload
-            name: Upload
-            align_state: center
-            align_icon: left
-            font_size: 60
-            font_size_header: 11
-            hours_to_show: 24
-            line_color: var(--accent-color)
-            line_width: 4
-            animate: true
-            points_per_hour: 1.0
-            lower_bound_secondary: 0
-            show:
-              fill: fade
-              graph: line
-              extrema: false
-            # @ToDo link disable
-            #tap_action:
-            #  action: none
-            #hold_action:
-            #  action: none
+          .graph {
+            padding-top: 15px;
+            padding-bottom: 0px;
+          }
+          .info {
+            padding-bottom: 0px;
+          }
+          .flex {
+            padding-bottom: 10px;
+          }
+        entities:
+          - sensor.speedtest_download
+        name: Download
+        align_state: center
+        align_icon: left
+        font_size: 60
+        font_size_header: 11
+        hours_to_show: 24
+        line_color: var(--accent-color)
+        line_width: 4
+        animate: true
+        points_per_hour: 1.0
+        lower_bound_secondary: 0
+        show:
+          fill: fade
+          graph: line
+          extrema: false
+        # @ToDo link disable
+        #tap_action:
+        #  action: none
+        #hold_action:
+        #  action: none
+      - type: custom:mini-graph-card
+        style: |
+          ha-card {
+            border: solid 1px var(--border-color);
+            font-family: var(--primary-font-family);
+            margin-top: 5px;
+            margin-bottom: 5px;
+          }
+          .graph {
+            padding-top: 15px;
+            padding-bottom: 0px;
+          }
+          .info {
+            padding-bottom: 0px;
+          }
+          .flex {
+            padding-bottom: 10px;
+          }
+        entities:
+          - sensor.speedtest_upload
+        name: Upload
+        align_state: center
+        align_icon: left
+        font_size: 60
+        font_size_header: 11
+        hours_to_show: 24
+        line_color: var(--accent-color)
+        line_width: 4
+        animate: true
+        points_per_hour: 1.0
+        lower_bound_secondary: 0
+        show:
+          fill: fade
+          graph: line
+          extrema: false
+        # @ToDo link disable
+        #tap_action:
+        #  action: none
+        #hold_action:
+        #  action: none

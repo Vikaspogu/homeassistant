@@ -81,6 +81,12 @@ cards:
         template:
           - light
           - icon_hue
+      - type: custom:button-card
+        entity: switch.fireplace
+        name: Fireplace
+        template:
+          - base
+          - icon_fireplace
   - type: markdown
     style: |
       ha-card {

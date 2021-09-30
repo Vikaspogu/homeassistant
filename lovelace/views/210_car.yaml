@@ -96,6 +96,7 @@ cards:
       - type: 'custom:simple-thermostat'
         entity: climate.quinjet_hvac_climate_system
         name: Climate
+        header: false
         control:
           hvac:
               'heat_cool':
