@@ -65,9 +65,9 @@ cards:
                 padding-bottom: 10px;
               }
             entities:
-              - entity: sensor.air_quality_pm_2_5
+              - entity: sensor.master_pi_4_air_quality_pm_2_5
                 name: PM 2.5
-              - entity: sensor.air_quality_pm_10
+              - entity: sensor.master_pi_4_air_quality_pm_10
                 name: PM 10
                 color: var(--accent-color)
                 show_state: true
@@ -120,7 +120,7 @@ cards:
                 padding-bottom: 10px;
               }
             entities:
-              - entity: sensor.ble_temperature_living_room_2
+              - entity: sensor.ble_temperature_living_room
                 name: Temperature
                 color: var(--color-ocher-1)
               - entity: sensor.ble_humidity_living_room
@@ -161,9 +161,9 @@ cards:
             padding-bottom: 10px;
           }
         entities:
-          - entity: sensor.air_quality_pm_2_5_2
+          - entity: sensor.pi_3_host_air_quality_pm_2_5
             name: PM 2.5
-          - entity: sensor.air_quality_pm_10_2
+          - entity: sensor.pi_3_host_air_quality_pm_10
             name: PM 10
             color: var(--accent-color)
             show_state: true
@@ -216,7 +216,7 @@ cards:
                 padding-bottom: 10px;
               }
             entities:
-              - entity: sensor.ble_temperature_bed_room_2
+              - entity: sensor.ble_temperature_bed_room
                 name: Temperature
                 color: var(--color-ocher-1)
               - entity: sensor.ble_humidity_bed_room
@@ -257,7 +257,7 @@ cards:
             padding-bottom: 10px;
           }
         entities:
-          - entity: sensor.ble_temperature_work_room_2
+          - entity: sensor.ble_temperature_work_room
             name: Temperature
             color: var(--color-ocher-1)
           - entity: sensor.ble_humidity_work_room

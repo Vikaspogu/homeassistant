@@ -112,3 +112,26 @@ You'll need adb on the Mac (install Android Platform Tools) along with Bluestack
 5 - You should see you are now in the emulated device's shell, now type logcat -e 'tuya.m.my.group.device.list' to start logcat listening
 
 6 - Start the EufyHome app in Blue Stacks and log in. You'll see data now in your terminal window. Command-F to search the logcat output for "devid" and "localkey", you'll need both to add the device to the Homebridge plugin.
+
+### Add to existing folder
+
+```bash
+# Clone just the repository's .git folder (excluding files as they are already in
+# `existing-dir`) into an empty temporary directory
+git clone --no-checkout https://github.com/Vikaspogu/homeassistant.git home-assistant.tmp # might want --no-hardlinks for cloning local repo
+
+# Move the .git folder to the directory with the files.
+# This makes `existing-dir` a git repo.
+mv home-assistant.tmp/.git .
+
+# Delete the temporary directory
+rmdir home-assistant.tmp/
+
+# git thinks all files are deleted, this reverts the state of the repo to HEAD.
+# WARNING: any local changes to the files will be lost.
+git reset --hard HEAD
+```
+
+### Get plex token
+
+https://digiex.net/threads/plex-guide-step-by-step-getting-plex-token.15402/

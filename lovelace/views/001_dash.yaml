@@ -42,7 +42,7 @@ cards:
           - light
           - icon_hue
       - type: custom:button-card
-        entity: switch.office_area
+        entity: switch.officepurifier
         name: Office Purifier
         template:
           - base
@@ -62,7 +62,7 @@ cards:
           - light
           - icon_hue
       - type: custom:button-card
-        entity: switch.bedroom
+        entity: switch.bedroompurifier
         name: Bedroom Purifier
         template:
           - base
@@ -76,7 +76,7 @@ cards:
               }
             ]]]
       - type: custom:button-card
-        entity: light.living_room_dining_lights_2
+        entity: light.living_room_dining_lights
         name: Living Room Dine
         template:
           - light
@@ -234,7 +234,7 @@ cards:
           - garbage
           - icon_garbage
       - type: custom:button-card
-        entity: sensor.recycling
+        entity: sensor.recycle
         template:
           - garbage
           - icon_recycle

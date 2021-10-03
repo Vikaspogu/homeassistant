@@ -220,19 +220,19 @@ cards:
     content: Motion
   - type: entities
     entities:
-      - entity: binary_sensor.living_motionsensor_occupancy
+      - entity: binary_sensor.livingroommotionsensor_occupancy
         type: custom:multiple-entity-row
         name: Living room motion
         secondary_info: last-changed
         entities:
-          - entity: sensor.living_motionsensor_illuminance_lux
+          - entity: sensor.livingroommotionsensor_illuminance_lux
             name: Illuminance
-      - entity: binary_sensor.office_motionsensor_occupancy
+      - entity: binary_sensor.officemotionsensor_occupancy
         type: custom:multiple-entity-row
         name: Office room motion
         secondary_info: last-changed
         entities:
-          - entity: sensor.office_motionsensor_illuminance_lux
+          - entity: sensor.officemotionsensor_illuminance_lux
             name: Illuminance
   ## DOWNLOAD / UPLOAD ##
   - type: markdown

@@ -166,17 +166,6 @@
     target:
       entity_id: cover.garage_door
   mode: single
-- id: '1632508104178'
-  alias: Living Room Lights
-  description: ''
-  use_blueprint:
-    path: homeassistant/motion_illuminance_activated_entity.yaml
-    input:
-      motion_sensor: binary_sensor.living_motionsensor_occupancy
-      target_entity: light.living_room_dining_lights_2
-      illuminance_sensor: sensor.living_motionsensor_illuminance_lux
-      illuminance_cutoff: input_number.living_room_illumination_low_cutoff
-      no_motion_wait: input_number.living_room_no_motion_turn_off_delay
 - id: '1632578706807'
   alias: Zigbee Device Not Found
   description: ''
@@ -205,13 +194,25 @@
       title: Vacuum
       message: '{{ trigger.to_state.name }} vacuum has been turned {{ trigger.to_state.state
         }}'
-- id: '1632750110501'
-  alias: Office Lights Automation
+- id: '1633267358678'
+  alias: Living Room
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_illuminance_activated_entity.yaml
+    input:
+      motion_sensor: binary_sensor.livingroommotionsensor_occupancy
+      target_entity: light.living_room_dining_lights
+      illuminance_sensor: sensor.livingroommotionsensor_illuminance_lux
+      illuminance_cutoff: input_number.living_room_illumination_low_cutoff
+      no_motion_wait: input_number.living_room_no_motion_turn_off_delay
+      blocker_entity: media_player.sony_bravia_tv
+- id: '1633267397038'
+  alias: Office Room
   description: ''
   use_blueprint:
     path: homeassistant/motion_light.yaml
     input:
-      motion_entity: binary_sensor.office_motionsensor_occupancy
-      no_motion_wait: 60
+      motion_entity: binary_sensor.officemotionsensor_occupancy
       light_target:
         entity_id: light.office_ceiling_lights
+      no_motion_wait: 60

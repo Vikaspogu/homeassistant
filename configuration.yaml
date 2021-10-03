@@ -69,12 +69,6 @@ cover:
         Unknown 
       {% endif %}
 
-tplink:
-  discovery: false
-  switch:
-    - host: 192.168.10.199
-    - host: 192.168.10.198
-
 ble_monitor:
   bt_interface: !secret ble_interface
   discovery: False
@@ -230,13 +224,7 @@ switch:
   - platform: circadian_lighting
     name: circadian lighting living room
     lights_ct:
-      - light.living_room_dining_lights_2
-
-camera:
-  - platform: generic
-    name: RTSP Doorbell
-    still_image_url: https://assets.zoom.us/images/en-us/desktop/generic/video-not-working.PNG
-    stream_source: !secret rtsp_doorbell
+      - light.living_room_dining_lights
 
 media_player:
   - platform: braviatv_psk

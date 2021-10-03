@@ -8,8 +8,8 @@ cards:
       - name: "Air Purifier"
         icon: "mdi:air-purifier"
         include:
-          - switch.bedroom
-          - switch.office_area
+          - switch.bedroompurifier
+          - switch.officepurifier
       - name: Thermostat
         icon: "mdi:thermostat"
         include:

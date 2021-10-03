@@ -3,20 +3,20 @@
     ble_temperature_bed_room:
       friendly_name : "Bed Room Temp F"
       value_template: >-
-        {% set t = states('sensor.ble_temperature_bed_room') | float %}
+        {% set t = states('sensor.ble_temperature_bed_room_2') | float %}
         {{((t)*9/5)+32}}
       unit_of_measurement: "F"
 
     ble_temperature_work_room:
       friendly_name : "Work Room Temp F"
       value_template: >-
-        {% set t = states('sensor.ble_temperature_work_room') | float %}
+        {% set t = states('sensor.ble_temperature_work_room_2') | float %}
         {{((t)*9/5)+32}}
       unit_of_measurement: "F"
 
     ble_temperature_living_room:
       friendly_name : "Living Room Temp F"
       value_template: >-
-        {% set t = states('sensor.ble_temperature_living_room') | float %}
+        {% set t = states('sensor.ble_temperature_living_room_2') | float %}
         {{((t)*9/5)+32}}
       unit_of_measurement: "F"
