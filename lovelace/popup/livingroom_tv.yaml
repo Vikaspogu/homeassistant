@@ -55,7 +55,7 @@ browser_mod:
                       margin: 0px !important;
                       font-family: var(--primary-font-family)
                     }
-              entity: media_player.plex_plex_for_android_tv_bravia_4k_gb_atv3
+              entity: media_player.sony_bravia_tv
               icon: 'mdi:television'
               artwork: cover
               source: icon

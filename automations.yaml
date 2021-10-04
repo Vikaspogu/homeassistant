@@ -206,13 +206,67 @@
       illuminance_cutoff: input_number.living_room_illumination_low_cutoff
       no_motion_wait: input_number.living_room_no_motion_turn_off_delay
       blocker_entity: media_player.sony_bravia_tv
-- id: '1633267397038'
-  alias: Office Room
+- id: '1633301105251'
+  alias: Office ceiling lights
   description: ''
   use_blueprint:
-    path: homeassistant/motion_light.yaml
+    path: homeassistant/motion_illuminance_activated_entity.yaml
     input:
-      motion_entity: binary_sensor.officemotionsensor_occupancy
-      light_target:
-        entity_id: light.office_ceiling_lights
-      no_motion_wait: 60
+      motion_sensor: binary_sensor.officemotionsensor_occupancy
+      target_entity: light.office_ceiling_lights
+      blocker_entity: sensor.office_lights_automation_blocker
+      no_motion_wait: input_number.office_ceiling_no_motion_turn_off_delay
+- id: '1633304427423'
+  alias: Living room lights on when tv is on
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.livingroommotionsensor_occupancy
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 3
+      seconds: 0
+      milliseconds: 0
+  condition:
+  - condition: state
+    entity_id: media_player.sony_bravia_tv
+    state: 'on'
+    for:
+      hours: 0
+      minutes: 3
+      seconds: 0
+      milliseconds: 0
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.living_room_dining_lights
+  mode: single
+- id: '1633304558361'
+  alias: Living room lights off when tv is off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.livingroommotionsensor_occupancy
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 3
+      seconds: 0
+      milliseconds: 0
+  condition:
+  - condition: state
+    entity_id: media_player.sony_bravia_tv
+    state: 'off'
+    for:
+      hours: 0
+      minutes: 3
+      seconds: 0
+      milliseconds: 0
+  action:
+  - service: light.turn_off
+    target:
+      entity_id: light.living_room_dining_lights
+  mode: single

@@ -20,3 +20,11 @@
         {% set t = states('sensor.ble_temperature_living_room_2') | float %}
         {{((t)*9/5)+32}}
       unit_of_measurement: "F"
+
+    office_lights_automation_blocker:
+      value_template: >-
+        {% if now().weekday() in (0,1,2,3,4) and now().hour <= 17 and now().hour >= 8 -%}
+          on
+        {%- else -%}
+          off
+        {%- endif %}
