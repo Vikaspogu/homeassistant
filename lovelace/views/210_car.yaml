@@ -46,21 +46,6 @@ cards:
     default_zoom: 13
     entities:
       - device_tracker.tesla_location
-  - type: grid
-    columns: 2
-    cards:
-      - type: custom:button-card
-        entity: binary_sensor.tesla_frunk_open
-        name: Frunk Door
-        template:
-        - frunk
-        - icon_lock
-      - type: custom:button-card
-        entity: binary_sensor.tesla_trunk_open
-        name: Trunk Door
-        template:
-        - trunk
-        - icon_lock
   - type: markdown
     style: |
       ha-card {
@@ -91,21 +76,6 @@ cards:
       icon: 'off'
       indicator: inside
       name: outside
-  - type: vertical-stack
-    cards:
-      - type: 'custom:simple-thermostat'
-        entity: climate.quinjet_hvac_climate_system
-        name: Climate
-        header: false
-        control:
-          hvac:
-              'heat_cool':
-                name: "Heat/Cool"
-          preset:
-            'normal': 
-              name: 'Normal'
-            'defrost':
-              name: 'Defrost'
   - type: markdown
     style: |
       ha-card {

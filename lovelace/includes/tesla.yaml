@@ -3,53 +3,25 @@
 type: picture-elements
 image: !file /local/images/other/tesla.jpg
 elements:
-{% set sensors = [
-  ('binary_sensor.quinjet_online_sensor', False),
-  ('climate.quinjet_hvac_climate_system', False),
-  ('device_tracker.quinjet_location_tracker', False),
-  ('sensor.quinjet_mileage_sensor', False)
-]
-%}
-{% set lock_sensors = [
-  ('Doors', 'lock.quinjet_door_lock'),
-  ('Frunk', 'lock.quinjet_frunk_lock'),
-  ('Trunk','lock.quinjet_trunk_lock')
-]
-%}
 {% set battery_sensors = [
-  ('Battery', 'sensor.quinjet_battery_sensor'),
-  ('Range', 'sensor.quinjet_range_sensor')
+  ('Battery', 'sensor.tesla_battery_level'),
+  ('Range', 'sensor.tesla_ideal_battery_range_mi')
+]
+%}
+{% set status_sensors = [
+  ('Status', 'sensor.tesla_state')
+]
+%}
+{% set odometer_sensors = [
+  ('Odometer', 'sensor.tesla_odometer_mi')
 ]
 %}
 {% set temp_sensors = [
-  ('Inside', 'sensor.quinjet_temperature_sensor_inside'),
-  ('Outside' ,'sensor.quinjet_temperature_sensor_outside')
+  ('Inside', 'sensor.tesla_inside_temp'),
+  ('Outside' ,'sensor.tesla_outside_temp')
 ] 
 %}
-{% for g in sensors %}
-- type: state-icon
-  entity: {{ g.0 }}
-  style:
-    right: 0
-    top: 5px
-    margin-top: {{ loop.index0*32 }}px
-    transform: initial
-    font-size: 1em
-    line-height: 2em
-    "--paper-item-icon-color": var(--primary-color)
-- type: state-label
-  entity: {{ g.0 }}
-  {% if g.1 %}attribute: 'friendly_name'{% endif %}
-  style:
-    transform: initial
-    font-size: 1em
-    line-height: 2em
-    top: 5px
-    right: 30px
-    margin-top: {{ loop.index0*32 }}px
-    color: var(--primary-color)
-{% endfor -%}
-{% for g in lock_sensors %}
+{% for g in battery_sensors %}
 - type: state-icon
   entity: {{ g.1 }}
   style:
@@ -59,7 +31,7 @@ elements:
     transform: initial
     font-size: 1em
     line-height: 2em
-    "--paper-item-icon-color": var(--primary-color)
+    "--paper-item-icon-color": var(--accent-color)
 - type: state-label
   entity: {{ g.1 }}
   title: {{ g.0 }}
@@ -71,9 +43,33 @@ elements:
     top: 5px
     left: 30px
     margin-top: {{ loop.index0*32 }}px
-    color: var(--primary-color)
+    color: var(--accent-color)
 {% endfor -%}
-{% for g in battery_sensors %}
+{% for g in status_sensors %}
+- type: state-icon
+  entity: {{ g.1 }}
+  style:
+    right: 0
+    top: 5px
+    margin-top: {{ loop.index0*32 }}px
+    transform: initial
+    font-size: 1em
+    line-height: 2em
+    "--paper-item-icon-color": var(--accent-color)
+- type: state-label
+  entity: {{ g.1 }}
+  title: {{ g.0 }}
+  prefix: "{{ g.0 }}: "
+  style:
+    transform: initial
+    font-size: 1em
+    line-height: 2em
+    top: 5px
+    right: 30px
+    margin-top: {{ loop.index0*32 }}px
+    color: var(--accent-color)
+{% endfor -%}
+{% for g in odometer_sensors %}
 - type: state-icon
   entity: {{ g.1 }}
   style:
@@ -83,7 +79,7 @@ elements:
     transform: initial
     font-size: 1em
     line-height: 2em
-    "--paper-item-icon-color": var(--primary-color)
+    "--paper-item-icon-color": var(--accent-color)
 - type: state-label
   entity: {{ g.1 }}
   title: {{ g.0 }}
@@ -95,7 +91,7 @@ elements:
     bottom: 5px
     left: 30px
     margin-bottom: {{ loop.index0*32 }}px
-    color: var(--primary-color)
+    color: var(--accent-color)
 {% endfor -%}
 {% for g in temp_sensors %}
 - type: state-icon
@@ -107,7 +103,7 @@ elements:
     transform: initial
     font-size: 1em
     line-height: 2em
-    "--paper-item-icon-color": var(--primary-color)
+    "--paper-item-icon-color": var(--accent-color)
 - type: state-label
   entity: {{ g.1 }}
   title: {{ g.0 }}
@@ -119,5 +115,5 @@ elements:
     bottom: 5px
     right: 30px
     margin-bottom: {{ loop.index0*32 }}px
-    color: var(--primary-color)
+    color: var(--accent-color)
 {% endfor -%}
