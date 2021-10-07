@@ -93,6 +93,106 @@ cards:
         styles:
           card:
             - color: var(--color-orange-1)
+
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: Pogu - NAS    
+  - type: entities
+    card_mod:
+      class: header
+      style:
+        .: |
+          ha-card {
+            animation: none !important;
+            margin: 0px !important;
+          }
+        mini-graph-card:
+          $: |
+            ha-card {
+              padding: 0px !important;
+            }
+        hui-horizontal-stack-card:
+          $:
+            .: |
+              #root {
+                margin-top: 1em;
+                margin-right: 1.5em;
+              }
+              #root > * {
+                flex: none !important;
+              }
+            hui-entities-card:
+              $:
+                .: |
+                  #states {
+                    padding: 0;
+                  }
+                hui-sensor-entity-row:
+                  $hui-generic-entity-row$: |
+                    .info {
+                      margin: 0 8px 0 8px !important;
+                    }
+    entities:
+      - entity: sensor.template_nas_status
+        name: Nas Status
+      - entity: sensor.pogu_nas_last_boot
+        name: Last Reboot
+      - entity: binary_sensor.pogu_nas_security_status
+        name: Security Status
+      - entity: sensor.pogu_nas_volume_1_average_disk_temp
+        name: Avg. Disk Temp
+      - entity: sensor.pogu_nas_memory_available_real
+        name: Memory Available
+      - entity: sensor.pogu_nas_download_throughput
+        name: Download Throuhput
+        style: |
+          :host {
+            --paper-item-icon-color: green;
+          }
+      - entity: sensor.pogu_nas_upload_throughput
+        name: Upload Throuhput
+        style: |
+          :host {
+            --paper-item-icon-color: #385581;
+          }
+      - type: custom:bar-card
+        width: 55%
+        height: 2em
+        decimal: 0
+        unit_of_measurement: '%'
+        positions: &bar_card_positions
+          icon: outside
+          indicator: 'off'
+          name: outside
+        severity: &bar_card_severity
+          - color: '#303435'
+            from: 0
+            to: 89
+          - color: '#6d2525'
+            from: 90
+            to: 200
+        entity_row: true
+        entities:
+          - entity: sensor.pogu_nas_cpu_utilization_total
+            name: CPU Utilization
+          - entity: sensor.pogu_nas_volume_1_used_space
+            name: Storage - 7.5TB
+
   - type: markdown
     style: |
       ha-card {
@@ -147,7 +247,7 @@ cards:
   - type: 'custom:frigate-card'
     camera_entity: camera.doorbell
     frigate_url: http://frigate
-    view_default: clip
+    view_default: clips
   - type: custom:swipe-card
     start_card: 1
     parameters:
@@ -196,9 +296,9 @@ cards:
         name: "Work temp sensor"
       - entity: sensor.garagedoor_battery
         name: "Garage door sensor"
-      - entity: sensor.living_motionsensor_battery
+      - entity: sensor.livingroommotionsensor_battery
         name: "Living motion sensor"
-      - entity: sensor.office_motionsensor_battery
+      - entity: sensor.officemotionsensor_battery
         name: "Office motion sensor"
   - type: markdown
     style: |

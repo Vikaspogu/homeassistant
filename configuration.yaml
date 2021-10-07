@@ -14,6 +14,7 @@ homeassistant:
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: America/Chicago
   external_url: !secret homeassistant_external_url
+  packages: !include_dir_named include
 
 # Text to speech
 tts:
@@ -208,15 +209,8 @@ notify:
 input_number: !include_dir_merge_named input_number
 input_datetime: !include_dir_merge_named input_datetime
 sensor: !include_dir_merge_list sensor
-light: !include lights.yaml
-group: !include groups.yaml
-automation: !include automations.yaml
-script: !include scripts.yaml
-scene: !include scenes.yaml
-binary_sensor: !include binary_sensor.yaml
 google_assistant: !include google_assistant_integ.yaml
 timer: !include_dir_merge_named timer
-logger: !include logger.yaml
 
 circadian_lighting:
 

@@ -1,0 +1,268 @@
+automation:
+
+    ####################################################
+    #                                                  #
+    #                   AUTOMATIONS                    #
+    #                                                  #
+    ####################################################
+    
+  - alias: Set Home Assistant theme at startup
+    trigger:
+      platform: homeassistant
+      event: start
+    action:
+      service: frontend.set_theme
+      data:
+        name: ING Dark
+    id: 51b3acf4a69e40d796b7ae21d35a5ed5
+  - id: 769638308a0a4973b8930f7a6f2a2693
+    alias: Garage Door Opened
+    trigger:
+    - platform: state
+      entity_id: cover.garage_door
+      to: open
+    condition:
+      condition: state
+      entity_id: cover.garage_door
+      state: open
+    action:
+    - service: timer.start
+      entity_id: timer.garage_door
+  - id: garage_closed
+    alias: Garage Door Closed
+    trigger:
+    - platform: state
+      entity_id: cover.garage_door
+      to: closed
+    action:
+    - service: timer.cancel
+      entity_id: timer.garage_door
+  - id: garage_opened_timer_finished
+    alias: Garage Opened Timer Finished
+    trigger:
+    - platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.garage_door
+    condition:
+      condition: state
+      entity_id: cover.garage_door
+      state: open
+    action:
+    - service: timer.start
+      entity_id: timer.garage_door
+    - service: notify.ha_message
+      data:
+        message: The garage has been left open
+        data:
+          actions:
+          - action: close_garage
+            title: Close Garage Door
+  - alias: Actionable notification - close garage door
+    trigger:
+      platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: close_garage
+    action:
+      service: cover.close_cover
+      entity_id: cover.garage_door
+      data: {}
+    id: c696dd277c6546ecb1f4e0f82052822f
+  - alias: Close garage door if its open for 15 minutes after 10PM
+    trigger:
+      platform: state
+      entity_id: cover.garage_door
+      from: closed
+      to: open
+      for: 0:15:00
+    condition:
+      condition: time
+      after: '22:00:00'
+      before: 05:00:00
+    action:
+      service: cover.close_cover
+      entity_id: cover.garage_door
+      data: {}
+    id: 6d78a4ce69da44f0ba38ac9241cdc277
+  - alias: Update Tesla location as MQTT location updates
+    initial_state: true
+    trigger:
+    - platform: mqtt
+      topic: teslamate/cars/1/latitude
+    - platform: mqtt
+      topic: teslamate/cars/1/longitude
+    action:
+    - service: device_tracker.see
+      data_template:
+        dev_id: tesla_location
+        gps:
+        - '{{ states.sensor.tesla_latitude.state }}'
+        - '{{ states.sensor.tesla_longitude.state }}'
+    id: 77069c1dd26b4913b7fbbb00ae85b688
+  - alias: Open garage if car returns home
+    initial_state: true
+    trigger:
+    - platform: state
+      entity_id: device_tracker.tesla_location
+      from: not_home
+      to: home
+    action:
+    - service: cover.open_cover
+      entity_id: cover.garage_door
+    id: 78aa903d4f1d4085b77726ac84b0faeb
+  - alias: Close garage if car is away
+    initial_state: true
+    trigger:
+    - platform: state
+      entity_id: device_tracker.tesla_location
+      from: home
+      to: not_home
+    action:
+    - service: cover.close_cover
+      entity_id: cover.garage_door
+    id: 3d9513db194f4f44b8310e57949968d1
+  - alias: Set timer if teslamate reports something is open to alert us
+    initial_state: true
+    trigger:
+    - platform: mqtt
+      topic: teslamate/cars/1/windows_open
+      payload: 'true'
+    - platform: mqtt
+      topic: teslamate/cars/1/doors_open
+      payload: 'true'
+    - platform: mqtt
+      topic: teslamate/cars/1/trunk_open
+      payload: 'true'
+    - platform: mqtt
+      topic: teslamate/cars/1/frunk_open
+      payload: 'true'
+    action:
+    - service: script.turn_on
+      data_template:
+        entity_id: script.notify_tesla_{{trigger.topic.split('/')[3]}}
+    id: 97666db34e994b818eaec4d452fd747a
+  - alias: Cancel notification if said door/window is closed
+    initial_state: true
+    trigger:
+    - platform: mqtt
+      topic: teslamate/cars/1/windows_open
+      payload: 'false'
+    - platform: mqtt
+      topic: teslamate/cars/1/doors_open
+      payload: 'false'
+    - platform: mqtt
+      topic: teslamate/cars/1/trunk_open
+      payload: 'false'
+    - platform: mqtt
+      topic: teslamate/cars/1/frunk_open
+      payload: 'false'
+    action:
+    - service: script.turn_off
+      data_template:
+        entity_id: script.notify_tesla_{{trigger.topic.split('/')[3]}}
+    id: c0eaba319f6746dbb5b7a2b3f2ea600c
+  - id: '1632578706807'
+    alias: Zigbee Device Not Found
+    description: ''
+    use_blueprint:
+      path: homeassistant/offline-notification-for-sensors-with-last_seen.yaml
+      input:
+        hours: 12
+        actions:
+        - service: notify.ha_message
+          data:
+            title: Zigbee device not available!
+            message: '{{sensors}}'
+  - id: vacuum_notifications
+    alias: Vacuum Notifications
+    trigger:
+    - platform: state
+      entity_id: vacuum.robovac
+    - platform: state
+      entity_id: vacuum.roomba
+    condition:
+      condition: template
+      value_template: '{{ not (trigger.to_state.state == trigger.from_state.state) }}'
+    action:
+    - service: notify.ha_message
+      data_template:
+        title: Vacuum
+        message: '{{ trigger.to_state.name }} vacuum has been turned {{ trigger.to_state.state
+          }}'
+  - id: '1633267358678'
+    alias: Living Room
+    description: ''
+    use_blueprint:
+      path: homeassistant/motion_illuminance_activated_entity.yaml
+      input:
+        motion_sensor: binary_sensor.livingroommotionsensor_occupancy
+        target_entity: light.living_room_dining_lights
+        illuminance_sensor: sensor.livingroommotionsensor_illuminance_lux
+        illuminance_cutoff: input_number.living_room_illumination_low_cutoff
+        no_motion_wait: input_number.living_room_no_motion_turn_off_delay
+        blocker_entity: media_player.sony_bravia_tv
+  - id: '1633301105251'
+    alias: Office ceiling lights
+    description: ''
+    use_blueprint:
+      path: homeassistant/motion_illuminance_activated_entity.yaml
+      input:
+        motion_sensor: binary_sensor.officemotionsensor_occupancy
+        target_entity: light.office_ceiling_lights
+        blocker_entity: sensor.office_lights_automation_blocker
+        no_motion_wait: input_number.office_ceiling_no_motion_turn_off_delay
+  - id: '1633304427423'
+    alias: Living room lights on when tv is on
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: binary_sensor.livingroommotionsensor_occupancy
+      from: 'on'
+      to: 'off'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 0
+    condition:
+    - condition: state
+      entity_id: media_player.sony_bravia_tv
+      state: 'on'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 0
+    action:
+    - service: light.turn_on
+      target:
+        entity_id: light.living_room_dining_lights
+    mode: single
+  - id: '1633304558361'
+    alias: Living room lights off when tv is off
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: binary_sensor.livingroommotionsensor_occupancy
+      from: 'on'
+      to: 'off'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 0
+    condition:
+    - condition: state
+      entity_id: media_player.sony_bravia_tv
+      state: 'off'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+        milliseconds: 0
+    action:
+    - service: light.turn_off
+      target:
+        entity_id: light.living_room_dining_lights
+    mode: single
