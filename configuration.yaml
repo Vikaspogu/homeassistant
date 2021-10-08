@@ -113,7 +113,7 @@ lovelace:
   # Include external resources only add when mode is yaml
   resources:
     # Plugins
-    - url: /hacsfiles/auto-entities/auto-entities.js
+    - url: /hacsfiles/lovelace-auto-entities/auto-entities.js
       type: module
     - url: /hacsfiles/bar-card/bar-card.js
       type: module
@@ -160,6 +160,8 @@ lovelace:
     - url: /hacsfiles/frigate-hass-card/frigate-hass-card.js
       type: module
     - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
+      type: module
+    - url: /hacsfiles/stack-in-card/stack-in-card.js
       type: module
     - url: '/local/custom-ui/calendar-card.js?v=3.109.1'
       type: module

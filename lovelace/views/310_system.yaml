@@ -111,87 +111,206 @@ cards:
         padding: 0px 0px 0px 8px !important;
         border-left: 3px solid var(--accent-color);
       }
-    content: Pogu - NAS    
-  - type: entities
-    card_mod:
-      class: header
-      style:
-        .: |
-          ha-card {
-            animation: none !important;
-            margin: 0px !important;
-          }
-        mini-graph-card:
-          $: |
-            ha-card {
-              padding: 0px !important;
-            }
-        hui-horizontal-stack-card:
-          $:
+    content: Synology DSM 220+
+  - card:
+    type: custom:stack-in-card
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:mini-graph-card'
+            style: |
+              ha-card {
+                font-family: var(--primary-font-family);
+                border-bottom: 2px solid var(--background-color);
+              }
+              .graph {
+                padding-top: 15px;
+                padding-bottom: 0px;
+              }
+              .info {
+                padding-bottom: 0px;
+              }
+              .flex {
+                padding-bottom: 10px;
+              }
+            entities:
+              - sensor.pogu_nas_cpu_utilization_total
+            name: CPU
+            align_state: center
+            align_icon: right
+            font_size: 60
+            font_size_header: 11
+            hours_to_show: 12
+            line_color: var(--color-red-1)
+            line_width: 4
+            animate: true
+            points_per_hour: 4
+            lower_bound: 0
+            lower_bound_secondary: 0
+            show:
+              fill: fade
+              graph: line
+              extrema: false
+              icon: true
+              name: true
+              labels: false
+
+          - type: 'custom:mini-graph-card'
+            style: |
+              ha-card {
+                font-family: var(--primary-font-family);
+                border-bottom: 2px solid var(--background-color);
+              }
+              .graph {
+                padding-top: 15px;
+                padding-bottom: 0px;
+              }
+              .info {
+                padding-bottom: 0px;
+              }
+              .flex {
+                padding-bottom: 10px;
+              }
+            entities:
+              - sensor.pogu_nas_memory_usage_real
+            name: Storage RAM
+            align_state: center
+            align_icon: right
+            font_size: 60
+            font_size_header: 11
+            hours_to_show: 12
+            line_color: var(--color-ocher-1)
+            line_width: 4
+            animate: true
+            points_per_hour: 4
+            lower_bound: 0
+            lower_bound_secondary: 0
+            show:
+              fill: fade
+              graph: line
+              extrema: false
+              icon: true
+              name: true
+              labels: false
+
+          - type: 'custom:mini-graph-card'
+            style: |
+              ha-card {
+                font-family: var(--primary-font-family);
+                border-bottom: 2px solid var(--background-color);
+              }
+              .graph {
+                padding-top: 15px;
+                padding-bottom: 0px;
+              }
+              .info {
+                padding-bottom: 0px;
+              }
+              .flex {
+                padding-bottom: 10px;
+              }
+            entities:
+              - sensor.pogu_nas_temperature
+            name: Temperatur
+            align_state: center
+            align_icon: right
+            font_size: 60
+            font_size_header: 11
+            hours_to_show: 12
+            line_color: var(--color-green-bright-1)
+            line_width: 4
+            animate: true
+            points_per_hour: 4
+            lower_bound: 0
+            lower_bound_secondary: 0
+            show:
+              fill: fade
+              graph: line
+              extrema: false
+              icon: true
+              name: true
+              labels: false
+
+      - type: entities
+        card_mod:
+          class: header
+          style:
             .: |
-              #root {
-                margin-top: 1em;
-                margin-right: 1.5em;
+              ha-card {
+                animation: none !important;
+                margin: 0px !important;
               }
-              #root > * {
-                flex: none !important;
-              }
-            hui-entities-card:
+            mini-graph-card:
+              $: |
+                ha-card {
+                  padding: 0px !important;
+                }
+            hui-horizontal-stack-card:
               $:
                 .: |
-                  #states {
-                    padding: 0;
+                  #root {
+                    margin-top: 1em;
+                    margin-right: 1.5em;
                   }
-                hui-sensor-entity-row:
-                  $hui-generic-entity-row$: |
-                    .info {
-                      margin: 0 8px 0 8px !important;
-                    }
-    entities:
-      - entity: sensor.template_nas_status
-        name: Nas Status
-      - entity: sensor.pogu_nas_last_boot
-        name: Last Reboot
-      - entity: binary_sensor.pogu_nas_security_status
-        name: Security Status
-      - entity: sensor.pogu_nas_volume_1_average_disk_temp
-        name: Avg. Disk Temp
-      - entity: sensor.pogu_nas_memory_available_real
-        name: Memory Available
-      - entity: sensor.pogu_nas_download_throughput
-        name: Download Throuhput
-        style: |
-          :host {
-            --paper-item-icon-color: green;
-          }
-      - entity: sensor.pogu_nas_upload_throughput
-        name: Upload Throuhput
-        style: |
-          :host {
-            --paper-item-icon-color: #385581;
-          }
-      - type: custom:bar-card
-        width: 55%
-        height: 2em
-        decimal: 0
-        unit_of_measurement: '%'
-        positions: &bar_card_positions
-          icon: outside
-          indicator: 'off'
-          name: outside
-        severity: &bar_card_severity
-          - color: '#303435'
-            from: 0
-            to: 89
-          - color: '#6d2525'
-            from: 90
-            to: 200
-        entity_row: true
+                  #root > * {
+                    flex: none !important;
+                  }
+                hui-entities-card:
+                  $:
+                    .: |
+                      #states {
+                        padding: 0;
+                      }
+                    hui-sensor-entity-row:
+                      $hui-generic-entity-row$: |
+                        .info {
+                          margin: 0 8px 0 8px !important;
+                        }
         entities:
-          - entity: sensor.pogu_nas_cpu_utilization_total
-            name: CPU Utilization
-          - entity: sensor.pogu_nas_volume_1_used_space
-            name: Storage - 7.5TB
+          - entity: sensor.template_nas_status
+            name: NAS Status
+          # - entity: sensor.pogu_nas_last_boot
+          #   name: Last Reboot
+          - entity: binary_sensor.pogu_nas_security_status
+            name: Security Status
+          - entity: sensor.pogu_nas_volume_1_average_disk_temp
+            name: Avg. Disk Temp
+          - entity: sensor.pogu_nas_memory_available_real
+            name: Memory Available
+          - entity: sensor.pogu_nas_download_throughput
+            name: Download Throuhput
+            style: |
+              :host {
+                --paper-item-icon-color: green;
+              }
+          - entity: sensor.pogu_nas_upload_throughput
+            name: Upload Throuhput
+            style: |
+              :host {
+                --paper-item-icon-color: #385581;
+              }
+          - type: custom:bar-card
+            width: 55%
+            height: 2em
+            decimal: 0
+            unit_of_measurement: '%'
+            positions: &bar_card_positions
+              icon: outside
+              indicator: 'off'
+              name: outside
+            severity: &bar_card_severity
+              - color: '#303435'
+                from: 0
+                to: 89
+              - color: '#6d2525'
+                from: 90
+                to: 200
+            entity_row: true
+            entities:
+              - entity: sensor.pogu_nas_cpu_utilization_total
+                name: CPU Utilization
+              - entity: sensor.pogu_nas_volume_1_used_space
+                name: Storage - 7.5TB
 
   - type: markdown
     style: |
