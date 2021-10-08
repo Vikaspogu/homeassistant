@@ -9,11 +9,9 @@ This is my [Home Assistant](https://www.home-assistant.io/) configuration.
 
 ## Screenshot
 
-![screenshot](./docs/hass_dash.png)
+![screenshot](./docs/hass-dash.png)
 
 ## Hass.io Addons
-
-![logo](https://raw.githubusercontent.com/vikaspogu/homeassistant/master/docs/ha-logo-small.png)
 
 - Roomba
 - Internet Printing Protocol
@@ -33,6 +31,11 @@ This is my [Home Assistant](https://www.home-assistant.io/) configuration.
 - [Plex recently added](https://github.com/custom-components/sensor.plex_recently_added)
 - [Scheduler](https://github.com/nielsfaber/scheduler-component.git)
 - [Sonarr upcoming media](https://github.com/custom-components/sensor.sonarr_upcoming_media)
+- Garbage Collection
+- Circadian Lighting
+- Bravia TV PSK
+- Schedular component
+- Node-Red Companion
 
 ## Lovelace Plugins
 
