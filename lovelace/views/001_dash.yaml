@@ -56,11 +56,11 @@ cards:
               }
             ]]]
       - type: custom:button-card
-        entity: light.bedroom_ceiling_lights
-        name: Bedroom Ceiling
+        entity: cover.living_room
+        name: Curtain
         template:
-          - light
-          - icon_hue
+          - base_curtain
+          - icon_curtain_closet
       - type: custom:button-card
         entity: switch.bedroompurifier
         name: Bedroom Purifier
@@ -81,12 +81,6 @@ cards:
         template:
           - light
           - icon_hue
-      - type: custom:button-card
-        entity: switch.fireplace
-        name: Fireplace
-        template:
-          - base
-          - icon_fireplace
   - type: markdown
     style: |
       ha-card {
@@ -115,6 +109,32 @@ cards:
             secondary_info: last-changed
             toggle: true
             state_color: true
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: var(--font-size-title);
+        font-family: var(--font-title);
+        line-height: 30px;
+        background: none;
+        margin-top: 0.4em;
+        margin-left: 8px;
+        margin-bottom: 0em;
+        box-shadow: none;
+        background: none;
+      }
+      ha-markdown {
+        padding: 0px 0px 0px 8px !important;
+        border-left: 3px solid var(--accent-color);
+      }
+    content: Presence
+  - type: custom:vertical-stack-in-card
+    cards:
+      - type: entities
+        entities:
+          - entity: sensor.vikas_kumar_s_galaxy_s20_fe_5g_room_presence
+            name: Room Presence
+          - entity: device_tracker.vikas_kumar_s_galaxy_s20_fe_5g_tracker
+            name: Vikas's Galaxy S20
   - type: markdown
     style: |
       ha-card {

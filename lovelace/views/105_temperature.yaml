@@ -65,9 +65,9 @@ cards:
                 padding-bottom: 10px;
               }
             entities:
-              - entity: sensor.master_pi_4_air_quality_pm_2_5
+              - entity: sensor.master_pi_4_air_quality_pm_2_5_2
                 name: PM 2.5
-              - entity: sensor.master_pi_4_air_quality_pm_10
+              - entity: sensor.master_pi_4_air_quality_pm_10_2
                 name: PM 10
                 color: var(--accent-color)
                 show_state: true
@@ -161,9 +161,9 @@ cards:
             padding-bottom: 10px;
           }
         entities:
-          - entity: sensor.pi_3_host_air_quality_pm_2_5
+          - entity: sensor.pi_3_host_air_quality_pm_2_5_2
             name: PM 2.5
-          - entity: sensor.pi_3_host_air_quality_pm_10
+          - entity: sensor.pi_3_host_air_quality_pm_10_2
             name: PM 10
             color: var(--accent-color)
             show_state: true

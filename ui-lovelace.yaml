@@ -242,6 +242,157 @@ button_card_templates:
         }
       }
 
+  base_curtain:
+    variables:
+      state: >
+        [[[ return entity === undefined || entity.state; ]]]
+      timeout: >
+        [[[ return entity === undefined || Date.now() - Date.parse(entity.last_changed); ]]]
+      light_color: >
+        [[[ return entity === undefined || entity.state === 'unavailable' ? 'var(--state-icon-color)' : 'var(--button-card-light-color-no-temperature)'; ]]]
+    aspect_ratio: 1/1
+    show_state: true
+    show_icon: false
+    state_display: >
+      [[[
+        if (entity.state === 'closing')
+          return "Open";
+        else
+          return "Closed";
+      ]]]
+    tap_action:
+      action: fire-dom-event
+      deviceID:
+        - this
+      browser_mod:
+        command: popup
+        style:
+          hui-vertical-stack-card:
+            $hui-horizontal-stack-card$: |
+              #root {
+                justify-content: space-evenly;
+                margin-top: 1.9em;
+                margin-left: 0.8em;
+                margin-bottom: 1.9em;
+              }
+            $hui-conditional-card>hui-vertical-stack-card$: |
+              hui-horizontal-stack-card {
+                padding: 0em 2em 2.3em 2em;
+              }
+            $hui-conditional-card>hui-vertical-stack-card$hui-horizontal-stack-card$: |
+              #root {
+                justify-content: space-evenly;
+              }
+        title: Bedroom Curtains
+        card:
+          type: vertical-stack
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  name: Curtain Open
+                  icon: 'fas:angle-left'
+                  tap_action:
+                    action: call-service
+                    service: cover.open_cover
+                    service_data:
+                      entity_id: cover.living_room
+                  template: icon_only
+                - type: 'custom:button-card'
+                  name: Stop/My
+                  icon: 'fas:stop-circle'
+                  tap_action:
+                    action: call-service
+                    service: cover.stop_cover
+                    service_data:
+                      entity_id: cover.living_room
+                  template: icon_only
+                - type: 'custom:button-card'
+                  name: Curtain Close
+                  icon: 'fas:angle-right'
+                  tap_action:
+                    action: call-service
+                    service: cover.close_cover
+                    service_data:
+                      entity_id: cover.living_room
+                  template: icon_only
+    styles:
+      grid:
+        - grid-template-areas: |
+            "icon  circle"
+            "n     n"
+            "s     s"
+        - grid-template-columns: repeat(2, 1fr)
+        - grid-template-rows: auto repeat(2, min-content)
+        - gap: 2%
+        - align-items: start
+      name:
+        - justify-self: start
+        - line-height: 115%
+      state:
+        - justify-self: start
+        - line-height: 115%
+      card:
+        - font-family: var(--primary-font-family)
+        - border-radius: var(--custom-button-card-border-radius)
+        - -webkit-tap-highlight-color: rgba(0,0,0,0)
+        - transition: none
+        - padding: 10%
+        - --mdc-ripple-color: >
+            [[[
+              return (variables.state === 'on' || variables.state === 'open' || variables.state === 'closing' || variables.state === 'home' || variables.state === 'cool' || variables.state === 'fan_only') ?
+                'rgb(0, 0, 0)' :
+                'rgba(255, 255, 255, 0.3)';
+            ]]]
+        - color: >
+            [[[
+              return (variables.state === 'on' || variables.state === 'open' || variables.state === 'closing' || variables.state === 'home' || variables.state === 'cool' || variables.state === 'fan_only') ?
+                'rgba(0, 0, 0, 0.6)' :
+                'rgba(255, 255, 255, 0.3)';
+            ]]]
+        - background-color: >
+            [[[
+              return (variables.state === 'on' || variables.state === 'open' || variables.state === 'closing' || variables.state === 'home' || variables.state === 'cool' || variables.state === 'fan_only') ?
+                'rgba(255, 255, 255, 0.8)' :
+                'rgba(115, 115, 115, 0.2)';
+            ]]]
+    extra_styles: |
+      #name, #state {
+        font-size: 1.34vw;
+        letter-spacing: 0.05vw;
+      }
+      /* portrait */
+      @media screen and (max-width: 1200px) {
+        #name, #state {
+          font-size: 2vw;
+          letter-spacing: 0.05vw;
+        }
+      }
+      /* phone */
+      @media screen and (max-width: 800px) {
+        #name, #state {
+          font-size: 3.1vw;
+          letter-spacing: 0.12vw;
+        }
+      }
+      @keyframes card_bounce {
+        0% {
+          transform: scale(1);
+        }
+        15% {
+          transform: scale(0.9);
+        }
+        25% {
+          transform: scale(1);
+        }
+        30% {
+          transform: scale(0.98);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
   #################################################
   #                                               #
   #                    CIRCLE                     #
@@ -530,144 +681,6 @@ button_card_templates:
                         persist_features: true
                         consolidate_entities: false
                   template: color_light
-
-  #################################################
-  #                                               #
-  #                     TRUNK                     #
-  #                                               #
-  #################################################
-
-  trunk:
-    template:
-      - base
-    tap_action:
-      action: fire-dom-event
-      deviceID:
-        - this
-      browser_mod:
-        command: popup
-        style:
-          hui-vertical-stack-card:
-            $hui-conditional-card>hui-vertical-stack-card$: |
-              hui-horizontal-stack-card {
-                padding: 0em 2em 2.3em 2em;
-              }
-            $hui-conditional-card>hui-vertical-stack-card$hui-horizontal-stack-card$: |
-              #root {
-                justify-content: space-evenly;
-              }
-        title: Tesla Trunk
-        card:
-          type: vertical-stack
-          cards:
-            ### ON ###
-            - type: conditional
-              conditions:
-                - entity: binary_sensor.tesla_trunk_open
-                  state: 'on'
-              card:
-                type: vertical-stack
-                cards:
-                  - type: horizontal-stack
-                    cards:
-                    - type: custom:button-card
-                      name: Close
-                      icon: mdi:lock
-                      tap_action:
-                        action: call-service
-                        service: lock.lock
-                        service_data:
-                          entity_id: lock.quinjet_trunk_lock
-                      template: icon_only
-
-            ### OFF ###
-            - type: conditional
-              conditions:
-                - entity: binary_sensor.tesla_trunk_open
-                  state: 'off'
-              card:
-                type: vertical-stack
-                cards:
-                  - type: horizontal-stack
-                    cards:
-                    - type: custom:button-card
-                      name: Open
-                      icon: mdi:lock-open-variant
-                      tap_action:
-                        action: call-service
-                        service: lock.unlock
-                        service_data:
-                          entity_id: lock.quinjet_trunk_lock
-                      template: icon_only
-          
-  #################################################
-  #                                               #
-  #                     FRUNK                     #
-  #                                               #
-  #################################################
-
-  frunk:
-    template:
-      - base
-    tap_action:
-      action: fire-dom-event
-      deviceID:
-        - this
-      browser_mod:
-        command: popup
-        style:
-          hui-vertical-stack-card:
-            $hui-conditional-card>hui-vertical-stack-card$: |
-              hui-horizontal-stack-card {
-                padding: 0em 2em 2.3em 2em;
-              }
-            $hui-conditional-card>hui-vertical-stack-card$hui-horizontal-stack-card$: |
-              #root {
-                justify-content: space-evenly;
-              }
-        title: Tesla Frunk
-        card:
-          type: vertical-stack
-          cards:
-            ### ON ###
-            - type: conditional
-              conditions:
-                - entity: binary_sensor.tesla_frunk_open
-                  state: 'on'
-              card:
-                type: vertical-stack
-                cards:
-                  - type: horizontal-stack
-                    cards:
-                    - type: custom:button-card
-                      name: Close
-                      icon: mdi:lock
-                      tap_action:
-                        action: call-service
-                        service: lock.lock
-                        service_data:
-                          entity_id: lock.quinjet_frunk_lock
-                      template: icon_only
-
-            ### OFF ###
-            - type: conditional
-              conditions:
-                - entity: binary_sensor.tesla_frunk_open
-                  state: 'off'
-              card:
-                type: vertical-stack
-                cards:
-                  - type: horizontal-stack
-                    cards:
-                    - type: custom:button-card
-                      name: Open
-                      icon: mdi:lock-open-variant
-                      tap_action:
-                        action: call-service
-                        service: lock.unlock
-                        service_data:
-                          entity_id: lock.quinjet_frunk_lock
-                      template: icon_only
 
   #################################################
   #                                               #
@@ -1111,6 +1124,171 @@ button_card_templates:
   #                     ICONS                     #
   #                                               #
   #################################################
+  icon_curtain_closet:
+    styles:
+      custom_fields:
+        icon:
+          - width: 80%
+          - margin-left: -15%
+    custom_fields:
+      icon: >
+        [[[
+          const room = 'd="M11.4,1.4h27.2v43.1H11.4V1.4z" fill="#bcbcbc"';
+          const door = 'd="M11.4 1.4v43.1h27.2V1.4H11.4zm23 23.4c0 1.1-.9 1.9-1.9 1.9h0c-1.1 0-1.9-.9-1.9-1.9V21c0-1.1.9-1.9 1.9-1.9h0c1.1 0 1.9.9 1.9 1.9v3.8z"';
+
+          if (variables.state === 'closing' && variables.timeout < 2000) {
+            return `
+              <style>
+                .state {
+                  animation: state 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+                }
+                .opacity {
+                  animation: opacity 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+                }
+                @keyframes state {
+                  0% {
+                    transform: none;
+                    fill: #9da0a2;
+                  }
+                  100% {
+                    transform: skewY(10deg) translate(4.5%, -3.9%) scaleX(0.8);
+                    fill: #b68349;
+                  }
+                }
+                @keyframes opacity {
+                  0% {
+                    opacity: 0;
+                  }
+                  100% {
+                    opacity: 1;
+                  }
+                }
+              </style>
+              <svg viewBox="0 0 50 50">
+                <path class="opacity" ${room}/>
+                <path class="state" ${door}/>
+              </svg>
+            `;
+          }
+
+          if (variables.state === 'closing' && variables.timeout > 2000) {
+            return `
+              <svg viewBox="0 0 50 50">
+                <style>
+                  .state_timeout_on {
+                    transform: skewY(10deg) translate(4.5%, -3.9%) scaleX(0.8);
+                    fill: #b68349;
+                  }
+                </style>
+                <path ${room}/>
+                <path class="state_timeout_on" ${door}/>
+              </svg>
+            `;
+          }
+
+          return variables.state === 'opening' && variables.timeout < 2000 ? `
+            <style>
+              .state {
+                animation: state 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+              }
+              .opacity {
+                animation: opacity 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+              }
+              .reverse {
+                animation-direction: reverse;
+              }
+              @keyframes state {
+                0% {
+                  transform: none;
+                  fill: #9da0a2;
+                }
+                100% {
+                  transform: skewY(10deg) translate(4.5%, -3.9%) scaleX(0.8);
+                  fill: #b68349;
+                }
+              }
+              @keyframes opacity {
+                0% {
+                  opacity: 0;
+                }
+                100% {
+                  opacity: 1;
+                }
+              }
+            </style>
+            <svg viewBox="0 0 50 50">
+              <path class="opacity reverse" ${room}/>
+              <path class="state reverse" ${door}/>
+            </svg>
+          ` : `
+            <svg viewBox="0 0 50 50">
+              <style>
+                .state_timeout_off {
+                  fill: var(--state-icon-color);
+                }
+              </style>
+              <path class="state_timeout_off" ${door}/>
+            </svg>
+          `;
+        ]]]
+
+  icon_curtain:
+    styles:
+      custom_fields:
+        icon:
+          - width: 89%
+          - height: 77%
+          - margin-top: -7%
+          - margin-left: 1%
+          - fill: >
+              [[[
+                return entity.attributes.days <= 1 ? 'var(--color-green-bright-1)' : '#9da0a2';
+              ]]]
+    custom_fields:
+      icon: >
+        <svg viewBox="0 0 512.109 512.109">
+            <style>
+                @keyframes on {
+                  0% {
+                    transform: scale(0.85);
+                  }
+                  20% {
+                    transform: scale(1.1);
+                  }
+                  40% {
+                    transform: scale(0.95);
+                  }
+                  60% {
+                    transform: scale(1.03);
+                  }
+                  80% {
+                    transform: scale(0.97);
+                  }
+                  100% {
+                    transform: scale(1);
+                  }
+                }
+                .on {
+                  animation: on 0.8s;
+                  transform-origin: center;
+                }
+              </style>
+            <path style="fill:#AA043B;" d="M7.2,274.4c4,0.8,9.6,0.8,13.6,0.8C88,273.6,128,168.8,151.2,32c1.6-10.4,4-16,4.8-32H0v273.6
+              C8,273.6,5.6,274.4,7.2,274.4z"/>
+            <path style="fill:#CE053E;" d="M0,496V292.8c8-0.8,5.6-0.8,7.2-0.8c76-12.8,125.6,114.4,183.2,172c7.2,7.2,4,16,5.6,32H0z"/>
+            <path style="fill:#AA043B;" d="M154.4,464c-51.2-51.2-64.8-157.6-120.8-171.2c-3.2-0.8-6.4-1.6-9.6-1.6c-4,0-8,0-12.8,0.8
+              c-1.6,0-5.6,0.8-7.2,0.8l-4,6.4V496h158.4C157.6,480,161.6,471.2,154.4,464z"/>
+            <path style="fill:#F7B208;" d="M58.4,264H0v40h58.4c9.6,0,18.4-10.4,18.4-20S68,264,58.4,264z"/>
+            <path style="fill:#EA8B00;" d="M55.2,284c0-9.6-8-20-18.4-20H0v40h36.8C47.2,304,55.2,293.6,55.2,284z"/>
+            <path style="fill:#CE053E;" d="M496,0v273.6c0,0.8-1.6,0.8-3.2,0.8c-76,12.8-164.8-96-189.6-242.4c-1.6-10.4-2.4-16-3.2-32H496z"/>
+            <path style="fill:#AA043B;" d="M492.8,274.4c-4,0.8-8,0.8-12,0.8C413.6,273.6,367.2,168.8,344,32c-1.6-10.4-2.4-16-4-32h156v273.6
+              C496,273.6,494.4,274.4,492.8,274.4z"/>
+            <path style="fill:#CE053E;" d="M496,496V292.8c0-0.8-1.6-0.8-3.2-0.8c-76-13.6-132,113.6-189.6,172c-7.2,7.2-2.4,16-3.2,32H496z"/>
+            <path style="fill:#AA043B;" d="M341.6,464c51.2-51.2,72.8-157.6,128.8-171.2c3.2-0.8,6.4-1.6,9.6-1.6c4,0,8,0,12.8,0.8
+              c1.6,0,0.8,0.8,2.4,0.8v6.4V496H337.6C338.4,480,334.4,471.2,341.6,464z"/>
+            <path style="fill:#F7B208;" d="M437.6,264H496v40h-58.4c-9.6,0-18.4-10.4-18.4-20S428,264,437.6,264z"/>
+            <path style="fill:#EA8B00;" d="M440.8,284c0-9.6,8-20,18.4-20H496v40h-36.8C448.8,304,440.8,293.6,440.8,284z"/>
+        </svg>
 
   icon_fireplace:
     styles:
