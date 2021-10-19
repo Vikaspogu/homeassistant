@@ -81,6 +81,18 @@ cards:
         template:
           - light
           - icon_hue
+      - type: 'custom:button-card'
+        entity: light.tv_h6199
+        name: TV LED Strip
+        template:
+          - light
+          - icon_led_strip
+      - type: 'custom:button-card'
+        entity: switch.smart_power_strip_1
+        name: Bedroom LED
+        template:
+          - base
+          - icon_led_strip
   - type: markdown
     style: |
       ha-card {
@@ -133,6 +145,17 @@ cards:
         entities:
           - entity: sensor.vikas_kumar_s_galaxy_s20_fe_5g_room_presence
             name: Room Presence
+            icon: "fas:location-arrow"
+          - type: attribute
+            entity: sensor.vikas_kumar_s_galaxy_s20_fe_5g_room_presence
+            attribute: distance
+            name: Distance
+            icon: "fas:map-marker-alt"
+          - type: attribute
+            icon: "fas:info-circle"
+            entity: sensor.vikas_kumar_s_galaxy_s20_fe_5g_room_presence
+            attribute: last_updated_at
+            name: Last Updated
           - entity: device_tracker.vikas_kumar_s_galaxy_s20_fe_5g_tracker
             name: Vikas's Galaxy S20
   - type: markdown
