@@ -12,7 +12,6 @@ cards:
         entity: cover.garage_door
         template:
           - base
-          - circle
           - icon_garage
   - type: markdown
     style: |
@@ -57,10 +56,22 @@ cards:
             ]]]
       - type: custom:button-card
         entity: cover.living_room
-        name: Curtain
+        name: Bedroom Curtain
         template:
           - base_curtain
-          - icon_curtain_closet
+          - icon_curtain
+      - type: custom:button-card
+        entity: cover.bedroom_blinds
+        name: Bedroom Blinds
+        template:
+          - base_blinds
+          - icon_blinds
+      - type: 'custom:button-card'
+        entity: switch.smart_power_strip_1
+        name: Bedroom LED
+        template:
+          - base
+          - icon_led_strip
       - type: custom:button-card
         entity: switch.bedroompurifier
         name: Bedroom Purifier
@@ -87,12 +98,7 @@ cards:
         template:
           - light
           - icon_led_strip
-      - type: 'custom:button-card'
-        entity: switch.smart_power_strip_1
-        name: Bedroom LED
-        template:
-          - base
-          - icon_led_strip
+      
   - type: markdown
     style: |
       ha-card {
@@ -110,7 +116,7 @@ cards:
         padding: 0px 0px 0px 8px !important;
         border-left: 3px solid var(--accent-color);
       }
-    content: Circadian Lighting
+    content: Lighting
   - type: custom:vertical-stack-in-card
     cards:
       - type: entities
@@ -119,6 +125,13 @@ cards:
             type: custom:multiple-entity-row
             name: Circadian Living Lights
             secondary_info: last-changed
+            toggle: true
+            state_color: true
+      - type: entities
+        entities:
+          - entity: input_boolean.living_room_override
+            type: custom:multiple-entity-row
+            name: Override living room lights
             toggle: true
             state_color: true
   - type: markdown
@@ -273,11 +286,13 @@ cards:
     cards:
       - type: custom:button-card
         entity: sensor.garbage
+        name: Trash Pick-up
         template:
           - garbage
           - icon_garbage
       - type: custom:button-card
         entity: sensor.recycle
+        name: Recycle Pick-up
         template:
           - garbage
           - icon_recycle

@@ -139,14 +139,14 @@ button_card_templates:
           const screensaver = states['switch.galaxy_tab_a_screensaver'] === undefined || 
             states['switch.galaxy_tab_a_screensaver'].state;
 
-          if (variables.state === 'off' && screensaver === 'off') {
+          if (variables.state === 'off') {
             hass.callService('media_player', 'play_media', {
               entity_id: 'media_player.c2080cea_6627150a',
               media_content_id: '/local/sound/on.m4a',
               media_content_type: 'music'
             });
           }
-          if (variables.state === 'on' && screensaver === 'off') {
+          if (variables.state === 'on') {
             hass.callService('media_player', 'play_media', {
               entity_id: 'media_player.c2080cea_6627150a',
               media_content_id: '/local/sound/off.m4a',
@@ -189,19 +189,19 @@ button_card_templates:
         - padding: 10%
         - --mdc-ripple-color: >
             [[[
-              return (variables.state === 'on' || variables.state === 'open' || variables.state === 'home' || variables.state === 'cool' || variables.state === 'fan_only') ?
+              return (variables.state === 'on' || variables.state === 'open' || variables.state === 'playing' || variables.state === 'home' || variables.state === 'cool' || variables.state === 'fan_only') ?
                 'rgb(0, 0, 0)' :
                 'rgba(255, 255, 255, 0.3)';
             ]]]
         - color: >
             [[[
-              return (variables.state === 'on' || variables.state === 'open' || variables.state === 'home' || variables.state === 'cool' || variables.state === 'fan_only') ?
+              return (variables.state === 'on' || variables.state === 'open' || variables.state === 'playing' || variables.state === 'home' || variables.state === 'cool' || variables.state === 'fan_only') ?
                 'rgba(0, 0, 0, 0.6)' :
                 'rgba(255, 255, 255, 0.3)';
             ]]]
         - background-color: >
             [[[
-              return (variables.state === 'on' || variables.state === 'open' || variables.state === 'home' || variables.state === 'cool' || variables.state === 'fan_only') ?
+              return (variables.state === 'on' || variables.state === 'open' || variables.state === 'playing' || variables.state === 'home' || variables.state === 'cool' || variables.state === 'fan_only') ?
                 'rgba(255, 255, 255, 0.8)' :
                 'rgba(115, 115, 115, 0.2)';
             ]]]
@@ -315,6 +315,150 @@ button_card_templates:
                     service: cover.close_cover
                     service_data:
                       entity_id: cover.living_room
+                  template: icon_only
+    styles:
+      grid:
+        - grid-template-areas: |
+            "icon  circle"
+            "n     n"
+            "s     s"
+        - grid-template-columns: repeat(2, 1fr)
+        - grid-template-rows: auto repeat(2, min-content)
+        - gap: 2%
+        - align-items: start
+      name:
+        - justify-self: start
+        - line-height: 115%
+      state:
+        - justify-self: start
+        - line-height: 115%
+      card:
+        - font-family: var(--primary-font-family)
+        - border-radius: var(--custom-button-card-border-radius)
+        - -webkit-tap-highlight-color: rgba(0,0,0,0)
+        - transition: none
+        - padding: 10%
+        - --mdc-ripple-color: >
+            [[[
+              return (variables.state === 'on' || variables.state === 'open' || variables.state === 'closing' || variables.state === 'home' || variables.state === 'cool' || variables.state === 'fan_only') ?
+                'rgb(0, 0, 0)' :
+                'rgba(255, 255, 255, 0.3)';
+            ]]]
+        - color: >
+            [[[
+              return (variables.state === 'on' || variables.state === 'open' || variables.state === 'closing' || variables.state === 'home' || variables.state === 'cool' || variables.state === 'fan_only') ?
+                'rgba(0, 0, 0, 0.6)' :
+                'rgba(255, 255, 255, 0.3)';
+            ]]]
+        - background-color: >
+            [[[
+              return (variables.state === 'on' || variables.state === 'open' || variables.state === 'closing' || variables.state === 'home' || variables.state === 'cool' || variables.state === 'fan_only') ?
+                'rgba(255, 255, 255, 0.8)' :
+                'rgba(115, 115, 115, 0.2)';
+            ]]]
+    extra_styles: |
+      #name, #state {
+        font-size: 1.34vw;
+        letter-spacing: 0.05vw;
+      }
+      /* portrait */
+      @media screen and (max-width: 1200px) {
+        #name, #state {
+          font-size: 2vw;
+          letter-spacing: 0.05vw;
+        }
+      }
+      /* phone */
+      @media screen and (max-width: 800px) {
+        #name, #state {
+          font-size: 3.1vw;
+          letter-spacing: 0.12vw;
+        }
+      }
+      @keyframes card_bounce {
+        0% {
+          transform: scale(1);
+        }
+        15% {
+          transform: scale(0.9);
+        }
+        25% {
+          transform: scale(1);
+        }
+        30% {
+          transform: scale(0.98);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+  base_blinds:
+    variables:
+      state: >
+        [[[ return entity === undefined || entity.state; ]]]
+      timeout: >
+        [[[ return entity === undefined || Date.now() - Date.parse(entity.last_changed); ]]]
+      light_color: >
+        [[[ return entity === undefined || entity.state === 'unavailable' ? 'var(--state-icon-color)' : 'var(--button-card-light-color-no-temperature)'; ]]]
+    aspect_ratio: 1/1
+    show_state: true
+    show_icon: false
+    tap_action:
+      action: fire-dom-event
+      deviceID:
+        - this
+      browser_mod:
+        command: popup
+        style:
+          hui-vertical-stack-card:
+            $hui-horizontal-stack-card$: |
+              #root {
+                justify-content: space-evenly;
+                margin-top: 1.9em;
+                margin-left: 0.8em;
+                margin-bottom: 1.9em;
+              }
+            $hui-conditional-card>hui-vertical-stack-card$: |
+              hui-horizontal-stack-card {
+                padding: 0em 2em 2.3em 2em;
+              }
+            $hui-conditional-card>hui-vertical-stack-card$hui-horizontal-stack-card$: |
+              #root {
+                justify-content: space-evenly;
+              }
+        title: Bedroom Blinds
+        card:
+          type: vertical-stack
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  name: Blinds Open
+                  icon: 'fas:angle-up'
+                  tap_action:
+                    action: call-service
+                    service: cover.open_cover
+                    service_data:
+                      entity_id: cover.bedroom_blinds
+                  template: icon_only
+                - type: 'custom:button-card'
+                  name: Stop/My
+                  icon: 'fas:stop-circle'
+                  tap_action:
+                    action: call-service
+                    service: cover.stop_cover
+                    service_data:
+                      entity_id: cover.bedroom_blinds
+                  template: icon_only
+                - type: 'custom:button-card'
+                  name: Blinds Close
+                  icon: 'fas:angle-down'
+                  tap_action:
+                    action: call-service
+                    service: cover.close_cover
+                    service_data:
+                      entity_id: cover.bedroom_blinds
                   template: icon_only
     styles:
       grid:
@@ -1242,11 +1386,11 @@ button_card_templates:
           - margin-left: 1%
           - fill: >
               [[[
-                return entity.attributes.days <= 1 ? 'var(--color-green-bright-1)' : '#9da0a2';
+                return variables.state === 'closing' ? '#629dc4' :'#9da0a2';
               ]]]
     custom_fields:
       icon: >
-        <svg viewBox="0 0 512.109 512.109">
+        <svg viewBox="0 0 60 60">
             <style>
                 @keyframes on {
                   0% {
@@ -1273,21 +1417,28 @@ button_card_templates:
                   transform-origin: center;
                 }
               </style>
-            <path style="fill:#AA043B;" d="M7.2,274.4c4,0.8,9.6,0.8,13.6,0.8C88,273.6,128,168.8,151.2,32c1.6-10.4,4-16,4.8-32H0v273.6
-              C8,273.6,5.6,274.4,7.2,274.4z"/>
-            <path style="fill:#CE053E;" d="M0,496V292.8c8-0.8,5.6-0.8,7.2-0.8c76-12.8,125.6,114.4,183.2,172c7.2,7.2,4,16,5.6,32H0z"/>
-            <path style="fill:#AA043B;" d="M154.4,464c-51.2-51.2-64.8-157.6-120.8-171.2c-3.2-0.8-6.4-1.6-9.6-1.6c-4,0-8,0-12.8,0.8
-              c-1.6,0-5.6,0.8-7.2,0.8l-4,6.4V496h158.4C157.6,480,161.6,471.2,154.4,464z"/>
-            <path style="fill:#F7B208;" d="M58.4,264H0v40h58.4c9.6,0,18.4-10.4,18.4-20S68,264,58.4,264z"/>
-            <path style="fill:#EA8B00;" d="M55.2,284c0-9.6-8-20-18.4-20H0v40h36.8C47.2,304,55.2,293.6,55.2,284z"/>
-            <path style="fill:#CE053E;" d="M496,0v273.6c0,0.8-1.6,0.8-3.2,0.8c-76,12.8-164.8-96-189.6-242.4c-1.6-10.4-2.4-16-3.2-32H496z"/>
-            <path style="fill:#AA043B;" d="M492.8,274.4c-4,0.8-8,0.8-12,0.8C413.6,273.6,367.2,168.8,344,32c-1.6-10.4-2.4-16-4-32h156v273.6
-              C496,273.6,494.4,274.4,492.8,274.4z"/>
-            <path style="fill:#CE053E;" d="M496,496V292.8c0-0.8-1.6-0.8-3.2-0.8c-76-13.6-132,113.6-189.6,172c-7.2,7.2-2.4,16-3.2,32H496z"/>
-            <path style="fill:#AA043B;" d="M341.6,464c51.2-51.2,72.8-157.6,128.8-171.2c3.2-0.8,6.4-1.6,9.6-1.6c4,0,8,0,12.8,0.8
-              c1.6,0,0.8,0.8,2.4,0.8v6.4V496H337.6C338.4,480,334.4,471.2,341.6,464z"/>
-            <path style="fill:#F7B208;" d="M437.6,264H496v40h-58.4c-9.6,0-18.4-10.4-18.4-20S428,264,437.6,264z"/>
-            <path style="fill:#EA8B00;" d="M440.8,284c0-9.6,8-20,18.4-20H496v40h-36.8C448.8,304,440.8,293.6,440.8,284z"/>
+            <path d="M16,15c0.256,0,0.512-0.098,0.707-0.293l4-4c0.391-0.391,0.391-1.023,0-1.414s-1.023-0.391-1.414,0l-4,4
+              c-0.391,0.391-0.391,1.023,0,1.414C15.488,14.902,15.744,15,16,15z"/>
+            <path d="M17.293,16.293l-2,2c-0.391,0.391-0.391,1.023,0,1.414C15.488,19.902,15.744,20,16,20s0.512-0.098,0.707-0.293l2-2
+              c0.391-0.391,0.391-1.023,0-1.414S17.684,15.902,17.293,16.293z"/>
+            <path d="M19.29,14.29C19.11,14.479,19,14.74,19,15s0.11,0.52,0.29,0.71C19.48,15.89,19.74,16,20,16c0.26,0,0.52-0.11,0.71-0.29
+              C20.89,15.52,21,15.26,21,15s-0.11-0.521-0.29-0.71C20.34,13.92,19.66,13.92,19.29,14.29z"/>
+            <path d="M24.293,9.293l-3,3c-0.391,0.391-0.391,1.023,0,1.414C21.488,13.902,21.744,14,22,14s0.512-0.098,0.707-0.293l3-3
+              c0.391-0.391,0.391-1.023,0-1.414S24.684,8.902,24.293,9.293z"/>
+            <path d="M43.293,30.293l-4,4c-0.391,0.391-0.391,1.023,0,1.414C39.488,35.902,39.744,36,40,36s0.512-0.098,0.707-0.293l4-4
+              c0.391-0.391,0.391-1.023,0-1.414S43.684,29.902,43.293,30.293z"/>
+            <path d="M42,29c0.256,0,0.512-0.098,0.707-0.293l2-2c0.391-0.391,0.391-1.023,0-1.414s-1.023-0.391-1.414,0l-2,2
+              c-0.391,0.391-0.391,1.023,0,1.414C41.488,28.902,41.744,29,42,29z"/>
+            <path d="M40,31c0.26,0,0.52-0.11,0.71-0.29C40.89,30.52,41,30.26,41,30s-0.11-0.521-0.29-0.71c-0.38-0.37-1.04-0.37-1.42,0
+              C39.11,29.479,39,29.74,39,30s0.11,0.52,0.29,0.71C39.48,30.89,39.74,31,40,31z"/>
+            <path d="M38.707,31.293c-0.391-0.391-1.023-0.391-1.414,0l-3,3c-0.391,0.391-0.391,1.023,0,1.414C34.488,35.902,34.744,36,35,36
+              s0.512-0.098,0.707-0.293l3-3C39.098,32.316,39.098,31.684,38.707,31.293z"/>
+            <path d="M58,4h1c0.552,0,1-0.447,1-1s-0.448-1-1-1h-1V1c0-0.553-0.448-1-1-1s-1,0.447-1,1v1h-2V1c0-0.553-0.448-1-1-1s-1,0.447-1,1
+              v1h-2V1c0-0.553-0.448-1-1-1s-1,0.447-1,1v1H12V1c0-0.553-0.448-1-1-1s-1,0.447-1,1v1H8V1c0-0.553-0.448-1-1-1S6,0.447,6,1v1H4V1
+              c0-0.553-0.448-1-1-1S2,0.447,2,1v1H1C0.448,2,0,2.447,0,3s0.448,1,1,1h1v1H0v55h4h2h2h2h4V46h32v14h4h2h2h2h4V5h-2V4z M48,4v1h-2
+              H31v15c-0.552,0-1,0.447-1,1s0.448,1,1,1v17h15v1H14v-1h15V5H14h-2V4H48z M33,22h2c0.552,0,1-0.447,1-1s-0.448-1-1-1h-2V7h13v30H33
+              V22z M14,37V7h13v30H14z M4,58H2V7h2V58z M4,5V4h2v1H4z M8,58H6V7h2V58z M8,5V4h2v1H8z M12,58h-2V7h2v30v3v2v4V58z M14,44v-2h32v2
+              H14z M50,58h-2V46v-4v-2v-3V7h2V58z M50,5V4h2v1H50z M54,58h-2V7h2V58z M58,58h-2V7h2V58z M54,5V4h2v1H54z"/>
         </svg>
 
   icon_fireplace:
@@ -1452,6 +1603,64 @@ button_card_templates:
           }
         ]]]
 
+  icon_blinds:
+    styles:
+      custom_fields:
+        icon:
+          - width: 89%
+          - height: 77%
+          - margin-top: -7%
+          - margin-left: 1%
+          - fill: >
+              [[[
+                return variables.state === 'open' ? '#629dc4' :'#9da0a2';
+              ]]]
+    custom_fields:
+      icon: >
+        <svg viewBox="0 0 512.006 512.006">
+            <style>
+                @keyframes on {
+                  0% {
+                    transform: scale(0.85);
+                  }
+                  20% {
+                    transform: scale(1.1);
+                  }
+                  40% {
+                    transform: scale(0.95);
+                  }
+                  60% {
+                    transform: scale(1.03);
+                  }
+                  80% {
+                    transform: scale(0.97);
+                  }
+                  100% {
+                    transform: scale(1);
+                  }
+                }
+                .on {
+                  animation: on 0.8s;
+                  transform-origin: center;
+                }
+              </style>
+            <path d="M485.4,459.8h-17.067H459.8V48.824c10.103-3.391,17.067-12.734,17.067-24.224c0-14.507-11.093-25.6-25.6-25.6H58.733
+              c-14.507,0-25.6,11.093-25.6,25.6c0,11.362,7.329,20.629,17.067,24.113V459.8h-8.533H24.6c-5.12,0-8.533,3.413-8.533,8.533
+              s3.413,8.533,8.533,8.533h8.533v8.533c0,14.507,11.093,25.6,25.6,25.6h392.533c14.507,0,25.6-11.093,25.6-25.6v-8.533h8.533
+              c5.12,0,8.533-3.413,8.533-8.533S490.52,459.8,485.4,459.8z M58.733,16.067h392.533c5.12,0,8.533,3.413,8.533,8.533
+              s-3.413,8.533-8.533,8.533H58.733c-5.12,0-8.533-4.267-8.533-8.533S54.467,16.067,58.733,16.067z M67.267,50.2h375.467v409.6
+              h-17.067V212.333V75.8c0-5.12-3.413-8.533-8.533-8.533H92.867c-5.12,0-8.533,3.413-8.533,8.533v136.533V459.8H67.267V50.2z
+              M408.6,101.4h-51.2c-5.12,0-8.533,3.413-8.533,8.533s3.413,8.533,8.533,8.533h51.2v17.067h-34.133
+              c-5.12,0-8.533,3.413-8.533,8.533c0,5.12,3.413,8.533,8.533,8.533H408.6v17.067h-17.067c-5.12,0-8.533,3.413-8.533,8.533
+              s3.413,8.533,8.533,8.533H408.6V203.8H101.4v-17.067h51.2c5.12,0,8.533-3.413,8.533-8.533s-3.413-8.533-8.533-8.533h-51.2V152.6
+              h34.133c5.12,0,8.533-3.413,8.533-8.533c0-5.12-3.413-8.533-8.533-8.533H101.4v-17.067h17.067c5.12,0,8.533-3.413,8.533-8.533
+              s-3.413-8.533-8.533-8.533H101.4V84.333h307.2V101.4z M255,255c9.387,0,17.067,7.68,17.067,17.067s-7.68,17.067-17.067,17.067
+              c-9.387,0-17.067-7.68-17.067-17.067S245.613,255,255,255z M101.4,220.867h145.067v18.154c-14.679,3.814-25.6,17.216-25.6,33.046
+              c0,18.773,15.36,34.133,34.133,34.133s34.133-15.36,34.133-34.133c0-15.829-10.921-29.232-25.6-33.046v-18.154H408.6V459.8H101.4
+              V220.867z M459.8,485.4c0,5.12-3.413,8.533-8.533,8.533H58.733c-5.12,0-8.533-3.413-8.533-8.533v-8.533h8.533h34.133h324.267
+              h34.133h8.533V485.4z"/>
+        </svg>
+
   icon_garage:
     styles:
       custom_fields:
@@ -1462,7 +1671,7 @@ button_card_templates:
           - margin-left: 1%
           - fill: >
               [[[
-                return variables.state === 'open' ? 'var(--color-red-bright-1)' : '#9da0a2';
+                return variables.state === 'open' ? '#629dc4' : '#9da0a2';
               ]]]
     custom_fields:
       icon: >
@@ -1512,7 +1721,7 @@ button_card_templates:
           - margin-left: 1%
           - fill: >
               [[[
-                return entity.attributes.days <= 1 ? 'var(--color-black-bright-1)' : '#9da0a2';
+                return entity.attributes.days <= 1 ? '#629dc4' : '#9da0a2';
               ]]]
     custom_fields:
       icon: >
@@ -1807,14 +2016,14 @@ button_card_templates:
           - margin-left: 1%
           - fill: >
               [[[
-                return variables.state === 'on' ? '#616161' : '#9da0a2';
+                return variables.state !== 'off' ? '#616161' : '#9da0a2';
               ]]]
     custom_fields:
       icon: >
         [[[
           const style = `
             <style>
-              @keyframes on {
+              @keyframes playing {
                 from {
                   transform: scaleY(0);
                 }
@@ -1822,8 +2031,8 @@ button_card_templates:
                   transform: scaleY(1);
                 }
               }
-              .on {
-                animation: on 1s;
+              .playing {
+                animation: playing 1s;
                 transform-origin: -100% 46%;
                 animation-fill-mode: forwards;
               }
@@ -1851,15 +2060,15 @@ button_card_templates:
               <stop offset="1" stop-color="#7fdbe9"/>
             </linearGradient>
           `;
-          if (variables.state === 'on' && variables.timeout < 2000) {
+          if (variables.state !== 'off' && variables.timeout < 2000) {
             return `
               <svg viewBox="0 0 50 50"> ${style} ${gradient} 
                 <path d="M2.9,8h44.3v29.9H2.9V8z" fill="#20262890"/>
-                <path class="on" d="M2.9,8h44.3v29.9H2.9V8z" fill="url(#A)"/> ${path} 
+                <path class="playing" d="M2.9,8h44.3v29.9H2.9V8z" fill="url(#A)"/> ${path} 
               </svg>
             `;
           }
-          if (variables.state === 'on' && variables.timeout > 2000) {
+          if (variables.state !== 'off' && variables.timeout > 2000) {
             return `
               <svg viewBox="0 0 50 50"> ${gradient} 
                 <path d="M2.9,8h44.3v29.9H2.9V8z" fill="#20262890"/>

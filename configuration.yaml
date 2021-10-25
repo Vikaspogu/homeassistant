@@ -167,6 +167,8 @@ lovelace:
       type: module
     - url: '/local/custom-ui/custom_icons.js?v=28082021'
       type: module
+    - url: /hacsfiles/Homekit-panel-card/homekit-panel-card.js
+      type: module            
                 
     # Styles
     - url: "https://fonts.googleapis.com/css2?family=Raleway&display=swap"
@@ -206,10 +208,11 @@ notify:
   - name: ha_message
     platform: group
     services:
-    - service: mobile_app_sm_g781v
+    - service: mobile_app_sm_vpogu
 
 input_number: !include_dir_merge_named input_number
 input_datetime: !include_dir_merge_named input_datetime
+input_boolean: !include_dir_merge_named input_boolean
 sensor: !include_dir_merge_list sensor
 google_assistant: !include google_assistant_integ.yaml
 timer: !include_dir_merge_named timer
@@ -222,15 +225,15 @@ switch:
     lights_ct:
       - light.living_room_dining_lights
 
-media_player:
-  - platform: braviatv_psk
-    host: !secret tv_ip
-    psk: sony
-    mac: !secret tv_mac_address
-    amp: True
-    android: True
-    sourcefilter:
-      - ' HD'
-      - HDMI
-    time_format: 12H
-    user_labels: True
+# media_player:
+#   - platform: braviatv_psk
+#     host: !secret tv_ip
+#     psk: sony
+#     mac: !secret tv_mac_address
+#     amp: True
+#     android: True
+#     sourcefilter:
+#       - ' HD'
+#       - HDMI
+#     time_format: 12H
+#     user_labels: True

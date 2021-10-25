@@ -17,7 +17,7 @@ browser_mod:
     cards:
       - type: conditional
         conditions:
-          - entity: media_player.sony_bravia_tv
+          - entity: media_player.sony_bravia_tv_2
             state: 'off'
         card:
           type: vertical-stack
@@ -35,13 +35,13 @@ browser_mod:
                       font-family: var(--primary-font-family)
                     }
               entities:
-                - entity: media_player.sony_bravia_tv
+                - entity: media_player.sony_bravia_tv_2
                   name: Bravia TV
                   secondary_info: last-changed
       - type: conditional
         conditions:
-          - entity: media_player.sony_bravia_tv
-            state: 'on'
+          - entity: media_player.sony_bravia_tv_2
+            state: 'playing'
         card:
           type: vertical-stack
           cards:
@@ -55,7 +55,7 @@ browser_mod:
                       margin: 0px !important;
                       font-family: var(--primary-font-family)
                     }
-              entity: media_player.sony_bravia_tv
+              entity: media_player.sony_bravia_tv_2
               icon: 'mdi:television'
               artwork: cover
               source: icon
@@ -66,29 +66,56 @@ browser_mod:
                 columns: 3
                 buttons:
                   - icon: mdi:home
-                    type: tvshow
-                    id: Home
+                    type: service
+                    id: remote.send_command
+                    data:
+                      device_id: 11b3f9c177d4afd0aae04eb1b25bb9b9
+                      command: Home
                   - icon: mdi:arrow-up-circle
-                    type: tvshow
-                    id: Up
+                    type: service
+                    id: remote.send_command
+                    data:
+                      device_id: 11b3f9c177d4afd0aae04eb1b25bb9b9
+                      command: Up
                   - icon: mdi:plex
-                    type: script
-                    id: script.tv_open_plex
+                    type: service
+                    id: remote.send_command
+                    data:
+                      device_id: 11b3f9c177d4afd0aae04eb1b25bb9b9
+                      command: Plex
                   - icon: mdi:arrow-left-circle
-                    type: tvshow
-                    id: Left
+                    type: service
+                    id: remote.send_command
+                    data:
+                      device_id: 11b3f9c177d4afd0aae04eb1b25bb9b9
+                      command: Left
                   - icon: mdi:check-circle
-                    type: tvshow
-                    id: Confirm
+                    type: service
+                    id: remote.send_command
+                    data:
+                      device_id: 11b3f9c177d4afd0aae04eb1b25bb9b9
+                      command: Confirm
                   - icon: mdi:arrow-right-circle
-                    type: tvshow
-                    id: Right
+                    type: service
+                    id: remote.send_command
+                    data:
+                      device_id: 11b3f9c177d4afd0aae04eb1b25bb9b9
+                      command: Right
                   - icon: mdi:volume-mute
-                    type: tvshow
-                    id: Mute
+                    type: service
+                    id: remote.send_command
+                    data:
+                      device_id: 11b3f9c177d4afd0aae04eb1b25bb9b9
+                      command: Mute
                   - icon: mdi:arrow-down-circle
-                    type: tvshow
-                    id: :quit:Down
+                    type: service
+                    id: remote.send_command
+                    data:
+                      device_id: 11b3f9c177d4afd0aae04eb1b25bb9b9
+                      command: Down
                   - icon: mdi:exit-to-app
-                    type: tvshow
-                    id: Return
+                    type: service
+                    id: remote.send_command
+                    data:
+                      device_id: 11b3f9c177d4afd0aae04eb1b25bb9b9
+                      command: Return

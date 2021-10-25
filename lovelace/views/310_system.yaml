@@ -397,6 +397,8 @@ cards:
         name: "Living motion sensor"
       - entity: sensor.officemotionsensor_battery
         name: "Office motion sensor"
+      - entity: sensor.bedroom_blinds_battery_level
+        name: Bedroom Blinds
   - type: markdown
     style: |
       ha-card {
