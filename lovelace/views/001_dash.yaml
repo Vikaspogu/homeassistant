@@ -55,10 +55,10 @@ cards:
               }
             ]]]
       - type: custom:button-card
-        entity: cover.living_room
+        entity: cover.bedroom_curtain
         name: Bedroom Curtain
         template:
-          - base_curtain
+          - base
           - icon_curtain
       - type: custom:button-card
         entity: cover.bedroom_blinds
@@ -66,12 +66,6 @@ cards:
         template:
           - base_blinds
           - icon_blinds
-      - type: 'custom:button-card'
-        entity: switch.smart_power_strip_1
-        name: Bedroom LED
-        template:
-          - base
-          - icon_led_strip
       - type: custom:button-card
         entity: switch.bedroompurifier
         name: Bedroom Purifier
@@ -86,6 +80,12 @@ cards:
                   'On' : 'Off';
               }
             ]]]
+      - type: 'custom:button-card'
+        entity: cover.curtain_living_room
+        name: Living Room Curtains
+        template:
+          - base
+          - icon_curtain
       - type: custom:button-card
         entity: light.living_room_dining_lights
         name: Living Room Dine
@@ -156,21 +156,21 @@ cards:
     cards:
       - type: entities
         entities:
-          - entity: sensor.vikas_kumar_s_galaxy_s20_fe_5g_room_presence
+          - entity: sensor.vpogu_pixel_6_room_presence
             name: Room Presence
             icon: "fas:location-arrow"
           - type: attribute
-            entity: sensor.vikas_kumar_s_galaxy_s20_fe_5g_room_presence
+            entity: sensor.vpogu_pixel_6_room_presence
             attribute: distance
             name: Distance
             icon: "fas:map-marker-alt"
           - type: attribute
             icon: "fas:info-circle"
-            entity: sensor.vikas_kumar_s_galaxy_s20_fe_5g_room_presence
+            entity: sensor.vpogu_pixel_6_room_presence
             attribute: last_updated_at
             name: Last Updated
-          - entity: device_tracker.vikas_kumar_s_galaxy_s20_fe_5g_tracker
-            name: Vikas's Galaxy S20
+          - entity: device_tracker.vpogu_pixel_6_tracker
+            name: Vikas's Pixel
   - type: markdown
     style: |
       ha-card {

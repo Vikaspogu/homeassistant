@@ -1386,7 +1386,7 @@ button_card_templates:
           - margin-left: 1%
           - fill: >
               [[[
-                return variables.state === 'closing' ? '#629dc4' :'#9da0a2';
+                return variables.state === 'open' ? '#629dc4' :'#9da0a2';
               ]]]
     custom_fields:
       icon: >

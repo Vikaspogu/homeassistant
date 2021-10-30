@@ -219,6 +219,10 @@ timer: !include_dir_merge_named timer
 
 circadian_lighting:
 
+adaptive_lighting:
+  lights:
+    - light.office_ceiling_lights
+
 switch:
   - platform: circadian_lighting
     name: circadian lighting living room
