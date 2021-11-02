@@ -2,14 +2,14 @@ light:
   - platform: group
     name: Office Ceiling Lights
     entities:
-      - light.officeceiling_1
-      - light.officeceiling_2
+      - light.officeceilinglights_1
+      - light.officeceilinglights_2
 
   - platform: group
     name: Living Room Dining Lights
     entities:
-      - light.livingroomdine_1
-      - light.livingroomdine_2
-      - light.livingroomdine_3
-      - light.livingroomdine_4
-      - light.livingroomdine_5
+      - light.livingroomdining_1
+      - light.livingroomdining_2
+      - light.livingroomdining_3
+      - light.livingroomdining_4
+      - light.livingroomdining_5

@@ -41,7 +41,7 @@ cards:
           - light
           - icon_hue
       - type: custom:button-card
-        entity: switch.officepurifier
+        entity: switch.office_purifier
         name: Office Purifier
         template:
           - base
@@ -67,7 +67,7 @@ cards:
           - base_blinds
           - icon_blinds
       - type: custom:button-card
-        entity: switch.bedroompurifier
+        entity: switch.bedroom_purifier
         name: Bedroom Purifier
         template:
           - base

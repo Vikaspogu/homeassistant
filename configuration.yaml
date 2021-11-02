@@ -70,6 +70,62 @@ cover:
         Unknown 
       {% endif %}
 
+  # - platform: template
+  #   covers:
+  #     bedroom_curtains_api:
+  #       device_class: curtain
+  #       friendly_name: "Bedroom Curtains"
+  #       position_template: "{{ states('sensor.bedroom_curtain_position') }}"
+  #       open_cover:
+  #         service: rest_command.switchbot_device_command
+  #         data:
+  #           deviceId: !secret switchbot_bedroom_deviceId
+  #           command: "turnOn"
+  #       close_cover:
+  #         service: rest_command.switchbot_device_command
+  #         data:
+  #           deviceId: !secret switchbot_bedroom_deviceId
+  #           command: "turnOff"
+  #       stop_cover:
+  #         service: rest_command.switchbot_device_command
+  #         data:
+  #           deviceId: !secret switchbot_bedroom_deviceId
+  #           command: "turnOff"
+  #       set_cover_position:
+  #         service: rest_command.switchbot_device_command
+  #         data:
+  #           deviceId: !secret switchbot_bedroom_deviceId
+  #           command: "setPosition"
+  #           parameter: "0,ff,{{position}}"
+            
+  # - platform: template
+  #   covers:
+  #     livingroom_curtains_api:
+  #       device_class: curtain
+  #       friendly_name: "Livingroom Curtains"
+  #       position_template: "{{ states('sensor.livingroom_curtain_position') }}"
+  #       open_cover:
+  #         service: rest_command.switchbot_device_command
+  #         data:
+  #           deviceId: !secret switchbot_livingroom_deviceId
+  #           command: "turnOn"
+  #       close_cover:
+  #         service: rest_command.switchbot_device_command
+  #         data:
+  #           deviceId: !secret switchbot_livingroom_deviceId
+  #           command: "turnOff"
+  #       stop_cover:
+  #         service: rest_command.switchbot_device_command
+  #         data:
+  #           deviceId: !secret switchbot_livingroom_deviceId
+  #           command: "turnOff"
+  #       set_cover_position:
+  #         service: rest_command.switchbot_device_command
+  #         data:
+  #           deviceId: !secret switchbot_livingroom_deviceId
+  #           command: "setPosition"
+  #           parameter: "0,ff,{{position}}"
+
 ble_monitor:
   bt_interface: !secret ble_interface
   discovery: False
@@ -219,25 +275,17 @@ timer: !include_dir_merge_named timer
 
 circadian_lighting:
 
-adaptive_lighting:
-  lights:
-    - light.office_ceiling_lights
-
 switch:
   - platform: circadian_lighting
     name: circadian lighting living room
     lights_ct:
       - light.living_room_dining_lights
 
-# media_player:
-#   - platform: braviatv_psk
-#     host: !secret tv_ip
-#     psk: sony
-#     mac: !secret tv_mac_address
-#     amp: True
-#     android: True
-#     sourcefilter:
-#       - ' HD'
-#       - HDMI
-#     time_format: 12H
-#     user_labels: True
+# rest_command:
+#   switchbot_device_command:
+#     url: 'https://api.switch-bot.com/v1.0/devices/{{ deviceId }}/commands'
+#     method: post
+#     content_type: 'application/json'
+#     headers:
+#       Authorization: !secret switchbot_api
+#     payload: '{"command": "{{ command }}","parameter": "{{ parameter }}"}'
