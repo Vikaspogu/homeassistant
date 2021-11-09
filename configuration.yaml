@@ -30,6 +30,7 @@ http:
   trusted_proxies:
     - 192.168.20.0/24
     - 10.42.3.0/24
+    - 10.42.2.0/24
 
 proximity:
   home_tesla:
@@ -130,7 +131,7 @@ ble_monitor:
   bt_interface: !secret ble_interface
   discovery: False
   active_scan: False
-  report_unknown: False
+  report_unknown: "Off"
   decimals: 1
   period: 60
   log_spikes: False
@@ -280,6 +281,10 @@ switch:
     name: circadian lighting living room
     lights_ct:
       - light.living_room_dining_lights
+  - platform: circadian_lighting
+    name: circadian lighting kitchen
+    lights_ct:
+      - light.kitchen_lights
 
 # rest_command:
 #   switchbot_device_command:

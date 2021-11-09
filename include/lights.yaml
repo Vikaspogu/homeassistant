@@ -13,3 +13,12 @@ light:
       - light.livingroomdining_3
       - light.livingroomdining_4
       - light.livingroomdining_5
+  
+  - platform: group
+    name: Kitchen Lights
+    entities:
+      - light.kitchenlights_1
+      - light.kitchenlights_2
+      - light.kitchenlights_3
+      - light.kitchenlights_4
+      - light.kitchenlights_5

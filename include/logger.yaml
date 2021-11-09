@@ -1,6 +1,6 @@
 logger:
   # Log Severities: notset, debug, info, warn, warning, error, fatal, critical
-  default: debug
+  default: info
   #default: warning
   logs:
     aiohttp.access: critical
@@ -33,3 +33,4 @@ logger:
     root: warn
     skybellpy: warn
     custom_components.webrtc: debug
+    homeassistant.components.smartthings: debug

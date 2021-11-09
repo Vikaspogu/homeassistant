@@ -45,7 +45,7 @@ cards:
         name: Office Purifier
         template:
           - base
-          - icon_fan
+          - icon_fan2
         variables:
           circle_input: >
             [[[
@@ -71,7 +71,7 @@ cards:
         name: Bedroom Purifier
         template:
           - base
-          - icon_fan
+          - icon_fan2
         variables:
           circle_input: >
             [[[
@@ -98,6 +98,12 @@ cards:
         template:
           - light
           - icon_led_strip
+      - type: 'custom:button-card'
+        entity: light.kitchen_lights
+        name: Kitchen Lights
+        template:
+          - light
+          - icon_spot
       
   - type: markdown
     style: |
@@ -122,6 +128,14 @@ cards:
       - type: entities
         entities:
           - entity: switch.circadian_lighting_circadian_lighting_living_room
+            type: custom:multiple-entity-row
+            name: Circadian Living Lights
+            secondary_info: last-changed
+            toggle: true
+            state_color: true
+      - type: entities
+        entities:
+          - entity: switch.circadian_lighting_circadian_lighting_kitchen
             type: custom:multiple-entity-row
             name: Circadian Living Lights
             secondary_info: last-changed
