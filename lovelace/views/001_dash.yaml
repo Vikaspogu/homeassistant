@@ -35,7 +35,7 @@ cards:
     columns: 2
     cards:
       - type: custom:button-card
-        entity: light.office_ceiling_lights
+        entity: light.office_ceiling_lights_group
         name: Office Ceiling
         template:
           - light
@@ -87,7 +87,7 @@ cards:
           - base
           - icon_curtain
       - type: custom:button-card
-        entity: light.living_room_dining_lights
+        entity: light.living_room_dining_group
         name: Living Room Dine
         template:
           - light
@@ -99,7 +99,7 @@ cards:
           - light
           - icon_led_strip
       - type: 'custom:button-card'
-        entity: light.kitchen_lights
+        entity: light.kitchen_lights_group
         name: Kitchen Lights
         template:
           - light
