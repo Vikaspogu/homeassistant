@@ -6,13 +6,25 @@ id: dash
 cards:
   ## ROW 1 ###################################################################################################################
   - type: grid
-    columns: 2
+    columns: 3
     cards:
       - type: custom:button-card
         entity: cover.garage_door
         template:
           - base
           - icon_garage
+      # - type: custom:button-card
+      #   entity: sensor.garbage
+      #   name: Trash Pick-up
+      #   template:
+      #     - garbage
+      #     - icon_garbage
+      # - type: custom:button-card
+      #   entity: sensor.recycle
+      #   name: Recycle Pick-up
+      #   template:
+      #     - garbage
+      #     - icon_recycle
   - type: markdown
     style: |
       ha-card {
@@ -32,7 +44,7 @@ cards:
       }
     content: SWITCHES
   - type: grid
-    columns: 2
+    columns: 3
     cards:
       - type: custom:button-card
         entity: light.office_ceiling_lights_group
@@ -40,6 +52,18 @@ cards:
         template:
           - light
           - icon_hue
+      - type: custom:button-card
+        entity: light.living_room_dining_group
+        name: Living Room Dine
+        template:
+          - light
+          - icon_hue
+      - type: 'custom:button-card'
+        entity: light.kitchen_lights_group
+        name: Kitchen Lights
+        template:
+          - light
+          - icon_spot
       - type: custom:button-card
         entity: switch.office_purifier
         name: Office Purifier
@@ -55,18 +79,6 @@ cards:
               }
             ]]]
       - type: custom:button-card
-        entity: cover.bedroom_curtain
-        name: Bedroom Curtain
-        template:
-          - base
-          - icon_curtain
-      - type: custom:button-card
-        entity: cover.bedroom_blinds
-        name: Bedroom Blinds
-        template:
-          - base_blinds
-          - icon_blinds
-      - type: custom:button-card
         entity: switch.bedroom_purifier
         name: Bedroom Purifier
         template:
@@ -81,29 +93,29 @@ cards:
               }
             ]]]
       - type: 'custom:button-card'
-        entity: cover.curtain_living_room
-        name: Living Room Curtains
-        template:
-          - base
-          - icon_curtain
-      - type: custom:button-card
-        entity: light.living_room_dining_group
-        name: Living Room Dine
-        template:
-          - light
-          - icon_hue
-      - type: 'custom:button-card'
         entity: light.tv_h6199
         name: TV LED Strip
         template:
           - light
           - icon_led_strip
-      - type: 'custom:button-card'
-        entity: light.kitchen_lights_group
-        name: Kitchen Lights
+      - type: custom:button-card
+        entity: cover.bedroom_curtain
+        name: Bedroom Curtain
         template:
-          - light
-          - icon_spot
+          - base
+          - icon_curtain
+      - type: custom:button-card
+        entity: cover.bedroom_blinds
+        name: Bedroom Blinds
+        template:
+          - base_blinds
+          - icon_blinds
+      - type: 'custom:button-card'
+        entity: cover.curtain_living_room
+        name: Living Room Curtains
+        template:
+          - base
+          - icon_curtain      
       
   - type: markdown
     style: |
@@ -137,15 +149,8 @@ cards:
         entities:
           - entity: switch.circadian_lighting_circadian_lighting_kitchen
             type: custom:multiple-entity-row
-            name: Circadian Living Lights
+            name: Circadian Kitchen Lights
             secondary_info: last-changed
-            toggle: true
-            state_color: true
-      - type: entities
-        entities:
-          - entity: input_boolean.living_room_override
-            type: custom:multiple-entity-row
-            name: Override living room lights
             toggle: true
             state_color: true
   - type: markdown
@@ -277,36 +282,3 @@ cards:
   - type: 'custom:frigate-card'
     camera_entity: camera.doorbell
     frigate_url: http://frigate
-  - type: markdown
-    style: |
-      ha-card {
-        font-size: var(--font-size-title);
-        font-family: var(--font-title);
-        line-height: 30px;
-        background: none;
-        margin-top: 0.4em;
-        margin-left: 8px;
-        margin-bottom: 0em;
-        box-shadow: none;
-        background: none;
-      }
-      ha-markdown {
-        padding: 0px 0px 0px 8px !important;
-        border-left: 3px solid var(--accent-color);
-      }
-    content: TRASH/RECYCLE
-  - type: grid
-    columns: 2
-    cards:
-      - type: custom:button-card
-        entity: sensor.garbage
-        name: Trash Pick-up
-        template:
-          - garbage
-          - icon_garbage
-      - type: custom:button-card
-        entity: sensor.recycle
-        name: Recycle Pick-up
-        template:
-          - garbage
-          - icon_recycle

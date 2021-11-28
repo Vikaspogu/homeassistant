@@ -1949,7 +1949,7 @@ button_card_templates:
         [[[
           let state = variables.state === 'on' && variables.timeout < 2000 ? 'on' : null;
           return `
-            <svg height="125" width="125" viewBox="0 0 50 50">
+            <svg height="80" width="80" viewBox="0 0 50 50">
               <style>
                 @keyframes on {
                   0% {

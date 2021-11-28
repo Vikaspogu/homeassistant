@@ -1,5 +1,5 @@
 
-# Configure a default setup of Home Assistant (frontend, api, etc)
+# Configure a default setup of Home Assistant (- /hacsfiles/lovelace-card-mod/card-mod.jstend, api, etc)
 default_config:
 
 homeassistant:
@@ -24,6 +24,7 @@ frontend:
   themes: !include_dir_merge_named themes
   extra_module_url:
     - /local/custom-ui/custom-ui.js
+    - /hacsfiles/lovelace-card-mod/card-mod.js
 
 http:
   use_x_forwarded_for: true
