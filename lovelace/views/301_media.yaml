@@ -38,86 +38,46 @@ cards:
             power_state: false
             volume: true
           volume_stateless: true
-  - type: markdown
-    style: |
-      ha-card {
-        font-size: var(--font-size-title);
-        font-family: var(--font-title);
-        line-height: 30px;
-        background: none;
-        margin-top: 0.4em;
-        margin-left: 8px;
-        margin-bottom: 0em;
-        box-shadow: none;
-        background: none;
-      }
-      ha-markdown {
-        padding: 0px 0px 0px 8px !important;
-        border-left: 3px solid var(--accent-color);
-      }
-    content: TRANSMISSION
+  - content: >
+      # <img width="30" height="30" src='/local/images/icons/transmission.png'
+      style='vertical-align:middle' /> Media Downloads 
+    style:
+      .: |
+        ha-card {
+          background-color: transparent !important;
+          box-shadow: none !important;
+        }
+      ha-markdown:
+        $: |
+          h1 {
+            font-size: 25px;
+            # font-weight: bold;
+            text-align: center;
+            letter-spacing: '-0.01em';
+          }
+    type: markdown
   - type: custom:transmission-card
     hide_type: false
     hide_header: true
     default_type: active
-  # - type: markdown
-  #   style: |
-  #     ha-card {
-  #       font-size: var(--font-size-title);
-  #       font-family: var(--font-title);
-  #       line-height: 30px;
-  #       background: none;
-  #       margin-top: 0.4em;
-  #       margin-left: 8px;
-  #       margin-bottom: 0em;
-  #       box-shadow: none;
-  #       background: none;
-  #     }
-  #     ha-markdown {
-  #       padding: 0px 0px 0px 8px !important;
-  #       border-left: 3px solid var(--accent-color);
-  #     }
-  #   content: PLEX RECENTLY ADDED
-  # - type: custom:upcoming-media-card
-  #   entity: sensor.recently_added_movies
-  #   accent_color: var(--color-blue-deepdark-2)
-  #   border_color: rgba(45,53,82,0)
-  #   text_shadows: false
-  #   date: ddmm
-  #   flag_color: '#13274b'
-  #   image_style: fanart
-  #   line1_text: $empty
-  #   line2_size: small
-  #   line2_text: $episode
-  #   line3_text: $number
-  #   line4_text: 'Runtime: $runtime'
-  #   title: false
-  #   title_size: large
-  #   title_text: $title
-  #   line_color: var(--accent-color)
-  #   style: |
-  #     ha-card {
-  #       font-size: var(--font-size-title);
-  #       font-family: var(--primary-font-family);
-  #     }
-  - type: markdown
-    style: |
-      ha-card {
-        font-size: var(--font-size-title);
-        font-family: var(--font-title);
-        line-height: 30px;
-        background: none;
-        margin-top: 0.4em;
-        margin-left: 8px;
-        margin-bottom: 0em;
-        box-shadow: none;
-        background: none;
-      }
-      ha-markdown {
-        padding: 0px 0px 0px 8px !important;
-        border-left: 3px solid var(--accent-color);
-      }
-    content: UPCOMING MEDIA
+  - content: >
+      # <img width="30" height="30" src='/local/images/icons/plex.png'
+      style='vertical-align:middle' /> Recently Added 
+    style:
+      .: |
+        ha-card {
+          background-color: transparent !important;
+          box-shadow: none !important;
+        }
+      ha-markdown:
+        $: |
+          h1 {
+            font-size: 25px;
+            # font-weight: bold;
+            text-align: center;
+            letter-spacing: '-0.01em';
+          }
+    type: markdown
   - type: custom:upcoming-media-card
     entity: sensor.sonarr_upcoming_media
     accent_color: var(--color-blue-deepdark-2)

@@ -13,36 +13,23 @@ cards:
         template:
           - base
           - icon_garage
-      # - type: custom:button-card
-      #   entity: sensor.garbage
-      #   name: Trash Pick-up
-      #   template:
-      #     - garbage
-      #     - icon_garbage
-      # - type: custom:button-card
-      #   entity: sensor.recycle
-      #   name: Recycle Pick-up
-      #   template:
-      #     - garbage
-      #     - icon_recycle
-  - type: markdown
-    style: |
-      ha-card {
-        font-size: var(--font-size-title);
-        font-family: var(--font-title);
-        line-height: 30px;
-        background: none;
-        margin-top: 0.4em;
-        margin-left: 8px;
-        margin-bottom: 0em;
-        box-shadow: none;
-        background: none;
-      }
-      ha-markdown {
-        padding: 0px 0px 0px 8px !important;
-        border-left: 3px solid var(--accent-color);
-      }
-    content: SWITCHES
+  - content: >
+      # Switches 
+    style:
+      .: |
+        ha-card {
+          background-color: transparent !important;
+          box-shadow: none !important;
+        }
+      ha-markdown:
+        $: |
+          h1 {
+            font-size: 25px;
+            # font-weight: bold;
+            text-align: center;
+            letter-spacing: '-0.01em';
+          }
+    type: markdown
   - type: grid
     columns: 3
     cards:
@@ -117,24 +104,23 @@ cards:
           - base
           - icon_curtain      
       
-  - type: markdown
-    style: |
-      ha-card {
-        font-size: var(--font-size-title);
-        font-family: var(--font-title);
-        line-height: 30px;
-        background: none;
-        margin-top: 0.4em;
-        margin-left: 8px;
-        margin-bottom: 0em;
-        box-shadow: none;
-        background: none;
-      }
-      ha-markdown {
-        padding: 0px 0px 0px 8px !important;
-        border-left: 3px solid var(--accent-color);
-      }
-    content: Lighting
+  - content: >
+      # Circadian Lighting
+    style:
+      .: |
+        ha-card {
+          background-color: transparent !important;
+          box-shadow: none !important;
+        }
+      ha-markdown:
+        $: |
+          h1 {
+            font-size: 25px;
+            # font-weight: bold;
+            text-align: center;
+            letter-spacing: '-0.01em';
+          }
+    type: markdown
   - type: custom:vertical-stack-in-card
     cards:
       - type: entities
@@ -153,24 +139,23 @@ cards:
             secondary_info: last-changed
             toggle: true
             state_color: true
-  - type: markdown
-    style: |
-      ha-card {
-        font-size: var(--font-size-title);
-        font-family: var(--font-title);
-        line-height: 30px;
-        background: none;
-        margin-top: 0.4em;
-        margin-left: 8px;
-        margin-bottom: 0em;
-        box-shadow: none;
-        background: none;
-      }
-      ha-markdown {
-        padding: 0px 0px 0px 8px !important;
-        border-left: 3px solid var(--accent-color);
-      }
-    content: Presence
+  - content: >
+      # Presence
+    style:
+      .: |
+        ha-card {
+          background-color: transparent !important;
+          box-shadow: none !important;
+        }
+      ha-markdown:
+        $: |
+          h1 {
+            font-size: 25px;
+            # font-weight: bold;
+            text-align: center;
+            letter-spacing: '-0.01em';
+          }
+    type: markdown
   - type: custom:vertical-stack-in-card
     cards:
       - type: entities
@@ -190,24 +175,24 @@ cards:
             name: Last Updated
           - entity: device_tracker.vpogu_pixel_6_tracker
             name: Vikas's Pixel
-  - type: markdown
-    style: |
-      ha-card {
-        font-size: var(--font-size-title);
-        font-family: var(--font-title);
-        line-height: 30px;
-        background: none;
-        margin-top: 0.4em;
-        margin-left: 8px;
-        margin-bottom: 0em;
-        box-shadow: none;
-        background: none;
-      }
-      ha-markdown {
-        padding: 0px 0px 0px 8px !important;
-        border-left: 3px solid var(--accent-color);
-      }
-    content: WEATHER
+  - content: >
+      # <img width="30" height="30" src='/local/images/icons/weather.png'
+      style='vertical-align:middle' /> Weather
+    style:
+      .: |
+        ha-card {
+          background-color: transparent !important;
+          box-shadow: none !important;
+        }
+      ha-markdown:
+        $: |
+          h1 {
+            font-size: 25px;
+            # font-weight: bold;
+            text-align: center;
+            letter-spacing: '-0.01em';
+          }
+    type: markdown
   - type: custom:weather-card
     entity: weather.home
     current: true
@@ -261,24 +246,24 @@ cards:
         left: 2.5em !important;
         top: 8em !important;
       }
-  - type: markdown
-    style: |
-      ha-card {
-        font-size: var(--font-size-title);
-        font-family: var(--font-title);
-        line-height: 30px;
-        background: none;
-        margin-top: 0.4em;
-        margin-left: 8px;
-        margin-bottom: 0em;
-        box-shadow: none;
-        background: none;
-      }
-      ha-markdown {
-        padding: 0px 0px 0px 8px !important;
-        border-left: 3px solid var(--accent-color);
-      }
-    content: DOORBELL CAMERA
+  - content: >
+      # <img width="30" height="30" src='/local/images/icons/camera.png'
+      style='vertical-align:middle' /> Security Camera
+    style:
+      .: |
+        ha-card {
+          background-color: transparent !important;
+          box-shadow: none !important;
+        }
+      ha-markdown:
+        $: |
+          h1 {
+            font-size: 25px;
+            # font-weight: bold;
+            text-align: center;
+            letter-spacing: '-0.01em';
+          }
+    type: markdown
   - type: 'custom:frigate-card'
     camera_entity: camera.doorbell
     frigate_url: http://frigate
