@@ -89,6 +89,7 @@ chip_icon_double_state:
 chip_back:
   template: chips
   tap_action:
+    haptic: medium
     action: navigate
     navigation_path: "[[[ return variables.ulm_chip_back_path; ]]]"
   show_icon: true
@@ -125,6 +126,7 @@ chip_power_consumption:
 chip_navigate:
   template: chips
   tap_action:
+    haptic: medium
     action: navigate
     navigation_path: "[[[ return variables.ulm_chip_navigate_path; ]]]"
   show_icon: true
@@ -135,6 +137,7 @@ chip_navigate:
 ### TITLE ###
 card_title:
   tap_action:
+    haptic: medium
     action: none
   show_icon: false
   show_label: true
@@ -324,6 +327,7 @@ card_light:
     - yellow
     - ulm_language_variables
   tap_action:
+    haptic: medium
     action: toggle
   hold_action:
     action: more-info
@@ -376,6 +380,9 @@ card_light_slider:
           - icon_info
           - yellow_slider
         entity: "[[[ return entity.entity_id ]]]"
+        tap_action:
+          haptic: medium
+          action: toggle
         label: >-
           [[[  
             if (entity.state !='unavailable'){
@@ -592,6 +599,9 @@ card_power_outlet:
         return entity.state;
       }
     ]]]
+  tap_action:
+    haptic: medium
+    action: toggle
 card_binary_sensor:
   template: 
     - icon_info_bg
@@ -621,11 +631,15 @@ card_input_boolean:
         return variables.ulm_unavailable;
       }
     ]]]
+  tap_action:
+    haptic: medium
+    action: toggle
 card_navigate:
   template: 
     - icon_only
     - blue_no_state
   tap_action:
+    haptic: medium
     action: navigate
     navigation_path: "[[[ return variables.ulm_card_navigate_path; ]]]"
   label: "[[[ return variables.ulm_card_navigate_title; ]]]"
@@ -760,6 +774,7 @@ card_battery:
   template:
     - icon_info_bg
   tap_action:
+    haptic: medium
     action: more-info
   variables:
     ulm_card_battery_attribute:
@@ -835,6 +850,7 @@ card_person:
     ulm_card_person_zone1: ''
     ulm_card_person_zone2: ''
   tap_action:
+    haptic: medium
     action: more-info
   show_label: true
   show_name: true
@@ -945,6 +961,7 @@ card_cover_with_buttons:
           - ulm_language_variables
           - cover
         tap_action:
+          haptic: medium
           action: more-info
         entity: '[[[ return variables.ulm_card_cover_with_buttons_entity ]]]'
         name: '[[[ return variables.ulm_card_cover_with_buttons_name ]]]'
@@ -958,6 +975,7 @@ card_cover_with_buttons:
               type: 'custom:button-card'
               template: widget_icon
               tap_action:
+                haptic: medium
                 action: call-service
                 service: cover.close_cover
                 service_data:
@@ -968,6 +986,7 @@ card_cover_with_buttons:
               type: 'custom:button-card'
               template: widget_icon
               tap_action:
+                haptic: medium
                 action: call-service
                 service: cover.stop_cover
                 service_data:
@@ -978,6 +997,7 @@ card_cover_with_buttons:
               type: 'custom:button-card'
               template: widget_icon
               tap_action:
+                haptic: medium
                 action: call-service
                 service: cover.open_cover
                 service_data:
@@ -1051,6 +1071,7 @@ card_media_player_with_controls:
           - ulm_language_variables
           - card_media_player
         tap_action:
+          haptic: medium
           action: more-info
         entity: '[[[ return variables.ulm_card_media_player_with_controls_entity ]]]'
         name: '[[[ return variables.ulm_card_media_player_with_controls_name ]]]'
@@ -1068,6 +1089,7 @@ card_media_player_with_controls:
               type: 'custom:button-card'
               template: widget_icon
               tap_action:
+                haptic: medium
                 action: call-service
                 service: media_player.media_previous_track
                 service_data:
@@ -1079,6 +1101,7 @@ card_media_player_with_controls:
               template: widget_icon
               entity: '[[[ return variables.ulm_card_media_player_with_controls_entity ]]]'
               tap_action:
+                haptic: medium
                 action: call-service
                 service: media_player.media_play_pause
                 service_data:
@@ -1094,6 +1117,7 @@ card_media_player_with_controls:
               type: 'custom:button-card'
               template: widget_icon
               tap_action:
+                haptic: medium
                 action: call-service
                 service: media_player.media_next_track
                 service_data:
@@ -1128,6 +1152,7 @@ blue_no_state:
       - background-color: 'rgba(var(--color-background-blue), var(--opacity-bg))'
 chips:
   tap_action:
+    haptic: medium
     action: more-info
   show_icon: false
   show_label: true
@@ -1153,6 +1178,7 @@ chips:
   size: 80%
 cover:
   tap_action:
+    haptic: medium
     action: more-info
   icon: |
     [[[
@@ -1542,6 +1568,7 @@ list_items_line:
       - padding: 0px
 widget_icon:
   tap_action:
+    haptic: medium
     action: toggle
   show_icon: true
   show_name: false

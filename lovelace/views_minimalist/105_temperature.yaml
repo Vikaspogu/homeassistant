@@ -1,0 +1,128 @@
+icon: mdi:home-thermometer-outline
+title: Temperature
+path: temperature
+id: temperature
+cards:
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:button-card'
+        template: chip_back
+        variables:
+          ulm_chip_back_path: /lovelace-minimalist/dashboard
+      - type: custom:button-card
+        template: edge
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Thermostat
+  - type: custom:simple-thermostat
+    entity: climate.living_room
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Weather
+  - type: custom:weather-card
+    entity: weather.home
+    current: true
+    details: false
+    forecast: true
+    style: |
+      ha-card {
+        border: solid 1px var(--border-color);
+        font-family: var(--primary-font-family);
+        margin-top: 5px !important;
+        margin-bottom: 5px !important;
+      }
+      .spacer {
+        padding-top: 0em !important;
+      }
+      .current {
+        padding-top: 0em !important;
+        padding-left: 1em !important;
+        margin-top: 0.5em !important;
+        margin-bottom: 0em !important;
+      }
+      .temp {
+        font-size: 3.2em !important;
+        position: sticky !important;
+      }
+      .tempc {
+        font-size: 1.5em !important;
+        position: sticky !important;
+      }
+      .forecast {
+        margin-top: -4.5em !important;
+        margin-bottom: -0.7em !important;
+      }
+      .forecast .day:first-child {
+        margin-left: 7.5em !important;
+      }
+      .day {
+        border-right: none !important;
+        line-height: 2 !important;
+      }
+      .precipitation {
+        display: none !important;
+      }
+      .icon {
+        width: 40px !important;
+        height: 40px !important;
+      }
+      .icon.bigger {
+        width: 4.5em !important;
+        height: 4.5em !important;
+        left: 2.5em !important;
+        top: 8em !important;
+      }
+      
+  - type: 'custom:button-card'
+    template: card_title
+    name: Temperature
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:button-card'
+        template: card_graph
+        variables:
+          ulm_card_graph_color: "var(--google-blue)"
+          ulm_card_graph_name: Livingroom
+          ulm_card_graph_entity: sensor.ble_temperature_living_room
+      - type: 'custom:button-card'
+        template: card_graph
+        variables:
+          ulm_card_graph_color: "var(--google-blue)"
+          ulm_card_graph_name: Bedroom
+          ulm_card_graph_entity: sensor.ble_temperature_bed_room
+      - type: 'custom:button-card'
+        template: card_graph
+        variables:
+          ulm_card_graph_color: "var(--google-blue)"
+          ulm_card_graph_name: Workroom
+          ulm_card_graph_entity: sensor.ble_temperature_work_room
+      - type: custom:button-card
+        template: edge
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Air quality
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:button-card'
+        template: card_graph
+        variables:
+          ulm_card_graph_color: "var(--google-blue)"
+          ulm_card_graph_name: Bedroom
+          ulm_card_graph_entity: sensor.master_pi_4_air_quality_pm_2_5_2
+      - type: 'custom:button-card'
+        template: card_graph
+        variables:
+          ulm_card_graph_color: "var(--google-blue)"
+          ulm_card_graph_name: Livingroom
+          ulm_card_graph_entity: sensor.pi_3_host_air_quality_pm_2_5_2
+      - type: custom:button-card
+        template: edge

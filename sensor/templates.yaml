@@ -28,3 +28,11 @@
         {%- else -%}
           off
         {%- endif %}
+
+    outside_temperature:
+      friendly_name : "Outside Temperature"
+      value_template: '{{ states.weather.home.attributes.temperature }}'
+    
+    presence_distance:
+      friendly_name : "Presence Distance"
+      value_template: '{{ states.sensor.vpogu_pixel_6_room_presence.attributes.distance }}'

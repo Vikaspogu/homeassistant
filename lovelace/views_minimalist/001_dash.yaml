@@ -1,0 +1,258 @@
+icon: mdi:home-assistant
+title: Dashboard
+path: dashboard
+id: dash
+
+cards:
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:button-card'
+        template: chip_temperature
+        variables:
+          ulm_chip_temperature_inside: sensor.ble_temperature_living_room
+          ulm_chip_temperature_outside: sensor.outside_temperature
+          ulm_chip_temperature_weather: weather.home
+      - type: 'custom:button-card'
+        template: chip_icon_state
+        variables:
+          ulm_chip_icon_state_icon: '🚪'
+          ulm_chip_icon_state_entity: cover.garage_door
+      - type: 'custom:button-card'
+        template: chip_icon_double_state
+        variables:
+          ulm_chip_icon_double_state_icon: '🌡️'
+          ulm_chip_icon_double_state_entity_1: sensor.ble_temperature_living_room
+          ulm_chip_icon_double_state_entity_2: sensor.ble_temperature_bed_room
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:button-card'
+        template: chip_icon_double_state
+        variables:
+          ulm_chip_icon_double_state_icon: '🫁'
+          ulm_chip_icon_double_state_entity_1: sensor.master_pi_4_air_quality_pm_2_5_2
+          ulm_chip_icon_double_state_entity_2: sensor.pi_3_host_air_quality_pm_2_5_2
+      - type: 'custom:button-card'
+        template: chip_icon_double_state
+        variables:
+          ulm_chip_icon_double_state_icon: '🔋'
+          ulm_chip_icon_double_state_entity_1: sensor.tesla_battery_level
+          ulm_chip_icon_double_state_entity_2: sensor.tesla_ideal_battery_range_mi
+      - type: 'custom:button-card'
+        template: chip_icon_state
+        variables:
+          ulm_chip_icon_state_icon: '📍'
+          ulm_chip_icon_state_entity: proximity.home_tesla
+      - type: custom:button-card
+        template: edge
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:button-card'
+        template: chip_icon_state
+        variables:
+          ulm_chip_icon_state_icon: '🚘'
+          ulm_chip_icon_state_entity: sensor.tesla_state
+      - type: 'custom:button-card'
+        template: chip_icon_double_state
+        variables:
+          ulm_chip_icon_double_state_icon: '📽️'
+          ulm_chip_icon_double_state_entity_1: sensor.transmission_completed_torrents
+          ulm_chip_icon_double_state_entity_2: sensor.transmission_total_torrents
+      - type: custom:button-card
+        template: edge
+
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: custom:button-card
+        template: card_navigate
+        variables:
+          ulm_card_navigate_path: /lovelace-minimalist/media
+          ulm_card_navigate_title: Media
+          ulm_card_navigate_icon: mdi:plex
+      - type: custom:button-card
+        template: card_navigate
+        variables:
+          ulm_card_navigate_path: /lovelace-minimalist/car
+          ulm_card_navigate_title: Car
+          ulm_card_navigate_icon: mdi:car-connected
+      - type: custom:button-card
+        template: edge
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: custom:button-card
+        template: card_navigate
+        variables:
+          ulm_card_navigate_path: /lovelace-minimalist/temperature
+          ulm_card_navigate_title: Temperature
+          ulm_card_navigate_icon: mdi:home-thermometer-outline
+      - type: custom:button-card
+        template: card_navigate
+        variables:
+          ulm_card_navigate_path: /lovelace-minimalist/system
+          ulm_card_navigate_title: System
+          ulm_card_navigate_icon: mdi:server-network 
+      - type: custom:button-card
+        template: edge
+
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:button-card'
+        template: card_binary_sensor_alert
+        variables:
+          - ulm_card_binary_sensor_alert: true
+        entity: binary_sensor.garagedoor_contact
+        show_last_changed: true
+        name: Garage Door
+      - type: custom:button-card
+        template: edge
+
+
+  ## ROW 1 ###################################################################################################################
+  - type: 'custom:button-card'
+    template: card_title
+    name: Switches
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: custom:button-card
+        template: card_cover_with_buttons
+        variables:
+          ulm_card_cover_with_buttons_entity: cover.garage_door
+          ulm_card_cover_with_buttons_name: 'Garage Door'
+      - type: custom:button-card
+        template: card_cover_with_buttons
+        variables:
+          ulm_card_cover_with_buttons_entity: cover.bedroom_curtain
+          ulm_card_cover_with_buttons_name: 'Bedroom Curtain'
+      - type: custom:button-card
+        template: edge
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: custom:button-card
+        template: card_light_slider
+        entity: light.living_room_dining_group
+        variables:
+          ulm_card_light_slider_name: Living Room
+      - type: custom:button-card
+        template: card_light_slider
+        entity: light.kitchen_lights_group
+        variables:
+          ulm_card_light_slider_name: Kitchen
+      - type: custom:button-card
+        template: edge
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: custom:button-card
+        template: card_light_slider
+        entity: light.office_ceiling_lights_group
+        variables:
+          ulm_card_light_slider_name: Office
+      - type: custom:button-card
+        template: card_light_slider
+        entity: light.tv_h6199
+        variables:
+          ulm_card_light_slider_name: TV LED Strip
+      - type: custom:button-card
+        template: edge
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:button-card'
+        template: card_power_outlet 
+        entity: switch.office_purifier
+        name: Office Purifier
+      - type: 'custom:button-card'
+        template: card_power_outlet
+        entity: switch.bedroom_purifier
+        name: Bedroom Purifier
+      - type: custom:button-card
+        template: edge
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:button-card'
+        template: card_power_outlet 
+        entity: switch.smart_plug_3_socket_1
+        name: Christmas Tree
+      - type: 'custom:button-card'
+        template: card_power_outlet
+        entity: switch.office_area
+        name: Outside Strip
+      - type: custom:button-card
+        template: edge
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: custom:button-card
+        template: card_cover_with_buttons
+        variables:
+          ulm_card_cover_with_buttons_entity: cover.bedroom_blinds
+          ulm_card_cover_with_buttons_name: 'Bedroom Blinds'
+      - type: custom:button-card
+        template: card_cover_with_buttons
+        variables:
+          ulm_card_cover_with_buttons_entity: cover.curtain_living_room
+          ulm_card_cover_with_buttons_name: 'Living Room Curtains'
+      - type: custom:button-card
+        template: edge
+      
+  - type: 'custom:button-card'
+    template: card_title
+    name: Circadian Lighting
+  - type: horizontal-stack
+    cards:
+    - type: custom:button-card
+      template: edge
+    - type: 'custom:button-card'
+      template: card_input_boolean
+      entity: switch.circadian_lighting_circadian_lighting_living_room
+      name: Living Lights
+    - type: 'custom:button-card'
+      template: card_input_boolean
+      entity: switch.circadian_lighting_circadian_lighting_kitchen
+      name: Kitchen Lights
+    - type: custom:button-card
+      template: edge
+            
+  - type: 'custom:button-card'
+    template: card_title
+    name: Presence
+  - type: horizontal-stack
+    cards:
+    - type: custom:button-card
+      template: edge
+    - type: 'custom:button-card'
+      template: card_generic
+      entity: sensor.presence_distance
+      name: Presence Distance
+    - type: 'custom:button-card'
+      template: card_generic
+      entity: device_tracker.vpogu_pixel_6_tracker
+    - type: custom:button-card
+      template: edge
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Security
+  - type: 'custom:frigate-card'
+    camera_entity: camera.doorbell
+    frigate_url: http://frigate

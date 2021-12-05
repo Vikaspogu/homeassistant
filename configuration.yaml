@@ -175,8 +175,8 @@ lovelace:
       type: module 
     - url: /hacsfiles/my-cards/my-cards.js
       type: module
-                  
-                
+
+
     # Styles
     - url: "https://fonts.googleapis.com/css2?family=Raleway&display=swap"
       type: css
@@ -185,7 +185,14 @@ lovelace:
     - url: /local/stylesheets/font.css
       type: css
 
+  # Add yaml dashboards
   dashboards:
+    lovelace-minimalist:
+      mode: yaml
+      title: Minimalist
+      icon: mdi:script
+      show_in_sidebar: true
+      filename: lovelace-minimalist.yaml
     lovelace-generated:
       mode: yaml
       filename: notexist.yaml
