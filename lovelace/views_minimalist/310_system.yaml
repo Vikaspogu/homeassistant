@@ -192,7 +192,7 @@ cards:
           #   name: Last Reboot
           - entity: binary_sensor.pogu_nas_security_status
             name: Security Status
-          - entity: sensor.pogu_nas_volume_1_average_disk_temp
+          - entity: sensor.pogu_nas_average_disk_temp
             name: Avg. Disk Temp
           - entity: sensor.pogu_nas_memory_available_real
             name: Memory Available
@@ -228,7 +228,7 @@ cards:
             entities:
               - entity: sensor.pogu_nas_cpu_utilization_total
                 name: CPU Utilization
-              - entity: sensor.pogu_nas_volume_1_used_space
+              - entity: sensor.pogu_nas_used_space
                 name: Storage - 7.5TB
 
   - type: 'custom:button-card'

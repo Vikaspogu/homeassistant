@@ -33,8 +33,8 @@ cards:
         template: chip_icon_double_state
         variables:
           ulm_chip_icon_double_state_icon: '🫁'
-          ulm_chip_icon_double_state_entity_1: sensor.master_pi_4_air_quality_pm_2_5_2
-          ulm_chip_icon_double_state_entity_2: sensor.pi_3_host_air_quality_pm_2_5_2
+          ulm_chip_icon_double_state_entity_1: sensor.bedroom_air_quality_pm_2_5
+          ulm_chip_icon_double_state_entity_2: sensor.living_room_air_quality_pm_2_5
       - type: 'custom:button-card'
         template: chip_icon_double_state
         variables:
@@ -190,7 +190,7 @@ cards:
         template: edge
       - type: 'custom:button-card'
         template: card_power_outlet 
-        entity: switch.smart_plug_3_socket_1
+        entity: switch.living_room_window_socket_1
         name: Christmas Tree
       - type: 'custom:button-card'
         template: card_power_outlet

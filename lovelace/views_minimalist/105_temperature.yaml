@@ -117,12 +117,12 @@ cards:
         variables:
           ulm_card_graph_color: "var(--google-blue)"
           ulm_card_graph_name: Bedroom
-          ulm_card_graph_entity: sensor.master_pi_4_air_quality_pm_2_5_2
+          ulm_card_graph_entity: sensor.bedroom_air_quality_pm_2_5
       - type: 'custom:button-card'
         template: card_graph
         variables:
           ulm_card_graph_color: "var(--google-blue)"
           ulm_card_graph_name: Livingroom
-          ulm_card_graph_entity: sensor.pi_3_host_air_quality_pm_2_5_2
+          ulm_card_graph_entity: sensor.living_room_air_quality_pm_2_5
       - type: custom:button-card
         template: edge
