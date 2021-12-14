@@ -9,7 +9,7 @@ This is my [Home Assistant](https://www.home-assistant.io/) configuration.
 
 ## Screenshot
 
-![screenshot](./docs/hass-dash.png)
+![screenshot](./docs/hass-dash-ui-minimalist.png)
 
 ## Integrations
 
