@@ -11,31 +11,33 @@ This is my [Home Assistant](https://www.home-assistant.io/) configuration.
 
 ![screenshot](./docs/hass-dash.png)
 
-## Hass.io Addons
+## Integrations
 
-- Roomba
-- Internet Printing Protocol
-- Nest
-- TP Link Smart Home
-- Transmission
 - [Speedtest.net](https://www.speedtest.net/)
 - [MQTT](https://www.home-assistant.io/integrations/mqtt/)
-
-## Custom Components
-
 - [ble monitor](https://github.com/custom-components/ble_monitor/)
 - [browser-mod](https://github.com/thomasloven/hass-browser_mod)
 - [Eufy vacuum](https://github.com/pbulteel/eufy_vacuum)
 - [Frigate](https://github.com/blakeblackshear/frigate-hass-integration)
 - [Lovelace Gen](https://github.com/thomasloven/hass-lovelace_gen)
 - [Plex recently added](https://github.com/custom-components/sensor.plex_recently_added)
-- [Scheduler](https://github.com/nielsfaber/scheduler-component.git)
 - [Sonarr upcoming media](https://github.com/custom-components/sensor.sonarr_upcoming_media)
-- Garbage Collection
 - Circadian Lighting
 - Bravia TV PSK
-- Schedular component
 - Node-Red Companion
+- Nest
+- Synology DSM
+- Transmission
+- Tuya
+- TP-Link Kasa
+- Sony Bravia TV
+- Soma
+- Smartthings
+- iRobot vaccum
+- IPP Printer
+- Govee
+- HACS
+- Font awesome
 
 ## Lovelace Plugins
 

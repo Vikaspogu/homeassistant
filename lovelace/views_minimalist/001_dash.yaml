@@ -114,6 +114,10 @@ cards:
         entity: binary_sensor.garagedoor_contact
         show_last_changed: true
         name: Garage Door
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: input_boolean.on_vacation
+        name: Vacation
       - type: custom:button-card
         template: edge
 
