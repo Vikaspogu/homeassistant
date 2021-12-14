@@ -98,7 +98,6 @@ This is my [Home Assistant](https://www.home-assistant.io/) configuration.
 ### DEBUGGING and Errors
 
 - [x] **ERROR** ~~vacuum-card/vacuum-card.js Error: Cannot read property 'states' of undefined~~ [~~GitHub #169~~](https://github.com/denysdovhan/vacuum-card/issues/169)
-- [ ] **ERROR** synology_dsm dont work. Go in long loading point.
 
 ### Robovac Eufy
 
