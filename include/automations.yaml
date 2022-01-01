@@ -111,7 +111,7 @@ automation:
       input:
         hours: 12
         actions:
-        - service: notify.mobile_app_sm_vpogu
+        - service: notify.mobile_app_vpogu_pixel_6
           data:
             title: Zigbee device not available!
             message: '{{sensors}}'
@@ -126,7 +126,7 @@ automation:
       condition: template
       value_template: '{{ not (trigger.to_state.state == trigger.from_state.state) }}'
     action:
-    - service: notify.mobile_app_sm_vpogu
+    - service: notify.mobile_app_vpogu_pixel_6
       data_template:
         title: Vacuum
         message: '{{ trigger.to_state.name }} vacuum has been turned {{ trigger.to_state.state

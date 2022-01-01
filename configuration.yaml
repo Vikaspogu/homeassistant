@@ -222,7 +222,7 @@ notify:
   - name: ha_message
     platform: group
     services:
-    - service: mobile_app_sm_vpogu
+    - service: mobile_app_vpogu_pixel_6
 
 input_boolean: !include_dir_merge_named input_boolean
 sensor: !include_dir_merge_list sensor
