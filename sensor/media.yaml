@@ -1,8 +1,7 @@
 
 - platform: plex_recently_added
-  name: Recently Added Movies # will create sensor.recently_added_movies
   token: !secret plex_token
-  host: !secret plex_host
+  host: 192.168.20.104
   port: 32400
 
 - platform: sonarr_upcoming_media
