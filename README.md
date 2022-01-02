@@ -1,6 +1,8 @@
 # Home Assistant Configuration
 
-![HAVERSION](https://img.shields.io/badge/homeassistant-2021.9.x-blue)
+![HAVERSION](https://img.shields.io/badge/homeassistant-2021.12.x-blue)
+![STARS](https://img.shields.io/github/stars/vikaspogu/homeassistant?color=yellow&style=flat-square)
+![WATCHERS](https://img.shields.io/github/watchers/vikaspogu/homeassistant?color=green&style=flat-square)
 ![ISSUES](https://img.shields.io/github/issues-raw/vikaspogu/homeassistant?style=flat-square)
 ![LASTCOMMIT](https://img.shields.io/github/last-commit/vikaspogu/homeassistant?style=flat-square)
 ![SIZE](https://img.shields.io/github/repo-size/vikaspogu/homeassistant?style=flat-square)
