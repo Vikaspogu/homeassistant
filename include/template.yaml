@@ -11,7 +11,7 @@ template:
     state: template
     attributes:
       synology: >
-        {% set installed = device_attr(device_id('sensor.pogu_nas_volume_1_status'), 'sw_version').split(' ')[1] %}
+        {% set installed = device_attr(device_id('sensor.pogu_nas_status'), 'sw_version').split(' ')[1] %}
         {% set latest = states('sensor.synology_dsm_latest') %}
         {% if is_state('binary_sensor.pogu_nas_update_available', 'on') %}
           <b>Synology DSM</b> {{ installed + ' \u279e ' + latest }}
@@ -19,7 +19,7 @@ template:
   - unique_id: nas_status
     icon: custom:synology-nas
     state: >
-      {% set entity_id = 'sensor.pogu_nas_volume_1_status' %}
+      {% set entity_id = 'sensor.pogu_nas_status' %}
       {% if is_state(entity_id, 'normal') %}
         Good
       {% elif is_state(entity_id, 'background') %}

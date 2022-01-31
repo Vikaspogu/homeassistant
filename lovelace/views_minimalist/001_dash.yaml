@@ -180,6 +180,16 @@ cards:
         template: edge
       - type: 'custom:button-card'
         template: card_power_outlet 
+        entity: switch.office_area
+        name: Living room Heater
+      - type: custom:button-card
+        template: edge
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:button-card'
+        template: card_power_outlet 
         entity: switch.office_purifier
         name: Office Purifier
       - type: 'custom:button-card'

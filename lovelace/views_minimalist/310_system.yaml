@@ -188,8 +188,10 @@ cards:
         entities:
           - entity: sensor.template_nas_status
             name: NAS Status
-          # - entity: sensor.pogu_nas_last_boot
-          #   name: Last Reboot
+          - entity: binary_sensor.pogu_nas_update_available
+            name: Update Available
+          - entity: sensor.synology_dsm_latest
+            name: Synology Latest Version
           - entity: binary_sensor.pogu_nas_security_status
             name: Security Status
           - entity: sensor.pogu_nas_average_disk_temp
