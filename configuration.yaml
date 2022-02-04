@@ -30,8 +30,7 @@ http:
   use_x_forwarded_for: true
   trusted_proxies:
     - 192.168.20.0/24
-    - 10.42.3.0/24
-    - 10.42.2.0/24
+    - 10.42.0.0/16
 
 proximity:
   home_tesla:
@@ -42,7 +41,7 @@ proximity:
     unit_of_measurement: mi
 
 mqtt:
-  broker: emqx.default
+  broker: emqx.home
   discovery: true
 
 cover:
@@ -53,7 +52,7 @@ cover:
     state_topic: "zigbee2mqtt/GarageDoor"
     availability:
       - topic: "garage/availability"
-    qos: 0
+    qos: 2
     retain: false
     payload_open: "OPEN"
     payload_close: "CLOSE"

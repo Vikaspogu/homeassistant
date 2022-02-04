@@ -15,6 +15,7 @@ automation:
       data:
         name: noctis
     id: 51b3acf4a69e40d796b7ae21d35a5ed5
+
   - alias: Actionable notification - close garage door
     trigger:
       platform: event
@@ -26,6 +27,7 @@ automation:
       entity_id: cover.garage_door
       data: {}
     id: c696dd277c6546ecb1f4e0f82052822f
+
   - alias: Update Tesla location as MQTT location updates
     initial_state: true
     trigger:
@@ -41,80 +43,31 @@ automation:
         - '{{ states.sensor.tesla_latitude.state }}'
         - '{{ states.sensor.tesla_longitude.state }}'
     id: 77069c1dd26b4913b7fbbb00ae85b688
-  - alias: Open garage if car returns home
-    initial_state: true
-    trigger:
-    - platform: state
-      entity_id: device_tracker.tesla_location
-      from: not_home
-      to: home
-    action:
-    - service: cover.open_cover
-      entity_id: cover.garage_door
-    id: 78aa903d4f1d4085b77726ac84b0faeb
-  - alias: Close garage if car is away
-    initial_state: true
-    trigger:
-    - platform: state
-      entity_id: device_tracker.tesla_location
-      from: home
-      to: not_home
-    action:
-    - service: cover.close_cover
-      entity_id: cover.garage_door
-    id: 3d9513db194f4f44b8310e57949968d1
-  - alias: Set timer if teslamate reports something is open to alert us
-    initial_state: true
-    trigger:
-    - platform: mqtt
-      topic: teslamate/cars/1/windows_open
-      payload: 'true'
-    - platform: mqtt
-      topic: teslamate/cars/1/doors_open
-      payload: 'true'
-    - platform: mqtt
-      topic: teslamate/cars/1/trunk_open
-      payload: 'true'
-    - platform: mqtt
-      topic: teslamate/cars/1/frunk_open
-      payload: 'true'
-    action:
-    - service: script.turn_on
-      data_template:
-        entity_id: script.notify_tesla_{{trigger.topic.split('/')[3]}}
-    id: 97666db34e994b818eaec4d452fd747a
-  - alias: Cancel notification if said door/window is closed
-    initial_state: true
-    trigger:
-    - platform: mqtt
-      topic: teslamate/cars/1/windows_open
-      payload: 'false'
-    - platform: mqtt
-      topic: teslamate/cars/1/doors_open
-      payload: 'false'
-    - platform: mqtt
-      topic: teslamate/cars/1/trunk_open
-      payload: 'false'
-    - platform: mqtt
-      topic: teslamate/cars/1/frunk_open
-      payload: 'false'
-    action:
-    - service: script.turn_off
-      data_template:
-        entity_id: script.notify_tesla_{{trigger.topic.split('/')[3]}}
-    id: c0eaba319f6746dbb5b7a2b3f2ea600c
-  - id: '1632578706807'
-    alias: Zigbee Device Not Found
-    description: ''
-    use_blueprint:
-      path: homeassistant/offline-notification-for-sensors-with-last_seen.yaml
-      input:
-        hours: 12
-        actions:
-        - service: notify.mobile_app_vpogu_pixel_6
-          data:
-            title: Zigbee device not available!
-            message: '{{sensors}}'
+
+  # - alias: Open garage if car returns home
+  #   initial_state: true
+  #   trigger:
+  #   - platform: state
+  #     entity_id: device_tracker.tesla_location
+  #     from: not_home
+  #     to: home
+  #   action:
+  #   - service: cover.open_cover
+  #     entity_id: cover.garage_door
+  #   id: 78aa903d4f1d4085b77726ac84b0faeb
+
+  # - alias: Close garage if car is away
+  #   initial_state: true
+  #   trigger:
+  #   - platform: state
+  #     entity_id: device_tracker.tesla_location
+  #     from: home
+  #     to: not_home
+  #   action:
+  #   - service: cover.close_cover
+  #     entity_id: cover.garage_door
+  #   id: 3d9513db194f4f44b8310e57949968d1
+            
   - id: vacuum_notifications
     alias: Vacuum Notifications
     trigger:

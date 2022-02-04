@@ -1,5 +1,5 @@
 - platform: mqtt
-  state_topic: "sds011-mqtt/air-quality/kube-3-hp-4590t"
+  state_topic: "sds011-mqtt/air-quality/k8s-3-hp-4590t"
   unit_of_measurement: "μg/m³"
   icon: "mdi:weather-fog"
   value_template: '{{value_json.PM10 | float}}'
@@ -7,25 +7,9 @@
   unique_id: 'livingroom:air-quality-pm-10'
 
 - platform: mqtt
-  state_topic: "sds011-mqtt/air-quality/kube-3-hp-4590t"
+  state_topic: "sds011-mqtt/air-quality/k8s-3-hp-4590t"
   unit_of_measurement: "μg/m³"
   icon: "mdi:weather-fog"
   value_template: '{{value_json.PM25 | float}}'
   name: 'Living room Air Quality PM 2.5'
   unique_id: 'livingroom:air-quality-pm-2.5'
-
-- platform: mqtt
-  state_topic: "sds011-mqtt/air-quality/kube-7-pi4-bedroom"
-  unit_of_measurement: "μg/m³"
-  icon: "mdi:weather-fog"
-  value_template: '{{value_json.PM10 | float}}'
-  name: 'Bedroom Air Quality PM 10'
-  unique_id: 'bedroom:air-quality-pm-10'
-
-- platform: mqtt
-  state_topic: "sds011-mqtt/air-quality/kube-7-pi4-bedroom"
-  unit_of_measurement: "μg/m³"
-  icon: "mdi:weather-fog"
-  value_template: '{{value_json.PM25 | float}}'
-  name: 'Bedroom Air Quality PM 2.5'
-  unique_id: 'bedroom:air-quality-pm-2.5'

@@ -6,7 +6,7 @@
 
 - platform: sonarr_upcoming_media
   api_key: !secret sonarr_apikey
-  host: sonarr
+  host: sonarr.media
   port: 8989
   days: 7
   ssl: false
@@ -20,3 +20,9 @@
   value_template: >
     {{ value.split(' ')[1] }}
   scan_interval: 86400
+
+
+- platform: qbittorrent
+  url: "http://qbittorrent.downloads:8080"
+  username: !secret qbittorrent_user
+  password: !secret qbittorrent_pass

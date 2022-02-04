@@ -1,7 +1,5 @@
 project_id: !secret google_asst_project_id
-service_account:
-  private_key: !secret google_asst_private_key
-  client_email: !secret google_asst_client_email
+service_account: !include SERVICE_ACCOUNT.json
 report_state: true
 exposed_domains:
   - cover

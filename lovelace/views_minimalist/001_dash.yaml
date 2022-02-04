@@ -30,11 +30,10 @@ cards:
       - type: custom:button-card
         template: edge
       - type: 'custom:button-card'
-        template: chip_icon_double_state
+        template: chip_icon_state
         variables:
-          ulm_chip_icon_double_state_icon: '🫁'
-          ulm_chip_icon_double_state_entity_1: sensor.bedroom_air_quality_pm_2_5
-          ulm_chip_icon_double_state_entity_2: sensor.living_room_air_quality_pm_2_5
+          ulm_chip_icon_state_icon: '🫁'
+          ulm_chip_icon_state_entity: sensor.living_room_air_quality_pm_2_5
       - type: 'custom:button-card'
         template: chip_icon_double_state
         variables:
@@ -57,12 +56,6 @@ cards:
         variables:
           ulm_chip_icon_state_icon: '🚘'
           ulm_chip_icon_state_entity: sensor.tesla_state
-      - type: 'custom:button-card'
-        template: chip_icon_double_state
-        variables:
-          ulm_chip_icon_double_state_icon: '📽️'
-          ulm_chip_icon_double_state_entity_1: sensor.transmission_completed_torrents
-          ulm_chip_icon_double_state_entity_2: sensor.transmission_total_torrents
       - type: custom:button-card
         template: edge
 
@@ -138,7 +131,7 @@ cards:
       - type: custom:button-card
         template: card_cover_with_buttons
         variables:
-          ulm_card_cover_with_buttons_entity: cover.bedroom_curtain_2
+          ulm_card_cover_with_buttons_entity: cover.bedroom_curtain_4
           ulm_card_cover_with_buttons_name: 'Bedroom Curtain'
       - type: custom:button-card
         template: edge

@@ -77,9 +77,6 @@ cards:
         top: 8em !important;
       }
       
-  - type: 'custom:button-card'
-    template: card_title
-    name: Temperature
   - type: horizontal-stack
     cards:
       - type: custom:button-card
@@ -88,26 +85,18 @@ cards:
         template: card_graph
         variables:
           ulm_card_graph_color: "var(--google-blue)"
-          ulm_card_graph_name: Livingroom
+          ulm_card_graph_name: Livingroom Temperature
           ulm_card_graph_entity: sensor.ble_temperature_living_room
       - type: 'custom:button-card'
         template: card_graph
         variables:
           ulm_card_graph_color: "var(--google-blue)"
-          ulm_card_graph_name: Bedroom
+          ulm_card_graph_name: Bedroom Temperature
           ulm_card_graph_entity: sensor.ble_temperature_bed_room
-      - type: 'custom:button-card'
-        template: card_graph
-        variables:
-          ulm_card_graph_color: "var(--google-blue)"
-          ulm_card_graph_name: Workroom
-          ulm_card_graph_entity: sensor.ble_temperature_work_room
+      
       - type: custom:button-card
         template: edge
 
-  - type: 'custom:button-card'
-    template: card_title
-    name: Air quality
   - type: horizontal-stack
     cards:
       - type: custom:button-card
@@ -116,13 +105,13 @@ cards:
         template: card_graph
         variables:
           ulm_card_graph_color: "var(--google-blue)"
-          ulm_card_graph_name: Bedroom
-          ulm_card_graph_entity: sensor.bedroom_air_quality_pm_2_5
+          ulm_card_graph_name: Office Temperature 
+          ulm_card_graph_entity: sensor.ble_temperature_work_room
       - type: 'custom:button-card'
         template: card_graph
         variables:
           ulm_card_graph_color: "var(--google-blue)"
-          ulm_card_graph_name: Livingroom
+          ulm_card_graph_name: Livingroom Air Quality
           ulm_card_graph_entity: sensor.living_room_air_quality_pm_2_5
       - type: custom:button-card
         template: edge
