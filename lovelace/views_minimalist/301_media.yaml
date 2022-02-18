@@ -43,14 +43,6 @@ cards:
 
   - type: 'custom:button-card'
     template: card_title
-    name: Media Downloads 
-  - type: custom:transmission-card
-    hide_type: false
-    hide_header: true
-    default_type: active
-
-  - type: 'custom:button-card'
-    template: card_title
     name: Plex Recently Added 
   - type: custom:upcoming-media-card
     entity: sensor.plex_recently_added

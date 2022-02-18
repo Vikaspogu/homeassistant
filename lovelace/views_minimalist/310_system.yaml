@@ -325,6 +325,10 @@ cards:
       entity: sensor.bedroom_blinds_battery_level
       name: Bedroom blinds
     - type: custom:button-card
+      template: card_battery
+      entity: sensor.landingmotionsensor_battery
+      name: Landing Motion
+    - type: custom:button-card
       template: edge
 
   - type: 'custom:button-card'
@@ -348,6 +352,19 @@ cards:
         entity: binary_sensor.officemotionsensor_occupancy
         show_last_changed: true
         name: Office
+      - type: custom:button-card
+        template: edge
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:button-card'
+        template: card_binary_sensor
+        variables:
+          - ulm_card_binary_sensor_alert: true
+        entity: binary_sensor.landingmotionsensor_occupancy
+        show_last_changed: true
+        name: Landing
       - type: custom:button-card
         template: edge
   

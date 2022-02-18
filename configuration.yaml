@@ -52,7 +52,7 @@ cover:
     state_topic: "zigbee2mqtt/GarageDoor"
     availability:
       - topic: "garage/availability"
-    qos: 2
+    qos: 1
     retain: false
     payload_open: "OPEN"
     payload_close: "CLOSE"
@@ -174,7 +174,9 @@ lovelace:
       type: module 
     - url: /hacsfiles/my-cards/my-cards.js
       type: module
-
+    - url: /hacsfiles/ha-floorplan/floorplan.js
+      type: module
+                
 
     # Styles
     - url: "https://fonts.googleapis.com/css2?family=Raleway&display=swap"
