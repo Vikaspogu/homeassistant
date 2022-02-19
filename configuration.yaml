@@ -41,7 +41,7 @@ proximity:
     unit_of_measurement: mi
 
 mqtt:
-  broker: emqx.home
+  broker: mosquitto.home
   discovery: true
 
 cover:
@@ -52,7 +52,8 @@ cover:
     state_topic: "zigbee2mqtt/GarageDoor"
     availability:
       - topic: "garage/availability"
-    qos: 1
+    qos: 0
+    optimistic: false
     retain: false
     payload_open: "OPEN"
     payload_close: "CLOSE"
@@ -174,9 +175,8 @@ lovelace:
       type: module 
     - url: /hacsfiles/my-cards/my-cards.js
       type: module
-    - url: /hacsfiles/ha-floorplan/floorplan.js
-      type: module
-                
+    - url: /hacsfiles/simple-weather-card/simple-weather-card-bundle.js
+      type: module        
 
     # Styles
     - url: "https://fonts.googleapis.com/css2?family=Raleway&display=swap"

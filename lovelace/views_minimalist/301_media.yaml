@@ -44,33 +44,45 @@ cards:
   - type: 'custom:button-card'
     template: card_title
     name: Plex Recently Added 
-  - type: custom:upcoming-media-card
-    entity: sensor.plex_recently_added
-    text_shadows: false
-    date: ddmm
-    image_style: fanart
-    line1_text: $empty
-    line2_size: small
-    line2_text: $episode
-    line3_text: $number
-    line4_text: 'Runtime: $runtime'
-    title: false
-    title_size: large
-    title_text: $title
+  - type: horizontal-stack
+    cards:
+    - type: custom:button-card
+      template: edge
+    - type: custom:upcoming-media-card
+      entity: sensor.plex_recently_added
+      text_shadows: false
+      date: ddmm
+      image_style: fanart
+      line1_text: $empty
+      line2_size: small
+      line2_text: $episode
+      line3_text: $number
+      line4_text: 'Runtime: $runtime'
+      title: false
+      title_size: large
+      title_text: $title
+    - type: custom:button-card
+      template: edge
 
   - type: 'custom:button-card'
     template: card_title
     name: Upcoming Episodes
-  - type: custom:upcoming-media-card
-    entity: sensor.sonarr_upcoming_media
-    text_shadows: false
-    date: ddmm
-    image_style: fanart
-    line1_text: $empty
-    line2_size: small
-    line2_text: $episode
-    line3_text: $number
-    line4_text: 'Runtime: $runtime'
-    title: false
-    title_size: large
-    title_text: $title
+  - type: horizontal-stack
+    cards:
+    - type: custom:button-card
+      template: edge
+    - type: custom:upcoming-media-card
+      entity: sensor.sonarr_upcoming_media
+      text_shadows: false
+      date: ddmm
+      image_style: fanart
+      line1_text: $empty
+      line2_size: small
+      line2_text: $episode
+      line3_text: $number
+      line4_text: 'Runtime: $runtime'
+      title: false
+      title_size: large
+      title_text: $title
+    - type: custom:button-card
+      template: edge

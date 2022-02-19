@@ -6,6 +6,7 @@ id: dash
 cards:
   - type: horizontal-stack
     cards:
+      ## Chips ###################################################################################################################
       - type: custom:button-card
         template: edge
       - type: 'custom:button-card'
@@ -59,6 +60,7 @@ cards:
       - type: custom:button-card
         template: edge
 
+  ## Navigation ###################################################################################################################
   - type: horizontal-stack
     cards:
       - type: custom:button-card
@@ -66,9 +68,9 @@ cards:
       - type: custom:button-card
         template: card_navigate
         variables:
-          ulm_card_navigate_path: /lovelace-minimalist/media
-          ulm_card_navigate_title: Media
-          ulm_card_navigate_icon: mdi:plex
+          ulm_card_navigate_path: /lovelace-minimalist/light-switch
+          ulm_card_navigate_title: Lights/Switches
+          ulm_card_navigate_icon: mdi:light-switch
       - type: custom:button-card
         template: card_navigate
         variables:
@@ -84,15 +86,34 @@ cards:
       - type: custom:button-card
         template: card_navigate
         variables:
-          ulm_card_navigate_path: /lovelace-minimalist/temperature
-          ulm_card_navigate_title: Temperature
-          ulm_card_navigate_icon: mdi:home-thermometer-outline
+          ulm_card_navigate_path: /lovelace-minimalist/media
+          ulm_card_navigate_title: Media
+          ulm_card_navigate_icon: mdi:plex
       - type: custom:button-card
         template: card_navigate
         variables:
           ulm_card_navigate_path: /lovelace-minimalist/system
           ulm_card_navigate_title: System
           ulm_card_navigate_icon: mdi:server-network 
+      - type: custom:button-card
+        template: edge
+
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: custom:button-card
+        template: card_navigate
+        variables:
+          ulm_card_navigate_path: /lovelace-minimalist/thermostat
+          ulm_card_navigate_title: Thermostat
+          ulm_card_navigate_icon: mdi:thermostat
+      - type: custom:button-card
+        template: card_navigate
+        variables:
+          ulm_card_navigate_path: /lovelace-minimalist/vacuum
+          ulm_card_navigate_title: Vacuum
+          ulm_card_navigate_icon: mdi:robot-vacuum
       - type: custom:button-card
         template: edge
 
@@ -114,122 +135,165 @@ cards:
       - type: custom:button-card
         template: edge
 
-
-  ## ROW 1 ###################################################################################################################
-  - type: 'custom:button-card'
-    template: card_title
-    name: Switches
+  ## Rooms Overview ###################################################################################################################
   - type: horizontal-stack
     cards:
       - type: custom:button-card
         template: edge
-      - type: custom:button-card
-        template: card_cover_with_buttons
+      - type: 'custom:button-card'
+        template:
+          - card_room
+          - yellow_no_state
+        name: Living Room
+        entity: sensor.ble_temperature_living_room
+        icon: mdi:sofa
+        tap_action:
+          action: navigate
+          navigation_path: '/lovelace-minimalist/light-switch'
         variables:
-          ulm_card_cover_with_buttons_entity: cover.garage_door
-          ulm_card_cover_with_buttons_name: 'Garage Door'
-      - type: custom:button-card
-        template: card_cover_with_buttons
+          label_use_temperature: true
+          label_use_brightness: true
+          entity_1:
+            entity_id: light.living_room_dining_group
+            templates:
+              - yellow_on
+            tap_action:
+              action: toggle
+          entity_2:
+            entity_id: switch.office_area
+            templates:
+              - yellow_on
+            tap_action:
+              action: toggle
+          entity_3:
+            entity_id: cover.curtain_living_room
+            templates:
+              - green_open
+            tap_action:
+              action: toggle
+          entity_4:
+            entity_id: input_boolean.living_room_override
+            templates:
+              - yellow_on
+            tap_action:
+              action: toggle
+      - type: 'custom:button-card'
+        template:
+          - card_room
+          - yellow_no_state
+        name: Office Room
+        entity: sensor.ble_temperature_work_room
+        icon: mdi:chair-rolling
+        tap_action:
+          action: navigate
+          navigation_path: '/lovelace-minimalist/light-switch'
         variables:
-          ulm_card_cover_with_buttons_entity: cover.bedroom_curtain_4
-          ulm_card_cover_with_buttons_name: 'Bedroom Curtain'
+          label_use_temperature: true
+          label_use_brightness: false
+          entity_1:
+            entity_id: light.office_ceiling_lights_group
+            templates:
+              - yellow_on
+            tap_action:
+              action: toggle
+          entity_2:
+            entity_id: switch.office_purifier
+            templates:
+              - yellow_on
+            tap_action:
+              action: toggle
+          entity_3:
+            entity_id: binary_sensor.officemotionsensor_occupancy
+            templates:
+              - pink_on
+            tap_action:
+              action: none
       - type: custom:button-card
         template: edge
+  
   - type: horizontal-stack
     cards:
       - type: custom:button-card
         template: edge
-      - type: custom:button-card
-        template: card_light_slider
-        entity: light.living_room_dining_group
+      - type: 'custom:button-card'
+        template:
+          - card_room
+          - yellow_no_state
+        name: Bed Room
+        entity: sensor.ble_temperature_bed_room
+        icon: mdi:bed-empty
+        tap_action:
+          action: navigate
+          navigation_path: '/lovelace-minimalist/light-switch'
         variables:
-          ulm_card_light_slider_name: Living Room
-      - type: custom:button-card
-        template: card_light_slider
+          label_use_temperature: true
+          label_use_brightness: false
+          entity_1:
+            entity_id: switch.bedroom_purifier
+            templates:
+              - yellow_on
+            tap_action:
+              action: toggle
+          entity_2:
+            entity_id: cover.bedroom_blinds
+            templates:
+              - green_open
+            tap_action:
+              action: toggle
+          entity_3:
+            entity_id: cover.bedroom_curtain_4
+            templates:
+              - green_open
+            tap_action:
+              action: toggle
+      - type: 'custom:button-card'
+        template:
+          - card_room
+          - yellow_no_state
+        name: Kitchen/Garage
         entity: light.kitchen_lights_group
+        icon: mdi:stove
+        tap_action:
+          action: navigate
+          navigation_path: '/lovelace-minimalist/light-switch'
         variables:
-          ulm_card_light_slider_name: Kitchen
+          label_use_temperature: false
+          label_use_brightness: true
+          entity_1:
+            entity_id: light.kitchen_lights_group
+            templates:
+              - yellow_on
+            tap_action:
+              action: toggle
+          entity_2:
+            entity_id: light.landing_lights_group
+            templates:
+              - yellow_on
+            tap_action:
+              action: none
+          entity_3:
+            entity_id: cover.garage_door
+            templates:
+              - green_close
+              - red_open
+            tap_action:
+              action: toggle
       - type: custom:button-card
         template: edge
-  - type: horizontal-stack
-    cards:
-      - type: custom:button-card
-        template: edge
-      - type: custom:button-card
-        template: card_light_slider
-        entity: light.office_ceiling_lights_group
-        variables:
-          ulm_card_light_slider_name: Office
-      - type: custom:button-card
-        template: card_light_slider
-        entity: light.tv_h6199
-        variables:
-          ulm_card_light_slider_name: TV LED Strip
-      - type: custom:button-card
-        template: edge
-  - type: horizontal-stack
-    cards:
-      - type: custom:button-card
-        template: edge
-      - type: 'custom:button-card'
-        template: card_power_outlet 
-        entity: switch.office_area
-        name: Living room Heater
-      - type: 'custom:button-card'
-        template: card_input_boolean
-        entity: input_boolean.living_room_override
-        name: Living room lights on
-      - type: custom:button-card
-        template: edge
-  - type: horizontal-stack
-    cards:
-      - type: custom:button-card
-        template: edge
-      - type: 'custom:button-card'
-        template: card_power_outlet 
-        entity: switch.office_purifier
-        name: Office Purifier
-      - type: 'custom:button-card'
-        template: card_power_outlet
-        entity: switch.bedroom_purifier
-        name: Bedroom Purifier
-      - type: custom:button-card
-        template: edge
-  - type: horizontal-stack
-    cards:
-      - type: custom:button-card
-        template: edge
-      - type: custom:button-card
-        template: card_cover_with_buttons
-        variables:
-          ulm_card_cover_with_buttons_entity: cover.bedroom_blinds
-          ulm_card_cover_with_buttons_name: 'Bedroom Blinds'
-      - type: custom:button-card
-        template: card_cover_with_buttons
-        variables:
-          ulm_card_cover_with_buttons_entity: cover.curtain_living_room
-          ulm_card_cover_with_buttons_name: 'Living Room Curtains'
-      - type: custom:button-card
-        template: edge
-      
+  
   - type: 'custom:button-card'
     template: card_title
-    name: Circadian Lighting
+    name: Security
   - type: horizontal-stack
     cards:
     - type: custom:button-card
       template: edge
-    - type: 'custom:button-card'
-      template: card_input_boolean
-      entity: switch.circadian_lighting_circadian_lighting_living_room
-      name: Living Lights
-    - type: 'custom:button-card'
-      template: card_input_boolean
-      entity: switch.circadian_lighting_circadian_lighting_kitchen
-      name: Kitchen Lights
+    - type: 'custom:frigate-card'
+      camera_entity: camera.doorbell
+      frigate_url: http://frigate
     - type: custom:button-card
       template: edge
-            
+
   - type: 'custom:button-card'
     template: card_title
     name: Presence
@@ -241,15 +305,12 @@ cards:
       template: card_generic
       entity: sensor.presence_distance
       name: Presence Distance
-    - type: 'custom:button-card'
-      template: card_generic
+    - type: "custom:button-card"
+      template: "custom_card_vncntdev_device_tracker"
       entity: device_tracker.vpogu_pixel_6_tracker
+      variables:
+        custom_card_vncntdev_device_tracker_icon: mdi:cellphone
+        custom_card_vncntdev_device_tracker_name: "Vikas Pixel 6"
+        custom_card_vncntdev_device_tracker_status_as_name: true
     - type: custom:button-card
       template: edge
-
-  - type: 'custom:button-card'
-    template: card_title
-    name: Security
-  - type: 'custom:frigate-card'
-    camera_entity: camera.doorbell
-    frigate_url: http://frigate

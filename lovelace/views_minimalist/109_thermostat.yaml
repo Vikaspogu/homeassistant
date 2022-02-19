@@ -1,0 +1,95 @@
+icon: mdi:thermostat
+title: Thermostat
+path: thermostat
+id: thermostat
+cards:
+  - type: horizontal-stack
+    cards:
+    - type: custom:button-card
+      template: edge
+    - type: 'custom:button-card'
+      template: chip_back
+      variables:
+        ulm_chip_back_path: /lovelace-minimalist/dashboard
+    - type: custom:button-card
+      template: edge
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Thermostat
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: "custom:button-card"
+        template: card_thermostat
+        entity: climate.living_room
+        variables:
+          ulm_card_thermostat_enable_background_color: true
+          ulm_card_thermostat_enable_display_temperature: true
+          ulm_card_thermostat_enable_controls: true
+          ulm_card_thermostat_enable_hvac_modes: true
+          ulm_card_thermostat_enable_popup: true
+      - type: custom:button-card
+        template: edge
+  ## Weather ###################################################################################################################
+  - type: 'custom:button-card'
+    template: card_title
+    name: Temperature
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: "custom:button-card"
+        template: card_weather
+        entity: weather.home
+        variables:
+          ulm_card_weather_name: " "
+          ulm_card_weather_primary_info:
+            - wind_speed
+            - precipitation_probability
+          ulm_card_weather_backdrop:
+            fade: true
+      - type: custom:button-card
+        template: edge
+          
+  - type: 'custom:button-card'
+    template: card_title
+    name: Interior
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:button-card'
+        template: card_graph
+        variables:
+          ulm_card_graph_color: "var(--google-blue)"
+          ulm_card_graph_name: Livingroom Temperature
+          ulm_card_graph_entity: sensor.ble_temperature_living_room
+      - type: 'custom:button-card'
+        template: card_graph
+        variables:
+          ulm_card_graph_color: "var(--google-blue)"
+          ulm_card_graph_name: Bedroom Temperature
+          ulm_card_graph_entity: sensor.ble_temperature_bed_room
+      - type: custom:button-card
+        template: edge
+
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:button-card'
+        template: card_graph
+        variables:
+          ulm_card_graph_color: "var(--google-blue)"
+          ulm_card_graph_name: Office Temperature 
+          ulm_card_graph_entity: sensor.ble_temperature_work_room
+      - type: 'custom:button-card'
+        template: card_graph
+        variables:
+          ulm_card_graph_color: "var(--google-blue)"
+          ulm_card_graph_name: Livingroom Air Quality
+          ulm_card_graph_entity: sensor.living_room_air_quality_pm_2_5
+      - type: custom:button-card
+        template: edge

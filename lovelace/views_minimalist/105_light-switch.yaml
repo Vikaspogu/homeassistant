@@ -1,0 +1,158 @@
+icon: mdi:light-switch
+title: Lights/Switches
+path: light-switch
+id: light-switch
+cards:
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:button-card'
+        template: chip_back
+        variables:
+          ulm_chip_back_path: /lovelace-minimalist/dashboard
+      - type: custom:button-card
+        template: edge
+
+  ## Lights ###################################################################################################################
+  - type: 'custom:button-card'
+    template: card_title
+    name: Rooms
+    label: '13 Devices'
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: "custom:button-card"
+        template: card_light
+        entity: light.living_room_dining_group
+        variables:
+          ulm_card_light_enable_slider: true
+          ulm_card_light_enable_color: true
+          ulm_card_light_enable_popup: true
+          ulm_card_light_name: Living Room
+      - type: "custom:button-card"
+        template: card_light
+        entity: light.kitchen_lights_group
+        variables:
+          ulm_card_light_enable_slider: true
+          ulm_card_light_enable_color: true
+          ulm_card_light_enable_popup: true
+          ulm_card_light_name: Kitchen
+      - type: custom:button-card
+        template: edge
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: "custom:button-card"
+        template: card_light
+        entity: light.office_ceiling_lights_group
+        variables:
+          ulm_card_light_enable_color: true
+          ulm_card_light_force_background_color: true
+          ulm_card_light_name: Office
+      - type: "custom:button-card"
+        template: card_light
+        entity: light.tv_h6199
+        variables:
+          ulm_card_light_enable_color: true
+          ulm_card_light_force_background_color: true
+          ulm_card_light_name: TV LED Strip
+      - type: custom:button-card
+        template: edge
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: "custom:button-card"
+        template: card_light
+        entity: light.landing_lights_group
+        variables:
+          ulm_card_light_enable_color: true
+          ulm_card_light_force_background_color: true
+          ulm_card_light_name: Landing
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: input_boolean.living_room_override
+        name: Keep lights on
+      - type: custom:button-card
+        template: edge
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: custom:button-card
+        template: card_cover_buttons
+        variables:
+          ulm_card_cover_buttons_entity: cover.garage_door
+          ulm_card_cover_buttons_name: 'Garage Door'
+      - type: custom:button-card
+        template: card_cover_buttons
+        variables:
+          ulm_card_cover_buttons_entity: cover.bedroom_curtain_4
+          ulm_card_cover_buttons_name: 'Bedroom Curtain'
+      - type: custom:button-card
+        template: edge 
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: custom:button-card
+        template: card_cover_buttons
+        variables:
+          ulm_card_cover_buttons_entity: cover.bedroom_blinds
+          ulm_card_cover_buttons_name: 'Bedroom Blinds'
+      - type: custom:button-card
+        template: card_cover_buttons
+        variables:
+          ulm_card_cover_buttons_entity: cover.curtain_living_room
+          ulm_card_cover_buttons_name: 'Living Room Curtains'
+      - type: custom:button-card
+        template: edge
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:button-card'
+        template: card_power_outlet 
+        entity: switch.office_purifier
+        name: Office Purifier
+      - type: 'custom:button-card'
+        template: card_power_outlet
+        entity: switch.bedroom_purifier
+        name: Bedroom Purifier
+      - type: custom:button-card
+        template: edge
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:button-card'
+        template: card_power_outlet 
+        entity: switch.office_area
+        name: Living room Heater
+      
+      - type: custom:button-card
+        template: edge
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Circadian Lighting
+  - type: horizontal-stack
+    cards:
+    - type: custom:button-card
+      template: edge
+    - type: 'custom:button-card'
+      template: card_input_boolean
+      entity: switch.circadian_lighting_circadian_lighting_living_room
+      name: Living Lights
+    - type: 'custom:button-card'
+      template: card_input_boolean
+      entity: switch.circadian_lighting_circadian_lighting_kitchen
+      name: Kitchen Lights
+    - type: custom:button-card
+      template: edge
+            
+
+  

@@ -1,0 +1,82 @@
+icon: mdi:robot-vacuum
+title: Vacuum
+path: vacuum
+id: vacuum
+cards:
+  - type: horizontal-stack
+    cards:
+    - type: custom:button-card
+      template: edge
+    - type: 'custom:button-card'
+      template: chip_back
+      variables:
+        ulm_chip_back_path: /lovelace-minimalist/dashboard
+    - type: custom:button-card
+      template: edge
+
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: custom:vacuum-card
+        entity: vacuum.robovac
+        show_name: true
+        compact_view: false
+        stats:
+          default:
+            - attribute: filter_left
+              unit: hours
+              subtitle: Filter
+            - attribute: side_brush_left
+              unit: hours
+              subtitle: Side brush
+            - attribute: main_brush_left
+              unit: hours
+              subtitle: Main brush
+            - attribute: sensor_dirty_left
+              unit: hours
+              subtitle: Sensors
+          cleaning:
+            - attribute: cleaned_area
+              unit: m2
+              subtitle: Cleaning area
+            - attribute: cleaning_time
+              unit: minutes
+              subtitle: Cleaning time
+      - type: custom:button-card
+        template: edge
+
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: custom:vacuum-card
+        entity: vacuum.roomba
+        show_name: true
+        compact_view: false
+        stats:
+          default:
+            - attribute: filter_left
+              unit: hours
+              subtitle: Filter
+            - attribute: side_brush_left
+              unit: hours
+              subtitle: Side brush
+            - attribute: main_brush_left
+              unit: hours
+              subtitle: Main brush
+            - attribute: sensor_dirty_left
+              unit: hours
+              subtitle: Sensors
+          cleaning:
+            - attribute: cleaned_area
+              unit: m2
+              subtitle: Cleaning area
+            - attribute: cleaning_time
+              unit: minutes
+              subtitle: Cleaning time
+      - type: custom:button-card
+        template: edge
+
+  
+  

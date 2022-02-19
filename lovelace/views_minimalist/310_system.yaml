@@ -18,262 +18,277 @@ cards:
   - type: 'custom:button-card'
     template: card_title
     name: HACS
-  - type: entities
-    entities:
-      - entity: sensor.hacs
-        name: Plugins/Components
-    style: |
-      ha-card {
-        color: var(--color-orange-1);
-        --paper-item-icon-color: var(--color-orange-1);
-      }
+  - type: horizontal-stack
+    cards:
+    - type: custom:button-card
+      template: edge
+    - type: entities
+      entities:
+        - entity: sensor.hacs
+          name: Plugins/Components
+      style: |
+        ha-card {
+          color: var(--color-orange-1);
+          --paper-item-icon-color: var(--color-orange-1);
+        }
+    - type: custom:button-card
+      template: edge
 
   - type: 'custom:button-card'
     template: card_title
     name: Synology DSM 220+
-  - card:
-    type: custom:stack-in-card
+  - type: horizontal-stack
     cards:
-      - type: horizontal-stack
-        cards:
-          - type: 'custom:mini-graph-card'
-            style: |
-              ha-card {
-                font-family: var(--primary-font-family);
-                border-bottom: 2px solid var(--background-color);
-              }
-              .graph {
-                padding-top: 15px;
-                padding-bottom: 0px;
-              }
-              .info {
-                padding-bottom: 0px;
-              }
-              .flex {
-                padding-bottom: 10px;
-              }
-            entities:
-              - sensor.pogu_nas_cpu_utilization_total
-            name: CPU
-            align_state: center
-            align_icon: right
-            font_size: 60
-            font_size_header: 11
-            hours_to_show: 12
-            line_color: var(--color-red-1)
-            line_width: 4
-            animate: true
-            points_per_hour: 4
-            lower_bound: 0
-            lower_bound_secondary: 0
-            show:
-              fill: fade
-              graph: line
-              extrema: false
-              icon: true
-              name: true
-              labels: false
-
-          - type: 'custom:mini-graph-card'
-            style: |
-              ha-card {
-                font-family: var(--primary-font-family);
-                border-bottom: 2px solid var(--background-color);
-              }
-              .graph {
-                padding-top: 15px;
-                padding-bottom: 0px;
-              }
-              .info {
-                padding-bottom: 0px;
-              }
-              .flex {
-                padding-bottom: 10px;
-              }
-            entities:
-              - sensor.pogu_nas_memory_usage_real
-            name: Storage RAM
-            align_state: center
-            align_icon: right
-            font_size: 60
-            font_size_header: 11
-            hours_to_show: 12
-            line_color: var(--google-blue)
-            line_width: 4
-            animate: true
-            points_per_hour: 4
-            lower_bound: 0
-            lower_bound_secondary: 0
-            show:
-              fill: fade
-              graph: line
-              extrema: false
-              icon: true
-              name: true
-              labels: false
-
-          - type: 'custom:mini-graph-card'
-            style: |
-              ha-card {
-                font-family: var(--primary-font-family);
-                border-bottom: 2px solid var(--background-color);
-              }
-              .graph {
-                padding-top: 15px;
-                padding-bottom: 0px;
-              }
-              .info {
-                padding-bottom: 0px;
-              }
-              .flex {
-                padding-bottom: 10px;
-              }
-            entities:
-              - sensor.pogu_nas_temperature
-            name: Temperatur
-            align_state: center
-            align_icon: right
-            font_size: 60
-            font_size_header: 11
-            hours_to_show: 12
-            line_color: var(--color-green-bright-1)
-            line_width: 4
-            animate: true
-            points_per_hour: 4
-            lower_bound: 0
-            lower_bound_secondary: 0
-            show:
-              fill: fade
-              graph: line
-              extrema: false
-              icon: true
-              name: true
-              labels: false
-
-      - type: entities
-        card_mod:
-          class: header
-          style:
-            .: |
-              ha-card {
-                animation: none !important;
-                margin: 0px !important;
-              }
-            mini-graph-card:
-              $: |
+    - type: custom:button-card
+      template: edge
+    - card:
+      type: custom:stack-in-card
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: 'custom:mini-graph-card'
+              style: |
                 ha-card {
-                  padding: 0px !important;
+                  font-family: var(--primary-font-family);
+                  border-bottom: 2px solid var(--background-color);
                 }
-            hui-horizontal-stack-card:
-              $:
-                .: |
-                  #root {
-                    margin-top: 1em;
-                    margin-right: 1.5em;
+                .graph {
+                  padding-top: 15px;
+                  padding-bottom: 0px;
+                }
+                .info {
+                  padding-bottom: 0px;
+                }
+                .flex {
+                  padding-bottom: 10px;
+                }
+              entities:
+                - sensor.pogu_nas_cpu_utilization_total
+              name: CPU
+              align_state: center
+              align_icon: right
+              font_size: 60
+              font_size_header: 11
+              hours_to_show: 12
+              line_color: var(--color-red-1)
+              line_width: 4
+              animate: true
+              points_per_hour: 4
+              lower_bound: 0
+              lower_bound_secondary: 0
+              show:
+                fill: fade
+                graph: line
+                extrema: false
+                icon: true
+                name: true
+                labels: false
+
+            - type: 'custom:mini-graph-card'
+              style: |
+                ha-card {
+                  font-family: var(--primary-font-family);
+                  border-bottom: 2px solid var(--background-color);
+                }
+                .graph {
+                  padding-top: 15px;
+                  padding-bottom: 0px;
+                }
+                .info {
+                  padding-bottom: 0px;
+                }
+                .flex {
+                  padding-bottom: 10px;
+                }
+              entities:
+                - sensor.pogu_nas_memory_usage_real
+              name: Storage RAM
+              align_state: center
+              align_icon: right
+              font_size: 60
+              font_size_header: 11
+              hours_to_show: 12
+              line_color: var(--google-blue)
+              line_width: 4
+              animate: true
+              points_per_hour: 4
+              lower_bound: 0
+              lower_bound_secondary: 0
+              show:
+                fill: fade
+                graph: line
+                extrema: false
+                icon: true
+                name: true
+                labels: false
+
+            - type: 'custom:mini-graph-card'
+              style: |
+                ha-card {
+                  font-family: var(--primary-font-family);
+                  border-bottom: 2px solid var(--background-color);
+                }
+                .graph {
+                  padding-top: 15px;
+                  padding-bottom: 0px;
+                }
+                .info {
+                  padding-bottom: 0px;
+                }
+                .flex {
+                  padding-bottom: 10px;
+                }
+              entities:
+                - sensor.pogu_nas_temperature
+              name: Temperatur
+              align_state: center
+              align_icon: right
+              font_size: 60
+              font_size_header: 11
+              hours_to_show: 12
+              line_color: var(--color-green-bright-1)
+              line_width: 4
+              animate: true
+              points_per_hour: 4
+              lower_bound: 0
+              lower_bound_secondary: 0
+              show:
+                fill: fade
+                graph: line
+                extrema: false
+                icon: true
+                name: true
+                labels: false
+
+        - type: entities
+          card_mod:
+            class: header
+            style:
+              .: |
+                ha-card {
+                  animation: none !important;
+                  margin: 0px !important;
+                }
+              mini-graph-card:
+                $: |
+                  ha-card {
+                    padding: 0px !important;
                   }
-                  #root > * {
-                    flex: none !important;
-                  }
-                hui-entities-card:
-                  $:
-                    .: |
-                      #states {
-                        padding: 0;
-                      }
-                    hui-sensor-entity-row:
-                      $hui-generic-entity-row$: |
-                        .info {
-                          margin: 0 8px 0 8px !important;
+              hui-horizontal-stack-card:
+                $:
+                  .: |
+                    #root {
+                      margin-top: 1em;
+                      margin-right: 1.5em;
+                    }
+                    #root > * {
+                      flex: none !important;
+                    }
+                  hui-entities-card:
+                    $:
+                      .: |
+                        #states {
+                          padding: 0;
                         }
-        entities:
-          - entity: sensor.template_nas_status
-            name: NAS Status
-          - entity: binary_sensor.pogu_nas_update_available
-            name: Update Available
-          - entity: sensor.synology_dsm_latest
-            name: Synology Latest Version
-          - entity: binary_sensor.pogu_nas_security_status
-            name: Security Status
-          - entity: sensor.pogu_nas_average_disk_temp
-            name: Avg. Disk Temp
-          - entity: sensor.pogu_nas_memory_available_real
-            name: Memory Available
-          - entity: sensor.pogu_nas_download_throughput
-            name: Download Throuhput
-            style: |
-              :host {
-                --paper-item-icon-color: green;
-              }
-          - entity: sensor.pogu_nas_upload_throughput
-            name: Upload Throuhput
-            style: |
-              :host {
-                --paper-item-icon-color: #385581;
-              }
-          - type: custom:bar-card
-            width: 55%
-            height: 2em
-            decimal: 0
-            unit_of_measurement: '%'
-            positions: &bar_card_positions
-              icon: outside
-              indicator: 'off'
-              name: outside
-            severity: &bar_card_severity
-              - color: rgba(var(--color-yellow),1)
-                from: 0
-                to: 89
-              - color: rgba(var(--color-red),1)
-                from: 90
-                to: 200
-            entity_row: true
-            entities:
-              - entity: sensor.pogu_nas_cpu_utilization_total
-                name: CPU Utilization
-              - entity: sensor.pogu_nas_used_space
-                name: Storage - 7.5TB
+                      hui-sensor-entity-row:
+                        $hui-generic-entity-row$: |
+                          .info {
+                            margin: 0 8px 0 8px !important;
+                          }
+          entities:
+            - entity: sensor.template_nas_status
+              name: NAS Status
+            - entity: binary_sensor.pogu_nas_update_available
+              name: Update Available
+            - entity: sensor.synology_dsm_latest
+              name: Synology Latest Version
+            - entity: binary_sensor.pogu_nas_security_status
+              name: Security Status
+            - entity: sensor.pogu_nas_average_disk_temp
+              name: Avg. Disk Temp
+            - entity: sensor.pogu_nas_memory_available_real
+              name: Memory Available
+            - entity: sensor.pogu_nas_download_throughput
+              name: Download Throuhput
+              style: |
+                :host {
+                  --paper-item-icon-color: green;
+                }
+            - entity: sensor.pogu_nas_upload_throughput
+              name: Upload Throuhput
+              style: |
+                :host {
+                  --paper-item-icon-color: #385581;
+                }
+            - type: custom:bar-card
+              width: 55%
+              height: 2em
+              decimal: 0
+              unit_of_measurement: '%'
+              positions: &bar_card_positions
+                icon: outside
+                indicator: 'off'
+                name: outside
+              severity: &bar_card_severity
+                - color: rgba(var(--color-yellow),1)
+                  from: 0
+                  to: 89
+                - color: rgba(var(--color-red),1)
+                  from: 90
+                  to: 200
+              entity_row: true
+              entities:
+                - entity: sensor.pogu_nas_cpu_utilization_total
+                  name: CPU Utilization
+                - entity: sensor.pogu_nas_used_space
+                  name: Storage - 7.5TB
+    - type: custom:button-card
+      template: edge
 
   - type: 'custom:button-card'
     template: card_title
     name: HP Printer
-  - type: custom:vertical-stack-in-card
+  - type: horizontal-stack
     cards:
-      - type: entities
-        entities:
-          - entity: sensor.hp_envy_photo_6200_series
-            type: custom:multiple-entity-row
-            name: Printer Status
-            secondary_info: last-changed
-      - type: custom:bar-card
-        width: 70%
-        color: rgba(var(--color-yellow),1)
-        entities:
-          - name: Black Ink
-            entity: sensor.hp_envy_photo_6200_series_black_ink
-          - name: Color Ink
-            entity: sensor.hp_envy_photo_6200_series_tri_color_ink
+    - type: custom:button-card
+      template: edge
+    - type: 'custom:button-card'
+      template: custom_card_mpse_printer
+      entity: sensor.hp_envy_photo_6200_series
+      variables:
+        ulm_card_printer_name: HP Color Laser MFP 178nw
+        ulm_card_printer_black_name: sensor.hp_envy_photo_6200_series_black_ink
+        ulm_card_printer_cyan_name: sensor.hp_envy_photo_6200_series_tri_color_ink
+    - type: custom:button-card
+      template: edge
 
-  - type: custom:swipe-card
-    start_card: 1
-    parameters:
-      roundLengths: true
-      effect: flip
-      speed: 650
-      spaceBetween: 20
-      threshold: 7
-      coverflowEffect:
-        rotate: 80
-        depth: 300
+  - type: horizontal-stack
     cards:
-      - type: picture-entity
-        entity: camera.doorbell_person
-      - type: picture-entity
-        entity: camera.doorbell_dog
+    - type: custom:button-card
+      template: edge
+    - type: custom:swipe-card
+      start_card: 1
+      parameters:
+        roundLengths: true
+        effect: flip
+        speed: 650
+        spaceBetween: 20
+        threshold: 7
+        coverflowEffect:
+          rotate: 80
+          depth: 300
+      cards:
+        - type: picture-entity
+          entity: camera.doorbell_person
+        - type: picture-entity
+          entity: camera.doorbell_dog
+    - type: custom:button-card
+      template: edge
 
   - type: 'custom:button-card'
     template: card_title
     name: Battery Levels
-    label: '7 Sensors'
+    label: '8 Sensors'
   - type: horizontal-stack
     cards:
     - type: custom:button-card
@@ -281,10 +296,18 @@ cards:
     - type: custom:button-card
       template: card_battery
       entity: sensor.ble_battery_bed_room
+      variables:
+        ulm_card_battery_charger_type_entity_id: sensor.ble_battery_bed_room
+        ulm_card_battery_battery_level_danger: 30
+        ulm_card_battery_battery_level_warning: 80
       name: Bedroom temp sensor
     - type: custom:button-card
       template: card_battery
       entity: sensor.ble_battery_living_room
+      variables:
+        ulm_card_battery_charger_type_entity_id: sensor.ble_battery_living_room
+        ulm_card_battery_battery_level_danger: 30
+        ulm_card_battery_battery_level_warning: 80
       name: Livingroom temp sensor
     - type: custom:button-card
       template: edge
@@ -295,10 +318,18 @@ cards:
     - type: custom:button-card
       template: card_battery
       entity: sensor.ble_battery_work_room
+      variables:
+        ulm_card_battery_charger_type_entity_id: sensor.ble_battery_work_room
+        ulm_card_battery_battery_level_danger: 30
+        ulm_card_battery_battery_level_warning: 80
       name: Workroom temp sensor
     - type: custom:button-card
       template: card_battery
       entity: sensor.garagedoor_battery
+      variables:
+        ulm_card_battery_charger_type_entity_id: sensor.garagedoor_battery
+        ulm_card_battery_battery_level_danger: 30
+        ulm_card_battery_battery_level_warning: 80
       name: Garage door sensor
     - type: custom:button-card
       template: edge
@@ -309,10 +340,18 @@ cards:
     - type: custom:button-card
       template: card_battery
       entity: sensor.livingroommotionsensor_battery
+      variables:
+        ulm_card_battery_charger_type_entity_id: sensor.livingroommotionsensor_battery
+        ulm_card_battery_battery_level_danger: 30
+        ulm_card_battery_battery_level_warning: 80
       name: Livingroom Motion
     - type: custom:button-card
       template: card_battery
       entity: sensor.officemotionsensor_battery
+      variables:
+        ulm_card_battery_charger_type_entity_id: sensor.officemotionsensor_battery
+        ulm_card_battery_battery_level_danger: 30
+        ulm_card_battery_battery_level_warning: 80
       name: Bedroom Motion
     - type: custom:button-card
       template: edge
@@ -323,10 +362,18 @@ cards:
     - type: custom:button-card
       template: card_battery
       entity: sensor.bedroom_blinds_battery_level
+      variables:
+        ulm_card_battery_charger_type_entity_id: sensor.bedroom_blinds_battery_level
+        ulm_card_battery_battery_level_danger: 30
+        ulm_card_battery_battery_level_warning: 80
       name: Bedroom blinds
     - type: custom:button-card
       template: card_battery
       entity: sensor.landingmotionsensor_battery
+      variables:
+        ulm_card_battery_charger_type_entity_id: sensor.landingmotionsensor_battery
+        ulm_card_battery_battery_level_danger: 30
+        ulm_card_battery_battery_level_warning: 80
       name: Landing Motion
     - type: custom:button-card
       template: edge
@@ -334,6 +381,7 @@ cards:
   - type: 'custom:button-card'
     template: card_title
     name: Motion
+    label: '4 Sensors'
   - type: horizontal-stack
     cards:
       - type: custom:button-card
@@ -341,14 +389,18 @@ cards:
       - type: 'custom:button-card'
         template: card_binary_sensor
         variables:
-          - ulm_card_binary_sensor_alert: true
+          ulm_card_battery_charger_type_entity_id: binary_sensor.livingroommotionsensor_occupancy
+          ulm_card_battery_battery_level_danger: 30
+          ulm_card_battery_battery_level_warning: 80
         entity: binary_sensor.livingroommotionsensor_occupancy
         show_last_changed: true
         name: Livingroom
       - type: 'custom:button-card'
         template: card_binary_sensor
         variables:
-          - ulm_card_binary_sensor_alert: true
+          ulm_card_battery_charger_type_entity_id: binary_sensor.officemotionsensor_occupancy
+          ulm_card_battery_battery_level_danger: 30
+          ulm_card_battery_battery_level_warning: 80
         entity: binary_sensor.officemotionsensor_occupancy
         show_last_changed: true
         name: Office
@@ -361,10 +413,21 @@ cards:
       - type: 'custom:button-card'
         template: card_binary_sensor
         variables:
-          - ulm_card_binary_sensor_alert: true
+          ulm_card_battery_charger_type_entity_id: binary_sensor.landingmotionsensor_occupancy
+          ulm_card_battery_battery_level_danger: 30
+          ulm_card_battery_battery_level_warning: 80
         entity: binary_sensor.landingmotionsensor_occupancy
         show_last_changed: true
         name: Landing
+      - type: 'custom:button-card'
+        template: card_binary_sensor
+        variables:
+          ulm_card_battery_charger_type_entity_id: binary_sensor.kitchenmotionsensor_occupancy
+          ulm_card_battery_battery_level_danger: 30
+          ulm_card_battery_battery_level_warning: 80
+        entity: binary_sensor.kitchenmotionsensor_occupancy
+        show_last_changed: true
+        name: Kitchen
       - type: custom:button-card
         template: edge
   
@@ -375,18 +438,14 @@ cards:
     cards:
       - type: custom:button-card
         template: edge
-      - type: 'custom:button-card'
-        template: card_graph
+      - type: custom:button-card
+        template: custom_card_irmajavi_speedtest
         variables:
-          ulm_card_graph_color: "var(--google-blue)"
-          ulm_card_graph_name: Download
-          ulm_card_graph_entity: sensor.speedtest_download
-      - type: 'custom:button-card'
-        template: card_graph
-        variables:
-          ulm_card_graph_color: "var(--google-blue)"
-          ulm_card_graph_name: Upload
-          ulm_card_graph_entity: sensor.speedtest_upload
+          ulm_custom_card_irmajavi_speedtest_download_speed_entity: sensor.speedtest_download
+          ulm_custom_card_irmajavi_speedtest_upload_speed_entity: sensor.speedtest_upload
+          ulm_custom_card_irmajavi_speedtest_color: blue
+          ulm_custom_card_irmajavi_speedtest_router_name: Pogu's Router
+          ulm_custom_card_irmajavi_speedtest_router_model: UDM
       - type: custom:button-card
         template: edge
 
