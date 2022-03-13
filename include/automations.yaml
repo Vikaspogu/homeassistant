@@ -5,28 +5,6 @@ automation:
     #                   AUTOMATIONS                    #
     #                                                  #
     ####################################################
-    
-  - alias: Set Home Assistant theme at startup
-    trigger:
-      platform: homeassistant
-      event: start
-    action:
-      service: frontend.set_theme
-      data:
-        name: noctis
-    id: 51b3acf4a69e40d796b7ae21d35a5ed5
-
-  - alias: Actionable notification - close garage door
-    trigger:
-      platform: event
-      event_type: mobile_app_notification_action
-      event_data:
-        action: close_garage
-    action:
-      service: cover.close_cover
-      entity_id: cover.garage_door
-      data: {}
-    id: c696dd277c6546ecb1f4e0f82052822f
 
   - alias: Update Tesla location as MQTT location updates
     initial_state: true
@@ -44,30 +22,30 @@ automation:
         - '{{ states.sensor.tesla_longitude.state }}'
     id: 77069c1dd26b4913b7fbbb00ae85b688
 
-  # - alias: Open garage if car returns home
-  #   initial_state: true
-  #   trigger:
-  #   - platform: state
-  #     entity_id: device_tracker.tesla_location
-  #     from: not_home
-  #     to: home
-  #   action:
-  #   - service: cover.open_cover
-  #     entity_id: cover.garage_door
-  #   id: 78aa903d4f1d4085b77726ac84b0faeb
+  - alias: Open garage if car returns home
+    initial_state: on
+    trigger:
+    - platform: state
+      entity_id: device_tracker.tesla_location
+      from: not_home
+      to: home
+    action:
+    - service: cover.open_cover
+      entity_id: cover.garage_door
+    id: 78aa903d4f1d4085b77726ac84b0faeb
 
-  # - alias: Close garage if car is away
-  #   initial_state: true
-  #   trigger:
-  #   - platform: state
-  #     entity_id: device_tracker.tesla_location
-  #     from: home
-  #     to: not_home
-  #   action:
-  #   - service: cover.close_cover
-  #     entity_id: cover.garage_door
-  #   id: 3d9513db194f4f44b8310e57949968d1
-            
+  - alias: Close garage if car is away
+    initial_state: on
+    trigger:
+    - platform: state
+      entity_id: device_tracker.tesla_location
+      from: home
+      to: not_home
+    action:
+    - service: cover.close_cover
+      entity_id: cover.garage_door
+    id: 3d9513db194f4f44b8310e57949968d1
+
   - id: vacuum_notifications
     alias: Vacuum Notifications
     trigger:

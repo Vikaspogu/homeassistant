@@ -49,14 +49,18 @@ cards:
         template: card_light
         entity: light.office_ceiling_lights_group
         variables:
+          ulm_card_light_enable_slider: true
           ulm_card_light_enable_color: true
+          ulm_card_light_enable_popup: true
           ulm_card_light_force_background_color: true
           ulm_card_light_name: Office
       - type: "custom:button-card"
         template: card_light
         entity: light.tv_h6199
         variables:
+          ulm_card_light_enable_slider: true
           ulm_card_light_enable_color: true
+          ulm_card_light_enable_popup: true
           ulm_card_light_force_background_color: true
           ulm_card_light_name: TV LED Strip
       - type: custom:button-card
@@ -129,30 +133,9 @@ cards:
       - type: custom:button-card
         template: edge
       - type: 'custom:button-card'
-        template: card_power_outlet 
-        entity: switch.office_area
-        name: Living room Heater
-      
+        template: card_input_boolean
+        entity: switch.circadian_lighting_circadian_lighting
+        name: Circadian Lights
       - type: custom:button-card
         template: edge
-
-  - type: 'custom:button-card'
-    template: card_title
-    name: Circadian Lighting
-  - type: horizontal-stack
-    cards:
-    - type: custom:button-card
-      template: edge
-    - type: 'custom:button-card'
-      template: card_input_boolean
-      entity: switch.circadian_lighting_circadian_lighting_living_room
-      name: Living Lights
-    - type: 'custom:button-card'
-      template: card_input_boolean
-      entity: switch.circadian_lighting_circadian_lighting_kitchen
-      name: Kitchen Lights
-    - type: custom:button-card
-      template: edge
-            
-
   

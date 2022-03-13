@@ -74,9 +74,27 @@ cards:
       - type: custom:button-card
         template: card_navigate
         variables:
-          ulm_card_navigate_path: /lovelace-minimalist/car
-          ulm_card_navigate_title: Car
+          ulm_card_navigate_path: /lovelace-minimalist/thermostat
+          ulm_card_navigate_title: Thermostat
+          ulm_card_navigate_icon: mdi:thermostat
+      - type: custom:button-card
+        template: edge
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: custom:button-card
+        template: card_navigate
+        variables:
+          ulm_card_navigate_path: /lovelace-minimalist/tesla
+          ulm_card_navigate_title: Tesla
           ulm_card_navigate_icon: mdi:car-connected
+      - type: custom:button-card
+        template: card_navigate
+        variables:
+          ulm_card_navigate_path: /lovelace-minimalist/toyota
+          ulm_card_navigate_title: Toyota
+          ulm_card_navigate_icon: mdi:car
       - type: custom:button-card
         template: edge
   - type: horizontal-stack
@@ -95,25 +113,6 @@ cards:
           ulm_card_navigate_path: /lovelace-minimalist/system
           ulm_card_navigate_title: System
           ulm_card_navigate_icon: mdi:server-network 
-      - type: custom:button-card
-        template: edge
-
-  - type: horizontal-stack
-    cards:
-      - type: custom:button-card
-        template: edge
-      - type: custom:button-card
-        template: card_navigate
-        variables:
-          ulm_card_navigate_path: /lovelace-minimalist/thermostat
-          ulm_card_navigate_title: Thermostat
-          ulm_card_navigate_icon: mdi:thermostat
-      - type: custom:button-card
-        template: card_navigate
-        variables:
-          ulm_card_navigate_path: /lovelace-minimalist/vacuum
-          ulm_card_navigate_title: Vacuum
-          ulm_card_navigate_icon: mdi:robot-vacuum
       - type: custom:button-card
         template: edge
 
@@ -143,7 +142,7 @@ cards:
       - type: 'custom:button-card'
         template:
           - card_room
-          - yellow_no_state
+          - blue_no_state
         name: Living Room
         entity: sensor.ble_temperature_living_room
         icon: mdi:sofa
@@ -160,9 +159,9 @@ cards:
             tap_action:
               action: toggle
           entity_2:
-            entity_id: switch.office_area
+            entity_id: binary_sensor.livingroommotionsensor_occupancy
             templates:
-              - yellow_on
+              - pink_on
             tap_action:
               action: toggle
           entity_3:
@@ -180,7 +179,7 @@ cards:
       - type: 'custom:button-card'
         template:
           - card_room
-          - yellow_no_state
+          - blue_no_state
         name: Office Room
         entity: sensor.ble_temperature_work_room
         icon: mdi:chair-rolling
@@ -218,7 +217,7 @@ cards:
       - type: 'custom:button-card'
         template:
           - card_room
-          - yellow_no_state
+          - blue_no_state
         name: Bed Room
         entity: sensor.ble_temperature_bed_room
         icon: mdi:bed-empty
@@ -249,7 +248,7 @@ cards:
       - type: 'custom:button-card'
         template:
           - card_room
-          - yellow_no_state
+          - blue_no_state
         name: Kitchen/Garage
         entity: light.kitchen_lights_group
         icon: mdi:stove
@@ -312,5 +311,32 @@ cards:
         custom_card_vncntdev_device_tracker_icon: mdi:cellphone
         custom_card_vncntdev_device_tracker_name: "Vikas Pixel 6"
         custom_card_vncntdev_device_tracker_status_as_name: true
+    - type: custom:button-card
+      template: edge
+  
+  - type: 'custom:button-card'
+    template: card_title
+    name: Vacuum
+  - type: horizontal-stack
+    cards:
+    - type: custom:button-card
+      template: edge
+    - type: "custom:button-card"
+      template: "card_vacuum"
+      entity: "vacuum.robovac"
+    - type: custom:button-card
+      template: edge
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Sunset
+  - type: horizontal-stack
+    cards:
+    - type: custom:button-card
+      template: edge
+    - type: custom:button-card
+      template: custom_card_httpedo13_sun
+      variables:
+        language: 'en'
     - type: custom:button-card
       template: edge

@@ -1,0 +1,76 @@
+icon: mdi:car
+title: Toyota
+path: toyota
+id: toyota
+cards:
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:button-card'
+        template: chip_back
+        variables:
+          ulm_chip_back_path: /lovelace-minimalist/dashboard
+      - type: custom:button-card
+        template: edge
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Toyota Stats
+  - type: horizontal-stack
+    cards:
+    - type: custom:button-card
+      template: edge
+    - type: "custom:button-card"
+      template: custom_card_schumijo_car
+      variables:
+        ulm_card_schumijo_car_name: "Toyota"
+        ulm_card_schumijo_car_tracker: device_tracker.last_parked_location_2019_rav4_hybrid_xse_awd_suv
+        ulm_card_schumijo_car_lock: lock.2019_rav4_hybrid_xse_awd_suv
+        ulm_card_schumijo_car_energy_level: sensor.fuel_level_2019_rav4_hybrid_xse_awd_suv
+        ulm_card_schumijo_car_range: sensor.distance_to_empty_2019_rav4_hybrid_xse_awd_suv
+    - type: custom:button-card
+      template: edge
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Detailed View
+  - type: horizontal-stack
+    cards:
+    - type: custom:button-card
+      template: edge
+    - type: entities
+      entities:
+        - entity: sensor.distance_to_empty_2019_rav4_hybrid_xse_awd_suv
+        - entity: sensor.fuel_level_2019_rav4_hybrid_xse_awd_suv
+        - entity: sensor.next_service_2019_rav4_hybrid_xse_awd_suv
+        - entity: sensor.odometer_2019_rav4_hybrid_xse_awd_suv
+        
+        - entity: binary_sensor.remote_start_2019_rav4_hybrid_xse_awd_suv
+        
+        - entity: binary_sensor.front_driver_door_lock_2019_rav4_hybrid_xse_awd_suv
+        - entity: binary_sensor.front_passenger_door_lock_2019_rav4_hybrid_xse_awd_suv
+        - entity: binary_sensor.rear_driver_door_lock_2019_rav4_hybrid_xse_awd_suv
+        - entity: binary_sensor.rear_passenger_door_lock_2019_rav4_hybrid_xse_awd_suv
+
+        - entity: binary_sensor.front_driver_door_2019_rav4_hybrid_xse_awd_suv
+        - entity: binary_sensor.front_passenger_door_2019_rav4_hybrid_xse_awd_suv
+        - entity: binary_sensor.rear_driver_door_2019_rav4_hybrid_xse_awd_suv
+        - entity: binary_sensor.rear_passenger_door_2019_rav4_hybrid_xse_awd_suv
+        - entity: binary_sensor.trunk_2019_rav4_hybrid_xse_awd_suv
+
+        - entity: binary_sensor.hood_2019_rav4_hybrid_xse_awd_suv
+        - entity: binary_sensor.moonroof_2019_rav4_hybrid_xse_awd_suv
+        - entity: sensor.front_driver_tire_2019_rav4_hybrid_xse_awd_suv
+        - entity: sensor.front_passenger_tire_2019_rav4_hybrid_xse_awd_suv
+        - entity: sensor.rear_driver_tire_2019_rav4_hybrid_xse_awd_suv
+        - entity: sensor.rear_passenger_tire_2019_rav4_hybrid_xse_awd_suv
+
+        - entity: binary_sensor.front_driver_window_2019_rav4_hybrid_xse_awd_suv
+        - entity: binary_sensor.front_passenger_window_2019_rav4_hybrid_xse_awd_suv
+        - entity: binary_sensor.rear_driver_window_2019_rav4_hybrid_xse_awd_suv
+        - entity: binary_sensor.rear_passenger_window_2019_rav4_hybrid_xse_awd_suv
+        - entity: sensor.trip_details_a_2019_rav4_hybrid_xse_awd_suv
+        - entity: sensor.trip_details_b_2019_rav4_hybrid_xse_awd_suv
+    - type: custom:button-card
+      template: edge

@@ -52,7 +52,7 @@ cover:
     state_topic: "zigbee2mqtt/GarageDoor"
     availability:
       - topic: "garage/availability"
-    qos: 0
+    qos: 1
     optimistic: false
     retain: false
     payload_open: "OPEN"
@@ -176,7 +176,10 @@ lovelace:
     - url: /hacsfiles/my-cards/my-cards.js
       type: module
     - url: /hacsfiles/simple-weather-card/simple-weather-card-bundle.js
-      type: module        
+      type: module
+    - url: /hacsfiles/home-assistant-sun-card/home-assistant-sun-card.js
+      type: module
+                      
 
     # Styles
     - url: "https://fonts.googleapis.com/css2?family=Raleway&display=swap"
@@ -234,10 +237,11 @@ circadian_lighting:
 
 switch:
   - platform: circadian_lighting
-    name: circadian lighting living room
+    name: circadian lighting
     lights_ct:
       - light.living_room_dining_group
-  - platform: circadian_lighting
-    name: circadian lighting kitchen
-    lights_ct:
       - light.kitchen_lights_group
+      - light.office_ceiling_lights_group
+      - light.landing_lights_group
+
+sun:

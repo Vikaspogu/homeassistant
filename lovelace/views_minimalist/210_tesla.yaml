@@ -1,7 +1,7 @@
 icon: mdi:car-connected
-title: Auto
-path: car
-id: car
+title: TEsla
+path: tesla
+id: tesla
 cards:
   - type: horizontal-stack
     cards:
@@ -49,13 +49,14 @@ cards:
     cards:
     - type: custom:button-card
       template: edge
-    - type: 'custom:button-card'
-      template: custom_card_car_gauge
-      entity: sensor.tesla_state
+    - type: "custom:button-card"
+      template: custom_card_schumijo_car
       variables:
-        ulm_card_car_name: Quinjet
-        ulm_card_car_charge_name: sensor.tesla_battery_level
-        ulm_card_car_range_name: sensor.tesla_ideal_battery_range_mi
+        ulm_card_schumijo_car_name: "Quinjet"
+        ulm_card_schumijo_car_tracker: device_tracker.tesla_location
+        ulm_card_schumijo_car_lock: binary_sensor.tesla_locked
+        ulm_card_schumijo_car_energy_level: sensor.tesla_battery_level
+        ulm_card_schumijo_car_range: sensor.tesla_ideal_battery_range_mi
     - type: custom:button-card
       template: edge
 
