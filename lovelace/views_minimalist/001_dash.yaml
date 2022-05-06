@@ -269,7 +269,7 @@ cards:
             templates:
               - yellow_on
             tap_action:
-              action: none
+              action: toggle
           entity_3:
             entity_id: cover.garage_door
             templates:
@@ -288,8 +288,8 @@ cards:
     - type: custom:button-card
       template: edge
     - type: 'custom:frigate-card'
-      camera_entity: camera.doorbell
-      frigate_url: http://frigate
+      cameras:
+      - camera_entity: camera.doorbell
     - type: custom:button-card
       template: edge
 
