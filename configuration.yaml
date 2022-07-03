@@ -139,15 +139,11 @@ lovelace:
       type: module
     - url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
       type: module
-    - url: /hacsfiles/scheduler-card/scheduler-card.js
-      type: module
     - url: /hacsfiles/simple-thermostat/simple-thermostat.js
       type: module
     - url: /hacsfiles/swipe-card/swipe-card.js
       type: module
     - url: /hacsfiles/lovelace-swipe-navigation/swipe-navigation.js
-      type: module
-    - url: /hacsfiles/transmission-card/transmission-card.js
       type: module
     - url: /hacsfiles/upcoming-media-card/upcoming-media-card.js
       type: module
@@ -179,7 +175,9 @@ lovelace:
       type: module
     - url: /hacsfiles/home-assistant-sun-card/home-assistant-sun-card.js
       type: module
-                      
+    - url: /hacsfiles/lovelace-mushroom/mushroom.js
+      type: module                
+           
 
     # Styles
     - url: "https://fonts.googleapis.com/css2?family=Raleway&display=swap"
@@ -191,12 +189,6 @@ lovelace:
 
   # Add yaml dashboards
   dashboards:
-    lovelace-minimalist:
-      mode: yaml
-      title: Minimalist
-      icon: mdi:script
-      show_in_sidebar: true
-      filename: lovelace-minimalist.yaml
     lovelace-generated:
       mode: yaml
       filename: notexist.yaml

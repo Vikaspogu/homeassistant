@@ -68,13 +68,13 @@ cards:
       - type: custom:button-card
         template: card_navigate
         variables:
-          ulm_card_navigate_path: /lovelace-minimalist/light-switch
+          ulm_card_navigate_path: /lovelace/light-switch
           ulm_card_navigate_title: Lights/Switches
           ulm_card_navigate_icon: mdi:light-switch
       - type: custom:button-card
         template: card_navigate
         variables:
-          ulm_card_navigate_path: /lovelace-minimalist/thermostat
+          ulm_card_navigate_path: /lovelace/thermostat
           ulm_card_navigate_title: Thermostat
           ulm_card_navigate_icon: mdi:thermostat
       - type: custom:button-card
@@ -86,13 +86,13 @@ cards:
       - type: custom:button-card
         template: card_navigate
         variables:
-          ulm_card_navigate_path: /lovelace-minimalist/tesla
+          ulm_card_navigate_path: /lovelace/tesla
           ulm_card_navigate_title: Tesla
           ulm_card_navigate_icon: mdi:car-connected
       - type: custom:button-card
         template: card_navigate
         variables:
-          ulm_card_navigate_path: /lovelace-minimalist/toyota
+          ulm_card_navigate_path: /lovelace/toyota
           ulm_card_navigate_title: Toyota
           ulm_card_navigate_icon: mdi:car
       - type: custom:button-card
@@ -104,13 +104,7 @@ cards:
       - type: custom:button-card
         template: card_navigate
         variables:
-          ulm_card_navigate_path: /lovelace-minimalist/media
-          ulm_card_navigate_title: Media
-          ulm_card_navigate_icon: mdi:plex
-      - type: custom:button-card
-        template: card_navigate
-        variables:
-          ulm_card_navigate_path: /lovelace-minimalist/system
+          ulm_card_navigate_path: /lovelace/system
           ulm_card_navigate_title: System
           ulm_card_navigate_icon: mdi:server-network 
       - type: custom:button-card

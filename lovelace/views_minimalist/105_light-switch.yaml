@@ -10,7 +10,7 @@ cards:
       - type: 'custom:button-card'
         template: chip_back
         variables:
-          ulm_chip_back_path: /lovelace-minimalist/dashboard
+          ulm_chip_back_path: /lovelace/dashboard
       - type: custom:button-card
         template: edge
 
@@ -94,8 +94,8 @@ cards:
       - type: custom:button-card
         template: card_cover_buttons
         variables:
-          ulm_card_cover_buttons_entity: cover.bedroom_curtain_4
-          ulm_card_cover_buttons_name: 'Bedroom Curtain'
+          ulm_card_cover_buttons_entity: cover.curtain_living_room
+          ulm_card_cover_buttons_name: 'Living Room Curtains'
       - type: custom:button-card
         template: edge 
   - type: horizontal-stack
@@ -105,13 +105,24 @@ cards:
       - type: custom:button-card
         template: card_cover_buttons
         variables:
-          ulm_card_cover_buttons_entity: cover.bedroom_blinds
-          ulm_card_cover_buttons_name: 'Bedroom Blinds'
+          ulm_card_cover_buttons_entity: cover.bedroom_curtain_4
+          ulm_card_cover_buttons_name: 'Bedroom Curtain'
       - type: custom:button-card
         template: card_cover_buttons
         variables:
-          ulm_card_cover_buttons_entity: cover.curtain_living_room
-          ulm_card_cover_buttons_name: 'Living Room Curtains'
+          ulm_card_cover_buttons_entity: cover.bedroom_blinds
+          ulm_card_cover_buttons_name: 'Bedroom Blinds'
+      - type: custom:button-card
+        template: edge
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: custom:button-card
+        template: card_cover_buttons
+        variables:
+          ulm_card_cover_buttons_entity: cover.spare_bedroom_curtain
+          ulm_card_cover_buttons_name: 'Spare Bedroom Curtains'
       - type: custom:button-card
         template: edge
   - type: horizontal-stack

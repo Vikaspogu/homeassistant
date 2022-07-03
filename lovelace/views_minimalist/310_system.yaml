@@ -11,7 +11,7 @@ cards:
       - type: 'custom:button-card'
         template: chip_back
         variables:
-          ulm_chip_back_path: /lovelace-minimalist/dashboard
+          ulm_chip_back_path: /lovelace/dashboard
       - type: custom:button-card
         template: edge
 
@@ -448,5 +448,3 @@ cards:
           ulm_custom_card_irmajavi_speedtest_router_model: UDM
       - type: custom:button-card
         template: edge
-
-  
