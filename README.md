@@ -8,6 +8,8 @@ This is my [Home Assistant](https://www.home-assistant.io/) configuration.
 
 ## Screenshot
 
+Dashboards are based on [UI-Lovelace-Minimalist Theme](https://ui-lovelace-minimalist.github.io/UI/)
+
 ![screenshot](./docs/hass-dash-ui-minimalist.png)
 
 ## Integrations
@@ -19,15 +21,11 @@ This is my [Home Assistant](https://www.home-assistant.io/) configuration.
 - [Eufy vacuum](https://github.com/pbulteel/eufy_vacuum)
 - [Frigate](https://github.com/blakeblackshear/frigate-hass-integration)
 - [Lovelace Gen](https://github.com/thomasloven/hass-lovelace_gen)
-- [Plex recently added](https://github.com/custom-components/sensor.plex_recently_added)
-- [Sonarr upcoming media](https://github.com/custom-components/sensor.sonarr_upcoming_media)
 - Circadian Lighting
 - Bravia TV PSK
 - Node-Red Companion
 - Nest
 - Synology DSM
-- Transmission
-- Tuya
 - TP-Link Kasa
 - Sony Bravia TV
 - Soma
@@ -53,8 +51,6 @@ This is my [Home Assistant](https://www.home-assistant.io/) configuration.
 - [mini-graph-card-bundle](https://github.com/kalkih/mini-graph-card)
 - [scheduler-card](https://github.com/nielsfaber/scheduler-card)
 - [simple-thermostat](https://github.com/nervetattoo/simple-thermostat)
-- [transmission-card](https://github.com/amaximus/transmission-card)
-- [upcoming-media-card](https://github.com/custom-cards/upcoming-media-card/)
 - [vacuum-card](https://github.com/denysdovhan/vacuum-card)
 - [vertical-stack-in-card](https://github.com/ofekashery/vertical-stack-in-card)
 - [weather-card](https://github.com/bramkragten/weather-card)
@@ -93,28 +89,6 @@ This is my [Home Assistant](https://www.home-assistant.io/) configuration.
     device: >-
       /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2408889-if00
     ```
-
-### DEBUGGING and Errors
-
-- [x] **ERROR** ~~vacuum-card/vacuum-card.js Error: Cannot read property 'states' of undefined~~ [~~GitHub #169~~](https://github.com/denysdovhan/vacuum-card/issues/169)
-
-### Robovac Eufy
-
-Use the Blue Stacks android emulator and the Eufy Home app version 2.3.2 (you can find this older version on sites like APKmirror). Check out this link for reference.
-
-You'll need adb on the Mac (install Android Platform Tools) along with Bluestacks
-
-1- launch Bluestacks and enable USB Debugging / ADB (Bluestacks -> Preferences -> Preferences -> 'Enable Android Debug Bridge (ADB)
-
-2 - Install the older Eufy Home App (2.3.2 works great) in Bluestacks
-
-3 - In terminal on your Mac - adb connect 127.0.0.1
-
-4 - In terminal on your Mac - adb shell (If you get a duplicate connection error do adb kill-server then adb shell or adb server-start followed by adb shell)
-
-5 - You should see you are now in the emulated device's shell, now type logcat -e 'tuya.m.my.group.device.list' to start logcat listening
-
-6 - Start the EufyHome app in Blue Stacks and log in. You'll see data now in your terminal window. Command-F to search the logcat output for "devid" and "localkey", you'll need both to add the device to the Homebridge plugin.
 
 ### Add to existing folder
 
