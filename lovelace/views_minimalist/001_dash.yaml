@@ -153,7 +153,7 @@ cards:
             tap_action:
               action: toggle
           entity_2:
-            entity_id: binary_sensor.livingroommotionsensor_occupancy
+            entity_id: binary_sensor.livingroommotion_occupancy
             templates:
               - pink_on
             tap_action:

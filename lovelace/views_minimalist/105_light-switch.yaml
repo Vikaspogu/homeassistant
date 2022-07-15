@@ -123,6 +123,10 @@ cards:
         variables:
           ulm_card_cover_buttons_entity: cover.spare_bedroom_curtain
           ulm_card_cover_buttons_name: 'Spare Bedroom Curtains'
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: switch.circadian_lighting_circadian_lighting
+        name: Circadian Lights
       - type: custom:button-card
         template: edge
   - type: horizontal-stack
@@ -137,16 +141,6 @@ cards:
         template: card_power_outlet
         entity: switch.bedroom_purifier
         name: Bedroom Purifier
-      - type: custom:button-card
-        template: edge
-  - type: horizontal-stack
-    cards:
-      - type: custom:button-card
-        template: edge
-      - type: 'custom:button-card'
-        template: card_input_boolean
-        entity: switch.circadian_lighting_circadian_lighting
-        name: Circadian Lights
       - type: custom:button-card
         template: edge
   

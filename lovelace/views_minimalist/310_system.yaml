@@ -339,9 +339,9 @@ cards:
       template: edge
     - type: custom:button-card
       template: card_battery
-      entity: sensor.livingroommotionsensor_battery
+      entity: sensor.livingroommotion_battery
       variables:
-        ulm_card_battery_charger_type_entity_id: sensor.livingroommotionsensor_battery
+        ulm_card_battery_charger_type_entity_id: sensor.livingroommotion_battery
         ulm_card_battery_battery_level_danger: 30
         ulm_card_battery_battery_level_warning: 80
       name: Livingroom Motion
@@ -389,10 +389,10 @@ cards:
       - type: 'custom:button-card'
         template: card_binary_sensor
         variables:
-          ulm_card_battery_charger_type_entity_id: binary_sensor.livingroommotionsensor_occupancy
+          ulm_card_battery_charger_type_entity_id: binary_sensor.livingroommotion_occupancy
           ulm_card_battery_battery_level_danger: 30
           ulm_card_battery_battery_level_warning: 80
-        entity: binary_sensor.livingroommotionsensor_occupancy
+        entity: binary_sensor.livingroommotion_occupancy
         show_last_changed: true
         name: Livingroom
       - type: 'custom:button-card'
