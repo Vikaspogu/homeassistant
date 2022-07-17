@@ -25,8 +25,7 @@ cards:
         template: card_thermostat
         entity: climate.living_room
         variables:
-          ulm_card_thermostat_enable_background_color: true
-          ulm_card_thermostat_enable_display_temperature: true
+          ulm_card_thermostat_enable_collapse: true
           ulm_card_thermostat_enable_controls: true
           ulm_card_thermostat_enable_hvac_modes: true
           ulm_card_thermostat_enable_popup: true
@@ -62,12 +61,14 @@ cards:
         template: edge
       - type: 'custom:button-card'
         template: card_graph
+        entity: sensor.ble_temperature_living_room
         variables:
           ulm_card_graph_color: "var(--google-blue)"
           ulm_card_graph_name: Livingroom Temperature
           ulm_card_graph_entity: sensor.ble_temperature_living_room
       - type: 'custom:button-card'
         template: card_graph
+        entity: sensor.ble_temperature_bed_room
         variables:
           ulm_card_graph_color: "var(--google-blue)"
           ulm_card_graph_name: Bedroom Temperature
@@ -81,12 +82,14 @@ cards:
         template: edge
       - type: 'custom:button-card'
         template: card_graph
+        entity: sensor.ble_temperature_work_room
         variables:
           ulm_card_graph_color: "var(--google-blue)"
           ulm_card_graph_name: Office Temperature 
           ulm_card_graph_entity: sensor.ble_temperature_work_room
       - type: 'custom:button-card'
         template: card_graph
+        entity: sensor.living_room_air_quality_pm_2_5
         variables:
           ulm_card_graph_color: "var(--google-blue)"
           ulm_card_graph_name: Livingroom Air Quality

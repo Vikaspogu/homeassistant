@@ -41,125 +41,45 @@ cards:
     cards:
     - type: custom:button-card
       template: edge
+    - type: "custom:button-card"
+      template: "custom_card_nik_nas"
+      entity: sensor.pogu_nas_drive_1_status
+      variables:
+        graph_span: "1d"
+        chart_type: "radialBar"
+        entity_1:
+          entity_id: "sensor.pogu_nas_temperature_4"
+          icon: ''
+          name: "Temp"
+          color: "yellow"
+          max_value: 200
+        entity_2:
+          entity_id: "sensor.pogu_nas_memory_usage_real_2"
+          icon: ''
+          name: "Memory"
+          color: "blue"
+          max_value: 100
+        entity_3:
+          entity_id: "sensor.pogu_nas_cpu_utilization_total_2"
+          icon: ''
+          name: "CPU"
+          color: "green"
+          max_value: 100
+        entity_4:
+          entity_id: "sensor.pogu_nas_volume_1_volume_used"
+          icon: "mdi:harddisk"
+          name: "Disk"
+          color: "red"
+    - type: custom:button-card
+      template: edge
+
+  - type: horizontal-stack
+    cards:
+    - type: custom:button-card
+      template: edge
     - card:
       type: custom:stack-in-card
       cards:
-        - type: horizontal-stack
-          cards:
-            - type: 'custom:mini-graph-card'
-              style: |
-                ha-card {
-                  font-family: var(--primary-font-family);
-                  border-bottom: 2px solid var(--background-color);
-                }
-                .graph {
-                  padding-top: 15px;
-                  padding-bottom: 0px;
-                }
-                .info {
-                  padding-bottom: 0px;
-                }
-                .flex {
-                  padding-bottom: 10px;
-                }
-              entities:
-                - sensor.pogu_nas_cpu_utilization_total_2
-              name: CPU
-              align_state: center
-              align_icon: right
-              font_size: 60
-              font_size_header: 11
-              hours_to_show: 12
-              line_color: var(--color-red-1)
-              line_width: 4
-              animate: true
-              points_per_hour: 4
-              lower_bound: 0
-              lower_bound_secondary: 0
-              show:
-                fill: fade
-                graph: line
-                extrema: false
-                icon: true
-                name: true
-                labels: false
-
-            - type: 'custom:mini-graph-card'
-              style: |
-                ha-card {
-                  font-family: var(--primary-font-family);
-                  border-bottom: 2px solid var(--background-color);
-                }
-                .graph {
-                  padding-top: 15px;
-                  padding-bottom: 0px;
-                }
-                .info {
-                  padding-bottom: 0px;
-                }
-                .flex {
-                  padding-bottom: 10px;
-                }
-              entities:
-                - sensor.pogu_nas_memory_usage_real_2
-              name: Storage RAM
-              align_state: center
-              align_icon: right
-              font_size: 60
-              font_size_header: 11
-              hours_to_show: 12
-              line_color: var(--google-blue)
-              line_width: 4
-              animate: true
-              points_per_hour: 4
-              lower_bound: 0
-              lower_bound_secondary: 0
-              show:
-                fill: fade
-                graph: line
-                extrema: false
-                icon: true
-                name: true
-                labels: false
-
-            - type: 'custom:mini-graph-card'
-              style: |
-                ha-card {
-                  font-family: var(--primary-font-family);
-                  border-bottom: 2px solid var(--background-color);
-                }
-                .graph {
-                  padding-top: 15px;
-                  padding-bottom: 0px;
-                }
-                .info {
-                  padding-bottom: 0px;
-                }
-                .flex {
-                  padding-bottom: 10px;
-                }
-              entities:
-                - sensor.pogu_nas_temperature_4
-              name: Temperature
-              align_state: center
-              align_icon: right
-              font_size: 60
-              font_size_header: 11
-              hours_to_show: 12
-              line_color: var(--color-green-bright-1)
-              line_width: 4
-              animate: true
-              points_per_hour: 4
-              lower_bound: 0
-              lower_bound_secondary: 0
-              show:
-                fill: fade
-                graph: line
-                extrema: false
-                icon: true
-                name: true
-                labels: false
-
         - type: entities
           card_mod:
             class: header
@@ -196,10 +116,6 @@ cards:
                             margin: 0 8px 0 8px !important;
                           }
           entities:
-            - entity: sensor.pogu_nas_status_3
-              name: NAS Status
-            - entity: binary_sensor.pogu_nas_update_available_2
-              name: Update Available
             - entity: sensor.synology_dsm_latest
               name: Synology Latest Version
             - entity: binary_sensor.pogu_nas_security_status_2
@@ -393,21 +309,15 @@ cards:
       - type: 'custom:button-card'
         template: card_binary_sensor
         variables:
-          ulm_card_battery_charger_type_entity_id: binary_sensor.livingroommotion_occupancy
-          ulm_card_battery_battery_level_danger: 30
-          ulm_card_battery_battery_level_warning: 80
+          ulm_show_last_changed: true
+          ulm_card_binary_sensor_name: Livingroom
         entity: binary_sensor.livingroommotion_occupancy
-        show_last_changed: true
-        name: Livingroom
       - type: 'custom:button-card'
         template: card_binary_sensor
         variables:
-          ulm_card_battery_charger_type_entity_id: binary_sensor.officemotionsensor_occupancy
-          ulm_card_battery_battery_level_danger: 30
-          ulm_card_battery_battery_level_warning: 80
+          ulm_show_last_changed: true
+          ulm_card_binary_sensor_name: Office
         entity: binary_sensor.officemotionsensor_occupancy
-        show_last_changed: true
-        name: Office
       - type: custom:button-card
         template: edge
   - type: horizontal-stack
@@ -417,21 +327,15 @@ cards:
       - type: 'custom:button-card'
         template: card_binary_sensor
         variables:
-          ulm_card_battery_charger_type_entity_id: binary_sensor.landingmotionsensor_occupancy
-          ulm_card_battery_battery_level_danger: 30
-          ulm_card_battery_battery_level_warning: 80
+          ulm_show_last_changed: true
+          ulm_card_binary_sensor_name: Landing
         entity: binary_sensor.landingmotionsensor_occupancy
-        show_last_changed: true
-        name: Landing
       - type: 'custom:button-card'
         template: card_binary_sensor
         variables:
-          ulm_card_battery_charger_type_entity_id: binary_sensor.kitchenmotionsensor_occupancy
-          ulm_card_battery_battery_level_danger: 30
-          ulm_card_battery_battery_level_warning: 80
+          ulm_show_last_changed: true
+          ulm_card_binary_sensor_name: Kitchen
         entity: binary_sensor.kitchenmotionsensor_occupancy
-        show_last_changed: true
-        name: Kitchen
       - type: custom:button-card
         template: edge
   

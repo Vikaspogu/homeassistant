@@ -23,6 +23,23 @@ cards:
     cards:
       - type: custom:button-card
         template: edge
+      - type: custom:button-card
+        template: card_cover
+        entity: cover.garage_door
+        variables:
+          ulm_card_cover_garage: true
+          ulm_card_cover_gate: true
+          ulm_card_cover_name: 'Garage Door'
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: switch.circadian_lighting_circadian_lighting
+        name: Circadian Lights
+      - type: custom:button-card
+        template: edge 
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
       - type: "custom:button-card"
         template: card_light
         entity: light.living_room_dining_group
@@ -69,17 +86,18 @@ cards:
     cards:
       - type: custom:button-card
         template: edge
-      - type: "custom:button-card"
-        template: card_light
-        entity: light.landing_lights_group
+      - type: custom:button-card
+        template: card_cover
+        entity: cover.bedroom_curtain_4
         variables:
-          ulm_card_light_enable_color: true
-          ulm_card_light_force_background_color: true
-          ulm_card_light_name: Landing
-      - type: 'custom:button-card'
-        template: card_input_boolean
-        entity: input_boolean.living_room_override
-        name: Keep lights on
+          ulm_card_cover_enable_slider: true
+          ulm_card_cover_name: 'Bedroom Curtain'
+      - type: custom:button-card
+        template: card_cover
+        entity: cover.bedroom_blinds
+        variables:
+          ulm_card_cover_enable_slider: true
+          ulm_card_cover_name: 'Bedroom Blinds'
       - type: custom:button-card
         template: edge
   - type: horizontal-stack
@@ -87,46 +105,17 @@ cards:
       - type: custom:button-card
         template: edge
       - type: custom:button-card
-        template: card_cover_buttons
+        template: card_cover
+        entity: cover.spare_bedroom_curtain
         variables:
-          ulm_card_cover_buttons_entity: cover.garage_door
-          ulm_card_cover_buttons_name: 'Garage Door'
+          ulm_card_cover_enable_slider: true
+          ulm_card_cover_name: 'Spare Bedroom Curtains'
       - type: custom:button-card
-        template: card_cover_buttons
+        template: card_cover
+        entity: cover.curtain_living_room
         variables:
-          ulm_card_cover_buttons_entity: cover.curtain_living_room
-          ulm_card_cover_buttons_name: 'Living Room Curtains'
-      - type: custom:button-card
-        template: edge 
-  - type: horizontal-stack
-    cards:
-      - type: custom:button-card
-        template: edge
-      - type: custom:button-card
-        template: card_cover_buttons
-        variables:
-          ulm_card_cover_buttons_entity: cover.bedroom_curtain_4
-          ulm_card_cover_buttons_name: 'Bedroom Curtain'
-      - type: custom:button-card
-        template: card_cover_buttons
-        variables:
-          ulm_card_cover_buttons_entity: cover.bedroom_blinds
-          ulm_card_cover_buttons_name: 'Bedroom Blinds'
-      - type: custom:button-card
-        template: edge
-  - type: horizontal-stack
-    cards:
-      - type: custom:button-card
-        template: edge
-      - type: custom:button-card
-        template: card_cover_buttons
-        variables:
-          ulm_card_cover_buttons_entity: cover.spare_bedroom_curtain
-          ulm_card_cover_buttons_name: 'Spare Bedroom Curtains'
-      - type: 'custom:button-card'
-        template: card_input_boolean
-        entity: switch.circadian_lighting_circadian_lighting
-        name: Circadian Lights
+          ulm_card_cover_enable_slider: true
+          ulm_card_cover_name: 'Living Room Curtains'
       - type: custom:button-card
         template: edge
   - type: horizontal-stack
@@ -143,4 +132,20 @@ cards:
         name: Bedroom Purifier
       - type: custom:button-card
         template: edge
-  
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: "custom:button-card"
+        template: card_light
+        entity: light.landing_lights_group
+        variables:
+          ulm_card_light_enable_color: true
+          ulm_card_light_force_background_color: true
+          ulm_card_light_name: Landing
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: input_boolean.living_room_override
+        name: Keep lights on
+      - type: custom:button-card
+        template: edge

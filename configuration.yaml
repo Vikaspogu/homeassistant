@@ -174,10 +174,10 @@ lovelace:
     - url: /hacsfiles/simple-weather-card/simple-weather-card-bundle.js
       type: module
     - url: /hacsfiles/home-assistant-sun-card/home-assistant-sun-card.js
+      type: module           
+    - url: /hacsfiles/apexcharts-card/apexcharts-card.js
       type: module
-    - url: /hacsfiles/lovelace-mushroom/mushroom.js
-      type: module                
-           
+                
 
     # Styles
     - url: "https://fonts.googleapis.com/css2?family=Raleway&display=swap"

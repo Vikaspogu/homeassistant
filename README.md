@@ -12,6 +12,54 @@ Dashboards are based on [UI-Lovelace-Minimalist Theme](https://ui-lovelace-minim
 
 ![screenshot](./docs/hass-dash-ui-minimalist.png)
 
+## Manual Installation
+
+- Go to [release page](https://github.com/UI-Lovelace-Minimalist/UI/releases) and download the `ui_lovelace_minimalist.zip` attached to the latest release
+- Create a new folder `minimalist-templates` under `/config` 
+- Unpack the file and move the folder it contains called `ui_lovelace_minimalist/lovelace` to the `minimalist-templates`
+
+### Custom updates to UI lovelace
+
+- Create `red_open`, `red_close`, `green_open` and `green_close` button templates under colors\
+- Custom card irmajavi_entities, update label
+
+```yaml
+custom_widget_irmajavi:
+  show_label: true
+  show_icon: false
+  label: |
+    [[[
+        var unit = entity.attributes.unit_of_measurement != null ? ' ' + entity.attributes.unit_of_measurement: ''
+        if (entity.state == 'on') {
+          return 'On';
+        } else if (entity.state == 'off') {
+          return 'Off';
+        } else if (entity.state == 'unavailable') {
+          return variables.ulm_unavailable;
+        } else if (entity.state == 'idle') {
+          return variables.ulm_idle;
+        } else if (entity.state == 'open') {
+          return variables.ulm_open;
+        } else if (entity.state == 'closed') {
+          return variables.ulm_closed;
+        } else {
+          return entity.state + unit;
+        }
+    ]]]
+```
+
+### Custom cards list
+
+- irmajavi_speedtest
+- schumijo_car
+- apexcharts
+- car_gauge
+- httpedo13_sun
+- irmajavi_entities
+- mpse_printer
+- nik_nas
+- vncntdev_card_device_tracer
+
 ## Integrations
 
 - [Speedtest.net](https://www.speedtest.net/)
@@ -54,6 +102,9 @@ Dashboards are based on [UI-Lovelace-Minimalist Theme](https://ui-lovelace-minim
 - [vacuum-card](https://github.com/denysdovhan/vacuum-card)
 - [vertical-stack-in-card](https://github.com/ofekashery/vertical-stack-in-card)
 - [weather-card](https://github.com/bramkragten/weather-card)
+- apexcharts-card
+- home-assistant-sun-card
+- simple-weather-card-bundle
 
 ### Google Fonts
 
