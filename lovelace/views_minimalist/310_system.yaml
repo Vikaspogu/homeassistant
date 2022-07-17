@@ -36,7 +36,7 @@ cards:
 
   - type: 'custom:button-card'
     template: card_title
-    name: Synology DSM 220+
+    name: Synology DSM 920+
   - type: horizontal-stack
     cards:
     - type: custom:button-card
@@ -63,7 +63,7 @@ cards:
                   padding-bottom: 10px;
                 }
               entities:
-                - sensor.pogu_nas_cpu_utilization_total
+                - sensor.pogu_nas_cpu_utilization_total_2
               name: CPU
               align_state: center
               align_icon: right
@@ -101,7 +101,7 @@ cards:
                   padding-bottom: 10px;
                 }
               entities:
-                - sensor.pogu_nas_memory_usage_real
+                - sensor.pogu_nas_memory_usage_real_2
               name: Storage RAM
               align_state: center
               align_icon: right
@@ -139,8 +139,8 @@ cards:
                   padding-bottom: 10px;
                 }
               entities:
-                - sensor.pogu_nas_temperature
-              name: Temperatur
+                - sensor.pogu_nas_temperature_4
+              name: Temperature
               align_state: center
               align_icon: right
               font_size: 60
@@ -196,25 +196,29 @@ cards:
                             margin: 0 8px 0 8px !important;
                           }
           entities:
-            - entity: sensor.template_nas_status
+            - entity: sensor.pogu_nas_status_3
               name: NAS Status
-            - entity: binary_sensor.pogu_nas_update_available
+            - entity: binary_sensor.pogu_nas_update_available_2
               name: Update Available
             - entity: sensor.synology_dsm_latest
               name: Synology Latest Version
-            - entity: binary_sensor.pogu_nas_security_status
+            - entity: binary_sensor.pogu_nas_security_status_2
               name: Security Status
-            - entity: sensor.pogu_nas_average_disk_temp
+            - entity: sensor.pogu_nas_drive_1_temperature
               name: Avg. Disk Temp
-            - entity: sensor.pogu_nas_memory_available_real
+            - entity: sensor.pogu_nas_memory_available_real_2
               name: Memory Available
-            - entity: sensor.pogu_nas_download_throughput
+            - entity: sensor.pogu_nas_drive_1_status
+              name: Disk 1 Status
+            - entity: sensor.pogu_nas_drive_2_status
+              name: Disk 2 Status
+            - entity: sensor.pogu_nas_download_throughput_2
               name: Download Throuhput
               style: |
                 :host {
                   --paper-item-icon-color: green;
                 }
-            - entity: sensor.pogu_nas_upload_throughput
+            - entity: sensor.pogu_nas_upload_throughput_2
               name: Upload Throuhput
               style: |
                 :host {
@@ -238,9 +242,9 @@ cards:
                   to: 200
               entity_row: true
               entities:
-                - entity: sensor.pogu_nas_cpu_utilization_total
+                - entity: sensor.pogu_nas_cpu_utilization_total_2
                   name: CPU Utilization
-                - entity: sensor.pogu_nas_used_space
+                - entity: sensor.pogu_nas_volume_1_volume_used
                   name: Storage - 7.5TB
     - type: custom:button-card
       template: edge
