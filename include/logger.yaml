@@ -34,3 +34,4 @@ logger:
     skybellpy: warn
     custom_components.webrtc: debug
     homeassistant.components.smartthings: debug
+    custom_components.powercalc: debug

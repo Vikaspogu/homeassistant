@@ -19,11 +19,12 @@ homeassistant:
 # Text to speech
 tts:
   - platform: google_translate
+  
+wake_on_lan:
 
 frontend:
   themes: !include_dir_merge_named themes
   extra_module_url:
-    - /local/custom-ui/custom-ui.js
     - /hacsfiles/lovelace-card-mod/card-mod.js
 
 http:
@@ -43,6 +44,8 @@ proximity:
 mqtt:
   broker: mosquitto.home
   discovery: true
+  sensor: !include mqtt/sensor.yaml
+  binary_sensor: !include mqtt/binary_sensor.yaml
 
 cover:
   - platform: mqtt
@@ -177,8 +180,15 @@ lovelace:
       type: module           
     - url: /hacsfiles/apexcharts-card/apexcharts-card.js
       type: module
+    - url: /hacsfiles/tv-card/tv-card.js
+      type: module
+    - url: /hacsfiles/LG-WebOS-Remote-Control/lg-remote-control.js
+      type: module                         
+    - url: /hacsfiles/lovelace-state-switch/state-switch.js
+      type: module
+    - url: /hacsfiles/decluttering-card/decluttering-card.js
+      type: module
                 
-
     # Styles
     - url: "https://fonts.googleapis.com/css2?family=Raleway&display=swap"
       type: css
@@ -211,29 +221,14 @@ eufy_vacuum:
     type: T2118
 
 notify:
-  - name: ha_message_group
-    platform: group
-    services:
-    - service: mobile_app_sm_g781v
-  - name: ha_message
+  - name: notify_group
     platform: group
     services:
     - service: mobile_app_vpogu_pixel_6
 
-input_boolean: !include_dir_merge_named input_boolean
-sensor: !include_dir_merge_list sensor
 google_assistant: !include google_assistant_integ.yaml
-timer: !include_dir_merge_named timer
-
 circadian_lighting:
-
-switch:
-  - platform: circadian_lighting
-    name: circadian lighting
-    lights_ct:
-      - light.living_room_dining_group
-      - light.kitchen_lights_group
-      - light.office_ceiling_lights_group
-      - light.landing_lights_group
-
 sun:
+simpleicons:
+fontawesome:
+powercalc:

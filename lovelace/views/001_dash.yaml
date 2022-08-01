@@ -1,0 +1,233 @@
+icon: mdi:home-assistant
+title: Dashboard
+path: dashboard
+id: dash
+cards:
+  - type: "vertical-stack"
+    cards:
+    - type: "custom:button-card"
+      color_type: blank-card
+    ## Chips Temperature ###################################################################################################################
+    - type: horizontal-stack
+      cards:
+        - type: custom:button-card
+          template: edge
+        - type: 'custom:button-card'
+          template: chip_temperature
+          variables:
+            ulm_chip_temperature_inside: sensor.living_room_temp_f
+            ulm_chip_temperature_outside: sensor.outside_temperature
+            ulm_chip_temperature_weather: weather.home
+        - type: 'custom:button-card'
+          template: chip_icon_double_state
+          variables:
+            ulm_chip_icon_double_state_icon: '🌡️'
+            ulm_chip_icon_double_state_entity_1: sensor.bed_room_temp_f 
+            ulm_chip_icon_double_state_entity_2: sensor.work_room_temp_f
+            ulm_chip_navigate_path: /lovelace/rooms
+        - type: 'custom:button-card'
+          template: custom_card_chip_icon_double_state_popup
+          variables:
+            ulm_custom_card_chip_icon_double_state_icon: '🎚️'
+            ulm_custom_card_chip_icon_double_state_entity_1: climate.living_room
+            ulm_custom_card_chip_icon_double_state_entity_2: sensor.thermostat_current_temperature
+            ulm_custom_card_chip_popup_entity: climate.living_room
+        - type: custom:button-card
+          template: edge
+    ## Chips Tesla ###################################################################################################################
+    - type: horizontal-stack
+      cards:
+        - type: custom:button-card
+          template: edge
+        - type: 'custom:button-card'
+          template: chip_icon_state
+          variables:
+            ulm_chip_icon_state_icon: '🚘'
+            ulm_chip_icon_state_entity: sensor.tesla_state
+        - type: 'custom:button-card'
+          template: chip_icon_double_state
+          variables:
+            ulm_chip_icon_double_state_icon: '🔋'
+            ulm_chip_icon_double_state_entity_1: sensor.tesla_battery_level
+            ulm_chip_icon_double_state_entity_2: sensor.tesla_ideal_battery_range_mi
+            ulm_chip_navigate_path: /lovelace/tesla
+        - type: 'custom:button-card'
+          template: custom_chip_device_location
+          variables:
+            ulm_custom_chip_device_location_icon: '📍'
+            ulm_custom_chip_device_location_entity: device_tracker.tesla_location
+            ulm_custom_chip_device_location_entity_2: proximity.home_tesla
+        - type: custom:button-card
+          template: edge
+    ## Chips Cover###################################################################################################################
+    - type: horizontal-stack
+      cards:
+        - type: custom:button-card
+          template: edge
+        - type: 'custom:button-card'
+          template: chip_icon_double_state
+          variables:
+            ulm_chip_icon_double_state_icon: '💻'
+            ulm_chip_icon_double_state_entity_1: sensor.pogu_nas_volume_1_volume_used
+            ulm_chip_icon_double_state_entity_2: sensor.pogu_nas_cpu_utilization_total_2
+            ulm_chip_navigate_path: /lovelace/system
+        - type: custom:button-card
+          template: edge
+
+    ## Welcome Card ###################################################################################################################
+    - type: horizontal-stack
+      cards:
+        - type: custom:button-card
+          template: edge
+        - type: "custom:button-card"
+          template: "card_esh_welcome"
+          triggers_update: "input_boolean.welcome_scene_collapse"
+          variables:
+            ulm_card_esh_welcome_collapse: input_boolean.welcome_scene_collapse
+            ulm_weather: "weather.home"
+            entity_1:
+              nav: "/lovelace/tesla"
+              name: "Tesla"
+              icon: "si:tesla"
+              color: "red"
+            entity_2:
+              nav: "/lovelace/toyota"
+              name: "Toyota"
+              icon: "si:toyota"
+              color: "red"
+            entity_3:
+              nav: "/lovelace/rooms"
+              icon: "mdi:bed"
+              name: Rooms
+            entity_4:
+              nav: "/lovelace/system"
+              icon: "mdi:cog"
+              name: System
+        - type: custom:button-card
+          template: edge
+
+    - type: 'custom:button-card'
+      template: card_title
+      name: Lights/Cover
+    - type: horizontal-stack
+      cards:
+      - type: custom:button-card
+        template: edge
+      - type: "custom:button-card"
+        template: custom_card_yagrasdemonde_lights_count
+        entity: sensor.lights_on
+      - type: "custom:button-card"
+        template: custom_card_yagrasdemonde_lights_count
+        entity: sensor.covers_open
+        variables:
+          ulm_custom_card_yagrasdemonde_lights_count_type: "cover"
+          ulm_custom_card_yagrasdemonde_lights_count_color: "blue"
+    - type: custom:button-card
+      template: edge
+
+    ## Rooms Overview ###################################################################################################################
+    - type: 'custom:button-card'
+      template: card_title
+      name: Rooms Overview
+    - type: horizontal-stack
+      cards:
+        - type: "custom:button-card"
+          template:
+            - card_esh_room
+            - yellow_on
+          name: Living Room
+          entity: light.living_room_dining_group
+          icon: mdi:sofa
+          tap_action:
+            action: toggle
+          variables:
+            ulm_custom_card_esh_room_light_entity: light.living_room_dining_group
+          label: '[[[ return states["sensor.living_room_temp_f"].state + "°F" ]]]'
+        - type: "custom:button-card"
+          template:
+            - card_esh_room
+            - yellow_on
+          name: Bedroom
+          entity: switch.bedroom_purifier
+          icon: mdi:bed-king
+          tap_action:
+            action: toggle
+          variables:
+            ulm_custom_card_esh_room_switch_entity: switch.bedroom_purifier
+          label: '[[[ return states["sensor.bed_room_temp_f"].state + "°F" ]]]'
+        
+    - type: horizontal-stack
+      cards:
+        - type: custom:decluttering-card
+          template: room_overview
+          variables:
+            - name: Office Room
+            - icon: mdi:table-chair
+            - temperature: sensor.work_room_temp_f
+            - nav_path: '/lovelace/office'
+            - entity_id_1: light.office_ceiling_lights_group
+            - entity_template_1: yellow_on
+            - entity_action_1: toggle
+            - entity_id_2: switch.office_purifier
+            - entity_template_2: yellow_on
+            - entity_action_2: toggle
+            - entity_id_3: switch.office_area
+            - entity_template_3: yellow_on
+            - entity_action_3: toggle
+        - type: custom:decluttering-card
+          template: room_overview
+          variables:
+            - name: Kitchen/Garage
+            - icon: mdi:countertop
+            - temperature: sensor.garagedoor_device_temperature
+            - nav_path: '/lovelace/livingroom'
+            - entity_id_1: light.kitchen_lights_group
+            - entity_template_1: yellow_on
+            - entity_action_1: toggle
+            - entity_id_2: cover.garage_door
+            - entity_template_2: red_open
+            - entity_action_2: toggle
+            - entity_id_3: light.landing_lights_group
+            - entity_template_3: yellow_on
+            - entity_action_3: toggle
+
+    ## Camera ###################################################################################################################   
+    - type: 'custom:button-card'
+      template: card_title
+      name: Security
+    - type: horizontal-stack
+      cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:frigate-card'
+        cameras:
+        - camera_entity: camera.doorbell
+      - type: custom:button-card
+        template: edge
+
+    ## Vacuum ###################################################################################################################   
+    - type: 'custom:button-card'
+      template: card_title
+      name: Vacuum
+    - type: horizontal-stack
+      cards:
+      - type: custom:button-card
+        template: edge
+      - type: "custom:button-card"
+        template: "card_vacuum"
+        entity: "vacuum.robovac"
+      - type: custom:button-card
+        template: edge
+
+    ## Sunset/Sunrise ###################################################################################################################
+    - type: 'custom:button-card'
+      template: card_title
+      name: Sunset/Sunrise
+    - type: horizontal-stack
+      cards:
+      - type: custom:button-card
+        template: custom_card_httpedo13_sun
+        variables:
+          language: 'en'
+    - type: custom:button-card
+      template: edge

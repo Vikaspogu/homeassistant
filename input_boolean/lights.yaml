@@ -1,7 +1,0 @@
-living_room_override:
-  name: Living Room Lights Override
-  icon: "far:lightbulb"
-
-on_vacation:
-  name: On Vacation
-  icon: "mdi:airplane"

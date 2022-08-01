@@ -1,0 +1,65 @@
+icon: si:toyota
+title: Toyota
+path: toyota
+id: toyota
+cards:
+  - type: "vertical-stack"
+    cards:
+    - type: "custom:button-card"
+      color_type: blank-card
+    - type: custom:decluttering-card
+      template: navigation_chips
+      variables:
+        - nav_path_1: /lovelace/rooms
+        - nav_icon_1: mdi:bed
+        - nav_path_2: /lovelace/tesla
+        - nav_icon_2: si:tesla
+        - nav_color_2: red
+        - nav_path_3: /lovelace/system
+        - nav_icon_3: mdi:cog
+
+    ## Car Stats ###################################################################################################################
+    - type: 'custom:button-card'
+      template: card_title
+      name: Toyota Stats
+    - type: horizontal-stack
+      cards:
+      - type: custom:button-card
+        template: edge
+      - type: "custom:button-card"
+        template: custom_card_schumijo_car
+        variables:
+          ulm_card_schumijo_car_name: "Toyota"
+          ulm_card_schumijo_car_tracker: device_tracker.last_parked_location_2019_rav4_hybrid_xse_awd_suv
+          ulm_card_schumijo_car_lock: lock.2019_rav4_hybrid_xse_awd_suv
+          ulm_card_schumijo_car_energy_level: sensor.fuel_level_2019_rav4_hybrid_xse_awd_suv
+          ulm_card_schumijo_car_range: sensor.distance_to_empty_2019_rav4_hybrid_xse_awd_suv
+      - type: custom:button-card
+        template: edge
+
+    ## Auto entities Rav4 ###################################################################################################################
+    - type: 'custom:button-card'
+      template: card_title
+      name: Detailed View
+    - type: "custom:auto-entities"
+      card:
+        type: "grid"
+        columns: 2
+        square: false
+      card_param: "cards"
+      sort:
+        method: name
+        ignore_case: true
+      filter:
+        include:
+          - entity_id: "sensor.*_2019_rav4_hybrid_xse_awd_suv"
+            options:
+              type: "custom:button-card"
+              template: "card_generic_swap"
+          - entity_id: "binary_sensor.*_2019_rav4_hybrid_xse_awd_suv"
+            options:
+              type: "custom:button-card"
+              template: "card_generic_swap"
+        exclude:
+          - state: "unavailable"
+          - state: "Unknown"

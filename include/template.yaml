@@ -7,23 +7,91 @@
 
 template:
   sensor:        
-  - unique_id: updates
-    state: template
-    attributes:
-      synology: >
-        {% set installed = device_attr(device_id('sensor.pogu_nas_status'), 'sw_version').split(' ')[1] %}
-        {% set latest = states('sensor.synology_dsm_latest') %}
-        {% if is_state('binary_sensor.pogu_nas_update_available', 'on') %}
-          <b>Synology DSM</b> {{ installed + ' \u279e ' + latest }}
-        {% endif %}
-  - unique_id: nas_status
-    icon: custom:synology-nas
+  # - unique_id: updates
+  #   state: template
+  #   attributes:
+  #     synology: >
+  #       {% set installed = device_attr(device_id('sensor.pogu_nas_status'), 'sw_version').split(' ')[1] %}
+  #       {% set latest = states('sensor.synology_dsm_latest') %}
+  #       {% if is_state('binary_sensor.pogu_nas_update_available', 'on') %}
+  #         <b>Synology DSM</b> {{ installed + ' \u279e ' + latest }}
+  #       {% endif %}
+  # - unique_id: nas_status
+  #   icon: custom:synology-nas
+  #   state: >
+  #     {% set entity_id = 'sensor.pogu_nas_status' %}
+  #     {% if is_state(entity_id, 'normal') %}
+  #       Good
+  #     {% elif is_state(entity_id, 'background') %}
+  #       Verifies
+  #     {% else %}
+  #       {{ states(entity_id) }}
+  #     {% endif %}
+  
+  - name: "lights on"
+    unique_id: lights_on
+    icon: mdi:lightbulb-on-outline
     state: >
-      {% set entity_id = 'sensor.pogu_nas_status' %}
-      {% if is_state(entity_id, 'normal') %}
-        Good
-      {% elif is_state(entity_id, 'background') %}
-        Verifies
-      {% else %}
-        {{ states(entity_id) }}
-      {% endif %}
+      {% set lights = [
+          states.light.kitchen_lights_group,
+          states.light.landing_lights_group,
+          states.light.living_room_dining_group,
+          states.light.office_ceiling_lights_group,
+          ] %}
+      {{ lights | selectattr('state','eq','on') | list | count }}
+
+  - name: "covers open"
+    unique_id: covers_open
+    icon: mdi:window-shutter-open
+    state: >
+      {% set covers = [
+          states.cover.bedroom_blinds,
+          states.cover.bedroom_curtain_4,
+          states.cover.curtain_living_room,
+          states.cover.spare_bedroom_curtain,
+          ] %}
+      {{ covers | selectattr('state','eq','open') | list | count }}
+
+  - unique_id: ble_temperature_bed_room
+    icon: mdi:thermometer
+    name : "Bed Room Temp F"
+    state: >
+      {% set t = states('sensor.ble_temperature_bed_room_2') | float(0) %}
+      {{((t)*9/5)+32}}
+    unit_of_measurement: "F"
+
+  - unique_id: ble_temperature_work_room
+    icon: mdi:thermometer
+    name : "Work Room Temp F"
+    state: >
+      {% set t = states('sensor.ble_temperature_work_room_2') | float(0) %}
+      {{((t)*9/5)+32}}
+    unit_of_measurement: "F"
+
+  - unique_id: ble_temperature_living_room
+    icon: mdi:thermometer
+    name : "Living Room Temp F"
+    state: >
+      {% set t = states('sensor.ble_temperature_living_room_2') | float(0) %}
+      {{((t)*9/5)+32}}
+    unit_of_measurement: "F"
+
+  - unique_id: outside_temperature
+    icon: mdi:thermometer
+    name : "Outside Temperature"
+    state: "{{ states.weather.home.attributes.temperature }}"
+  
+  - unique_id: presence_distance
+    icon: mdi:map-marker-distance
+    name : "Presence Distance"
+    state: "{{ states.sensor.vpogu_pixel_6_room_presence.attributes.distance }}"
+
+  - unique_id: thermostat_current_temperature
+    icon: mdi:thermometer
+    name : "Thermostat current temperature"
+    state: "{{ states.climate.living_room.attributes.current_temperature }}"
+
+  - unique_id: thermostat_eco_mode
+    icon: mdi:leaf
+    name : "Thermostat eco mode"
+    state: "{{ states.climate.living_room.attributes.preset_mode }}"

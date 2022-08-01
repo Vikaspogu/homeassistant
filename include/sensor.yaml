@@ -1,0 +1,101 @@
+sensor:
+  # - platform: plex_recently_added
+  #   token: !secret plex_token
+  #   host: !secret plex_ip
+  #   port: 32400
+
+  # - platform: sonarr_upcoming_media
+  #   api_key: !secret sonarr_apikey
+  #   host: sonarr.media
+  #   port: 8989
+  #   days: 7
+  #   ssl: false
+  #   max: 10
+
+  - platform: scrape
+    name: synology_dsm_latest
+    resource: https://www.synology.com/en-global/releaseNote/DSM
+    select: >
+      #release_notes_content > div:first-child > h3
+    value_template: >
+      {{ value.split(' ')[1] }}
+    scan_interval: 86400
+
+
+  - platform: qbittorrent
+    url: "http://qbittorrent.downloads:8080"
+    username: !secret qbittorrent_user
+    password: !secret qbittorrent_pass
+
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+      - 'date_time_utc'
+      - 'date_time_iso'
+      - 'time_date'
+      - 'time_utc'
+      - 'beat'
+
+  - platform: template
+    sensors:
+      tesla_est_battery_range_mi:
+        friendly_name: Estimated Range (mi)
+        unit_of_measurement: mi
+        icon_template: mdi:gauge
+        value_template: >
+          {{ (states('sensor.tesla_est_battery_range_km') | float / 1.609344) | round(2) }}
+
+      tesla_rated_battery_range_mi:
+        friendly_name: Rated Range (mi)
+        unit_of_measurement: mi
+        icon_template: mdi:gauge
+        value_template: >
+          {{ (states('sensor.tesla_rated_battery_range_km') | float / 1.609344) | round(2) }}
+
+      tesla_ideal_battery_range_mi:
+        friendly_name: Ideal Range (mi)
+        unit_of_measurement: mi
+        icon_template: mdi:gauge
+        value_template: >
+          {{ (states('sensor.tesla_ideal_battery_range_km') | float / 1.609344) | round(2) }}
+
+      tesla_odometer_mi:
+        friendly_name: Odometer (mi)
+        unit_of_measurement: mi
+        icon_template: mdi:counter
+        value_template: >
+          {{ (states('sensor.tesla_odometer') | float / 1.609344) | round(2) }}
+
+      tesla_speed_mph:
+        friendly_name: Speed (MPH)
+        unit_of_measurement: mph
+        icon_template: mdi:speedometer
+        value_template: >
+          {{ (states('sensor.tesla_speed') | float / 1.609344) | round(2) }}
+
+      tesla_elevation_ft:
+        friendly_name: Elevation (ft)
+        unit_of_measurement: ft
+        icon_template: mdi:image-filter-hdr
+        value_template: >
+          {{ (states('sensor.tesla_elevation') | float * 3.2808 ) | round(2) }}
+
+  - platform: powercalc
+    entity_id: light.living_room_dining_group
+    name: Living Room Lights
+    model: LTW001
+    manufacturer: signify
+
+  - platform: powercalc
+    entity_id: light.office_ceiling_lights_group
+    name: Office Room Lights
+    model: LTW001
+    manufacturer: signify
+
+  - platform: powercalc
+    create_group: All landing lights
+    entities:
+      -  entity_id: light.lowerlandinghue_2
+      -  entity_id: light.upperlandinghue_1

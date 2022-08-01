@@ -1,0 +1,398 @@
+icon: mdi:bed
+title: Rooms
+path: rooms
+id: rooms
+cards:
+  - type: "vertical-stack"
+    cards:
+    ## Chip Back ###################################################################################################################
+    - type: "custom:button-card"
+      color_type: blank-card
+    - type: custom:decluttering-card
+      template: navigation_chips
+      variables:
+        - nav_path_1: /lovelace/tesla
+        - nav_icon_1: si:tesla
+        - nav_color_1: red
+        - nav_path_2: /lovelace/toyota
+        - nav_icon_2: si:toyota
+        - nav_color_2: silver
+        - nav_path_3: /lovelace/system
+        - nav_icon_3: mdi:cog
+    - type: 'custom:button-card'
+      template: card_title
+      name: Rooms
+    - type: "custom:button-card"
+      color_type: blank-card  
+
+    - type: horizontal-stack
+      cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:button-card'
+        template: card_vertical_button
+        entity: input_select.room_mode
+        name: Main
+        icon: mdi:home
+        variables:
+          ulm_card_vertical_button_state: Main
+          ulm_card_vertical_button_color: green
+      - type: 'custom:button-card'
+        template: card_vertical_button
+        entity: input_select.room_mode
+        name: Temperature
+        icon: mdi:thermometer
+        variables:
+          ulm_card_vertical_button_state: Temperature
+          ulm_card_vertical_button_color: green
+      - type: 'custom:button-card'
+        template: card_vertical_button
+        entity: input_select.room_mode
+        name: Battery
+        icon: mdi:battery
+        variables:
+          ulm_card_vertical_button_state: Battery
+          ulm_card_vertical_button_color: green
+      - type: 'custom:button-card'
+        template: card_vertical_button
+        entity: input_select.room_mode
+        name: TV
+        icon: mdi:remote-tv
+        variables:
+          ulm_card_vertical_button_state: TV
+          ulm_card_vertical_button_color: green
+      - type: custom:button-card
+        template: edge
+    
+    - type: horizontal-stack
+      cards:
+        - type: custom:button-card
+          template: edge
+        - type: custom:state-switch
+          entity: input_select.room_mode
+          default: Main
+          states:
+            Main:
+              type: "vertical-stack"
+              cards:
+                ## Lights ###################################################################################################################
+                - type: 'custom:button-card'
+                  template: card_title
+                  name: Lights
+                - type: "custom:auto-entities"
+                  card:
+                    type: "grid"
+                    columns: 2
+                    square: false
+                  card_param: "cards"
+                  filter:
+                    include:
+                      - domain: "light"
+                        entity_id: "light.*_group"
+                        options:
+                          type: "custom:button-card"
+                          template: "card_light"
+                          variables:
+                            ulm_card_light_enable_slider: true
+                            ulm_card_light_enable_color: true
+                            ulm_card_light_enable_popup: true
+                      - entity_id: "light.tv_h6199"
+                        options:
+                          type: "custom:button-card"
+                          template: "card_light"
+                          variables:
+                            ulm_card_light_enable_slider: true
+                            ulm_card_light_enable_color: true
+                            ulm_card_light_enable_popup: true
+                ## Curtains/Blinds #############################################################################
+                - type: 'custom:button-card'
+                  template: card_title
+                  name: Covers
+                - type: horizontal-stack
+                  cards:
+                    - type: custom:button-card
+                      template: edge
+                    - type: "custom:auto-entities"
+                      card:
+                        type: "grid"
+                        columns: 2
+                        square: false
+                      card_param: "cards"
+                      sort:
+                        method: name
+                      filter:
+                        include:
+                        - domain: cover
+                          options:
+                            type: custom:button-card
+                            template: card_cover
+                            entity: this.entity_id
+                            variables:
+                              ulm_card_cover_enable_slider: true
+                    - type: custom:button-card
+                      template: edge
+                ## Switches #############################################################################
+                - type: 'custom:button-card'
+                  template: card_title
+                  name: Switches
+                - type: horizontal-stack
+                  cards:
+                    - type: "custom:auto-entities"
+                      card:
+                        type: "grid"
+                        columns: 2
+                        square: false
+                      card_param: "cards"
+                      sort:
+                        count: 4
+                      filter:
+                        include:
+                          - domain: "switch"
+                            entity_id: "switch.*_purifier"
+                            options:
+                              type: 'custom:button-card'
+                              template: card_power_outlet
+                              entity: "this.entity_id"
+                          - domain: "switch"
+                            entity_id: "switch.office_area"
+                            options:
+                              type: 'custom:button-card'
+                              template: card_power_outlet
+                              entity: "this.entity_id"
+                ## Power #############################################################################
+                - type: 'custom:button-card'
+                  template: card_title
+                  name: Power Consumption
+                - type: horizontal-stack
+                  cards:
+                    - type: "custom:auto-entities"
+                      card:
+                        type: "grid"
+                        columns: 2
+                        square: false
+                      card_param: "cards"
+                      filter:
+                        include:
+                          - entity_id: "sensor.*_power"
+                            options:
+                              type: "custom:button-card"
+                              template: custom_card_damix48_power_details
+                              entity: "this.entity_id"
+                              variables:
+                                ulm_card_power_details_entity: "this.entity_id"
+                                ulm_card_power_details_hours: 2
+                                ulm_card_power_details_24hour: true
+                        exclude:
+                          - state: unknown
+                          - state: unavailable
+                          - entity_id: sensor.tesla_*
+            Temperature:
+              type: "vertical-stack"
+              cards:
+                ## Temperature Sensor ###################################################################################################################
+                - type: 'custom:button-card'
+                  template: card_title
+                  name: Temperature
+                - type: horizontal-stack
+                  cards:
+                    - type: custom:button-card
+                      template: edge
+                    - type: "custom:auto-entities"
+                      card:
+                        type: "grid"
+                        columns: 2
+                        square: false
+                      card_param: "cards"
+                      sort:
+                        method: name
+                      filter:
+                        include:
+                          - domain: "sensor"
+                            entity_id: "sensor.*temp_f"
+                            options:
+                              type: "custom:button-card"
+                              template: card_graph
+                              variables:
+                                ulm_card_graph_color: "var(--google-blue)"
+                                ulm_card_graph_entity: this.entity_id
+                          - domain: "sensor"
+                            entity_id: "sensor.*temperature"
+                            options:
+                              type: "custom:button-card"
+                              template: card_graph
+                              variables:
+                                ulm_card_graph_color: "var(--google-blue)"
+                                ulm_card_graph_entity: this.entity_id
+                        exclude:
+                          - state: unavailable
+                          - name: "*Pixel*"
+                          - name: "*pogu-nas*"   
+                          - name: "*Tesla Wall Connector*"
+                    - type: custom:button-card
+                      template: edge
+                ## illuminance Sensor ###################################################################################################################
+                - type: 'custom:button-card'
+                  template: card_title
+                  name: Illuminance
+                - type: horizontal-stack
+                  cards:
+                    - type: custom:button-card
+                      template: edge
+                    - type: "custom:auto-entities"
+                      card:
+                        type: "grid"
+                        columns: 2
+                        square: false
+                      card_param: "cards"
+                      sort:
+                        method: name
+                      filter:
+                        include:
+                          - domain: "sensor"
+                            entity_id: "sensor.*illuminance_lux"
+                            options:
+                              type: "custom:button-card"
+                              template: card_graph
+                              variables:
+                                ulm_card_graph_color: "var(--google-blue)"
+                                ulm_card_graph_entity: this.entity_id
+                        exclude:
+                          - state: unavailable
+                    - type: custom:button-card
+                      template: edge
+                ## Humidity Sensor ###################################################################################################################
+                - type: 'custom:button-card'
+                  template: card_title
+                  name: Humidity
+                - type: horizontal-stack
+                  cards:
+                    - type: custom:button-card
+                      template: edge
+                    - type: "custom:auto-entities"
+                      card:
+                        type: "grid"
+                        columns: 2
+                        square: false
+                      card_param: "cards"
+                      sort:
+                        method: name
+                      filter:
+                        include:
+                          - domain: "sensor"
+                            entity_id: "sensor.*humidity*"
+                            options:
+                              type: "custom:button-card"
+                              template: card_graph
+                              variables:
+                                ulm_card_graph_color: "var(--google-red)"
+                                ulm_card_graph_entity: this.entity_id
+                          - domain: "sensor"
+                            entity_id: "sensor.*air_quality*"
+                            options:
+                              type: "custom:button-card"
+                              template: card_graph
+                              variables:
+                                ulm_card_graph_color: "var(--google-yellow)"
+                                ulm_card_graph_entity: this.entity_id
+                        exclude:
+                          - state: unavailable
+                    - type: custom:button-card
+                      template: edge
+            Battery:
+              type: "vertical-stack"
+              cards:
+                ## Battery ###################################################################################################################
+                - type: 'custom:button-card'
+                  template: card_title
+                  name: Battery
+                - type: horizontal-stack
+                  cards:
+                  - type: custom:button-card
+                    template: edge
+                  - type: "custom:auto-entities"
+                    card:
+                      type: "grid"
+                      columns: 2
+                      square: false
+                    card_param: "cards"
+                    sort:
+                      method: name
+                    filter:
+                      include:
+                        - attributes:
+                            unit_of_measurement: "%"
+                            device_class: "battery"
+                          options:
+                            type: custom:button-card
+                            template: card_battery
+                            entity: this.entity_id
+                            variables:
+                              ulm_card_battery_charger_type_entity_id: this.entity_id
+                              ulm_card_battery_battery_level_danger: 15
+                              ulm_card_battery_battery_level_warning: 80
+                      exclude:
+                        - state: unavailable
+                        - entity_id: "*tesla*"
+                        - name: "*Pixel*"
+                  - type: custom:button-card
+                    template: edge
+                ## Motion ###################################################################################################################
+                - type: 'custom:button-card'
+                  template: card_title
+                  name: Motion
+                - type: horizontal-stack
+                  cards:
+                  - type: custom:button-card
+                    template: edge
+                  - type: "custom:auto-entities"
+                    card:
+                      type: "grid"
+                      columns: 2
+                      square: false
+                    card_param: "cards"
+                    sort:
+                      method: name
+                    filter:
+                      include:
+                        - entity_id: "binary_sensor.*occupancy"
+                          options:
+                            type: 'custom:button-card'
+                            template: card_binary_sensor
+                            variables:
+                              ulm_show_last_changed: true
+                            entity: this.entity_id
+                      exclude:
+                        - state: unavailable
+                  - type: custom:button-card
+                    template: edge
+            TV:
+              type: "vertical-stack"
+              cards:
+                ## LG TV ###################################################################################################################
+                - type: 'custom:button-card'
+                  template: card_title
+                  name: LG TV
+                - type: horizontal-stack
+                  cards:
+                    - type: "custom:button-card"
+                      template: edge
+                    - type: custom:fold-entity-row
+                      head:
+                        type: section
+                        label: TV
+                        icon: 'si:lg'
+                      open: true
+                      clickable: true
+                      entities:
+                      - type: 'custom:lg-remote-control'
+                        entity: media_player.lg_webos_smart_tv
+                        mac: !secret lg_tv_mac
+                        sources:
+                        - icon: 'mdi:plex'
+                          name: "Plex"
+                        - icon: 'si:amazon'
+                          name: "Amazon Prime Video"
+                        - icon: 'mdi:hulu'
+                          name: "Hulu"
+                    - type: "custom:button-card"
+                      template: edge

@@ -1,0 +1,62 @@
+navigation_chips:
+  card:
+    type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        template: edge
+      - type: 'custom:button-card'
+        template: chip_back
+        variables:
+          ulm_chip_back_path: /lovelace/dashboard
+      - type: "custom:button-card"
+        template: chip_navigate
+        variables:
+          ulm_chip_navigate_path: '[[nav_path_1]]'
+          ulm_chip_navigate_icon: '[[nav_icon_1]]'
+          ulm_chip_navigate_icon_color: '[[nav_color_1]]'
+      - type: "custom:button-card"
+        template: chip_navigate
+        variables:
+          ulm_chip_navigate_path: '[[nav_path_2]]'
+          ulm_chip_navigate_icon: '[[nav_icon_2]]'
+          ulm_chip_navigate_icon_color: '[[nav_color_2]]'
+      - type: "custom:button-card"
+        template: chip_navigate
+        variables:
+          ulm_chip_navigate_path: '[[nav_path_3]]'
+          ulm_chip_navigate_icon: '[[nav_icon_3]]'
+          ulm_chip_navigate_icon_color: '[[nav_color_3]]'
+      - type: custom:button-card
+        template: edge
+room_overview:
+  card:
+    type: 'custom:button-card'
+    template:
+      - card_room
+      - blue_on
+    name: '[[name]]'
+    entity: '[[entity_id_1]]'
+    icon: '[[icon]]'
+    tap_action:
+      action: toggle
+    variables:
+      label_use_temperature: false
+      label_use_brightness: true
+      entity_1:
+        entity_id: '[[entity_id_1]]'
+        templates:
+          - '[[entity_template_1]]'
+        tap_action:
+          action: '[[entity_action_1]]'
+      entity_2:
+        entity_id: '[[entity_id_2]]'
+        templates:
+          - '[[entity_template_2]]'
+        tap_action:
+          action: '[[entity_action_2]]'
+      entity_3:
+        entity_id: '[[entity_id_3]]'
+        templates:
+          - '[[entity_template_3]]'
+        tap_action:
+          action: '[[entity_action_3]]'

@@ -1,0 +1,8 @@
+switch:
+  - platform: circadian_lighting
+    name: circadian lighting
+    lights_ct:
+      - light.living_room_dining_group
+      - light.kitchen_lights_group
+      - light.office_ceiling_lights_group
+      - light.landing_lights_group

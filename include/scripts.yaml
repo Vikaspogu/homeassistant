@@ -9,7 +9,7 @@ script:
   notify_tesla_open:
     alias: "Notify when something on the tesla is left open"
     sequence:
-      - service: notify.mobile_app_sm_g781v
+      - service: notify.notify_group
         data_template:
           title: "Tesla Notification"
           message: "You have left the {{ whatsopen }} open on the Tesla!"
@@ -63,4 +63,4 @@ script:
         entity_id: script.notify_tesla_open
         data:
           variables:
-            whatsopen: "windows"
+            whatsopen: "windows"  

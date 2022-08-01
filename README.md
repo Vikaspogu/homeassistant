@@ -1,6 +1,6 @@
 # Home Assistant Configuration
 
-![HAVERSION](https://img.shields.io/badge/homeassistant-2022.2.x-blue)
+![HAVERSION](https://img.shields.io/badge/homeassistant-2022.x.x-blue)
 ![LASTCOMMIT](https://img.shields.io/github/last-commit/vikaspogu/homeassistant?style=flat-square)
 ![SIZE](https://img.shields.io/github/repo-size/vikaspogu/homeassistant?style=flat-square)
 
