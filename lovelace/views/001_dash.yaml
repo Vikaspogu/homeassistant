@@ -13,18 +13,12 @@ cards:
         - type: custom:button-card
           template: edge
         - type: 'custom:button-card'
-          template: chip_temperature
+          template: custom_card_chip_icon_double_state
           variables:
-            ulm_chip_temperature_inside: sensor.living_room_temp_f
-            ulm_chip_temperature_outside: sensor.outside_temperature
-            ulm_chip_temperature_weather: weather.home
-        - type: 'custom:button-card'
-          template: chip_icon_double_state
-          variables:
-            ulm_chip_icon_double_state_icon: '🌡️'
-            ulm_chip_icon_double_state_entity_1: sensor.bed_room_temp_f 
-            ulm_chip_icon_double_state_entity_2: sensor.work_room_temp_f
-            ulm_chip_navigate_path: /lovelace/rooms
+            ulm_custom_card_chip_icon_double_state_icon: '🌡️'
+            ulm_custom_card_chip_icon_double_state_entity_1: sensor.bed_room_temp_f 
+            ulm_custom_card_chip_icon_double_state_entity_2: sensor.living_room_temp_f
+            ulm_custom_card_chip_script: script.navigate_to_temperature
         - type: 'custom:button-card'
           template: custom_card_chip_icon_double_state_popup
           variables:
@@ -32,6 +26,13 @@ cards:
             ulm_custom_card_chip_icon_double_state_entity_1: climate.living_room
             ulm_custom_card_chip_icon_double_state_entity_2: sensor.thermostat_current_temperature
             ulm_custom_card_chip_popup_entity: climate.living_room
+        - type: 'custom:button-card'
+          template: custom_card_chip_icon_double_state
+          variables:
+            ulm_custom_card_chip_icon_double_state_icon: '💻'
+            ulm_custom_card_chip_icon_double_state_entity_1: sensor.pogu_nas_volume_1_volume_used
+            ulm_custom_card_chip_icon_double_state_entity_2: sensor.pogu_nas_cpu_utilization_total_2
+            ulm_custom_card_chip_script: script.navigate_to_nas
         - type: custom:button-card
           template: edge
     ## Chips Tesla ###################################################################################################################
@@ -39,11 +40,6 @@ cards:
       cards:
         - type: custom:button-card
           template: edge
-        - type: 'custom:button-card'
-          template: chip_icon_state
-          variables:
-            ulm_chip_icon_state_icon: '🚘'
-            ulm_chip_icon_state_entity: sensor.tesla_state
         - type: 'custom:button-card'
           template: chip_icon_double_state
           variables:
@@ -54,23 +50,10 @@ cards:
         - type: 'custom:button-card'
           template: custom_chip_device_location
           variables:
-            ulm_custom_chip_device_location_icon: '📍'
+            ulm_custom_chip_device_location_icon: '🚘'
             ulm_custom_chip_device_location_entity: device_tracker.tesla_location
+            ulm_custom_chip_device_location_entity_1: sensor.tesla_state
             ulm_custom_chip_device_location_entity_2: proximity.home_tesla
-        - type: custom:button-card
-          template: edge
-    ## Chips Cover###################################################################################################################
-    - type: horizontal-stack
-      cards:
-        - type: custom:button-card
-          template: edge
-        - type: 'custom:button-card'
-          template: chip_icon_double_state
-          variables:
-            ulm_chip_icon_double_state_icon: '💻'
-            ulm_chip_icon_double_state_entity_1: sensor.pogu_nas_volume_1_volume_used
-            ulm_chip_icon_double_state_entity_2: sensor.pogu_nas_cpu_utilization_total_2
-            ulm_chip_navigate_path: /lovelace/system
         - type: custom:button-card
           template: edge
 

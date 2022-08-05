@@ -42,8 +42,6 @@ proximity:
     unit_of_measurement: mi
 
 mqtt:
-  broker: mosquitto.home
-  discovery: true
   sensor: !include mqtt/sensor.yaml
   binary_sensor: !include mqtt/binary_sensor.yaml
 
@@ -102,12 +100,6 @@ ble_monitor:
       encryption_key: !secret bed_room_encryption_key
       temperature_unit: F
       decimals: 2
-
-nest:
-  client_id: !secret nest_client_id
-  client_secret: !secret nest_client_secret
-  project_id: !secret nest_project_id
-  subscriber_id: !secret nest_sub
 
 ## LOVELACE UI ##########################################################################
 # OLD ?
@@ -231,4 +223,3 @@ circadian_lighting:
 sun:
 simpleicons:
 fontawesome:
-powercalc:

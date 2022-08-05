@@ -95,3 +95,8 @@ template:
     icon: mdi:leaf
     name : "Thermostat eco mode"
     state: "{{ states.climate.living_room.attributes.preset_mode }}"
+
+  - unique_id: thermostat_eco_state
+    icon: mdi:leaf
+    name : "Thermostat eco state"
+    state: "{{ states.climate.living_room.attributes.preset_mode }}"

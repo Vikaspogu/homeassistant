@@ -81,21 +81,3 @@ sensor:
         icon_template: mdi:image-filter-hdr
         value_template: >
           {{ (states('sensor.tesla_elevation') | float * 3.2808 ) | round(2) }}
-
-  - platform: powercalc
-    entity_id: light.living_room_dining_group
-    name: Living Room Lights
-    model: LTW001
-    manufacturer: signify
-
-  - platform: powercalc
-    entity_id: light.office_ceiling_lights_group
-    name: Office Room Lights
-    model: LTW001
-    manufacturer: signify
-
-  - platform: powercalc
-    create_group: All landing lights
-    entities:
-      -  entity_id: light.lowerlandinghue_2
-      -  entity_id: light.upperlandinghue_1
