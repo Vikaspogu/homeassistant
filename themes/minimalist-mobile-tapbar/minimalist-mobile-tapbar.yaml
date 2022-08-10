@@ -158,7 +158,6 @@ minimalist-mobile-tapbar:
       # Color Variable
       color-white: "rgba(255,255,255,1)" #ffffff
       color-white-dark: "rgba(234,240,249,1)" #eaf0f9
-      color-grey: "rgba(192,192,192,1)" #C0C0C0
       color-grey-dark-1: "rgba(169,169,169,1)" #A9A9A9
       color-grey-dark-2: "rgba(128,128,128,1)" #808080
       color-grey-dark-3: "rgba(105,105,105,1)" #696969
@@ -262,7 +261,6 @@ minimalist-mobile-tapbar:
       # Color Variable
       color-white: "rgba(255,255,255,1)" #ffffff
       color-white-dark: "rgba(234,240,249,1)" #eaf0f9
-      color-grey: "rgba(192,192,192,1)" #C0C0C0
       color-grey-dark-1: "rgba(169,169,169,1)" #A9A9A9
       color-grey-dark-2: "rgba(128,128,128,1)" #808080
       color-grey-dark-3: "rgba(105,105,105,1)" #696969

@@ -44,34 +44,32 @@ proximity:
 mqtt:
   sensor: !include mqtt/sensor.yaml
   binary_sensor: !include mqtt/binary_sensor.yaml
-
-cover:
-  - platform: mqtt
-    name: "Garage Door"
-    unique_id: "12345677"
-    command_topic: "garage/set"
-    state_topic: "zigbee2mqtt/GarageDoor"
-    availability:
-      - topic: "garage/availability"
-    qos: 1
-    optimistic: false
-    retain: false
-    payload_open: "OPEN"
-    payload_close: "CLOSE"
-    state_open: "open"
-    state_opening: "opening"
-    state_closed: "closed"
-    state_closing: "closing"
-    payload_available: "online"
-    payload_not_available: "offline"
-    value_template: >-
-      {% if value_json.contact == true %}
-        closed
-      {% elif  value_json.contact == false %}
-        open
-      {% else %} 
-        Unknown 
-      {% endif %}
+  cover:
+    - name: "Garage Door"
+      unique_id: "12345677"
+      command_topic: "garage/set"
+      state_topic: "zigbee2mqtt/GarageDoor"
+      availability:
+        - topic: "garage/availability"
+      qos: 1
+      optimistic: false
+      retain: false
+      payload_open: "OPEN"
+      payload_close: "CLOSE"
+      state_open: "open"
+      state_opening: "opening"
+      state_closed: "closed"
+      state_closing: "closing"
+      payload_available: "online"
+      payload_not_available: "offline"
+      value_template: >-
+        {% if value_json.contact == true %}
+          closed
+        {% elif  value_json.contact == false %}
+          open
+        {% else %} 
+          Unknown 
+        {% endif %}
 
 ble_monitor:
   bt_interface: !secret ble_interface
