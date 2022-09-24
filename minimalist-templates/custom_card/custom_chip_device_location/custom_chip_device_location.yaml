@@ -1,0 +1,88 @@
+---
+custom_chip_device_location:
+  template:
+    - "chips"
+    - "ulm_translation_engine"
+    - "ulm_custom_chip_device_location_language_variables"
+  tap_action:
+    action: "fire-dom-event"
+    browser_mod:
+      command: "popup"
+      hide_header: true
+      card:
+        type: "custom:button-card"
+        template: "popup_custom_chip_device_location"
+        variables:
+          ulm_custom_chip_device_location_entity: "[[[ return variables.ulm_custom_chip_device_location_entity ]]]"
+  label: |
+    [[[
+      var icon = "❔";
+      if (variables.ulm_custom_chip_device_location_icon){
+        var icon = variables.ulm_custom_chip_device_location_icon;
+      }
+      var state1 = "";
+      if (states[variables.ulm_custom_chip_device_location_entity_1].state){
+        if (states[variables.ulm_custom_chip_device_location_entity_1].attributes.preset_mode == "eco"){
+          var state1 = states[variables.ulm_custom_chip_device_location_entity_1].attributes.preset_mode;
+        } else {
+          var state1 = states[variables.ulm_custom_chip_device_location_entity_1].state;
+        }
+      }
+      var state2 = "";
+      if (states[variables.ulm_custom_chip_device_location_entity_2].state){
+        var state2 = states[variables.ulm_custom_chip_device_location_entity_2].state;
+        if (states[variables.ulm_custom_chip_device_location_entity_2].attributes.unit_of_measurement){
+          state2 += states[variables.ulm_custom_chip_device_location_entity_2].attributes.unit_of_measurement;
+        }
+      }
+      return icon + " " + state1 + " • " + state2;
+    ]]]
+
+popup_custom_chip_device_location:
+  styles:
+    grid:
+      - grid-template-areas: "'header' 'content1' 'footer'"
+      - grid-template-rows: "16vh 52vh 18vh"
+      - grid-template-columns: "1fr"
+      - column-gap: "30px"
+    card:
+      - background: "var(--primary-background-color)"
+      - box-shadow: "none"
+      - padding: "4%"
+    custom_fields:
+      header:
+        - align-self: "start"
+      content1:
+        - align-self: "center"
+      footer:
+        - align-self: "end"
+        - margin-top: "25px"
+  extra_styles: |
+    @media (max-width: 800px) {
+      #container {
+        grid-template-rows: 16vh 62vh 18vh !important;
+      }
+      #buttons {
+        width: 100% !important;
+      }
+  custom_fields:
+    header:
+      card:
+        type: "custom:button-card"
+        template: "popup_header"
+        entity: "[[[ return variables.ulm_custom_chip_device_location_entity ]]]"
+    content1:
+      card:
+        type: "map"
+        aspect_ratio: "12x12"
+        default_zoom: 16
+        entities: "[[[ return [variables.ulm_custom_chip_device_location_entity]; ]]]"
+    footer:
+      card:
+        type: "custom:button-card"
+        template: "popup_list_items"
+        custom_fields:
+          item1:
+            card:
+              type: "custom:button-card"
+              template: "popup_button_back"

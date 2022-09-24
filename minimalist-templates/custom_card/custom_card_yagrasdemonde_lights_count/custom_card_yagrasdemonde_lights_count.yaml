@@ -1,0 +1,222 @@
+---
+### Custom Card Lights (or covers) Counter ###
+custom_card_yagrasdemonde_lights_count:
+  show_name: true
+  template:
+    - "ulm_custom_card_yagrasdemonde_lights_count_language_variables"
+    - "icon_only"
+    - "ulm_translation_engine"
+  variables:
+    ulm_custom_card_yagrasdemonde_lights_count_icon_on: "[[[ return entity.attributes.icon ]]]"
+    ulm_custom_card_yagrasdemonde_lights_count_icon_off: "mdi:lightbulb-outline"
+    ulm_custom_card_yagrasdemonde_lights_count_color: "yellow"
+    ulm_custom_card_yagrasdemonde_lights_count_force_background_color: false
+  tap_action:
+    action: "fire-dom-event"
+    browser_mod:
+      service: browser_mod.popup
+      data:
+        title: >
+          [[[
+            if (entity.entity_id.includes("light")) {
+                return "Lights";
+            } else {
+                return "Covers";
+            }
+          ]]]
+        content:
+          type: "custom:button-card"
+          template: "popup_custom_lights_count"
+          variables:
+            popup_custom_lights_count_entity: "[[[ return entity.entity_id; ]]]"
+  name: >-
+      [[[
+        var entity_count_O = '';
+        var entity_count_1 = '';
+        var entity_count_many = '';
+        if(variables.ulm_custom_card_yagrasdemonde_lights_count_type == "cover") {
+          entity_count_O = variables.ulm_custom_card_yagrasdemonde_lights_count_cover_0;
+          entity_count_1 = variables.ulm_custom_card_yagrasdemonde_lights_count_cover_1;
+          entity_count_many = variables.ulm_custom_card_yagrasdemonde_lights_count_cover_many;
+        }
+        else {
+          entity_count_O = variables.ulm_custom_card_yagrasdemonde_lights_count_light_0;
+          entity_count_1 = variables.ulm_custom_card_yagrasdemonde_lights_count_light_1;
+          entity_count_many = variables.ulm_custom_card_yagrasdemonde_lights_count_light_many;
+        }
+        if (entity.state != "unavailable") {
+          if (entity.state == 0) {
+            return entity_count_O;
+          } else if (entity.state == 1) {
+            return entity_count_1;
+          } else {
+            return entity.state + " " + entity_count_many;
+          }
+        } else {
+          return variables.ulm_translation_state;
+        }
+      ]]]
+  icon: >
+      [[[
+          if (entity.state == 0) {
+            return variables.ulm_custom_card_yagrasdemonde_lights_count_icon_off;
+          }
+          else {
+            return variables.ulm_custom_card_yagrasdemonde_lights_count_icon_on;
+          }
+      ]]]
+  styles:
+    icon:
+      - color: >
+          [[[
+              if (entity.state == 0) {
+                return 'rgba(var(--color-theme),0.2)';
+              }
+              else {
+                return 'rgba(var(--color-' + variables.ulm_custom_card_yagrasdemonde_lights_count_color + '),1)';
+              }
+          ]]]
+    name:
+      - align-self: "center"
+      - justify-self: "start"
+      - font-weight: "bold"
+      - font-size: "14px"
+      - margin-left: "12px"
+      - filter: "opacity(100%)"
+    img_cell:
+      - background-color: >
+          [[[
+              if (entity.state == 0) {
+                return 'rgba(var(--color-theme),0.05)';
+              }
+              else {
+                return 'rgba(var(--color-' + variables.ulm_custom_card_yagrasdemonde_lights_count_color + '),0.2)';
+              }
+          ]]]
+    grid:
+      - grid-template-areas: "'i n'"
+      - grid-template-columns: "min-content min-content"
+      - grid-template-rows: "min-content"
+  state:
+    - value: 1
+      operator: ">="
+      styles:
+        card:
+          - background-color: >-
+              [[[
+                  if (variables.ulm_custom_card_yagrasdemonde_lights_count_force_background_color == true || hass.themes.darkMode){
+                    return 'rgba(var(--color-' + variables.ulm_custom_card_yagrasdemonde_lights_count_color + '-text),0.1)';
+                  }
+                  else {
+                    return 'rgba(var(--color-background-' + variables.ulm_custom_card_yagrasdemonde_lights_count_color + '),var(--opacity-bg))';
+                  }
+              ]]]
+        name:
+          - color: "[[[ return 'rgba(var(--color-' + variables.ulm_custom_card_yagrasdemonde_lights_count_color + '-text),1)' ]]]"
+
+popup_custom_lights_count:
+  styles:
+    grid:
+      - grid-template-areas: "'content1'"
+      - grid-template-rows: "1fr"
+      - grid-template-columns: "1fr"
+      - column-gap: "30px"
+    card:
+      - background: "var(--primary-background-color)"
+      - box-shadow: "none"
+      - padding: "4%"
+    custom_fields:
+      content1:
+        - align-self: "start"
+  extra_styles: |
+    @media (max-width: 800px) {
+      #container {
+        grid-template-rows: 16vh 62vh 18vh !important;
+      }
+      #buttons {
+        width: 100% !important;
+      }
+  custom_fields:
+    content1:
+      card:
+        type: "custom:button-card"
+        show_icon: false
+        show_name: false
+        show_label: false
+        styles:
+          grid:
+            - grid-template-areas: >
+                [[[
+                      var areas = [];
+                      if (variables.popup_custom_lights_count_entity.includes("light")) {
+                          areas.push("lights");
+                      }
+                      if (variables.popup_custom_lights_count_entity.includes("cover")) {
+                          areas.push("covers");
+                      }
+                      return "\"" + areas.join(" ") + "\"";
+                ]]]
+            - box-shadow: "none"
+            - padding: "1%"
+          custom_fields:
+            lights:
+              - display: >
+                  [[[
+                    if (variables.popup_custom_lights_count_entity.includes("light")) {
+                        return "block";
+                    } else {
+                        return "none";
+                    }
+                  ]]]
+            covers:
+              - display: >
+                  [[[
+                    if (variables.popup_custom_lights_count_entity.includes("cover")) {
+                        return "block";
+                    } else {
+                        return "none";
+                    }
+                  ]]]
+        custom_fields:
+          lights:
+            card:
+              type: "custom:auto-entities"
+              card:
+                type: "grid"
+                columns: 1
+                square: false
+              card_param: "cards"
+              filter:
+                include:
+                  - domain: "light"
+                    entity_id: "light.*_group"
+                    options:
+                      type: "custom:button-card"
+                      template: "card_light"
+                      variables:
+                        ulm_card_light_enable_slider: true
+                        ulm_card_light_enable_color: true
+                exclude:
+                  - state: "unavailable"
+          covers:
+            card:
+              type: "custom:auto-entities"
+              card:
+                type: "grid"
+                columns: 1
+                square: false
+              card_param: "cards"
+              sort:
+                method: name
+              filter:
+                include:
+                  - domain: cover
+                    options:
+                      type: custom:button-card
+                      template: card_cover
+                      entity: this.entity_id
+                      variables:
+                        ulm_card_cover_enable_slider: true
+                exclude:
+                  - state: "closing"
+                  - state: "unavailable"

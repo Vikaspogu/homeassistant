@@ -197,11 +197,6 @@ lovelace:
       show_in_sidebar: true
       require_admin: true
 
-# https://github.com/thomasloven/hass-browser_mod
-browser_mod:
-  disable:
-    - all
-
 eufy_vacuum:
   devices:
   - name: Robovac

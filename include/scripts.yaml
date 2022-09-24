@@ -74,7 +74,7 @@ script:
           entity_id: input_select.system_mode
       - service: browser_mod.navigate
         data:
-          navigation_path: /lovelace/system
+          path: /lovelace/system
   
   navigate_to_temperature:
     sequence:
@@ -85,4 +85,4 @@ script:
           entity_id: input_select.room_mode
       - service: browser_mod.navigate
         data:
-          navigation_path: /lovelace/rooms
+          path: /lovelace/rooms
