@@ -1,5 +1,9 @@
 ---
 popup_thermostat_temperature:
+  show_icon: false
+  show_name: false
+  show_label: false
+  show_units: false
   styles:
     grid:
       - grid-template-areas: "'header' 'content1' 'buttons' 'footer'"
@@ -20,7 +24,7 @@ popup_thermostat_temperature:
         - width: "50%"
         - margin: "0 auto"
       footer:
-        - align-self: "end"
+        - align-self: "start"
         - margin-top: "25px"
   extra_styles: |
     @media (max-width: 800px) {
@@ -35,11 +39,11 @@ popup_thermostat_temperature:
       card:
         type: "custom:button-card"
         template: "popup_header"
-        entity: "[[[ return variables.ulm_popup_thermostat_entity ]]]"
+        entity: "[[[ return entity.entity_id ]]]"
     content1:
       card:
         type: "thermostat"
-        entity: "[[[ return variables.ulm_popup_thermostat_entity ]]]"
+        entity: "[[[ return entity.entity_id ]]]"
         card_mod:
           style: |
             ha-card {
@@ -59,57 +63,95 @@ popup_thermostat_temperature:
     buttons:
       card:
         type: "custom:button-card"
+        variables:
+          ulm_card_thermostat_preset_mode: "[[[ return variables.ulm_card_thermostat_preset_mode; ]]]"
         styles:
           grid:
             - grid-template-areas: >
                 [[[
                       var areas = [];
-                      if (states[variables.ulm_popup_thermostat_entity].attributes.hvac_modes.includes("auto")) {
-                          areas.push("auto");
-                      }
-                      if (states[variables.ulm_popup_thermostat_entity].attributes.hvac_modes.includes("heat")) {
-                          areas.push("heat");
-                      }
-                      if (states[variables.ulm_popup_thermostat_entity].attributes.hvac_modes.includes("cool")) {
-                          areas.push("cool");
-                      }
-                      if (states[variables.ulm_popup_thermostat_entity].attributes.hvac_modes.includes("dry")) {
-                          areas.push("dry");
-                      }
-                      if (states[variables.ulm_popup_thermostat_entity].attributes.hvac_modes.includes("fan_only")) {
-                          areas.push("fan_only");
-                      }
-                      if (states[variables.ulm_popup_thermostat_entity].attributes.hvac_modes.includes("heat_cool")) {
-                          areas.push("heat_cool");
-                      }
-                      if (states[variables.ulm_popup_thermostat_entity].attributes.preset_modes.includes("eco")) {
-                          areas.push("eco");
+                      if (variables.ulm_card_thermostat_preset_mode){
+                        if (entity.attributes.preset_modes.includes("none")) {
+                            areas.push("none");
+                        }
+                        if (entity.attributes.preset_modes.includes("away")) {
+                            areas.push("away");
+                        }
+                        if (entity.attributes.preset_modes.includes("comfort")) {
+                            areas.push("comfort");
+                        }
+                        if (entity.attributes.preset_modes.includes("home")) {
+                            areas.push("home");
+                        }
+                        if (entity.attributes.preset_modes.includes("sleep")) {
+                            areas.push("sleep");
+                        }
+                        if (entity.attributes.preset_modes.includes("activity")) {
+                            areas.push("activity");
+                        }
+                      } else {
+                        if (entity.attributes.hvac_modes.includes("auto")) {
+                            areas.push("auto");
+                        }
+                        if (entity.attributes.hvac_modes.includes("heat")) {
+                            areas.push("heat");
+                        }
+                        if (entity.attributes.hvac_modes.includes("cool")) {
+                            areas.push("cool");
+                        }
+                        if (entity.attributes.hvac_modes.includes("dry")) {
+                            areas.push("dry");
+                        }
+                        if (entity.attributes.hvac_modes.includes("fan_only")) {
+                            areas.push("fan_only");
+                        }
+                        if (entity.attributes.hvac_modes.includes("heat_cool")) {
+                            areas.push("heat_cool");
+                        }
                       }
                       return "\"" + areas.join(" ") + "\"";
                 ]]]
             - grid-template-columns: >
                 [[[
                       var columns = [];
-                      if (states[variables.ulm_popup_thermostat_entity].attributes.hvac_modes.includes("auto")) {
-                          columns.push("1fr");
-                      }
-                      if (states[variables.ulm_popup_thermostat_entity].attributes.hvac_modes.includes("heat")) {
-                          columns.push("1fr");
-                      }
-                      if (states[variables.ulm_popup_thermostat_entity].attributes.hvac_modes.includes("cool")) {
-                          columns.push("1fr");
-                      }
-                      if (states[variables.ulm_popup_thermostat_entity].attributes.hvac_modes.includes("dry")) {
-                          columns.push("1fr");
-                      }
-                      if (states[variables.ulm_popup_thermostat_entity].attributes.hvac_modes.includes("fan_only")) {
-                          columns.push("1fr");
-                      }
-                      if (states[variables.ulm_popup_thermostat_entity].attributes.hvac_modes.includes("heat_cool")) {
-                          columns.push("1fr");
-                      }
-                      if (states[variables.ulm_popup_thermostat_entity].attributes.preset_modes.includes("eco")) {
-                        columns.push("1fr");
+                      if (variables.ulm_card_thermostat_preset_mode){
+                        if (entity.attributes.preset_modes.includes("none")) {
+                            columns.push("1fr");
+                        }
+                        if (entity.attributes.preset_modes.includes("away")) {
+                            columns.push("1fr");
+                        }
+                        if (entity.attributes.preset_modes.includes("comfort")) {
+                            columns.push("1fr");
+                        }
+                        if (entity.attributes.preset_modes.includes("home")) {
+                            columns.push("1fr");
+                        }
+                        if (entity.attributes.preset_modes.includes("sleep")) {
+                            columns.push("1fr");
+                        }
+                        if (entity.attributes.preset_modes.includes("activity")) {
+                            columns.push("1fr");
+                        }
+                      } else {
+                        if (entity.attributes.hvac_modes.includes("auto")) {
+                            columns.push("1fr");
+                        }
+                        if (entity.attributes.hvac_modes.includes("heat")) {
+                            columns.push("1fr");
+                        }
+                        if (entity.attributes.hvac_modes.includes("cool")) {
+                            columns.push("1fr");
+                        }
+                        if (entity.attributes.hvac_modes.includes("dry")) {
+                            columns.push("1fr");
+                        }
+                        if (entity.attributes.hvac_modes.includes("fan_only")) {
+                            columns.push("1fr");
+                        }
+                        if (entity.attributes.hvac_modes.includes("heat_cool")) {
+                            columns.push("1fr");
+                        }
                       }
                       return columns.join(" ");
                 ]]]
@@ -124,7 +166,7 @@ popup_thermostat_temperature:
             auto:
               - display: >
                   [[[
-                    if (states[variables.ulm_popup_thermostat_entity].attributes.hvac_modes.includes("auto")) {
+                    if (entity.attributes.hvac_modes.includes("auto") && !variables.ulm_card_thermostat_preset_mode) {
                         return "block";
                     } else {
                         return "none";
@@ -133,7 +175,7 @@ popup_thermostat_temperature:
             heat:
               - display: >
                   [[[
-                    if (states[variables.ulm_popup_thermostat_entity].attributes.hvac_modes.includes("heat")) {
+                    if (entity.attributes.hvac_modes.includes("heat") && !variables.ulm_card_thermostat_preset_mode) {
                         return "block";
                     } else {
                         return "none";
@@ -142,7 +184,7 @@ popup_thermostat_temperature:
             cool:
               - display: >
                   [[[
-                    if (states[variables.ulm_popup_thermostat_entity].attributes.hvac_modes.includes("cool")) {
+                    if (entity.attributes.hvac_modes.includes("cool") && !variables.ulm_card_thermostat_preset_mode) {
                         return "block";
                     } else {
                         return "none";
@@ -151,7 +193,7 @@ popup_thermostat_temperature:
             dry:
               - display: >
                   [[[
-                    if (states[variables.ulm_popup_thermostat_entity].attributes.hvac_modes.includes("dry")) {
+                    if (entity.attributes.hvac_modes.includes("dry") && !variables.ulm_card_thermostat_preset_mode) {
                         return "block";
                     } else {
                         return "none";
@@ -160,7 +202,7 @@ popup_thermostat_temperature:
             fan_only:
               - display: >
                   [[[
-                    if (states[variables.ulm_popup_thermostat_entity].attributes.hvac_modes.includes("fan_only")) {
+                    if (entity.attributes.hvac_modes.includes("fan_only") && !variables.ulm_card_thermostat_preset_mode) {
                         return "block";
                     } else {
                         return "none";
@@ -169,16 +211,61 @@ popup_thermostat_temperature:
             heat_cool:
               - display: >
                   [[[
-                    if (states[variables.ulm_popup_thermostat_entity].attributes.hvac_modes.includes("heat_cool")) {
+                    if (entity.attributes.hvac_modes.includes("heat_cool") && !variables.ulm_card_thermostat_preset_mode) {
                         return "block";
                     } else {
                         return "none";
                     }
                   ]]]
-            eco:
+            none:
               - display: >
                   [[[
-                    if (states[variables.ulm_popup_thermostat_entity].attributes.preset_modes.includes("eco")) {
+                    if (entity.attributes.preset_modes.includes("none") && variables.ulm_card_thermostat_preset_mode) {
+                        return "block";
+                    } else {
+                        return "none";
+                    }
+                  ]]]
+            away:
+              - display: >
+                  [[[
+                    if (entity.attributes.preset_modes.includes("away") && variables.ulm_card_thermostat_preset_mode) {
+                        return "block";
+                    } else {
+                        return "none";
+                    }
+                  ]]]
+            comfort:
+              - display: >
+                  [[[
+                    if (entity.attributes.preset_modes.includes("comfort") && variables.ulm_card_thermostat_preset_mode) {
+                        return "block";
+                    } else {
+                        return "none";
+                    }
+                  ]]]
+            home:
+              - display: >
+                  [[[
+                    if (entity.attributes.preset_modes.includes("home") && variables.ulm_card_thermostat_preset_mode) {
+                        return "block";
+                    } else {
+                        return "none";
+                    }
+                  ]]]
+            sleep:
+              - display: >
+                  [[[
+                    if (entity.attributes.preset_modes.includes("sleep") && variables.ulm_card_thermostat_preset_mode) {
+                        return "block";
+                    } else {
+                        return "none";
+                    }
+                  ]]]
+            activity:
+              - display: >
+                  [[[
+                    if (entity.attributes.preset_modes.includes("activity") && variables.ulm_card_thermostat_preset_mode) {
                         return "block";
                     } else {
                         return "none";
@@ -188,14 +275,14 @@ popup_thermostat_temperature:
           auto:
             card:
               type: "custom:button-card"
-              entity: "[[[ return variables.ulm_popup_thermostat_entity ]]]"
+              entity: "[[[ return entity.entity_id ]]]"
               template: "widget_icon"
               icon: "mdi:autorenew"
               tap_action:
                 action: "call-service"
                 service: "climate.set_hvac_mode"
                 service_data:
-                  entity_id: "[[[ return variables.ulm_popup_thermostat_entity ]]]"
+                  entity_id: "[[[ return entity.entity_id ]]]"
                   hvac_mode: "auto"
               styles:
                 card:
@@ -214,14 +301,14 @@ popup_thermostat_temperature:
           heat:
             card:
               type: "custom:button-card"
-              entity: "[[[ return variables.ulm_popup_thermostat_entity ]]]"
+              entity: "[[[ return entity.entity_id ]]]"
               template: "widget_icon"
               icon: "mdi:fire"
               tap_action:
                 action: "call-service"
                 service: "climate.set_hvac_mode"
                 service_data:
-                  entity_id: "[[[ return variables.ulm_popup_thermostat_entity ]]]"
+                  entity_id: "[[[ return entity.entity_id ]]]"
                   hvac_mode: "heat"
               styles:
                 card:
@@ -240,14 +327,14 @@ popup_thermostat_temperature:
           cool:
             card:
               type: "custom:button-card"
-              entity: "[[[ return variables.ulm_popup_thermostat_entity ]]]"
+              entity: "[[[ return entity.entity_id ]]]"
               template: "widget_icon"
               icon: "mdi:snowflake"
               tap_action:
                 action: "call-service"
                 service: "climate.set_hvac_mode"
                 service_data:
-                  entity_id: "[[[ return variables.ulm_popup_thermostat_entity ]]]"
+                  entity_id: "[[[ return entity.entity_id ]]]"
                   hvac_mode: "cool"
               styles:
                 card:
@@ -257,33 +344,23 @@ popup_thermostat_temperature:
                   - border-radius: "50%"
                   - box-shadow: "none"
               state:
-                - operator: template
-                  value: >
-                    [[[
-                      return (states[variables.ulm_popup_thermostat_entity].attributes.preset_mode == 'none' && states[variables.ulm_popup_thermostat_entity].state == "cool")
-                    ]]]
+                - value: "cool"
                   styles:
                     card:
                       - background-color: "var(--card-background-color)"
                       - box-shadow: "var( --ha-card-box-shadow)"
                       - transform: "scale(0.95)"
-                # - value: "cool"
-                #   styles:
-                #     card:
-                #       - background-color: "var(--card-background-color)"
-                #       - box-shadow: "var( --ha-card-box-shadow)"
-                #       - transform: "scale(0.95)"
           dry:
             card:
               type: "custom:button-card"
-              entity: "[[[ return variables.ulm_popup_thermostat_entity ]]]"
+              entity: "[[[ return entity.entity_id ]]]"
               template: "widget_icon"
               icon: "mdi:water"
               tap_action:
                 action: "call-service"
                 service: "climate.set_hvac_mode"
                 service_data:
-                  entity_id: "[[[ return variables.ulm_popup_thermostat_entity ]]]"
+                  entity_id: "[[[ return entity.entity_id ]]]"
                   hvac_mode: "dry"
               styles:
                 card:
@@ -302,14 +379,14 @@ popup_thermostat_temperature:
           fan_only:
             card:
               type: "custom:button-card"
-              entity: "[[[ return variables.ulm_popup_thermostat_entity ]]]"
+              entity: "[[[ return entity.entity_id ]]]"
               template: "widget_icon"
               icon: "mdi:fan"
               tap_action:
                 action: "call-service"
                 service: "climate.set_hvac_mode"
                 service_data:
-                  entity_id: "[[[ return variables.ulm_popup_thermostat_entity ]]]"
+                  entity_id: "[[[ return entity.entity_id ]]]"
                   hvac_mode: "fan_only"
               styles:
                 card:
@@ -328,14 +405,14 @@ popup_thermostat_temperature:
           heat_cool:
             card:
               type: "custom:button-card"
-              entity: "[[[ return variables.ulm_popup_thermostat_entity ]]]"
+              entity: "[[[ return entity.entity_id ]]]"
               template: "widget_icon"
               icon: "mdi:sun-snowflake"
               tap_action:
                 action: "call-service"
                 service: "climate.set_hvac_mode"
                 service_data:
-                  entity_id: "[[[ return variables.ulm_popup_thermostat_entity ]]]"
+                  entity_id: "[[[ return entity.entity_id ]]]"
                   hvac_mode: "heat_cool"
               styles:
                 card:
@@ -351,25 +428,18 @@ popup_thermostat_temperature:
                       - background-color: "var(--card-background-color)"
                       - box-shadow: "var( --ha-card-box-shadow)"
                       - transform: "scale(0.95)"
-          eco:
+          none:
             card:
               type: "custom:button-card"
-              entity: "[[[ return variables.ulm_popup_thermostat_entity ]]]"
+              entity: "[[[ return entity.entity_id ]]]"
               template: "widget_icon"
-              icon: "mdi:leaf"
+              icon: "mdi:toggle-switch-off"
               tap_action:
                 action: "call-service"
                 service: "climate.set_preset_mode"
                 service_data:
-                  entity_id: "[[[ return variables.ulm_popup_thermostat_entity ]]]"
-                  preset_mode: >
-                    [[[
-                      if (states[variables.ulm_popup_thermostat_entity].attributes.preset_mode.includes("eco")) {
-                          return "none";
-                      } else {
-                          return "eco";
-                      }
-                    ]]]
+                  entity_id: "[[[ return entity.entity_id ]]]"
+                  preset_mode: "none"
               styles:
                 card:
                   - background-color: "transparent"
@@ -378,11 +448,143 @@ popup_thermostat_temperature:
                   - border-radius: "50%"
                   - box-shadow: "none"
               state:
-                - operator: template
-                  value: >
-                    [[[
-                      return states[variables.ulm_popup_thermostat_entity].attributes.preset_mode == 'eco'
-                    ]]]
+                - operator: "template"
+                  value: "[[[ return entity.attributes.preset_mode == 'none' ]]]"
+                  styles:
+                    card:
+                      - background-color: "var(--card-background-color)"
+                      - box-shadow: "var( --ha-card-box-shadow)"
+                      - transform: "scale(0.95)"
+          away:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              template: "widget_icon"
+              icon: "mdi:home-switch-outline"
+              tap_action:
+                action: "call-service"
+                service: "climate.set_preset_mode"
+                service_data:
+                  entity_id: "[[[ return entity.entity_id ]]]"
+                  preset_mode: "away"
+              styles:
+                card:
+                  - background-color: "transparent"
+                  - height: "42px"
+                  - width: "42px"
+                  - border-radius: "50%"
+                  - box-shadow: "none"
+              state:
+                - operator: "template"
+                  value: "[[[ return entity.attributes.preset_mode == 'away' ]]]"
+                  styles:
+                    card:
+                      - background-color: "var(--card-background-color)"
+                      - box-shadow: "var( --ha-card-box-shadow)"
+                      - transform: "scale(0.95)"
+          comfort:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              template: "widget_icon"
+              icon: "mdi:car-seat-cooler"
+              tap_action:
+                action: "call-service"
+                service: "climate.set_preset_mode"
+                service_data:
+                  entity_id: "[[[ return entity.entity_id ]]]"
+                  preset_mode: "comfort"
+              styles:
+                card:
+                  - background-color: "transparent"
+                  - height: "42px"
+                  - width: "42px"
+                  - border-radius: "50%"
+                  - box-shadow: "none"
+              state:
+                - operator: "template"
+                  value: "[[[ return entity.attributes.preset_mode == 'comfort' ]]]"
+                  styles:
+                    card:
+                      - background-color: "var(--card-background-color)"
+                      - box-shadow: "var( --ha-card-box-shadow)"
+                      - transform: "scale(0.95)"
+          home:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              template: "widget_icon"
+              icon: "mdi:home"
+              tap_action:
+                action: "call-service"
+                service: "climate.set_preset_mode"
+                service_data:
+                  entity_id: "[[[ return entity.entity_id ]]]"
+                  preset_mode: "home"
+              styles:
+                card:
+                  - background-color: "transparent"
+                  - height: "42px"
+                  - width: "42px"
+                  - border-radius: "50%"
+                  - box-shadow: "none"
+              state:
+                - operator: "template"
+                  value: "[[[ return entity.attributes.preset_mode == 'home' ]]]"
+                  styles:
+                    card:
+                      - background-color: "var(--card-background-color)"
+                      - box-shadow: "var( --ha-card-box-shadow)"
+                      - transform: "scale(0.95)"
+          sleep:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              template: "widget_icon"
+              icon: "mdi:sleep"
+              tap_action:
+                action: "call-service"
+                service: "climate.set_preset_mode"
+                service_data:
+                  entity_id: "[[[ return entity.entity_id ]]]"
+                  preset_mode: "sleep"
+              styles:
+                card:
+                  - background-color: "transparent"
+                  - height: "42px"
+                  - width: "42px"
+                  - border-radius: "50%"
+                  - box-shadow: "none"
+              state:
+                - operator: "template"
+                  value: "[[[ return entity.attributes.preset_mode == 'sleep' ]]]"
+                  styles:
+                    card:
+                      - background-color: "var(--card-background-color)"
+                      - box-shadow: "var( --ha-card-box-shadow)"
+                      - transform: "scale(0.95)"
+          activity:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              template: "widget_icon"
+              icon: "mdi:ticket"
+              tap_action:
+                action: "call-service"
+                service: "climate.set_preset_mode"
+                service_data:
+                  entity_id: "[[[ return entity.entity_id ]]]"
+                  preset_mode: "activity"
+              styles:
+                card:
+                  - background-color: "transparent"
+                  - height: "42px"
+                  - width: "42px"
+                  - border-radius: "50%"
+                  - box-shadow: "none"
+              state:
+                - operator: "template"
+                  value: "[[[ return entity.attributes.preset_mode == 'activity' ]]]"
                   styles:
                     card:
                       - background-color: "var(--card-background-color)"
@@ -401,4 +603,4 @@ popup_thermostat_temperature:
             card:
               type: "custom:button-card"
               template: "popup_button_power"
-              entity: "[[[ return variables.ulm_popup_thermostat_entity ]]]"
+              entity: "[[[ return entity.entity_id ]]]"

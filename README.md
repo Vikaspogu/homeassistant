@@ -48,6 +48,73 @@ custom_widget_irmajavi:
     ]]]
 ```
 
+#### card_graph
+
+```yaml
+ulm_card_graph_name: >
+      [[[ 
+        if (
+          entity.attributes.friendly_name.includes("ble humidity")
+        ) {
+            return entity.attributes.friendly_name.replace("ble humidity ", "");s
+        } else {
+            return entity.attributes.friendly_name;
+        }
+      ]]]
+```
+
+#### card_battery
+
+```yaml
+ulm_card_battery_name: >
+      [[[ 
+        if (
+          entity.attributes.friendly_name.includes("ble battery")
+        ) {
+            return entity.attributes.friendly_name.replace("ble battery ", "");s
+        } else {
+            return entity.attributes.friendly_name;
+        }
+      ]]]
+```
+
+#### card_generic_swap
+
+```yaml
+ulm_card_generic_swap_name: >
+      [[[ 
+        if (
+          entity.attributes.friendly_name.includes("pogu-nas")
+        ) {
+            return entity.attributes.friendly_name.replace("pogu-nas ", "");
+        } else if (entity.attributes.friendly_name.includes("Tesla Wall Connector")) {
+            return entity.attributes.friendly_name.replace("Tesla Wall Connector ", "");
+        }else if (entity.attributes.friendly_name.includes("2019 RAV4 HYBRID XSE AWD SUV")) {
+            return entity.attributes.friendly_name.replace(" 2019 RAV4 HYBRID XSE AWD SUV", "");
+        }else {
+            return entity.attributes.friendly_name;
+        }
+      ]]]
+```
+
+#### card_light
+
+```yaml
+ulm_card_light_name: >
+      [[[ 
+        if (
+          entity.attributes.friendly_name.includes("_")
+        ) {
+            return entity.attributes.friendly_name.replaceAll("_", " ").replace(/\w\S*/g, function(txt) {
+                                                                            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                                                                          }
+                                                                        );
+        } else {
+            return entity.attributes.friendly_name;
+        }
+      ]]]
+```
+
 ### Custom cards list
 
 - irmajavi_speedtest

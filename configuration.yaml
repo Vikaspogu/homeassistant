@@ -184,7 +184,13 @@ lovelace:
       type: css
     - url: "https://fonts.googleapis.com/css2?family=Comfortaa&display=swap"
       type: css
-    - url: /local/stylesheets/font.css
+    - url: "https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/cascadia-code.min.css"
+      type: css
+    - url: "https://fonts.googleapis.com/css2?family=Fira+Code:wght@300&display=swap"
+      type: css
+    - url: "https://fonts.googleapis.com/css2?family=Fira+Sans:wght@100;300&display=swap"
+      type: css
+    - url: "https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap"
       type: css
 
   # Add yaml dashboards

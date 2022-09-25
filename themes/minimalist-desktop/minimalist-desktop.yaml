@@ -10,6 +10,7 @@ minimalist-desktop:
   info-color: "var(--google-blue)"
   divider-color: "rgba(var(--color-theme),.12)"
   accent-color: "var(--google-yellow)"
+  ha-dialog-border-radius: "10px"
   card-mod-theme: "minimalist-desktop"
   card-mod-view-yaml: |
     "*:first-child$": |
@@ -73,8 +74,9 @@ minimalist-desktop:
       switch-checked-color: "var(--google-blue)"
       # media player
       mini-media-player-accent-color: "var(--google-blue)"
+
       # Fonts
-      primary-font-family: 'Raleway,sans-serif'
+      primary-font-family: '"Fira Sans",sans-serif'
       paper-font-common-base_-_font-family: "var(--primary-font-family)"
       paper-font-common-code_-_font-family: "var(--primary-font-family)"
       paper-font-body1_-_font-family: "var(--primary-font-family)"
@@ -114,6 +116,7 @@ minimalist-desktop:
       hacs-status-installed: "var(--text-color)"
       hacs-status-pending-restart: "var(--text-dark-color)"
       hacs-status-pending-update: "var(--accent-color)"
+
     dark:
       # text
       primary-text-color: "#DDDDDD"
@@ -168,8 +171,10 @@ minimalist-desktop:
       mini-media-player-accent-color: "var(--google-blue)"
       # Journal
       state-icon-color: "rgb(var(--color-theme))"
+
       # Fonts
-      primary-font-family: 'Raleway,sans-serif'
+      primary-font-family: '"Fira Sans",sans-serif'
+      primary-font-weight: "Normal"
       paper-font-common-base_-_font-family: "var(--primary-font-family)"
       paper-font-common-code_-_font-family: "var(--primary-font-family)"
       paper-font-body1_-_font-family: "var(--primary-font-family)"

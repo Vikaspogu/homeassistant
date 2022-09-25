@@ -10,6 +10,7 @@ minimalist-mobile:
   info-color: "var(--google-blue)"
   divider-color: "rgba(var(--color-theme),.12)"
   accent-color: "var(--google-yellow)"
+  ha-dialog-border-radius: "10px"
   card-mod-theme: "minimalist-mobile"
   card-mod-root: |
     app-toolbar {
@@ -77,9 +78,8 @@ minimalist-mobile:
       switch-checked-color: "var(--google-blue)"
       # media player
       mini-media-player-accent-color: "var(--google-blue)"
-
-      # Fonts
-      primary-font-family: 'Raleway,sans-serif'
+       # Fonts
+      primary-font-family: '"Fira Sans",sans-serif'
       paper-font-common-base_-_font-family: "var(--primary-font-family)"
       paper-font-common-code_-_font-family: "var(--primary-font-family)"
       paper-font-body1_-_font-family: "var(--primary-font-family)"
@@ -119,7 +119,6 @@ minimalist-mobile:
       hacs-status-installed: "var(--text-color)"
       hacs-status-pending-restart: "var(--text-dark-color)"
       hacs-status-pending-update: "var(--accent-color)"
-      
     dark:
       # text
       primary-text-color: "#DDDDDD"
@@ -174,9 +173,9 @@ minimalist-mobile:
       mini-media-player-accent-color: "var(--google-blue)"
       # Journal
       state-icon-color: "rgb(var(--color-theme))"
-      
-      # Fonts
-      primary-font-family: 'Raleway,sans-serif'
+       # Fonts
+      primary-font-family: "'Fira Sans', sans-serif"
+      primary-font-weight: "Normal"
       paper-font-common-base_-_font-family: "var(--primary-font-family)"
       paper-font-common-code_-_font-family: "var(--primary-font-family)"
       paper-font-body1_-_font-family: "var(--primary-font-family)"

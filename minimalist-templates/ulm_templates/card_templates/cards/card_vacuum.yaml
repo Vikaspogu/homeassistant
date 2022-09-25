@@ -7,7 +7,6 @@ card_vacuum:
   template:
     - "icon_more_info_new"
     - "ulm_translation_engine"
-    - "ulm_actions_card"
   variables:
     ulm_card_vacuum_name: "[[[ return entity.attributes.friendly_name ]]]"
     ulm_card_vacuum_icon: "[[[ return entity.attributes.icon ]]]"
@@ -73,16 +72,11 @@ card_vacuum:
     item1:
       card:
         type: "custom:button-card"
-        template:
-          - "icon_more_info"
         custom_fields:
           item1:
             card:
               type: "custom:button-card"
               entity: "[[[ return entity.entity_id ]]]"
-              variables:
-                ulm_input_select_option: "[[[ return variables.ulm_input_select_option; ]]]"
-                ulm_input_select: "[[[ return variables.ulm_input_select; ]]]"
               icon: "[[[ return variables.ulm_card_vacuum_icon ]]]"
               styles:
                 icon:
@@ -98,9 +92,6 @@ card_vacuum:
           item2:
             card:
               type: "custom:button-card"
-              variables:
-                ulm_input_select_option: "[[[ return variables.ulm_input_select_option; ]]]"
-                ulm_input_select: "[[[ return variables.ulm_input_select; ]]]"
               entity: "[[[ return entity.entity_id ]]]"
               name: "[[[ return variables.ulm_card_vacuum_name ]]]"
               label: >
