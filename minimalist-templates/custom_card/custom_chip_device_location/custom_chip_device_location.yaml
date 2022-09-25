@@ -7,13 +7,101 @@ custom_chip_device_location:
   tap_action:
     action: "fire-dom-event"
     browser_mod:
-      command: "popup"
-      hide_header: true
-      card:
-        type: "custom:button-card"
-        template: "popup_custom_chip_device_location"
-        variables:
-          ulm_custom_chip_device_location_entity: "[[[ return variables.ulm_custom_chip_device_location_entity ]]]"
+      service: browser_mod.popup
+      data:
+        title: Tesla Location
+        style:
+          $: >
+            [[[
+              if (hass.themes.theme.includes("desktop")){
+                var dialog = `
+                  .mdc-dialog__surface{
+                    border-radius: var(--border-radius) !important;
+                  }
+                `;
+              } else{
+                var dialog = "";
+              }
+              return `
+                *{
+                  --secondary-background-color: none !important;
+                }
+                ${dialog}
+              `;
+            ]]]
+          hui-vertical-stack-card:
+            $: >
+              button-card {
+                align-self: center;
+                padding: 0.2em 0 2.3em 0;
+              }
+              hui-entities-card{
+                padding: 0.8em 1.4em;
+              }
+            $hui-entities-card$: >
+              ha-card{
+                box-shadow: none;
+              }
+            $hui-history-graph-card$: >
+              .content {
+                padding: 0 2.4em !important;
+              }
+              ha-card{
+                box-shadow: none;
+              }
+            $hui-glance-card$: >
+              ha-card{
+                box-shadow: none;
+              }
+            $hui-map-card:
+              $: >
+                ha-icon-button {
+                  color: rgba(var(--color-blue),1);
+                }
+              $ha-map:
+                $: >
+                  .leaflet-control-attribution {
+                    display: none;
+                  }
+                  .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+                    border: 2px solid rgba(var(--color-blue),0.4) !important;
+                  }
+                  .leaflet-bar a {
+                    background-color: rgba(var(--color-blue),0.2) !important;
+                    color: rgba(var(--color-blue),1) !important;
+                  }
+                  .leaflet-bar a:first-child {
+                    border-bottom: 2px solid rgba(var(--color-blue),0.4) !important;
+                  }
+                  .leaflet-pane.leaflet-tile-pane {
+                    filter: contrast(95%);
+                  }
+        content:
+          type: "vertical-stack"
+          cards:
+            - type: "entities"
+              entities:
+                - entity: "[[[ return variables.ulm_custom_chip_device_location_entity; ]]]"
+                  secondary_info: "last-changed"
+            - type: "history-graph"
+              entities:
+                - entity: "[[[ return variables.ulm_custom_chip_device_location_entity; ]]]"
+            - type: "glance"
+              show_state: true
+              entities:
+                - type: 'custom:button-card'
+                  template: card_generic_swap
+                  entity: sensor.tesla_odometer_mi
+                - type: 'custom:button-card'
+                  template: card_generic_swap
+                  entity: sensor.tesla_version
+                - type: 'custom:button-card'
+                  template: card_generic_swap
+                  entity:  sensor.speed_mph
+            - type: "map"
+              aspect_ratio: "12x10"
+              default_zoom: 16
+              entities: "[[[ return [variables.ulm_custom_chip_device_location_entity]; ]]]"
   label: |
     [[[
       var icon = "❔";
@@ -37,52 +125,3 @@ custom_chip_device_location:
       }
       return icon + " " + state1 + " • " + state2;
     ]]]
-
-popup_custom_chip_device_location:
-  styles:
-    grid:
-      - grid-template-areas: "'header' 'content1' 'footer'"
-      - grid-template-rows: "16vh 52vh 18vh"
-      - grid-template-columns: "1fr"
-      - column-gap: "30px"
-    card:
-      - background: "var(--primary-background-color)"
-      - box-shadow: "none"
-      - padding: "4%"
-    custom_fields:
-      header:
-        - align-self: "start"
-      content1:
-        - align-self: "center"
-      footer:
-        - align-self: "end"
-        - margin-top: "25px"
-  extra_styles: |
-    @media (max-width: 800px) {
-      #container {
-        grid-template-rows: 16vh 62vh 18vh !important;
-      }
-      #buttons {
-        width: 100% !important;
-      }
-  custom_fields:
-    header:
-      card:
-        type: "custom:button-card"
-        template: "popup_header"
-        entity: "[[[ return variables.ulm_custom_chip_device_location_entity ]]]"
-    content1:
-      card:
-        type: "map"
-        aspect_ratio: "12x12"
-        default_zoom: 16
-        entities: "[[[ return [variables.ulm_custom_chip_device_location_entity]; ]]]"
-    footer:
-      card:
-        type: "custom:button-card"
-        template: "popup_list_items"
-        custom_fields:
-          item1:
-            card:
-              type: "custom:button-card"
-              template: "popup_button_back"

@@ -152,10 +152,10 @@ cards:
             - entity_template_1: yellow_on
             - entity_action_1: toggle
             - entity_id_2: switch.office_purifier
-            - entity_template_2: yellow_on
+            - entity_template_2: green_on
             - entity_action_2: toggle
             - entity_id_3: switch.office_area
-            - entity_template_3: yellow_on
+            - entity_template_3: green_on
             - entity_action_3: toggle
         - type: custom:decluttering-card
           template: room_overview
