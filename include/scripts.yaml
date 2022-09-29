@@ -86,3 +86,29 @@ script:
       - service: browser_mod.navigate
         data:
           path: /lovelace/rooms
+
+  navigate_to_remote:
+    sequence:
+      - service: input_select.select_option
+        data:
+          option: TV
+        target:
+          entity_id: input_select.room_mode
+      - service: browser_mod.navigate
+        data:
+          path: /lovelace/rooms
+        target:
+          device_id: THIS
+  
+  navigate_to_lights:
+    sequence:
+      - service: input_select.select_option
+        data:
+          option: Main
+        target:
+          entity_id: input_select.room_mode
+      - service: browser_mod.navigate
+        data:
+          path: /lovelace/rooms
+        target:
+          device_id: THIS

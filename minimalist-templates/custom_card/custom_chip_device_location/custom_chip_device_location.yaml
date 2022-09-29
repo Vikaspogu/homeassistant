@@ -25,6 +25,7 @@ custom_chip_device_location:
               return `
                 *{
                   --secondary-background-color: none !important;
+                  --font-family: var(--primary-font-family);
                 }
                 ${dialog}
               `;
@@ -80,13 +81,28 @@ custom_chip_device_location:
           type: "vertical-stack"
           cards:
             - type: "entities"
+              card_mod:
+                style: |
+                  :host {
+                    font-family: var(--primary-font-family);
+                  }
               entities:
                 - entity: "[[[ return variables.ulm_custom_chip_device_location_entity; ]]]"
                   secondary_info: "last-changed"
             - type: "history-graph"
+              card_mod:
+                style: |
+                  :host {
+                    font-family: var(--primary-font-family);
+                  }
               entities:
                 - entity: "[[[ return variables.ulm_custom_chip_device_location_entity; ]]]"
             - type: "glance"
+              card_mod:
+                style: |
+                  :host {
+                    font-family: var(--primary-font-family);
+                  }
               show_state: true
               entities:
                 - type: 'custom:button-card'
@@ -99,6 +115,11 @@ custom_chip_device_location:
                   template: card_generic_swap
                   entity:  sensor.speed_mph
             - type: "map"
+              card_mod:
+                style: |
+                  :host {
+                    font-family: var(--primary-font-family);
+                  }
               aspect_ratio: "12x10"
               default_zoom: 16
               entities: "[[[ return [variables.ulm_custom_chip_device_location_entity]; ]]]"

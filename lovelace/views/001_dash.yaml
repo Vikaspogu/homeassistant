@@ -63,27 +63,37 @@ cards:
         - type: custom:button-card
           template: edge
         - type: "custom:button-card"
-          template: "card_esh_welcome"
+          template: "card_welcome_scenes"
           triggers_update: "input_boolean.welcome_scene_collapse"
+          #entity: input_boolean.<Your_boolean>
           variables:
-            ulm_card_esh_welcome_collapse: input_boolean.welcome_scene_collapse
+            ulm_card_welcome_scenes_collapse: input_boolean.welcome_scene_collapse
             ulm_weather: "weather.home"
             entity_1:
-              nav: "/lovelace/tesla"
+              entity_id: script.navigate_to_lights
+              icon: "mdi:lightbulb"
+              name: Lights
+              color: "blue"
+            entity_2:
+              entity_id: "binary_sensor.tesla_healthy"
+              nav_path: "/lovelace/tesla"
               name: "Tesla"
               icon: "si:tesla"
               color: "red"
-            entity_2:
-              nav: "/lovelace/toyota"
+            entity_3:
+              entity_id: "lock.2019_rav4_hybrid_xse_awd_suv"
+              nav_path: "/lovelace/toyota"
               name: "Toyota"
               icon: "si:toyota"
               color: "red"
-            entity_3:
-              nav: "/lovelace/rooms"
-              icon: "mdi:bed"
-              name: Rooms
             entity_4:
-              nav: "/lovelace/system"
+              entity_id: script.navigate_to_remote
+              icon: "si:lg"
+              name: Remote
+              color: "red"
+            entity_5:
+              entity_id: "sensor.pogu_nas_drive_1_status"
+              nav_path: "/lovelace/system"
               icon: "mdi:cog"
               name: System
         - type: custom:button-card
