@@ -143,22 +143,16 @@ cards:
                         columns: 2
                         square: false
                       card_param: "cards"
-                      sort:
-                        count: 4
                       filter:
                         include:
                           - domain: "switch"
-                            entity_id: "switch.*_purifier"
                             options:
                               type: 'custom:button-card'
                               template: card_power_outlet
                               entity: "this.entity_id"
-                          - domain: "switch"
-                            entity_id: "switch.office_area"
-                            options:
-                              type: 'custom:button-card'
-                              template: card_power_outlet
-                              entity: "this.entity_id"
+                        exclude:
+                          - state: unavailable
+                          - name: "*led"
             Temperature:
               type: "vertical-stack"
               cards:

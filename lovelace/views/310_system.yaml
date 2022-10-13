@@ -85,9 +85,9 @@ cards:
                   name: Presence Distance
                 - type: 'custom:button-card'
                   template: card_person
-                  entity: device_tracker.vpogu_pixel_6_tracker
+                  entity: device_tracker.pixel_7_tracker
                   variables:
-                    ulm_card_person_entity: device_tracker.vpogu_pixel_6_tracker
+                    ulm_card_person_entity: device_tracker.pixel_7_tracker
                     
               - type: custom:button-card
                 template: edge

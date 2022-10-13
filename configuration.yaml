@@ -215,7 +215,7 @@ notify:
   - name: notify_group
     platform: group
     services:
-    - service: mobile_app_vpogu_pixel_6
+    - service: mobile_app_vpogu_pixel_7
 
 google_assistant: !include google_assistant_integ.yaml
 circadian_lighting:
