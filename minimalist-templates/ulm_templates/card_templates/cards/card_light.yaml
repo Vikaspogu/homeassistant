@@ -29,6 +29,7 @@ card_light:
     ulm_card_light_force_background_color: false
     ulm_card_light_enable_popup: false
     ulm_card_light_enable_popup_tap: false
+    ulm_card_light_color_palette: ""
   show_icon: false
   show_name: false
   show_label: false

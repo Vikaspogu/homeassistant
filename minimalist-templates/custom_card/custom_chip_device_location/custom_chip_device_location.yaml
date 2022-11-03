@@ -113,7 +113,7 @@ custom_chip_device_location:
                   entity: sensor.tesla_version
                 - type: 'custom:button-card'
                   template: card_generic_swap
-                  entity:  sensor.speed_mph
+                  entity:  sensor.tesla_speed_mph
             - type: "map"
               card_mod:
                 style: |

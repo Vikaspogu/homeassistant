@@ -81,17 +81,11 @@ cards:
               icon: "si:tesla"
               color: "red"
             entity_3:
-              entity_id: "lock.2019_rav4_hybrid_xse_awd_suv"
-              nav_path: "/lovelace/toyota"
-              name: "Toyota"
-              icon: "si:toyota"
-              color: "red"
-            entity_4:
               entity_id: script.navigate_to_remote
               icon: "si:lg"
               name: Remote
               color: "red"
-            entity_5:
+            entity_4:
               entity_id: "sensor.pogu_nas_drive_1_status"
               nav_path: "/lovelace/system"
               icon: "mdi:cog"
@@ -110,11 +104,10 @@ cards:
         template: custom_card_yagrasdemonde_lights_count
         entity: sensor.lights_on
       - type: "custom:button-card"
-        template: custom_card_yagrasdemonde_lights_count
-        entity: sensor.covers_open
+        template: card_cover
+        entity: cover.garage_door
         variables:
-          ulm_custom_card_yagrasdemonde_lights_count_type: "cover"
-          ulm_custom_card_yagrasdemonde_lights_count_color: "blue"
+          ulm_card_cover_gate: true
     - type: custom:button-card
       template: edge
 
