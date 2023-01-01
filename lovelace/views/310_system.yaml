@@ -27,7 +27,7 @@ cards:
         template: card_vertical_button
         entity: input_select.system_mode
         name: Main
-        icon: mdi:home
+        icon: mdi:cog
         variables:
           ulm_card_vertical_button_state: Main
           ulm_card_vertical_button_color: green
@@ -35,7 +35,7 @@ cards:
         template: card_vertical_button
         entity: input_select.system_mode
         name: Synology
-        icon: si:synology
+        icon: mdi:nas
         variables:
           ulm_card_vertical_button_state: Synology
           ulm_card_vertical_button_color: green
@@ -59,15 +59,13 @@ cards:
                 name: HACS
               - type: horizontal-stack
                 cards:
-                - type: entities
-                  entities:
-                    - entity: sensor.hacs
-                      name: Plugins/Components
-                  style: |
-                    ha-card {
-                      color: var(--color-orange-1);
-                      --paper-item-icon-color: var(--color-orange-1);
-                    }
+                - type: custom:button-card
+                  template: edge
+                - type: custom:mushroom-update-card
+                  entity: sensor.hacs
+                  name: Plugins/Components
+                - type: custom:button-card
+                  template: edge
 
               - type: 'custom:button-card'
                 template: card_title
@@ -76,15 +74,34 @@ cards:
                 cards:
                 - type: custom:button-card
                   template: edge
-                - type: 'custom:button-card'
-                  template: card_generic
-                  entity: sensor.presence_distance
-                  name: Presence Distance
-                - type: 'custom:button-card'
-                  template: card_person
+                - entity: sensor.presence_distance
+                  type: custom:mushroom-template-card
+                  icon: mdi:map-marker
+                  icon_color: red
+                  primary: Presence Distance
+                  multiline_secondary: false
+                  tap_action:
+                    action: more-info
+                  secondary: |-
+                    {{ states(entity) }}
+                  card_mod:
+                    style:
+                      mushroom-shape-icon$: |
+                        ha-icon {
+                          --icon-animation: boing 3s ease infinite;
+                          transform-origin: 50% 90%;
+                        }
+                        @keyframes boing {
+                          0% { transform: scale3d(1, 1, 1); }
+                          7% { transform: translateY(-4px) scale3d(0.75, 1.25, 1); }
+                          10% { transform: scale3d(1.25, 0.75, 1); }
+                          12% { transform: translateY(-2px) scale3d(0.85, 1.15, 1); }
+                          16% { transform: scale3d(1.05, 0.95, 1); }
+                          19% { transform: scale3d(0.95, 1.05, 1); }
+                          25% { transform: scale3d(1, 1, 1); }
+                        }
+                - type: custom:mushroom-person-card
                   entity: device_tracker.pixel_7_tracker
-                  variables:
-                    ulm_card_person_entity: device_tracker.pixel_7_tracker
                     
               - type: custom:button-card
                 template: edge
@@ -215,7 +232,7 @@ cards:
                   square: false
                 card_param: "cards"
                 sort:
-                  method: name
+                  method: last-changed
                   ignore_case: true
                 filter:
                   include:
@@ -227,6 +244,15 @@ cards:
                       options:
                         type: "custom:button-card"
                         template: "card_generic_swap"
+                        # type: custom:mushroom-template-card
+                        # entity: this.entity_id
+                        # icon: "mdi:shield-check"
+                        # multiline_secondary: false
+                        # tap_action:
+                        #   action: more-info
+                        # primary: '{{ state_attr(entity, "friendly_name") | replace("pogu-nas ", "") }}'
+                        # secondary: '{{ states(entity) }}'
+                        # icon_color: amber
                   exclude:
                     - state: "unavailable"
                     - state: "unknown"

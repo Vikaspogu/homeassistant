@@ -123,12 +123,18 @@ custom_chip_device_location:
               aspect_ratio: "12x10"
               default_zoom: 16
               entities: "[[[ return [variables.ulm_custom_chip_device_location_entity]; ]]]"
+  triggers_update: "all"
+  show_icon: true
+  icon: "[[[ return variables.ulm_custom_chip_device_location_entity_icon ]]]"
+  styles:
+    grid:
+      - grid-template-areas: "'i l'"
+    icon:
+      - color: "[[[ return variables.ulm_custom_chip_device_location_entity_icon_color; ]]]"
+    label:
+      - color: "[[[ return variables.ulm_custom_chip_device_location_entity_label_color; ]]]"
   label: |
     [[[
-      var icon = "❔";
-      if (variables.ulm_custom_chip_device_location_icon){
-        var icon = variables.ulm_custom_chip_device_location_icon;
-      }
       var state1 = "";
       if (states[variables.ulm_custom_chip_device_location_entity_1].state){
         if (states[variables.ulm_custom_chip_device_location_entity_1].attributes.preset_mode == "eco"){
@@ -144,5 +150,5 @@ custom_chip_device_location:
           state2 += states[variables.ulm_custom_chip_device_location_entity_2].attributes.unit_of_measurement;
         }
       }
-      return icon + " " + state1 + " • " + state2;
+      return state1 + " • " + state2;
     ]]]

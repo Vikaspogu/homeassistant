@@ -75,6 +75,17 @@ script:
       - service: browser_mod.navigate
         data:
           path: /lovelace/system
+
+  navigate_to_system:
+    sequence:
+      - service: input_select.select_option
+        data:
+          option: Main
+        target:
+          entity_id: input_select.system_mode
+      - service: browser_mod.navigate
+        data:
+          path: /lovelace/system
   
   navigate_to_temperature:
     sequence:
@@ -112,3 +123,17 @@ script:
           path: /lovelace/rooms
         target:
           device_id: THIS
+  
+  navigate_to_battery:
+    sequence:
+      - service: input_select.select_option
+        data:
+          option: Battery
+        target:
+          entity_id: input_select.room_mode
+      - service: browser_mod.navigate
+        data:
+          path: /lovelace/rooms
+        target:
+          device_id: THIS
+  

@@ -30,7 +30,7 @@ cards:
         template: card_vertical_button
         entity: input_select.room_mode
         name: Main
-        icon: mdi:home
+        icon: mdi:light-switch
         variables:
           ulm_card_vertical_button_state: Main
           ulm_card_vertical_button_color: green
@@ -82,25 +82,28 @@ cards:
                     columns: 2
                     square: false
                   card_param: "cards"
+                  sort:
+                    method: last-changed
                   filter:
                     include:
                       - domain: "light"
                         entity_id: "light.*_group"
                         options:
-                          type: "custom:button-card"
-                          template: "card_light"
-                          variables:
-                            ulm_card_light_enable_slider: true
-                            ulm_card_light_enable_color: true
-                            ulm_card_light_enable_popup: true
+                          type: custom:mushroom-light-card
+                          entity: "this.entity_id"
+                          show_brightness_control: true
+                          show_color_temp_control: true
+                          show_color_control: true
+                          use_light_color: true
                       - entity_id: "light.tv_h6199"
                         options:
-                          type: "custom:button-card"
-                          template: "card_light"
-                          variables:
-                            ulm_card_light_enable_slider: true
-                            ulm_card_light_enable_color: true
-                            ulm_card_light_enable_popup: true
+                          type: custom:mushroom-light-card
+                          entity: "this.entity_id"
+                          show_brightness_control: true
+                          show_color_temp_control: true
+                          show_color_control: true
+                          use_light_color: true
+                          icon: mdi:led-strip-variant
                 ## Curtains/Blinds #############################################################################
                 - type: 'custom:button-card'
                   template: card_title
@@ -116,7 +119,7 @@ cards:
                         square: false
                       card_param: "cards"
                       sort:
-                        method: name
+                        method: last-changed
                       filter:
                         include:
                         - domain: cover
@@ -140,13 +143,17 @@ cards:
                         columns: 2
                         square: false
                       card_param: "cards"
+                      sort:
+                        method: last-changed
                       filter:
                         include:
                           - domain: "switch"
                             options:
-                              type: 'custom:button-card'
-                              template: card_power_outlet
+                              type: custom:mushroom-entity-card
                               entity: "this.entity_id"
+                              secondary_info: last-changed
+                              tap_action:
+                                action: toggle
                         exclude:
                           - state: unavailable
                           - name: "*led"
@@ -168,19 +175,11 @@ cards:
                         square: false
                       card_param: "cards"
                       sort:
-                        method: name
+                        method: last-changed
                       filter:
                         include:
                           - domain: "sensor"
                             entity_id: "sensor.*temp_f"
-                            options:
-                              type: "custom:button-card"
-                              template: card_graph
-                              variables:
-                                ulm_card_graph_color: "var(--google-blue)"
-                                ulm_card_graph_entity: this.entity_id
-                          - domain: "sensor"
-                            entity_id: "sensor.*temperature"
                             options:
                               type: "custom:button-card"
                               template: card_graph
@@ -209,7 +208,7 @@ cards:
                         square: false
                       card_param: "cards"
                       sort:
-                        method: name
+                        method: last-changed
                       filter:
                         include:
                           - domain: "sensor"
@@ -218,7 +217,7 @@ cards:
                               type: "custom:button-card"
                               template: card_graph
                               variables:
-                                ulm_card_graph_color: "var(--google-blue)"
+                                ulm_card_graph_color: "var(--google-green)"
                                 ulm_card_graph_entity: this.entity_id
                         exclude:
                           - state: unavailable
@@ -239,7 +238,7 @@ cards:
                         square: false
                       card_param: "cards"
                       sort:
-                        method: name
+                        method: last-changed
                       filter:
                         include:
                           - domain: "sensor"
@@ -280,7 +279,7 @@ cards:
                       square: false
                     card_param: "cards"
                     sort:
-                      method: name
+                      method: last-changed
                     filter:
                       include:
                         - attributes:
@@ -315,7 +314,7 @@ cards:
                       square: false
                     card_param: "cards"
                     sort:
-                      method: name
+                      method: last-changed
                     filter:
                       include:
                         - entity_id: "binary_sensor.*occupancy"

@@ -1,7 +1,7 @@
 # lovelace_gen
 
 type: picture-elements
-image: !file /local/images/other/tesla.jpg
+image: !file /local/images/other/teslay.png
 elements:
 {% set battery_sensors = [
   ('Battery', 'sensor.tesla_battery_level'),
@@ -31,7 +31,7 @@ elements:
     transform: initial
     font-size: 1em
     line-height: 2em
-    "--paper-item-icon-color": var(--accent-color)
+    "--paper-item-icon-color": var(--info-color)
 - type: state-label
   entity: {{ g.1 }}
   title: {{ g.0 }}
@@ -43,7 +43,7 @@ elements:
     top: 5px
     left: 30px
     margin-top: {{ loop.index0*32 }}px
-    color: var(--accent-color)
+    color: var(--info-color)
 {% endfor -%}
 {% for g in status_sensors %}
 - type: state-icon
@@ -55,7 +55,7 @@ elements:
     transform: initial
     font-size: 1em
     line-height: 2em
-    "--paper-item-icon-color": var(--accent-color)
+    "--paper-item-icon-color": var(--info-color)
 - type: state-label
   entity: {{ g.1 }}
   title: {{ g.0 }}
@@ -67,7 +67,7 @@ elements:
     top: 5px
     right: 30px
     margin-top: {{ loop.index0*32 }}px
-    color: var(--accent-color)
+    color: var(--info-color)
 {% endfor -%}
 {% for g in odometer_sensors %}
 - type: state-icon
@@ -79,7 +79,7 @@ elements:
     transform: initial
     font-size: 1em
     line-height: 2em
-    "--paper-item-icon-color": var(--accent-color)
+    "--paper-item-icon-color": var(--info-color)
 - type: state-label
   entity: {{ g.1 }}
   title: {{ g.0 }}
@@ -91,7 +91,7 @@ elements:
     bottom: 5px
     left: 30px
     margin-bottom: {{ loop.index0*32 }}px
-    color: var(--accent-color)
+    color: var(--info-color)
 {% endfor -%}
 {% for g in temp_sensors %}
 - type: state-icon
@@ -103,7 +103,7 @@ elements:
     transform: initial
     font-size: 1em
     line-height: 2em
-    "--paper-item-icon-color": var(--accent-color)
+    "--paper-item-icon-color": var(--info-color)
 - type: state-label
   entity: {{ g.1 }}
   title: {{ g.0 }}
@@ -115,5 +115,5 @@ elements:
     bottom: 5px
     right: 30px
     margin-bottom: {{ loop.index0*32 }}px
-    color: var(--accent-color)
+    color: var(--info-color)
 {% endfor -%}

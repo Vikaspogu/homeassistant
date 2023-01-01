@@ -6,6 +6,64 @@ automation:
     #                                                  #
     ####################################################
 
+  - id: 769638308a0a4973b8930f7a6f2a2693
+    alias: Garage Door Opened
+    trigger:
+    - platform: state
+      entity_id: cover.garage_door
+      to: open
+    condition:
+      condition: state
+      entity_id: cover.garage_door
+      state: open
+    action:
+    - service: timer.start
+      entity_id: timer.garage_door_2
+
+  - id: garage_closed
+    alias: Garage Door Closed
+    trigger:
+    - platform: state
+      entity_id: cover.garage_door
+      to: closed
+    action:
+    - service: timer.cancel
+      entity_id: timer.garage_door_2
+
+  - id: garage_opened_timer_finished
+    alias: Garage Opened Timer Finished
+    trigger:
+    - platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.garage_door_2
+    condition:
+      condition: state
+      entity_id: cover.garage_door
+      state: open
+    action:
+    - service: timer.start
+      entity_id: timer.garage_door_2
+    - service: notify.notify_group
+      data:
+        message: "⚠️ The garage door has been open"
+        data:
+          actions:
+          - action: close_garage
+            title: Close Garage Door
+
+  - alias: Actionable notification - close garage door
+    trigger:
+      platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: close_garage
+    action:
+      service: cover.close_cover
+      entity_id: cover.garage_door
+      data: {}
+    id: c696dd277c6546ecb1f4e0f82052822f
+
   - alias: Update Tesla location as MQTT location updates
     initial_state: on
     trigger:

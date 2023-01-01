@@ -15,6 +15,7 @@ homeassistant:
   time_zone: America/Chicago
   external_url: !secret homeassistant_external_url
   packages: !include_dir_named include
+  country: US
 
 # Text to speech
 tts:
@@ -40,6 +41,16 @@ proximity:
       - device_tracker.tesla_location
     tolerance: 10
     unit_of_measurement: mi
+
+scrape:
+  - resource: https://www.synology.com/en-global/releaseNote/DSM
+    scan_interval: 86400
+    sensor:
+      - name: "Synology DSM Latest"
+        select: >
+          #release_notes_content > div:first-child > h3
+        value_template: >
+          {{ value.split(' ')[1] }}
 
 mqtt:
   sensor: !include mqtt/sensor.yaml
@@ -180,6 +191,8 @@ lovelace:
       type: module
     - url: /hacsfiles/weather-radar-card/weather-radar-card.js
       type: module
+    - url: /hacsfiles/lovelace-mushroom/mushroom.js
+      type: module        
                 
     # Styles
     - url: "https://fonts.googleapis.com/css2?family=Raleway&display=swap"

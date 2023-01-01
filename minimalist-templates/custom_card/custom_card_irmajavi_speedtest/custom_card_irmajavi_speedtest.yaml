@@ -22,52 +22,36 @@ custom_card_irmajavi_speedtest:
   custom_fields:
     item1:
       card:
-        type: "custom:button-card"
+        type: custom:mushroom-template-card
+        icon: mdi:wifi
+        icon_color: green
+        layout: vertical
+        primary: >-
+          [[[ return variables.ulm_custom_card_irmajavi_speedtest_router_name ]]]
+        multiline_secondary: false
         tap_action:
           action: "none"
-        show_last_changed: false
-        show_label: true
-        show_name: true
-        show_icon: true
-        label: >-
-          [[[ return variables.ulm_custom_card_irmajavi_speedtest_router_model
-          ]]]
-        name: >-
-          [[[ return variables.ulm_custom_card_irmajavi_speedtest_router_name
-          ]]]
-        icon: "mdi:wifi"
-        styles:
-          icon:
-            - color: >-
-                [[[ return
-                `rgba(var(--color-${variables.ulm_custom_card_irmajavi_speedtest_color}),
-                1)`; ]]]
-            - width: "32px"
-          label:
-            - justify-self: "center"
-            - align-self: "start"
-            - font-weight: "bolder"
-            - font-size: "12px"
-            - filter: "opacity(40%)"
-          name:
-            - margin-top: "10px"
-            - justify-self: "center"
-            - font-weight: "bold"
-            - font-size: "14px"
-          img_cell:
-            - background-color: >-
-                [[[ return
-                `rgba(var(--color-${variables.ulm_custom_card_irmajavi_speedtest_color}),
-                0.2)`; ]]]
-            - border-radius: "50%"
-            - place-self: "center"
-            - width: "62px"
-            - height: "62px"
-          grid:
-            - grid-template-areas: "'i' 'n' 'l'"
-          card:
-            - box-shadow: "none"
-        size: "20px"
+        secondary: >-
+          [[[ return variables.ulm_custom_card_irmajavi_speedtest_router_model ]]]
+        card_mod:
+          style:
+            mushroom-shape-icon$: |
+              ha-icon {
+                --icon-animation: clip 2s steps(1) infinite;
+              }
+              @keyframes clip {
+                0% { clip-path: circle(0% at 50% 85%); }
+                20% { clip-path: circle(30% at 50% 85%); }
+                40% { clip-path: circle(55% at 50% 85%); }
+                60% { clip-path: circle(80% at 50% 85%); }
+              }
+              .shape {
+                --shape-animation: ping 2s infinite;
+              }
+              @keyframes ping {
+                60% { box-shadow: 0 0 0 0 rgba(var(--rgb-green), 0.7); }
+                100% { box-shadow: 0 0 5px 15px transparent; }
+              }
     item2:
       card:
         type: "custom:button-card"

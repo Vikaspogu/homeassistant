@@ -5,12 +5,10 @@ custom_card_chip_icon_double_state_popup:
     - "chips"
     - "custom_popup_card"
   triggers_update: "all"
+  show_icon: true
+  icon: "[[[ return variables.ulm_custom_card_chip_icon_double_state_icon ]]]"
   label: |
     [[[
-      var icon = "❔";
-      if (variables.ulm_custom_card_chip_icon_double_state_icon){
-        var icon = variables.ulm_custom_card_chip_icon_double_state_icon;
-      }
       var state1 = "";
       if (states[variables.ulm_custom_card_chip_icon_double_state_entity_1].state){
         if (states[variables.ulm_custom_card_chip_icon_double_state_entity_1].attributes.preset_mode == "eco"){
@@ -26,138 +24,28 @@ custom_card_chip_icon_double_state_popup:
           state2 += states[variables.ulm_custom_card_chip_icon_double_state_entity_2].attributes.unit_of_measurement;
         }
       }
-      return icon + " " + state1 + " • " + state2;
+      return state1 + " • " + state2;
     ]]]
-
+  styles:
+    grid:
+      - grid-template-areas: "'i l'"
+    icon:
+      - color: "[[[ return variables.ulm_custom_card_chip_icon_double_state_icon_color; ]]]"
+    label:
+      - color: "[[[ return variables.ulm_custom_card_chip_icon_double_state_label_color; ]]]"
 custom_popup_card:
   tap_action:
     action: "fire-dom-event"
     browser_mod:
-      service: browser_mod.popup
+      service: "browser_mod.popup"
       data:
-        title: "[[[ return states[variables.ulm_custom_card_chip_popup_entity].attributes.friendly_name ]]]"
-        style:
-          $: >
-            [[[
-              if (hass.themes.theme.includes("desktop")){
-                var dialog = `
-                  .mdc-dialog__surface{
-                    border-radius: var(--border-radius) !important;
-                  }
-                `;
-              } else{
-                var dialog = "";
-              }
-              return `
-                *{
-                  --secondary-background-color: none !important;
-                }
-                ${dialog}
-                --font-family: var(--primary-font-family);
-              `;
-            ]]]
-          hui-vertical-stack-card:
-            $: >
-              button-card {
-                align-self: center;
-                padding: 0.2em 0 2.3em 0;
-              }
-              hui-entities-card{
-                padding: 0.8em 1.4em;
-              }
-            $hui-entities-card$: >
-              ha-card{
-                box-shadow: none;
-              }
-            $hui-history-graph-card$: >
-              .content {
-                padding: 0 2.4em !important;
-              }
-              ha-card{
-                box-shadow: none;
-              }
-            $hui-glance-card$: >
-              ha-card{
-                box-shadow: none;
-              }
-            $hui-map-card:
-              $: >
-                ha-icon-button {
-                  color: rgba(var(--color-blue),1);
-                }
-              $ha-map:
-                $: >
-                  .leaflet-control-attribution {
-                    display: none;
-                  }
-                  .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
-                    border: 2px solid rgba(var(--color-blue),0.4) !important;
-                  }
-                  .leaflet-bar a {
-                    background-color: rgba(var(--color-blue),0.2) !important;
-                    color: rgba(var(--color-blue),1) !important;
-                  }
-                  .leaflet-bar a:first-child {
-                    border-bottom: 2px solid rgba(var(--color-blue),0.4) !important;
-                  }
-                  .leaflet-pane.leaflet-tile-pane {
-                    filter: contrast(95%);
-                  }
+        large: true
+        hide_header: true
         content:
           type: "vertical-stack"
           cards:
-            - type: "glance"
-              show_state: true
-              card_mod:
-                style: |
-                  :host {
-                    font-family: var(--primary-font-family);
-                  }
-              entities:
-                - entity: "sensor.bed_room_temp_f"
-                  name: "Bedroom"
-                  icon: "mdi:thermometer"
-                  style: |
-                    :host {
-                      {% if states(config.entity)|int < 65 %}
-                        --paper-item-icon-color: blue;
-                      {% elif states(config.entity)|int > 75 %}
-                        --paper-item-icon-color: red;
-                      {% else %}
-                        --paper-item-icon-color: green;
-                      {% endif %};
-                    }
-                - entity: "sensor.living_room_temp_f"
-                  name: "Living room"
-                  icon: "mdi:thermometer"
-                  style: |
-                    :host {
-                      {% if states(config.entity)|int > 65 %}
-                        --paper-item-icon-color: blue;
-                      {% elif states(config.entity)|int > 75 %}
-                        --paper-item-icon-color: red;
-                      {% else %}
-                        --paper-item-icon-color: green;
-                      {% endif %};
-                    }
-                - entity: "sensor.work_room_temp_f"
-                  name: "Office"
-                  icon: "mdi:thermometer"
-                  style: |
-                    :host {
-                      {% if states(config.entity)|int < 65 %}
-                        --paper-item-icon-color: blue;
-                      {% elif states(config.entity)|int > 75 %}
-                        --paper-item-icon-color: red;
-                      {% else %}
-                        --paper-item-icon-color: green;
-                      {% endif %};
-                    }
             - type: "custom:button-card"
-              template: card_thermostat
-              entity: climate.living_room
+              template: "popup_thermostat_temperature"
+              entity: "[[[ return variables.ulm_custom_card_chip_popup_entity ]]]"
               variables:
-                ulm_card_thermostat_enable_collapse: false
-                ulm_card_thermostat_enable_controls: true
-                ulm_card_thermostat_enable_hvac_modes: true
-                ulm_card_thermostat_enable_popup: false
+                ulm_card_thermostat_preset_mode: false

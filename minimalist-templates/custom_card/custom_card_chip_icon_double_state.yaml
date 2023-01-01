@@ -9,12 +9,17 @@ custom_card_chip_icon_double_state:
       data:
         browser_id: THIS
   triggers_update: "all"
+  show_icon: true
+  icon: "[[[ return variables.ulm_custom_card_chip_icon_double_state_icon ]]]"
+  styles:
+    grid:
+      - grid-template-areas: "'i l'"
+    icon:
+      - color: "[[[ return variables.ulm_custom_card_chip_icon_double_state_icon_icon_color; ]]]"
+    label:
+      - color: "[[[ return variables.ulm_custom_card_chip_icon_double_state_icon_label_color; ]]]"
   label: |
     [[[
-      var icon = "❔";
-      if (variables.ulm_custom_card_chip_icon_double_state_icon){
-        var icon = variables.ulm_custom_card_chip_icon_double_state_icon;
-      }
       var state1 = "";
       if (states[variables.ulm_custom_card_chip_icon_double_state_entity_1].state){
         var state1 = states[variables.ulm_custom_card_chip_icon_double_state_entity_1].state;
@@ -29,5 +34,5 @@ custom_card_chip_icon_double_state:
           state2 += states[variables.ulm_custom_card_chip_icon_double_state_entity_2].attributes.unit_of_measurement;
         }
       }
-      return icon + " " + state1 + " • " + state2;
+      return state1 + " • " + state2;
     ]]]

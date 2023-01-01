@@ -59,11 +59,10 @@ cards:
           ulm_card_battery_battery_level_danger: 10
           ulm_card_battery_battery_level_warning: 30
           ulm_card_battery_name: Battery Level
-      - type: 'custom:button-card'
-        template: card_generic_swap
+      - type: custom:mushroom-entity-card
         entity: sensor.tesla_state
-        variables:
-          ulm_card_generic_swap_name: Car State
+        icon_color: amber
+        name: Car State
       - type: custom:button-card
         template: edge
     - type: horizontal-stack
@@ -90,31 +89,62 @@ cards:
       cards:
       - type: custom:button-card
         template: edge
-      - type: 'custom:button-card'
-        template: card_binary_sensor
-        variables:
-          ulm_card_binary_sensor: true
-          ulm_show_last_changed: true
-          ulm_card_binary_sensor_name: Sentry Mode
+      - type: custom:mushroom-template-card
+        primary: 'Sentry Mode'
         entity: binary_sensor.tesla_sentry_mode
-      - type: 'custom:button-card'
-        template: card_generic_swap
+        icon: mdi:cctv
+        multiline_secondary: false
+        tap_action:
+          action: more-info
+        secondary: |-
+          {{ states(entity) }}
+        icon_color: |
+          {%- if is_state(entity, 'on') %} 
+          deep-purple
+          {% endif %}
+        card_mod:
+          style:
+            mushroom-shape-icon$: |
+              ha-icon {
+                {% if is_state(config.entity, 'on') %}
+                --icon-animation: scan 5s ease-in-out infinite;
+                transform-origin: 90% 80%
+                {% endif %}
+              }
+              @keyframes scan {
+                0%, 100% { transform: rotate(20deg); }
+                50% { transform: rotate(-15deg); }
+              }
+      - type: custom:mushroom-entity-card
         entity: sensor.tesla_speed_mph
-        variables:
-          ulm_card_generic_swap_name: Speed
+        icon_color: amber
       - type: custom:button-card
         template: edge
     - type: horizontal-stack
       cards:
       - type: custom:button-card
         template: edge
-      - type: 'custom:button-card'
-        template: card_binary_sensor
-        variables:
-          ulm_card_binary_sensor: true
-          ulm_show_last_changed: true
-          ulm_card_binary_sensor_name: Car Health
+      - type: custom:mushroom-template-card
+        primary: Car Health
         entity: binary_sensor.tesla_healthy
+        icon: mdi:heart
+        multiline_secondary: false
+        tap_action:
+          action: more-info
+        secondary: |-
+          {{ states(entity) }}
+        icon_color: |
+          {%- if is_state(entity, 'on') %} 
+          blue
+          {% endif %}
+        card_mod:
+          style:
+            mushroom-shape-icon$: |
+              {%- if is_state(entity, 'on') %} 
+              ha-icon {
+                --icon-animation: pulse 2s ease-in-out infinite;
+              }
+              {% endif %}
       - type: 'custom:button-card'
         template: card_binary_sensor
         variables:
@@ -136,18 +166,20 @@ cards:
         square: false
       card_param: "cards"
       sort:
-        method: name
+        method: last-changed
         ignore_case: true
       filter:
         include:
           - entity_id: "sensor.tesla_*"
             options:
-              type: "custom:button-card"
-              template: "card_generic_swap"
+              type: custom:mushroom-entity-card
+              entity: this.entity_id
+              icon_color: amber
           - entity_id: "binary_sensor.tesla_*"
             options:
-              type: "custom:button-card"
-              template: "card_generic_swap"
+              type: custom:mushroom-entity-card
+              entity: this.entity_id
+              icon_color: amber
         exclude:
           - state: "unavailable"
           - state: "Unknown"
@@ -165,7 +197,7 @@ cards:
         square: false
       card_param: "cards"
       sort:
-        method: name
+        method: last-changed
         ignore_case: true
       filter:
         include:
