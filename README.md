@@ -12,120 +12,14 @@ Dashboards are based on [UI-Lovelace-Minimalist Theme](https://ui-lovelace-minim
 
 ![screenshot](./docs/hass-dash-ui-minimalist.png)
 
-## Manual Installation
-
-- Go to [release page](https://github.com/UI-Lovelace-Minimalist/UI/releases) and download the `ui_lovelace_minimalist.zip` attached to the latest release
-- Create a new folder `minimalist-templates` under `/config` 
-- Unpack the file and move the folder it contains called `ui_lovelace_minimalist/lovelace` to the `minimalist-templates`
-
-### Custom updates to UI lovelace
-
-- Create `red_open`, `red_close`, `green_open` and `green_close` button templates under colors\
-- Custom card irmajavi_entities, update label
-
-```yaml
-custom_widget_irmajavi:
-  show_label: true
-  show_icon: false
-  label: |
-    [[[
-        var unit = entity.attributes.unit_of_measurement != null ? ' ' + entity.attributes.unit_of_measurement: ''
-        if (entity.state == 'on') {
-          return 'On';
-        } else if (entity.state == 'off') {
-          return 'Off';
-        } else if (entity.state == 'unavailable') {
-          return variables.ulm_unavailable;
-        } else if (entity.state == 'idle') {
-          return variables.ulm_idle;
-        } else if (entity.state == 'open') {
-          return variables.ulm_open;
-        } else if (entity.state == 'closed') {
-          return variables.ulm_closed;
-        } else {
-          return entity.state + unit;
-        }
-    ]]]
-```
-
-#### card_graph
-
-```yaml
-ulm_card_graph_name: >
-      [[[ 
-        if (
-          entity.attributes.friendly_name.includes("ble humidity")
-        ) {
-            return entity.attributes.friendly_name.replace("ble humidity ", "");s
-        } else {
-            return entity.attributes.friendly_name;
-        }
-      ]]]
-```
-
-#### card_battery
-
-```yaml
-ulm_card_battery_name: >
-      [[[ 
-        if (
-          entity.attributes.friendly_name.includes("ble battery")
-        ) {
-            return entity.attributes.friendly_name.replace("ble battery ", "");s
-        } else {
-            return entity.attributes.friendly_name;
-        }
-      ]]]
-```
-
-#### card_generic_swap
-
-```yaml
-ulm_card_generic_swap_name: >
-      [[[ 
-        if (
-          entity.attributes.friendly_name.includes("pogu-nas")
-        ) {
-            return entity.attributes.friendly_name.replace("pogu-nas ", "");
-        } else if (entity.attributes.friendly_name.includes("Tesla Wall Connector")) {
-            return entity.attributes.friendly_name.replace("Tesla Wall Connector ", "");
-        }else if (entity.attributes.friendly_name.includes("2019 RAV4 HYBRID XSE AWD SUV")) {
-            return entity.attributes.friendly_name.replace(" 2019 RAV4 HYBRID XSE AWD SUV", "");
-        }else {
-            return entity.attributes.friendly_name;
-        }
-      ]]]
-```
-
-#### card_light
-
-```yaml
-ulm_card_light_name: >
-      [[[ 
-        if (
-          entity.attributes.friendly_name.includes("_")
-        ) {
-            return entity.attributes.friendly_name.replaceAll("_", " ").replace(/\w\S*/g, function(txt) {
-                                                                            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-                                                                          }
-                                                                        );
-        } else {
-            return entity.attributes.friendly_name;
-        }
-      ]]]
-```
 
 ### Custom cards list
 
 - irmajavi_speedtest
-- schumijo_car
 - apexcharts
-- car_gauge
 - httpedo13_sun
-- irmajavi_entities
 - mpse_printer
 - nik_nas
-- vncntdev_card_device_tracer
 
 ## Integrations
 
@@ -158,20 +52,14 @@ ulm_card_light_name: >
 - [button-card](https://github.com/custom-cards/button-card)
 - [card-mod](https://github.com/thomasloven/lovelace-card-mod)
 - [card-tools](https://github.com/thomasloven/lovelace-card-tools)
-- [hui-element](https://github.com/thomasloven/lovelace-hui-element)
 - [light-entity-card](https://github.com/ljmerza/light-entity-card)
 - [light-popup-card](https://github.com/DBuit/light-popup-card)
 - [lovelace-layout-card](https://github.com/thomasloven/lovelace-layout-card)
 - [multiple-entity-row](https://github.com/benct/lovelace-multiple-entity-row)
 - [mini-graph-card-bundle](https://github.com/kalkih/mini-graph-card)
-- [scheduler-card](https://github.com/nielsfaber/scheduler-card)
-- [simple-thermostat](https://github.com/nervetattoo/simple-thermostat)
-- [vacuum-card](https://github.com/denysdovhan/vacuum-card)
 - [vertical-stack-in-card](https://github.com/ofekashery/vertical-stack-in-card)
-- [weather-card](https://github.com/bramkragten/weather-card)
 - apexcharts-card
 - home-assistant-sun-card
-- simple-weather-card-bundle
 
 ### Google Fonts
 
@@ -179,34 +67,6 @@ ulm_card_light_name: >
 - **Content:** Raleway [Google Fonts](https://fonts.google.com/specimen/Raleway)
 
 ### HA
-
-#### Conbee II USB for the RPi 4
-
-1. Plugged it into the USB.
-2. Popped out the SD card and used [USB reader *](https://amzn.to/3pOwVI1) to access on another computer.
-3. Edited config.txt
-   Config Device Pi3B, Pi3B+ or Pi4:
-   **Raspberry Pi 3B** or older:
-
-    ```yaml
-    enable_uart=1
-    dtoverlay=pi3-disable-bt
-    ```
-
-4. **Raspberry Pi 3B+ or 4**
-
-    ```yaml
-    enable_uart=1
-    dtoverlay=pi3-miniuart-bt
-    ```
-
-5. Put SD card back in RPi and turned it on.
-6. Went to Configuration > deCONZ.
-
-    ```yaml
-    device: >-
-      /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2408889-if00
-    ```
 
 ### Add to existing folder
 

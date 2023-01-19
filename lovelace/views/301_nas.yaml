@@ -1,0 +1,207 @@
+icon: mdi:nas
+title: Synology
+path: nas
+id: nas
+cards:
+  - type: "vertical-stack"
+    cards:
+    - type: custom:mushroom-chips-card
+      card_mod:
+          style: |
+            ha-card {
+              --chip-font-size: 14px;
+            }
+      chips:
+        - type: back
+        - type: action
+          icon_color: indigo
+          icon: mdi:bed
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/rooms
+        - type: action
+          icon_color: red
+          icon: si:tesla
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/tesla
+        - type: action
+          icon_color: grey
+          icon: mdi:cog
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/system
+
+    - type: vertical-stack
+      cards:
+        - type: custom:mushroom-title-card
+          title: Synology
+          subtitle: DS920+
+        - type: horizontal-stack
+          cards:
+          - type: "custom:button-card"
+            template: "custom_card_nik_nas"
+            entity: sensor.pogu_nas_drive_1_status
+            variables:
+              graph_span: "1d"
+              chart_type: "radialBar"
+              entity_1:
+                entity_id: "sensor.pogu_nas_temperature_4"
+                icon: ''
+                name: "Temp"
+                color: "yellow"
+                max_value: 200
+              entity_2:
+                entity_id: "sensor.pogu_nas_memory_usage_real_2"
+                icon: ''
+                name: "Memory"
+                color: "blue"
+              entity_3:
+                entity_id: "sensor.pogu_nas_cpu_utilization_total_2"
+                icon: ''
+                name: "CPU"
+                color: "green"
+              entity_4:
+                entity_id: "sensor.pogu_nas_volume_1_volume_used"
+                icon: "mdi:harddisk"
+                name: "Disk"
+                color: "red"
+          
+        - type: horizontal-stack
+          cards:
+          - type: "custom:auto-entities"
+            card:
+              type: "grid"
+              columns: 2
+              square: false
+            card_param: "cards"
+            sort:
+              method: last-changed
+              ignore_case: true
+            filter:
+              include:
+                - entity_id: "sensor.pogu_nas*status*"
+                  options:
+                    type: custom:mushroom-template-card
+                    entity: this.entity_id
+                    icon: '{{ state_attr(entity, ''icon'')}}'
+                    multiline_secondary: false
+                    tap_action:
+                      action: more-info
+                    primary: '{{ state_attr(entity, "friendly_name") | replace("pogu-nas ", "") }}'
+                    secondary: '{{ states(entity) }}'
+                    icon_color: |
+                      {%- if is_state(entity, 'normal') %} 
+                      green
+                      {%- else %}
+                      red
+                      {% endif %}
+                - entity_id: "binary_sensor.pogu_nas*"
+                  options:
+                    type: custom:mushroom-template-card
+                    entity: this.entity_id
+                    icon: |
+                      {%- if is_state(entity, 'on') %} 
+                      mdi:alert
+                      {%- else %}
+                      mdi:shield-check
+                      {% endif %}
+                    multiline_secondary: false
+                    tap_action:
+                      action: more-info
+                    primary: '{{ state_attr(entity, "friendly_name") | replace("pogu-nas ", "") }}'
+                    secondary: '{{ states(entity) }}'
+                    icon_color: |
+                      {%- if is_state(entity, 'on') %} 
+                      red
+                      {%- else %}
+                      green
+                      {% endif %}
+              exclude:
+                - state: "unavailable"
+                - state: "unknown"
+          
+        - type: horizontal-stack
+          cards:
+          - type: "custom:auto-entities"
+            card:
+              type: "grid"
+              columns: 2
+              square: false
+            card_param: "cards"
+            sort:
+              method: last-changed
+              ignore_case: true
+            filter:
+              include:
+                - entity_id: "sensor.pogu_nas*"
+                  options:
+                    type: custom:stack-in-card
+                    cards:
+                      - type: custom:mushroom-template-card
+                        primary: '{{ state_attr(entity, ''friendly_name'') | regex_replace(find=''pogu-nas'', replace='''', ignorecase=False) }}'
+                        secondary: '{{ states(entity) }}'
+                        icon: '{{ state_attr(entity, ''icon'')}}'
+                        icon_color: amber
+                        tap_action:
+                          action: more-info
+                        entity: this.entity_id
+                      - type: custom:mini-graph-card
+                        entities:
+                          - entity: this.entity_id
+                            state_adaptive_color: true
+                        font_size: 75
+                        font_size_header: 10
+                        show:
+                          icon: false
+                          name: false
+                          extrema: true
+                          name_adaptive_color: true
+                          icon_adaptive_color: true
+              exclude:
+                - state: "unavailable"
+                - state: "unknown"
+                - name: "*pogu-nas*Status*"
+                - name: "*pogu-nas*Temp*"
+          
+        - type: horizontal-stack
+          cards:
+          - type: "custom:auto-entities"
+            card:
+              type: "grid"
+              columns: 2
+              square: false
+            card_param: "cards"
+            sort:
+              method: last-changed
+              ignore_case: true
+            filter:
+              include:
+                - entity_id: "sensor.pogu_nas*temp*"
+                  options:
+                    type: custom:stack-in-card
+                    cards:
+                      - type: custom:mushroom-template-card
+                        primary: '{{ state_attr(entity, ''friendly_name'') | regex_replace(find=''pogu-nas'', replace='''', ignorecase=False) }}'
+                        secondary: '{{ states(entity) }}'
+                        icon: mdi:thermometer-high
+                        icon_color: amber
+                        tap_action:
+                          action: more-info
+                        entity: this.entity_id
+                      - type: custom:mini-graph-card
+                        entities:
+                          - entity: this.entity_id
+                            state_adaptive_color: true
+                        font_size: 75
+                        font_size_header: 10
+                        show:
+                          icon: false
+                          name: false
+                          extrema: true
+                          name_adaptive_color: true
+                          icon_adaptive_color: true
+              exclude:
+                - state: "unavailable"
+                - state: "unknown"
+        

@@ -10,8 +10,6 @@ cards:
     ## Chips Temperature ###################################################################################################################
     - type: horizontal-stack
       cards:
-      - type: custom:button-card
-        template: edge
       - type: custom:mushroom-chips-card
         card_mod:
           style: |
@@ -20,78 +18,271 @@ cards:
             }
         chips:
           - type: menu
+          - type: template
+            entitiy: climate.living_room
+            icon: mdi:thermostat
+            icon_color:  |-
+              {% if is_state('climate.living_room', 'heat') %}
+                red
+              {% elif is_state('climate.living_room', 'cool') %}
+                blue
+              {% else %}
+                grey
+              {% endif %}
+            content: |-
+              {{ states('climate.living_room') }}
+              • 
+              {{ states('sensor.thermostat_current_temperature') }}
           - type: entity
-            entity: sensor.bed_room_temp_f
+            entity: sensor.bedroom_ble_temperature
             icon: mdi:bed-king
           - type: entity
-            entity: sensor.living_room_temp_f
+            entity: sensor.livingroom_ble_temperature
             icon: mdi:sofa
           - type: entity
-            entity: sensor.work_room_temp_f
+            entity: sensor.workroom_ble_temperature
             icon:  mdi:chair-rolling
-      - type: custom:button-card
-        template: edge
-    - type: horizontal-stack
-      cards:
-        - type: custom:button-card
-          template: edge
-        - type: 'custom:button-card'
-          template: custom_card_chip_icon_double_state_popup
-          variables:
-            ulm_custom_card_chip_icon_double_state_entity_1: climate.living_room
-            ulm_custom_card_chip_icon_double_state_entity_2: sensor.thermostat_current_temperature
-            ulm_custom_card_chip_popup_entity: climate.living_room
-            ulm_custom_card_chip_icon_double_state_icon: mdi:thermostat
-        - type: 'custom:button-card'
-          template: chip_icon_double_state
-          variables:
-            ulm_chip_icon_double_state_icon: '🔋'
-            ulm_chip_icon_double_state_entity_1: sensor.tesla_battery_level
-            ulm_chip_icon_double_state_entity_2: sensor.tesla_ideal_battery_range_mi
-            ulm_chip_navigate_path: /lovelace/tesla
-        - type: 'custom:button-card'
-          template: custom_chip_device_location
-          variables:
-            ulm_custom_chip_device_location_entity_icon: si:tesla
-            ulm_custom_chip_device_location_entity: device_tracker.tesla_location
-            ulm_custom_chip_device_location_entity_1: sensor.tesla_state
-            ulm_custom_chip_device_location_entity_2: proximity.home_tesla
-            ulm_custom_chip_device_location_entity_icon_color: red
-        - type: custom:button-card
-          template: edge
-    ## Chips Tesla ###################################################################################################################
-    - type: horizontal-stack
-      cards:
-        - type: custom:button-card
-          template: edge
-        - type: 'custom:button-card'
-          template: custom_card_chip_icon_double_state
-          variables:
-            ulm_custom_card_chip_icon_double_state_icon: mdi:database
-            ulm_custom_card_chip_icon_double_state_entity_1: sensor.pogu_nas_volume_1_volume_used
-            ulm_custom_card_chip_icon_double_state_entity_2: sensor.pogu_nas_cpu_utilization_total_2
-            ulm_custom_card_chip_script: script.navigate_to_nas
-        - type: custom:button-card
-          template: edge
+          - type: template
+            entity: binary_sensor.pogu_nas_security_status_2
+            tap_action:
+              action: more-info
+            content: |-
+              {%- if is_state('binary_sensor.pogu_nas_security_status_2', 'on') %} 
+                Unsafe
+              {%- else %}
+                Safe
+              {% endif %}
+            icon: |-
+              {%- if is_state('binary_sensor.pogu_nas_security_status_2', 'on') %} 
+                mdi:alert
+              {%- else %}
+                mdi:shield-check
+              {% endif %}
+            icon_color: |-
+              {% if is_state('binary_sensor.pogu_nas_security_status_2', 'on') %}
+                red
+              {% else %}
+                green
+              {% endif %}
+          - type: template
+            entity: sensor.pogu_nas_volume_1_volume_used
+            tap_action:
+              action: more-info
+            content: |-
+              {{ states('sensor.pogu_nas_volume_1_volume_used') }}%
+            icon: mdi:database
+            icon_color: |-
+              {% if states('sensor.pogu_nas_volume_1_volume_used') | float >= 70 %}
+                red
+              {% else %}
+                green
+              {% endif %}
+          - type: template
+            tap_action:
+              action: more-info
+            content: |-
+              {{ states('sensor.pogu_nas_cpu_utilization_total_2') }}%
+            entity: sensor.pogu_nas_cpu_utilization_total_2
+            icon: mdi:cpu-64-bit
+            icon_color: |-
+              {% if states('sensor.pogu_nas_cpu_utilization_total_2') | float >= 70 %}
+                red
+              {% else %}
+                green
+              {% endif %}
+          - type: template
+            tap_action:
+              action: more-info
+            entity: sensor.tesla_battery_level
+            content: |-
+              {{ states('sensor.tesla_battery_level') }}%
+            icon: |-
+              {% if states('sensor.tesla_battery_level') | float >= 80 %}
+                mdi:battery-80
+              {% elif states('sensor.tesla_battery_level') | float >= 60 %}
+                mdi:battery-60
+              {% elif states('sensor.tesla_battery_level') | float >= 40 %}
+                mdi:battery-40
+              {% else %}
+                mdi:battery-alert
+              {% endif %}
+            icon_color: |-
+              {% if states('sensor.tesla_battery_level') | float >= 50 %}
+                green
+              {% else %}
+                red
+              {% endif %}
+          - type: template
+            tap_action:
+              action: more-info
+            entity: sensor.tesla_ideal_battery_range_mi
+            content: |-
+              {{ states('sensor.tesla_ideal_battery_range_mi') }}mi
+            icon: mdi:ev-station
+            icon_color: |-
+              {% if states('sensor.tesla_ideal_battery_range_mi') | float >= 50 %}
+                green
+              {% else %}
+                red
+              {% endif %}
+          - type: template
+            tap_action:
+              action: more-info
+            entity: sensor.tesla_state
+            content: |-
+              {{ states('sensor.tesla_state') }}
+            icon: |-
+              {% if is_state('sensor.tesla_state', 'online') %}
+                mdi:car-connected
+              {% elif is_state('sensor.tesla_state', 'charging') %}
+                mdi:car-electric-outline
+              {% else %}
+                mdi:car-clock
+              {% endif %}
+            icon_color: |-
+              {% if is_state('sensor.tesla_state', 'online') %}
+                green
+              {% else %}
+                grey
+              {% endif %}
+          - type: template
+            entitiy: device_tracker.tesla_location
+            icon: si:tesla
+            icon_color: red
+            content: |-
+              {{ states('proximity.home_tesla') }}mi
+              • 
+              {{ states('device_tracker.tesla_location') | regex_replace(find='_', replace=' ', ignorecase=False)}}
+            tap_action:
+              action: "fire-dom-event"
+              browser_mod:
+                service: browser_mod.popup
+                data:
+                  title: Tesla Location
+                  style:
+                    $: >
+                      [[[
+                        if (hass.themes.theme.includes("desktop")){
+                          var dialog = `
+                            .mdc-dialog__surface{
+                              border-radius: var(--border-radius) !important;
+                            }
+                          `;
+                        } else{
+                          var dialog = "";
+                        }
+                        return `
+                          *{
+                            --secondary-background-color: none !important;
+                            --font-family: var(--primary-font-family);
+                          }
+                          ${dialog}
+                        `;
+                      ]]]
+                    hui-vertical-stack-card:
+                      $: >
+                        button-card {
+                          align-self: center;
+                          padding: 0.2em 0 2.3em 0;
+                        }
+                        hui-entities-card{
+                          padding: 0.8em 1.4em;
+                        }
+                      $hui-entities-card$: >
+                        ha-card{
+                          box-shadow: none;
+                        }
+                      $hui-history-graph-card$: >
+                        .content {
+                          padding: 0 2.4em !important;
+                        }
+                        ha-card{
+                          box-shadow: none;
+                        }
+                      $hui-glance-card$: >
+                        ha-card{
+                          box-shadow: none;
+                        }
+                      $hui-map-card:
+                        $: >
+                          ha-icon-button {
+                            color: rgba(var(--color-blue),1);
+                          }
+                        $ha-map:
+                          $: >
+                            .leaflet-control-attribution {
+                              display: none;
+                            }
+                            .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+                              border: 2px solid rgba(var(--color-blue),0.4) !important;
+                            }
+                            .leaflet-bar a {
+                              background-color: rgba(var(--color-blue),0.2) !important;
+                              color: rgba(var(--color-blue),1) !important;
+                            }
+                            .leaflet-bar a:first-child {
+                              border-bottom: 2px solid rgba(var(--color-blue),0.4) !important;
+                            }
+                            .leaflet-pane.leaflet-tile-pane {
+                              filter: contrast(95%);
+                            }
+                  content:
+                    type: "vertical-stack"
+                    cards:
+                      - type: "entities"
+                        card_mod:
+                          style: |
+                            :host {
+                              font-family: var(--primary-font-family);
+                            }
+                        entities:
+                          - entity: "device_tracker.tesla_location"
+                            secondary_info: "last-changed"
+                      - type: "history-graph"
+                        card_mod:
+                          style: |
+                            :host {
+                              font-family: var(--primary-font-family);
+                            }
+                        entities:
+                          - entity: "device_tracker.tesla_location"
+                      - type: "glance"
+                        card_mod:
+                          style: |
+                            :host {
+                              font-family: var(--primary-font-family);
+                            }
+                        show_state: true
+                        entities:
+                          - type: custom:mushroom-entity-card
+                            entity: sensor.tesla_odometer_mi
+                          - type: custom:mushroom-entity-card
+                            entity: sensor.tesla_version
+                          - type: custom:mushroom-entity-card
+                            entity: sensor.tesla_speed_mph
+                      - type: "map"
+                        card_mod:
+                          style: |
+                            :host {
+                              font-family: var(--primary-font-family);
+                            }
+                        aspect_ratio: "12x10"
+                        default_zoom: 16
+                        entities: 
+                          - "device_tracker.tesla_location"
 
     ## Welcome Card ###################################################################################################################
     - type: horizontal-stack
       cards:
-        - type: custom:button-card
-          template: edge
         - type: "custom:button-card"
           template: "card_welcome_scenes"
           triggers_update: "input_boolean.welcome_scene_collapse"
           variables:
             ulm_card_welcome_scenes_collapse: input_boolean.welcome_scene_collapse
             ulm_weather: "weather.home"
-        - type: custom:button-card
-          template: edge
 
     - type: horizontal-stack
       cards:
-      - type: custom:button-card
-        template: edge
       - type: custom:mushroom-template-card
         icon: mdi:lightbulb-on
         icon_color: orange
@@ -125,8 +316,8 @@ cards:
         layout: vertical
         icon_color: orange
         tap_action:
-          action: call-service
-          service: script.navigate_to_nas
+          action: navigate
+          navigation_path: /lovelace/nas
         card_mod:
           style:
             mushroom-shape-icon$: |
@@ -137,13 +328,9 @@ cards:
                 0%, 100% { clip-path: inset(0 0 0 0); }
                 50% { clip-path: polygon(0% 0%, 0% 100%, 29% 100%, 30% 30%, 70% 30%, 70% 70%, 29% 70%, 29% 100%, 100% 100%, 100% 0%); }
               }
-      - type: custom:button-card
-        template: edge
 
     - type: horizontal-stack
       cards:    
-      - type: custom:button-card
-        template: edge
       - type: custom:mushroom-template-card
         entity: media_player.lg_webos_smart_tv
         icon: mdi:monitor
@@ -206,25 +393,18 @@ cards:
         layout: vertical
         icon_color: grey
         tap_action:
-          action: call-service
-          service: script.navigate_to_system
+          action: navigate
+          navigation_path: /lovelace/system
         card_mod:
           style:
             mushroom-shape-icon$: |
               ha-icon {
                 --icon-animation: spin 1.5s steps(5) infinite;
               }
-      - type: custom:button-card
-        template: edge
-    ## Rooms Overview ###################################################################################################################
-    - type: 'custom:button-card'
-      template: card_title
-      name: Rooms
+
     ### Office and Bedroom
     - type: horizontal-stack
       cards:
-      - type: custom:button-card
-        template: edge
       - type: custom:vertical-stack-in-card
         mode: vertical
         cards:
@@ -239,9 +419,9 @@ cards:
               {% endif %}
             multiline_secondary: false
             secondary: >-
-              {{ states('sensor.work_room_temp_f') }}°F
+              {{ states('sensor.workroom_ble_temperature') }}°F
               • 
-              {{ states('sensor.ble_humidity_work_room') }}
+              {{ states('sensor.workroom_ble_humidity') }}
             tap_action:
               action: navigate
               navigation_path: /lovelace/rooms
@@ -322,9 +502,9 @@ cards:
             layout: horizontal
             multiline_secondary: false
             secondary: >-
-              {{ states('sensor.bed_room_temp_f') }}°F
+              {{ states('sensor.bedroom_ble_temperature') }}°F
               • 
-              {{ states('sensor.ble_humidity_bed_room') }}
+              {{ states('sensor.bedroom_ble_humidity') }}
             tap_action:
               action: navigate
               navigation_path: /lovelace/rooms
@@ -351,7 +531,7 @@ cards:
                 tap_action:
                   action: more-info
               - type: custom:mushroom-template-card
-                entity: cover.bedroom_curtain
+                entity: cover.bedroom
                 layout: vertical
                 icon: |
                   {%- if is_state(entity, 'open') %} 
@@ -389,14 +569,10 @@ cards:
                         75% { clip-path: polygon(100% 100%, 0 100%, 0 0, 100% 0, 100% 44%, 64% 61%, 64% 73%, 100% 72%); }
                         50% { clip-path: polygon(100% 100%, 0 100%, 0 0, 100% 0, 78% 38%, 64% 43%, 64% 72%, 100% 73%); }
                       }
-      - type: custom:button-card
-        template: edge
     
     ### Kitchen
     - type: horizontal-stack
       cards:
-      - type: custom:button-card
-        template: edge
       - type: custom:vertical-stack-in-card
         mode: vertical
         cards:
@@ -516,9 +692,9 @@ cards:
               {% endif %}
             multiline_secondary: false
             secondary: >-
-              {{ states('sensor.living_room_temp_f') }}°F
+              {{ states('sensor.livingroom_ble_temperature') }}°F
               • 
-              {{ states('sensor.ble_humidity_living_room') }}
+              {{ states('sensor.livingroom_ble_humidity') }}
             tap_action:
               action: navigate
               navigation_path: /lovelace/rooms
@@ -586,13 +762,9 @@ cards:
                         0%, 100% { transform: rotate(20deg); }
                         50% { transform: rotate(-15deg); }
                       }
-      - type: custom:button-card
-        template: edge
 
     - type: horizontal-stack
       cards:
-      - type: custom:button-card
-        template: edge
       - type: custom:mushroom-entity-card
         entity: input_boolean.on_vacation
         name: Vacation
@@ -638,13 +810,9 @@ cards:
                 0%, 100% { clip-path: inset(0 0 0 0); }
                 80% { clip-path: polygon(0% 99%, 20% 55%, 22% 37%, 39% 20%, 61% 21%, 77% 35%, 79% 57%, 99% 100%); }
               }
-      - type: custom:button-card
-        template: edge
 
     # - type: horizontal-stack
     #   cards:
-    #   - type: custom:button-card
-    #     template: edge
     #   - type: custom:mushroom-entity-card
     #     entity: switch.living_room_window_socket_1
     #     name: Christmas Light
@@ -652,16 +820,12 @@ cards:
     #     secondary_info: last-changed
     #     tap_action:
     #       action: toggle
-    #   - type: custom:button-card
-    #     template: edge
 
-    - type: 'custom:button-card'
-      template: card_title
-      name: Climate
+    - type: custom:mushroom-title-card
+      title: Climate
+      subtitle: Living Room
     - type: horizontal-stack
       cards:
-      - type: custom:button-card
-        template: edge
       - type: custom:mushroom-climate-card
         entity: climate.living_room
         hvac_modes:
@@ -710,33 +874,45 @@ cards:
               40%, 60% { --icon-symbol-size: 25px; }
               50% { --icon-symbol-size: 26px; }
             }
-      - type: custom:button-card
-        template: edge
+
     ## Camera ###################################################################################################################   
-    - type: 'custom:button-card'
-      template: card_title
-      name: Security
+    - type: custom:mushroom-title-card
+      title: Camera
+      subtitle: Front Door
     - type: horizontal-stack
       cards:
-      - type: custom:button-card
-        template: edge
       - type: 'custom:frigate-card'
         cameras:
         - camera_entity: camera.doorbell
-      - type: custom:button-card
-        template: edge
 
     ## Vacuum ###################################################################################################################   
-    - type: 'custom:button-card'
-      template: card_title
-      name: Vacuum
+    - type: custom:mushroom-title-card
+      title: Vacuum
+      subtitle: Eufy Livingroom
     - type: horizontal-stack
       cards:
-      - type: custom:button-card
-        template: edge
       - type: custom:mushroom-vacuum-card
         entity: "vacuum.robovac"
         commands: ["start_pause", "stop", "locate", "return_home"]
         icon_animation: true
+
+    - type: horizontal-stack
+      cards:
+        - type: 'custom:weather-radar-card'
+          frame_count: 144
+          frame_delay: 100
+          marker_latitude: !secret homeassistant_latitude
+          marker_longitude: !secret homeassistant_longitude
+          show_marker: true
+          show_range: true
+          show_zoom: true
+          show_recenter: true
+          show_playback: true
+          zoom_level: 8
+
+    - type: horizontal-stack
+      cards:
       - type: custom:button-card
-        template: edge
+        template: custom_card_httpedo13_sun
+        variables:
+          language: 'en'

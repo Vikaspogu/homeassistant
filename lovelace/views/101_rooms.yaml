@@ -5,27 +5,38 @@ id: rooms
 cards:
   - type: "vertical-stack"
     cards:
-    ## Chip Back ###################################################################################################################
-    - type: "custom:button-card"
-      color_type: blank-card
-    - type: custom:decluttering-card
-      template: navigation_chips
-      variables:
-        - nav_path_1: /lovelace/tesla
-        - nav_icon_1: si:tesla
-        - nav_color_1: red
-        - nav_path_2: /lovelace/system
-        - nav_icon_2: mdi:cog
-    - type: 'custom:button-card'
-      template: card_title
-      name: Rooms
-    - type: "custom:button-card"
-      color_type: blank-card  
+    - type: custom:mushroom-chips-card
+      card_mod:
+          style: |
+            ha-card {
+              --chip-font-size: 14px;
+            }
+      chips:
+        - type: back
+        - type: action
+          icon_color: red
+          icon: si:tesla
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/tesla
+        - type: action
+          icon_color: green
+          icon: mdi:nas
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/nas
+        - type: action
+          icon_color: grey
+          icon: mdi:cog
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/system
 
+    - type: custom:mushroom-title-card
+      title: Menu
+      subtitle: Select button below
     - type: horizontal-stack
       cards:
-      - type: custom:button-card
-        template: edge
       - type: 'custom:button-card'
         template: card_vertical_button
         entity: input_select.room_mode
@@ -58,13 +69,9 @@ cards:
         variables:
           ulm_card_vertical_button_state: TV
           ulm_card_vertical_button_color: green
-      - type: custom:button-card
-        template: edge
     
     - type: horizontal-stack
       cards:
-        - type: custom:button-card
-          template: edge
         - type: custom:state-switch
           entity: input_select.room_mode
           default: Main
@@ -73,9 +80,8 @@ cards:
               type: "vertical-stack"
               cards:
                 ## Lights ###################################################################################################################
-                - type: 'custom:button-card'
-                  template: card_title
-                  name: Lights
+                - type: custom:mushroom-title-card
+                  title: Lights
                 - type: "custom:auto-entities"
                   card:
                     type: "grid"
@@ -105,13 +111,10 @@ cards:
                           use_light_color: true
                           icon: mdi:led-strip-variant
                 ## Curtains/Blinds #############################################################################
-                - type: 'custom:button-card'
-                  template: card_title
-                  name: Covers
+                - type: custom:mushroom-title-card
+                  title: Covers
                 - type: horizontal-stack
                   cards:
-                    - type: custom:button-card
-                      template: edge
                     - type: "custom:auto-entities"
                       card:
                         type: "grid"
@@ -124,17 +127,14 @@ cards:
                         include:
                         - domain: cover
                           options:
-                            type: custom:button-card
-                            template: card_cover
+                            type: custom:mushroom-cover-card
                             entity: this.entity_id
-                            variables:
-                              ulm_card_cover_enable_slider: true
-                    - type: custom:button-card
-                      template: edge
+                            show_buttons_control: true
+                            show_tilt_position_control: true
+
                 ## Switches #############################################################################
-                - type: 'custom:button-card'
-                  template: card_title
-                  name: Switches
+                - type: custom:mushroom-title-card
+                  title: Switches
                 - type: horizontal-stack
                   cards:
                     - type: "custom:auto-entities"
@@ -161,13 +161,10 @@ cards:
               type: "vertical-stack"
               cards:
                 ## Temperature Sensor ###################################################################################################################
-                - type: 'custom:button-card'
-                  template: card_title
-                  name: Temperature
+                - type: custom:mushroom-title-card
+                  title: Temperature
                 - type: horizontal-stack
                   cards:
-                    - type: custom:button-card
-                      template: edge
                     - type: "custom:auto-entities"
                       card:
                         type: "grid"
@@ -179,28 +176,54 @@ cards:
                       filter:
                         include:
                           - domain: "sensor"
-                            entity_id: "sensor.*temp_f"
+                            entity_id: "sensor.*ble_temperature"
                             options:
-                              type: "custom:button-card"
-                              template: card_graph
-                              variables:
-                                ulm_card_graph_color: "var(--google-blue)"
-                                ulm_card_graph_entity: this.entity_id
+                              type: custom:stack-in-card
+                              cards:
+                                - type: custom:mushroom-template-card
+                                  primary: '{{ state_attr(entity, ''friendly_name'') }}'
+                                  secondary: '{{ states(entity) }} °C'
+                                  icon: mdi:thermometer
+                                  tap_action:
+                                    action: more-info
+                                  icon_color: |-
+                                    {% if is_state(entity, 'unknown') %}
+                                        
+                                    {% elif states(entity) | float >= 70 %}
+                                      red
+                                    {% elif states(entity) | float >= 50 %}
+                                      green
+                                    {% else %}
+                                      blue
+                                    {% endif %}
+                                  entity: this.entity_id
+                                - type: custom:mini-graph-card
+                                  entities:
+                                    - entity: this.entity_id
+                                      state_adaptive_color: true
+                                  font_size: 75
+                                  font_size_header: 10
+                                  show:
+                                    icon: false
+                                    name: false
+                                    extrema: true
+                                    name_adaptive_color: true
+                                    icon_adaptive_color: true
+                                  color_thresholds:
+                                    - value: 0
+                                      color: '#3B4EFF'
+                                    - value: 50
+                                      color: '#47a04b'
+                                    - value: 70
+                                      color: '#f44336'
                         exclude:
                           - state: unavailable
-                          - name: "*Pixel*"
-                          - name: "*pogu-nas*"   
-                          - name: "*Tesla Wall Connector*"
-                    - type: custom:button-card
-                      template: edge
+
                 ## illuminance Sensor ###################################################################################################################
-                - type: 'custom:button-card'
-                  template: card_title
-                  name: Illuminance
+                - type: custom:mushroom-title-card
+                  title: Illuminance
                 - type: horizontal-stack
                   cards:
-                    - type: custom:button-card
-                      template: edge
                     - type: "custom:auto-entities"
                       card:
                         type: "grid"
@@ -214,23 +237,43 @@ cards:
                           - domain: "sensor"
                             entity_id: "sensor.*illuminance_lux"
                             options:
-                              type: "custom:button-card"
-                              template: card_graph
-                              variables:
-                                ulm_card_graph_color: "var(--google-green)"
-                                ulm_card_graph_entity: this.entity_id
+                              type: custom:stack-in-card
+                              cards:
+                                - type: custom:mushroom-template-card
+                                  primary: '{{ state_attr(entity, ''friendly_name'') }}'
+                                  secondary: '{{ states(entity) }}'
+                                  icon: mdi:weather-sunny
+                                  tap_action:
+                                    action: more-info
+                                  icon_color: amber
+                                  entity: this.entity_id
+                                - type: custom:mini-graph-card
+                                  entities:
+                                    - entity: this.entity_id
+                                      state_adaptive_color: true
+                                  font_size: 75
+                                  font_size_header: 10
+                                  show:
+                                    icon: false
+                                    name: false
+                                    extrema: true
+                                    name_adaptive_color: true
+                                    icon_adaptive_color: true
+                                  color_thresholds:
+                                    - value: 0
+                                      color: '#FFD966'
+                                    - value: 50
+                                      color: '#4cd964'
+                                    - value: 70
+                                      color: '#007aff'
                         exclude:
                           - state: unavailable
-                    - type: custom:button-card
-                      template: edge
+
                 ## Humidity Sensor ###################################################################################################################
-                - type: 'custom:button-card'
-                  template: card_title
-                  name: Humidity
+                - type: custom:mushroom-title-card
+                  title: Humidity
                 - type: horizontal-stack
                   cards:
-                    - type: custom:button-card
-                      template: edge
                     - type: "custom:auto-entities"
                       card:
                         type: "grid"
@@ -244,34 +287,100 @@ cards:
                           - domain: "sensor"
                             entity_id: "sensor.*humidity*"
                             options:
-                              type: "custom:button-card"
-                              template: card_graph
-                              variables:
-                                ulm_card_graph_color: "var(--google-red)"
-                                ulm_card_graph_entity: this.entity_id
+                              type: custom:stack-in-card
+                              cards:
+                                - type: custom:mushroom-template-card
+                                  primary: '{{ state_attr(entity, ''friendly_name'') }}'
+                                  secondary: '{{ states(entity) }} %'
+                                  icon: mdi:water-percent
+                                  tap_action:
+                                    action: more-info
+                                  icon_color: |-
+                                    {% if is_state(entity, 'unknown') %}
+                                      disabled
+                                    {% elif states(entity) | float >= 70 %}
+                                      blue
+                                    {% elif states(entity) | float >= 50 %}
+                                      green
+                                    {% else %}
+                                      red
+                                    {% endif %}
+                                  entity: this.entity_id
+                                - type: custom:mini-graph-card
+                                  entities:
+                                    - entity: this.entity_id
+                                      state_adaptive_color: true
+                                  font_size: 75
+                                  font_size_header: 10
+                                  show:
+                                    icon: false
+                                    name: false
+                                    extrema: true
+                                    name_adaptive_color: true
+                                    icon_adaptive_color: true
+                                  color_thresholds:
+                                    - value: 0
+                                      color: '#ff3b30'
+                                    - value: 50
+                                      color: '#4cd964'
+                                    - value: 70
+                                      color: '#007aff'
                           - domain: "sensor"
                             entity_id: "sensor.*air_quality*"
                             options:
-                              type: "custom:button-card"
-                              template: card_graph
-                              variables:
-                                ulm_card_graph_color: "var(--google-yellow)"
-                                ulm_card_graph_entity: this.entity_id
+                              type: custom:stack-in-card
+                              cards:
+                                - type: custom:mushroom-template-card
+                                  primary: '{{ state_attr(entity, ''friendly_name'') }}'
+                                  secondary: '{{ states(entity) }} μg/m³'
+                                  icon: "mdi:weather-fog"
+                                  tap_action:
+                                    action: more-info
+                                  icon_color: |-
+                                    {% if is_state(entity, 'unknown') %}
+                                      disabled
+                                    {% elif states(entity) | float >= 101 %}
+                                      yellow
+                                    {% elif states(entity) | float >= 151 %}
+                                      orange
+                                    {% elif states(entity) | float >= 351 %}
+                                      red
+                                    {% else %}
+                                      green
+                                    {% endif %}
+                                  entity: this.entity_id
+                                - type: custom:mini-graph-card
+                                  entities:
+                                    - entity: this.entity_id
+                                      state_adaptive_color: true
+                                  font_size: 75
+                                  font_size_header: 10
+                                  show:
+                                    icon: false
+                                    name: false
+                                    extrema: true
+                                    name_adaptive_color: true
+                                    icon_adaptive_color: true
+                                  color_thresholds:
+                                    - value: 0
+                                      color: '#4cd964'
+                                    - value: 101
+                                      color: '#FFFF00'
+                                    - value: 151
+                                      color: '#FFA500'
+                                    - value: 351
+                                      color: '#FF0000'
                         exclude:
                           - state: unavailable
-                    - type: custom:button-card
-                      template: edge
+
             Battery:
               type: "vertical-stack"
               cards:
                 ## Battery ###################################################################################################################
-                - type: 'custom:button-card'
-                  template: card_title
-                  name: Battery
+                - type: custom:mushroom-title-card
+                  title: Battery
                 - type: horizontal-stack
                   cards:
-                  - type: custom:button-card
-                    template: edge
                   - type: "custom:auto-entities"
                     card:
                       type: "grid"
@@ -286,27 +395,43 @@ cards:
                             unit_of_measurement: "%"
                             device_class: "battery"
                           options:
-                            type: custom:button-card
-                            template: card_battery
+                            type: custom:mushroom-template-card
+                            primary: '{{ state_attr(entity, ''friendly_name'') }}'
+                            secondary: |-
+                              {{ states(entity) }}
                             entity: this.entity_id
-                            variables:
-                              ulm_card_battery_charger_type_entity_id: this.entity_id
-                              ulm_card_battery_battery_level_danger: 15
-                              ulm_card_battery_battery_level_warning: 80
+                            icon: mdi:battery
+                            tap_action:
+                              action: more-info
+                            icon_color: >-
+                              {% set value=states(entity)|int %}
+                              {% if (value >= 75) %}
+                                green
+                              {% elif (value >= 65) %}
+                                light-green
+                              {% elif (value >= 55) %}
+                                lime
+                              {% elif (value >= 45) %}
+                                yellow
+                              {% elif (value >= 35) %}
+                                amber
+                              {% elif (value >= 25) %}
+                                orange
+                              {% elif (value >= 15) %}
+                                deep-orange
+                              {% else %}
+                                red
+                              {% endif %}
                       exclude:
                         - state: unavailable
                         - entity_id: "*tesla*"
                         - name: "*Pixel*"
-                  - type: custom:button-card
-                    template: edge
+
                 ## Motion ###################################################################################################################
-                - type: 'custom:button-card'
-                  template: card_title
-                  name: Motion
+                - type: custom:mushroom-title-card
+                  title: Motion
                 - type: horizontal-stack
                   cards:
-                  - type: custom:button-card
-                    template: edge
                   - type: "custom:auto-entities"
                     card:
                       type: "grid"
@@ -319,26 +444,21 @@ cards:
                       include:
                         - entity_id: "binary_sensor.*occupancy"
                           options:
-                            type: 'custom:button-card'
-                            template: card_binary_sensor
-                            variables:
-                              ulm_show_last_changed: true
+                            type: custom:mushroom-entity-card
+                            secondary_info: last-changed
                             entity: this.entity_id
                       exclude:
                         - state: unavailable
-                  - type: custom:button-card
-                    template: edge
+
             TV:
               type: "vertical-stack"
               cards:
                 ## LG TV ###################################################################################################################
-                - type: 'custom:button-card'
-                  template: card_title
-                  name: LG TV
+                - type: custom:mushroom-title-card
+                  title: TV Remote
+                  subtitle: LG Bedroom
                 - type: horizontal-stack
                   cards:
-                    - type: "custom:button-card"
-                      template: edge
                     - type: custom:fold-entity-row
                       head:
                         type: section
@@ -357,5 +477,3 @@ cards:
                           name: "Amazon Prime Video"
                         - icon: 'mdi:hulu'
                           name: "Hulu"
-                    - type: "custom:button-card"
-                      template: edge

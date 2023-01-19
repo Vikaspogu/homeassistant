@@ -5,6 +5,7 @@
 .cloud
 .storage
 .vscode
+.cache
 Thumbs.db
 custom_components
 deps
