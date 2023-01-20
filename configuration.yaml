@@ -17,6 +17,10 @@ homeassistant:
   packages: !include_dir_named include
   country: US
 
+recorder:
+  db_url: !secret postgresqlDB
+  purge_keep_days: 7
+
 # Text to speech
 tts:
   - platform: google_translate
@@ -140,21 +144,21 @@ lovelace:
     - url: /hacsfiles/weather-radar-card/weather-radar-card.js
       type: module
     - url: /hacsfiles/lovelace-mushroom/mushroom.js
-      type: module        
+      type: module
+    - url: /hacsfiles/simple-weather-card/simple-weather-card-bundle.js
+      type: module           
                 
     # Styles
     - url: "https://fonts.googleapis.com/css2?family=Raleway&display=swap"
-      type: css
-    - url: "https://fonts.googleapis.com/css2?family=Comfortaa&display=swap"
-      type: css
-    - url: "https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/cascadia-code.min.css"
       type: css
     - url: "https://fonts.googleapis.com/css2?family=Fira+Code:wght@300&display=swap"
       type: css
     - url: "https://fonts.googleapis.com/css2?family=Fira+Sans:wght@100;300&display=swap"
       type: css
-    - url: "https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap"
-      type: css        
+    - url: "https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap"
+      type: css
+    - url: "https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      type: css
 
   # Add yaml dashboards
   dashboards:

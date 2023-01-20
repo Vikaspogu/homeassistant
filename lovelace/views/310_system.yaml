@@ -14,6 +14,11 @@ cards:
       chips:
         - type: back
         - type: action
+          icon: mdi:home
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/dash
+        - type: action
           icon_color: indigo
           icon: mdi:bed
           tap_action:
@@ -91,11 +96,21 @@ cards:
                   - domain: "sensor"
                     entity_id: "sensor.*habitica*"
                     options:
-                      type: custom:mushroom-entity-card
+                      # type: custom:mushroom-entity-card
+                      # entity: this.entity_id
+                      # layout: Vertical
+                      type: custom:mushroom-template-card
                       entity: this.entity_id
-                      layout: Vertical
+                      icon: '{{ state_attr(entity, ''icon'')}}'
+                      multiline_secondary: false
+                      tap_action:
+                        action: more-info
+                      primary: '{{ state_attr(entity, "friendly_name") | replace("habitica_vkp7_", "") }}'
+                      secondary: '{{ states(entity) }}'
+                      icon_color: green
                 exclude:
                   - state: unavailable
+                  - name: "*name*"
 
         - type: custom:mushroom-title-card
           title: HP Printer
@@ -108,25 +123,6 @@ cards:
               ulm_card_printer_name: HP Color Laser MFP 178nw
               ulm_card_printer_black_name: sensor.hp_envy_photo_6200_series_black_ink
               ulm_card_printer_cyan_name: sensor.hp_envy_photo_6200_series_tri_color_ink
-
-        - type: horizontal-stack
-          cards:
-          - type: custom:swipe-card
-            start_card: 1
-            parameters:
-              roundLengths: true
-              effect: flip
-              speed: 650
-              spaceBetween: 20
-              threshold: 7
-              coverflowEffect:
-                rotate: 80
-                depth: 300
-            cards:
-              - type: picture-entity
-                entity: camera.doorbell_person
-              - type: picture-entity
-                entity: camera.doorbell_dog
 
         - type: custom:mushroom-title-card
           title: Internet Speed

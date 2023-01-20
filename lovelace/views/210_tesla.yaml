@@ -14,6 +14,11 @@ cards:
       chips:
         - type: back
         - type: action
+          icon: mdi:home
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/dash
+        - type: action
           icon_color: indigo
           icon: mdi:bed
           tap_action:
