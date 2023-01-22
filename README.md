@@ -8,12 +8,11 @@ This is my [Home Assistant](https://www.home-assistant.io/) configuration.
 
 ## Screenshot
 
-Dashboards are based on [UI-Lovelace-Minimalist Theme](https://ui-lovelace-minimalist.github.io/UI/)
+Dashboards are based on [Mushroom Cards](https://github.com/piitaya/lovelace-mushroom) and [UI-Lovelace-Minimalist Theme](https://ui-lovelace-minimalist.github.io/UI/)
 
-![screenshot](./docs/hass-dash-ui-minimalist.png)
+![screenshot](./docs/hass-dashboard.png)
 
-
-### Custom cards list
+### Custom Cards from UI Minimalist
 
 - irmajavi_speedtest
 - apexcharts
@@ -25,7 +24,6 @@ Dashboards are based on [UI-Lovelace-Minimalist Theme](https://ui-lovelace-minim
 
 - [Speedtest.net](https://www.speedtest.net/)
 - [MQTT](https://www.home-assistant.io/integrations/mqtt/)
-- [ble monitor](https://github.com/custom-components/ble_monitor/)
 - [browser-mod](https://github.com/thomasloven/hass-browser_mod)
 - [Eufy vacuum](https://github.com/pbulteel/eufy_vacuum)
 - [Frigate](https://github.com/blakeblackshear/frigate-hass-integration)
@@ -39,7 +37,6 @@ Dashboards are based on [UI-Lovelace-Minimalist Theme](https://ui-lovelace-minim
 - Sony Bravia TV
 - Soma
 - Smartthings
-- iRobot vaccum
 - IPP Printer
 - Govee
 - HACS

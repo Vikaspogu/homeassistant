@@ -6,7 +6,12 @@
 ####################################################
 
 template:
-  sensor:          
+  sensor:
+  - unique_id: uptime_minutes
+    name: UpTime Minutes
+    state: >
+      {{ (as_timestamp(now()) - as_timestamp(states('sensor.uptime'))) // 60| round (0)  }}
+
   - name: "lights on"
     unique_id: lights_on
     icon: mdi:lightbulb-on-outline

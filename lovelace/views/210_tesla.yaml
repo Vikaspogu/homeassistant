@@ -47,13 +47,12 @@ cards:
     ## Location ###################################################################################################################
     - type: custom:mushroom-title-card
       title: Location
-    - type: horizontal-stack
-      cards:
-      - type: map
-        aspect_ratio: '16:9'
-        default_zoom: 13
-        entities:
-          - device_tracker.tesla_location
+    - type: map
+      dark_mode: true
+      aspect_ratio: 16:9
+      auto_fit: true
+      entities:
+        - device_tracker.tesla_location
 
     ## Car glance stats ###################################################################################################################
     - type: custom:mushroom-title-card
@@ -97,7 +96,11 @@ cards:
           tap_action:
             action: more-info
           secondary: |-
-            {{ states('binary_sensor.tesla_plugged_in') }}
+            {%- if is_state('binary_sensor.tesla_plugged_in', 'on') %} 
+              Plugged
+            {%- else %}
+              Unplugged
+            {% endif %}
           icon: mdi:ev-plug-tesla
           icon_color: |-
             {% if is_state('binary_sensor.tesla_plugged_in', 'on') %}

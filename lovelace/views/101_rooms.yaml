@@ -186,8 +186,7 @@ cards:
                               type: custom:stack-in-card
                               cards:
                                 - type: custom:mushroom-template-card
-                                  primary: '{{ state_attr(entity, ''friendly_name'') }}'
-                                  secondary: '{{ states(entity) }} °C'
+                                  primary: '{{ state_attr(entity, ''friendly_name'') | regex_replace(find=''Temperature'', replace='''', ignorecase=False) }}'
                                   icon: mdi:thermometer
                                   tap_action:
                                     action: more-info
@@ -245,8 +244,7 @@ cards:
                               type: custom:stack-in-card
                               cards:
                                 - type: custom:mushroom-template-card
-                                  primary: '{{ state_attr(entity, ''friendly_name'') }}'
-                                  secondary: '{{ states(entity) }}'
+                                  primary: '{{ state_attr(entity, ''friendly_name'') | regex_replace(find=''illuminance lux'', replace='''', ignorecase=False)}}'
                                   icon: mdi:weather-sunny
                                   tap_action:
                                     action: more-info
@@ -295,8 +293,7 @@ cards:
                               type: custom:stack-in-card
                               cards:
                                 - type: custom:mushroom-template-card
-                                  primary: '{{ state_attr(entity, ''friendly_name'') }}'
-                                  secondary: '{{ states(entity) }} %'
+                                  primary: '{{ state_attr(entity, ''friendly_name'') | regex_replace(find=''Humidity'', replace='''', ignorecase=False)}}'
                                   icon: mdi:water-percent
                                   tap_action:
                                     action: more-info
@@ -401,7 +398,7 @@ cards:
                             device_class: "battery"
                           options:
                             type: custom:mushroom-template-card
-                            primary: '{{ state_attr(entity, ''friendly_name'') }}'
+                            primary: '{{ state_attr(entity, ''friendly_name'') | regex_replace(find=''Battery'', replace='''', ignorecase=True) }}'
                             secondary: |-
                               {{ states(entity) }}
                             entity: this.entity_id

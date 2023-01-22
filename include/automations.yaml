@@ -5,20 +5,29 @@ automation:
     #                   AUTOMATIONS                    #
     #                                                  #
     ####################################################
+  - alias: Set input entity for welcome on restart
+    trigger:
+      platform: homeassistant
+      event: start
+    action:
+      - service: input_boolean.turn_on
+        data: {}
+        target:
+          entity_id: input_boolean.welcome_scene_collapse
 
   - id: 769638308a0a4973b8930f7a6f2a2693
     alias: Garage Door Opened
     trigger:
-    - platform: state
-      entity_id: cover.garage_door
-      to: open
+      - platform: state
+        entity_id: cover.garage_door
+        to: open
     condition:
       condition: state
       entity_id: cover.garage_door
       state: open
     action:
-    - service: timer.start
-      entity_id: timer.garage_door_2
+      - service: timer.start
+        entity_id: timer.garage_door_2
 
   - id: garage_closed
     alias: Garage Door Closed
@@ -27,8 +36,8 @@ automation:
       entity_id: cover.garage_door
       to: closed
     action:
-    - service: timer.cancel
-      entity_id: timer.garage_door_2
+      - service: timer.cancel
+        entity_id: timer.garage_door_2
 
   - id: garage_opened_timer_finished
     alias: Garage Opened Timer Finished
@@ -42,15 +51,15 @@ automation:
       entity_id: cover.garage_door
       state: open
     action:
-    - service: timer.start
-      entity_id: timer.garage_door_2
-    - service: notify.notify_group
-      data:
-        message: "⚠️ The garage door has been open"
+      - service: timer.start
+        entity_id: timer.garage_door_2
+      - service: notify.notify_group
         data:
-          actions:
-          - action: close_garage
-            title: Close Garage Door
+          message: "⚠️ The garage door has been open"
+          data:
+            actions:
+              - action: close_garage
+                title: Close Garage Door
 
   - alias: Actionable notification - close garage door
     trigger:
@@ -85,13 +94,17 @@ automation:
   - alias: Open garage if car returns home
     initial_state: on
     trigger:
-    - platform: state
-      entity_id: device_tracker.tesla_location
-      from: not_home
-      to: home
+      - platform: state
+        entity_id: device_tracker.tesla_location
+        from: not_home
+        to: home
+    condition:
+      - condition: numeric_state
+        entity_id: sensor.uptime_minutes
+        above: 2
     action:
-    - service: cover.open_cover
-      entity_id: cover.garage_door
+      - service: cover.open_cover
+        entity_id: cover.garage_door
     id: 78aa903d4f1d4085b77726ac84b0faeb
 
   - alias: Close garage if car is away
@@ -149,16 +162,14 @@ automation:
   - id: vacuum_notifications
     alias: Vacuum Notifications
     trigger:
-    - platform: state
-      entity_id: vacuum.robovac
-    - platform: state
-      entity_id: vacuum.roomba
+      - platform: state
+        entity_id: vacuum.robovac
     condition:
       condition: template
       value_template: '{{ not (trigger.to_state.state == trigger.from_state.state) }}'
     action:
-    - service: notify.mobile_app_vpogu_pixel_7
-      data_template:
-        title: Vacuum
-        message: '🧹 {{ trigger.to_state.name }} vacuum has been turned {{ trigger.to_state.state
-          }}'
+      - service: notify.mobile_app_vpogu_pixel_7
+        data_template:
+          title: Vacuum
+          message: '🧹 {{ trigger.to_state.name }} vacuum has been turned {{ trigger.to_state.state
+            }}'

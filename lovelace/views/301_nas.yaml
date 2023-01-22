@@ -115,7 +115,12 @@ cards:
                     tap_action:
                       action: more-info
                     primary: '{{ state_attr(entity, "friendly_name") | replace("pogu-nas ", "") }}'
-                    secondary: '{{ states(entity) }}'
+                    secondary: |
+                      {%- if is_state(entity, 'on') %} 
+                      Unsafe
+                      {%- else %}
+                      Safe
+                      {% endif %}
                     icon_color: |
                       {%- if is_state(entity, 'on') %} 
                       red
@@ -145,7 +150,6 @@ cards:
                     cards:
                       - type: custom:mushroom-template-card
                         primary: '{{ state_attr(entity, ''friendly_name'') | regex_replace(find=''pogu-nas'', replace='''', ignorecase=False) }}'
-                        secondary: '{{ states(entity) }}'
                         icon: '{{ state_attr(entity, ''icon'')}}'
                         icon_color: amber
                         tap_action:
@@ -188,7 +192,6 @@ cards:
                     cards:
                       - type: custom:mushroom-template-card
                         primary: '{{ state_attr(entity, ''friendly_name'') | regex_replace(find=''pogu-nas'', replace='''', ignorecase=False) }}'
-                        secondary: '{{ states(entity) }}'
                         icon: mdi:thermometer-high
                         icon_color: amber
                         tap_action:

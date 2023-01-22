@@ -19,6 +19,14 @@ cards:
         chips:
           - type: menu
           - type: template
+            tap_action:
+              action: more-info
+            entity: sensor.uptime
+            content: |-
+              {{ states('sensor.uptime') | as_datetime | relative_time }}
+            icon: mdi:weather-cloudy-clock
+            icon_color: amber
+          - type: template
             entitiy: climate.living_room
             icon: mdi:thermostat
             icon_color:  |-
@@ -33,15 +41,51 @@ cards:
               {{ states('climate.living_room') }}
               • 
               {{ states('sensor.thermostat_current_temperature') }}
-          - type: entity
+          - type: template
+            tap_action:
+              action: more-info
             entity: sensor.bedroom_ble_temperature
+            content: |-
+              {{ states('sensor.bedroom_ble_temperature') }} °F
             icon: mdi:bed-king
-          - type: entity
+            icon_color: |-
+              {% if states('sensor.bedroom_ble_temperature') | float >= 70 %}
+                red
+              {% elif states('sensor.bedroom_ble_temperature') | float >= 50 %}
+                blue
+              {% else %}
+                grey
+              {% endif %}
+          - type: template
+            tap_action:
+              action: more-info
             entity: sensor.livingroom_ble_temperature
+            content: |-
+              {{ states('sensor.livingroom_ble_temperature') }} °F
             icon: mdi:sofa
-          - type: entity
+            icon_color: |-
+              {% if states('sensor.livingroom_ble_temperature') | float >= 70 %}
+                red
+              {% elif states('sensor.livingroom_ble_temperature') | float >= 50 %}
+                blue
+              {% else %}
+                grey
+              {% endif %}
+          - type: template
+            tap_action:
+              action: more-info
             entity: sensor.workroom_ble_temperature
-            icon:  mdi:chair-rolling
+            content: |-
+              {{ states('sensor.workroom_ble_temperature') }} °F
+            icon: mdi:chair-rolling
+            icon_color: |-
+              {% if states('sensor.workroom_ble_temperature') | float >= 70 %}
+                red
+              {% elif states('sensor.workroom_ble_temperature') | float >= 50 %}
+                blue
+              {% else %}
+                grey
+              {% endif %}
           - type: template
             entity: binary_sensor.pogu_nas_security_status_2
             tap_action:
@@ -136,12 +180,18 @@ cards:
                 mdi:car-connected
               {% elif is_state('sensor.tesla_state', 'charging') %}
                 mdi:car-electric-outline
+              {% elif is_state('sensor.tesla_state', 'driving') %}
+                mdi:car-wireless
               {% else %}
                 mdi:car-clock
               {% endif %}
             icon_color: |-
               {% if is_state('sensor.tesla_state', 'online') %}
                 green
+              {% elif is_state('sensor.tesla_state', 'charging') %}
+                blue
+              {% elif is_state('sensor.tesla_state', 'driving') %}
+                purple
               {% else %}
                 grey
               {% endif %}
