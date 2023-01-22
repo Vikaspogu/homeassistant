@@ -10,7 +10,7 @@ This is my [Home Assistant](https://www.home-assistant.io/) configuration.
 
 Dashboards are based on [Mushroom Cards](https://github.com/piitaya/lovelace-mushroom) and [UI-Lovelace-Minimalist Theme](https://ui-lovelace-minimalist.github.io/UI/)
 
-<img src="./docs/hass-dashboard.png" alt="drawing" style="width:100px;height:200px;"/>
+<img src="./docs/hass-dashboard.png" alt="drawing" style="width:200px;height:400px;"/>
 
 ### Custom Cards from UI Minimalist
 
