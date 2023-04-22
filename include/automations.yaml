@@ -102,6 +102,9 @@ automation:
       - condition: numeric_state
         entity_id: sensor.uptime_minutes
         above: 2
+      - condition: state
+        entity_id: cover.garage_door
+        state: "closed"
     action:
       - service: cover.open_cover
         entity_id: cover.garage_door
@@ -110,13 +113,17 @@ automation:
   - alias: Close garage if car is away
     initial_state: on
     trigger:
-    - platform: state
-      entity_id: device_tracker.tesla_location
-      from: home
-      to: not_home
+      - platform: state
+        entity_id: device_tracker.tesla_location
+        from: home
+        to: not_home
+    condition:
+      - condition: state
+        entity_id: cover.garage_door
+        state: "open"
     action:
-    - service: cover.close_cover
-      entity_id: cover.garage_door
+      - service: cover.close_cover
+        entity_id: cover.garage_door
     id: 3d9513db194f4f44b8310e57949968d1
 
   - alias: Set timer if teslamate reports something is open to alert us

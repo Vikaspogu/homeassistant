@@ -23,7 +23,7 @@ cards:
               action: more-info
             entity: sensor.uptime
             content: |-
-              {{ states('sensor.uptime') | as_datetime | relative_time }}
+              Uptime {{ states('sensor.uptime') | as_datetime | relative_time }}
             icon: mdi:weather-cloudy-clock
             icon_color: amber
           - type: template
@@ -46,7 +46,7 @@ cards:
               action: more-info
             entity: sensor.bedroom_ble_temperature
             content: |-
-              {{ states('sensor.bedroom_ble_temperature') }} °F
+              Bedroom {{ states('sensor.bedroom_ble_temperature') }} °F
             icon: mdi:bed-king
             icon_color: |-
               {% if states('sensor.bedroom_ble_temperature') | float >= 70 %}
@@ -61,7 +61,7 @@ cards:
               action: more-info
             entity: sensor.livingroom_ble_temperature
             content: |-
-              {{ states('sensor.livingroom_ble_temperature') }} °F
+              Living {{ states('sensor.livingroom_ble_temperature') }} °F
             icon: mdi:sofa
             icon_color: |-
               {% if states('sensor.livingroom_ble_temperature') | float >= 70 %}
@@ -76,7 +76,7 @@ cards:
               action: more-info
             entity: sensor.workroom_ble_temperature
             content: |-
-              {{ states('sensor.workroom_ble_temperature') }} °F
+              Office {{ states('sensor.workroom_ble_temperature') }} °F
             icon: mdi:chair-rolling
             icon_color: |-
               {% if states('sensor.workroom_ble_temperature') | float >= 70 %}
@@ -125,11 +125,11 @@ cards:
             tap_action:
               action: more-info
             content: |-
-              {{ states('sensor.pogu_nas_cpu_utilization_total_2') }}%
-            entity: sensor.pogu_nas_cpu_utilization_total_2
+              {{ states('sensor.pogu_nas_cpu_utilization_total') }}%
+            entity: sensor.pogu_nas_cpu_utilization_total
             icon: mdi:cpu-64-bit
             icon_color: |-
-              {% if states('sensor.pogu_nas_cpu_utilization_total_2') | float >= 70 %}
+              {% if states('sensor.pogu_nas_cpu_utilization_total') | float >= 70 %}
                 red
               {% else %}
                 green
@@ -871,11 +871,12 @@ cards:
     #     tap_action:
     #       action: toggle
 
-    - type: custom:mushroom-title-card
-      title: Climate
-      subtitle: Living Room
     - type: horizontal-stack
       cards:
+      - type: custom:mushroom-humidifier-card
+        entity: humidifier.bedroom_humidifier
+        name: Bedroom Humidifier
+        show_target_humidity_control: true
       - type: custom:mushroom-climate-card
         entity: climate.living_room
         hvac_modes:

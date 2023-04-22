@@ -82,47 +82,18 @@ cards:
             entity: device_tracker.pixel_7_tracker
 
         - type: custom:mushroom-title-card
-          title: Habitica
-        - type: horizontal-stack
-          cards:
-            - type: "custom:auto-entities"
-              card:
-                type: "grid"
-                columns: 2
-                square: false
-              card_param: "cards"
-              filter:
-                include:
-                  - domain: "sensor"
-                    entity_id: "sensor.*habitica*"
-                    options:
-                      # type: custom:mushroom-entity-card
-                      # entity: this.entity_id
-                      # layout: Vertical
-                      type: custom:mushroom-template-card
-                      entity: this.entity_id
-                      icon: '{{ state_attr(entity, ''icon'')}}'
-                      multiline_secondary: false
-                      tap_action:
-                        action: more-info
-                      primary: '{{ state_attr(entity, "friendly_name") | replace("habitica_vkp7_", "") }}'
-                      secondary: '{{ states(entity) }}'
-                      icon_color: green
-                exclude:
-                  - state: unavailable
-                  - name: "*name*"
-
-        - type: custom:mushroom-title-card
-          title: HP Printer
+          title: Printer
         - type: horizontal-stack
           cards:
           - type: 'custom:button-card'
             template: custom_card_mpse_printer
-            entity: sensor.hp_envy_photo_6200_series
+            entity: sensor.canon_g3060_series
             variables:
-              ulm_card_printer_name: HP Color Laser MFP 178nw
-              ulm_card_printer_black_name: sensor.hp_envy_photo_6200_series_black_ink
-              ulm_card_printer_cyan_name: sensor.hp_envy_photo_6200_series_tri_color_ink
+              ulm_card_printer_name: Canon G3060 series
+              ulm_card_printer_black_name: sensor.canon_g3060_series_black_pgbk
+              ulm_card_printer_yellow_name: sensor.canon_g3060_series_yellow
+              ulm_card_printer_cyan_name: sensor.canon_g3060_series_cyan
+              ulm_card_printer_magenta_name: sensor.canon_g3060_series_magenta
 
         - type: custom:mushroom-title-card
           title: Internet Speed
