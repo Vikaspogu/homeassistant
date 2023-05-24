@@ -181,7 +181,7 @@ cards:
                       filter:
                         include:
                           - domain: "sensor"
-                            entity_id: "sensor.*ble_temperature"
+                            entity_id: "sensor.*temperature"
                             options:
                               type: custom:stack-in-card
                               cards:
@@ -222,6 +222,9 @@ cards:
                                       color: '#f44336'
                         exclude:
                           - state: unavailable
+                          - entity_id: "*nas*"
+                          - name: "*Motion*"
+                          - name: "*Pixel*"
 
                 ## illuminance Sensor ###################################################################################################################
                 - type: custom:mushroom-title-card
@@ -327,53 +330,6 @@ cards:
                                       color: '#4cd964'
                                     - value: 70
                                       color: '#007aff'
-                          - domain: "sensor"
-                            entity_id: "sensor.*air_quality*"
-                            options:
-                              type: custom:stack-in-card
-                              cards:
-                                - type: custom:mushroom-template-card
-                                  primary: '{{ state_attr(entity, ''friendly_name'') }}'
-                                  secondary: '{{ states(entity) }} μg/m³'
-                                  icon: "mdi:weather-fog"
-                                  tap_action:
-                                    action: more-info
-                                  icon_color: |-
-                                    {% if is_state(entity, 'unknown') %}
-                                      disabled
-                                    {% elif states(entity) | float >= 101 %}
-                                      yellow
-                                    {% elif states(entity) | float >= 151 %}
-                                      orange
-                                    {% elif states(entity) | float >= 351 %}
-                                      red
-                                    {% else %}
-                                      green
-                                    {% endif %}
-                                  entity: this.entity_id
-                                - type: custom:mini-graph-card
-                                  entities:
-                                    - entity: this.entity_id
-                                      state_adaptive_color: true
-                                  font_size: 75
-                                  font_size_header: 10
-                                  show:
-                                    icon: false
-                                    name: false
-                                    extrema: true
-                                    name_adaptive_color: true
-                                    icon_adaptive_color: true
-                                  color_thresholds:
-                                    - value: 0
-                                      color: '#4cd964'
-                                    - value: 101
-                                      color: '#FFFF00'
-                                    - value: 151
-                                      color: '#FFA500'
-                                    - value: 351
-                                      color: '#FF0000'
-                        exclude:
-                          - state: unavailable
 
             Battery:
               type: "vertical-stack"

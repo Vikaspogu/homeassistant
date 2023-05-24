@@ -195,17 +195,3 @@
    state_topic: "teslamate/cars/1/time_to_full_charge"
    unit_of_measurement: h
    icon: mdi:clock-outline
-
- - state_topic: "sds011-mqtt/air-quality/k8s-3-hp-4590t"
-   unit_of_measurement: "μg/m³"
-   icon: "mdi:weather-fog"
-   value_template: '{{value_json.PM10 | float}}'
-   name: 'Office Air Quality PM 10'
-   object_id: 'office_air_quality_pm_10'
-
- - state_topic: "sds011-mqtt/air-quality/k8s-3-hp-4590t"
-   unit_of_measurement: "μg/m³"
-   icon: "mdi:weather-fog"
-   value_template: '{{value_json.PM25 | float}}'
-   name: 'Office Air Quality PM 2.5'
-   object_id: 'office_air_quality_pm_2.5'

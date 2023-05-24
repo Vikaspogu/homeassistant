@@ -37,30 +37,6 @@ template:
           ] %}
       {{ covers | selectattr('state','eq','open') | list | count }}
 
-  - unique_id: ble_temperature_bed_room
-    icon: mdi:thermometer
-    name : "Bed Room Temp F"
-    state: >
-      {% set t = states('sensor.ble_temperature_bed_room_2') | float(0) %}
-      {{((t)*9/5)+32}}
-    unit_of_measurement: "F"
-
-  - unique_id: ble_temperature_work_room
-    icon: mdi:thermometer
-    name : "Work Room Temp F"
-    state: >
-      {% set t = states('sensor.ble_temperature_work_room_2') | float(0) %}
-      {{((t)*9/5)+32}}
-    unit_of_measurement: "F"
-
-  - unique_id: ble_temperature_living_room
-    icon: mdi:thermometer
-    name : "Living Room Temp F"
-    state: >
-      {% set t = states('sensor.ble_temperature_living_room_2') | float(0) %}
-      {{((t)*9/5)+32}}
-    unit_of_measurement: "F"
-
   - unique_id: outside_temperature
     icon: mdi:thermometer
     name : "Outside Temperature"
@@ -71,9 +47,14 @@ template:
     name : "Presence Distance"
     state: "{{ states.sensor.pixel_7_room_presence.attributes.distance }}"
 
-  - unique_id: thermostat_current_temperature
+  - unique_id: thermostat_desired_temperature
     icon: mdi:thermometer
-    name : "Thermostat current temperature"
+    name : "Thermostat desired temperature"
+    state: "{{ states.climate.living_room.attributes.temperature }}"
+
+  - unique_id: living_room_temperature
+    icon: mdi:thermometer
+    name : "Living room temperature"
     state: "{{ states.climate.living_room.attributes.current_temperature }}"
 
   - unique_id: thermostat_eco_mode

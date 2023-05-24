@@ -40,18 +40,18 @@ cards:
             content: |-
               {{ states('climate.living_room') }}
               • 
-              {{ states('sensor.thermostat_current_temperature') }}
+              {{ states('sensor.thermostat_desired_temperature') }}
           - type: template
             tap_action:
               action: more-info
-            entity: sensor.bedroom_ble_temperature
+            entity: sensor.bedroom_temperature
             content: |-
-              Bedroom {{ states('sensor.bedroom_ble_temperature') }} °F
+              Bedroom {{ states('sensor.bedroom_temperature') }} °F
             icon: mdi:bed-king
             icon_color: |-
-              {% if states('sensor.bedroom_ble_temperature') | float >= 70 %}
+              {% if states('sensor.bedroom_temperature') | float >= 70 %}
                 red
-              {% elif states('sensor.bedroom_ble_temperature') | float >= 50 %}
+              {% elif states('sensor.bedroom_temperature') | float >= 50 %}
                 blue
               {% else %}
                 grey
@@ -59,14 +59,14 @@ cards:
           - type: template
             tap_action:
               action: more-info
-            entity: sensor.livingroom_ble_temperature
+            entity: sensor.living_room_temperature
             content: |-
-              Living {{ states('sensor.livingroom_ble_temperature') }} °F
+              Living {{ states('sensor.living_room_temperature') }} °F
             icon: mdi:sofa
             icon_color: |-
-              {% if states('sensor.livingroom_ble_temperature') | float >= 70 %}
+              {% if states('sensor.living_room_temperature') | float >= 70 %}
                 red
-              {% elif states('sensor.livingroom_ble_temperature') | float >= 50 %}
+              {% elif states('sensor.living_room_temperature') | float >= 50 %}
                 blue
               {% else %}
                 grey
@@ -74,14 +74,14 @@ cards:
           - type: template
             tap_action:
               action: more-info
-            entity: sensor.workroom_ble_temperature
+            entity: sensor.office_area_temperature
             content: |-
-              Office {{ states('sensor.workroom_ble_temperature') }} °F
+              Office {{ states('sensor.office_area_temperature') }} °F
             icon: mdi:chair-rolling
             icon_color: |-
-              {% if states('sensor.workroom_ble_temperature') | float >= 70 %}
+              {% if states('sensor.office_area_temperature') | float >= 70 %}
                 red
-              {% elif states('sensor.workroom_ble_temperature') | float >= 50 %}
+              {% elif states('sensor.office_area_temperature') | float >= 50 %}
                 blue
               {% else %}
                 grey
@@ -469,9 +469,9 @@ cards:
               {% endif %}
             multiline_secondary: false
             secondary: >-
-              {{ states('sensor.workroom_ble_temperature') }}°F
+              {{ states('sensor.office_area_temperature') }}°F
               • 
-              {{ states('sensor.workroom_ble_humidity') }}
+              {{ states('sensor.office_area_humidity') }}
             tap_action:
               action: navigate
               navigation_path: /lovelace/rooms
@@ -552,9 +552,9 @@ cards:
             layout: horizontal
             multiline_secondary: false
             secondary: >-
-              {{ states('sensor.bedroom_ble_temperature') }}°F
+              {{ states('sensor.bedroom_temperature') }}°F
               • 
-              {{ states('sensor.bedroom_ble_humidity') }}
+              {{ states('sensor.bedroom_humidity') }}
             tap_action:
               action: navigate
               navigation_path: /lovelace/rooms
@@ -742,9 +742,7 @@ cards:
               {% endif %}
             multiline_secondary: false
             secondary: >-
-              {{ states('sensor.livingroom_ble_temperature') }}°F
-              • 
-              {{ states('sensor.livingroom_ble_humidity') }}
+              {{ states('sensor.living_room_temperature') }}°F
             tap_action:
               action: navigate
               navigation_path: /lovelace/rooms
@@ -947,23 +945,17 @@ cards:
         commands: ["start_pause", "stop", "locate", "return_home"]
         icon_animation: true
 
-    - type: horizontal-stack
-      cards:
-        - type: 'custom:weather-radar-card'
-          frame_count: 144
-          frame_delay: 100
-          marker_latitude: !secret homeassistant_latitude
-          marker_longitude: !secret homeassistant_longitude
-          show_marker: true
-          show_range: true
-          show_zoom: true
-          show_recenter: true
-          show_playback: true
-          zoom_level: 8
+    # - type: horizontal-stack
+    #   cards:
+    #     - type: 'custom:weather-radar-card'
+    #       frame_count: 144
+    #       frame_delay: 100
+    #       marker_latitude: !secret homeassistant_latitude
+    #       marker_longitude: !secret homeassistant_longitude
+    #       show_marker: true
+    #       show_range: true
+    #       show_zoom: true
+    #       show_recenter: true
+    #       show_playback: true
+    #       zoom_level: 8
 
-    - type: horizontal-stack
-      cards:
-      - type: custom:button-card
-        template: custom_card_httpedo13_sun
-        variables:
-          language: 'en'

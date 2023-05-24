@@ -79,7 +79,7 @@ minimalist-desktop-custom:
       mini-media-player-accent-color: "var(--google-blue)"
 
       # Fonts
-      primary-font-family: '"Open Sans",sans-serif'
+      primary-font-family: '"Lato",sans-serif'
       paper-font-common-base_-_font-family: "var(--primary-font-family)"
       paper-font-common-code_-_font-family: "var(--primary-font-family)"
       paper-font-body1_-_font-family: "var(--primary-font-family)"
@@ -170,7 +170,7 @@ minimalist-desktop-custom:
       state-icon-color: "rgb(var(--color-theme))"
 
       # Fonts
-      primary-font-family: '"Open Sans",sans-serif'
+      primary-font-family: '"Lato",sans-serif'
       primary-font-weight: "Normal"
       paper-font-common-base_-_font-family: "var(--primary-font-family)"
       paper-font-common-code_-_font-family: "var(--primary-font-family)"

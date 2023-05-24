@@ -19,8 +19,8 @@ minimalist-mobile-custom:
       display: none;
     }
     #view {
-      margin: 0 !important;
-      height: 100% !important;
+      padding: 0 !important;
+      height: 100vh !important;
     }
   card-mod-view-yaml: |
     "*:first-child$": |
@@ -85,7 +85,7 @@ minimalist-mobile-custom:
       # media player
       mini-media-player-accent-color: "var(--google-blue)"
        # Fonts
-      primary-font-family: '"Open Sans",sans-serif'
+      primary-font-family: '"Lato",sans-serif'
       paper-font-common-base_-_font-family: "var(--primary-font-family)"
       paper-font-common-code_-_font-family: "var(--primary-font-family)"
       paper-font-body1_-_font-family: "var(--primary-font-family)"
@@ -175,7 +175,7 @@ minimalist-mobile-custom:
       # Journal
       state-icon-color: "rgb(var(--color-theme))"
        # Fonts
-      primary-font-family: "'Open Sans', sans-serif"
+      primary-font-family: "'Lato', sans-serif"
       primary-font-weight: "Normal"
       paper-font-common-base_-_font-family: "var(--primary-font-family)"
       paper-font-common-code_-_font-family: "var(--primary-font-family)"
