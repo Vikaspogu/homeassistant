@@ -30,391 +30,16 @@ cards:
           tap_action:
             action: navigate
             navigation_path: /lovelace/nas
-        - type: action
-          icon_color: grey
-          icon: mdi:cog
-          tap_action:
-            action: navigate
-            navigation_path: /lovelace/system
 
-    - type: custom:mushroom-title-card
-      title: Menu
-      subtitle: Select button below
     - type: horizontal-stack
       cards:
-      - type: 'custom:button-card'
-        template: card_vertical_button
-        entity: input_select.room_mode
-        name: Main
-        icon: mdi:light-switch
-        variables:
-          ulm_card_vertical_button_state: Main
-          ulm_card_vertical_button_color: green
-      - type: 'custom:button-card'
-        template: card_vertical_button
-        entity: input_select.room_mode
-        name: Temperature
-        icon: mdi:thermometer
-        variables:
-          ulm_card_vertical_button_state: Temperature
-          ulm_card_vertical_button_color: green
-      - type: 'custom:button-card'
-        template: card_vertical_button
-        entity: input_select.room_mode
-        name: Battery
-        icon: mdi:battery
-        variables:
-          ulm_card_vertical_button_state: Battery
-          ulm_card_vertical_button_color: green
-      - type: 'custom:button-card'
-        template: card_vertical_button
-        entity: input_select.room_mode
-        name: TV
-        icon: mdi:remote-tv
-        variables:
-          ulm_card_vertical_button_state: TV
-          ulm_card_vertical_button_color: green
-    
-    - type: horizontal-stack
-      cards:
-        - type: custom:state-switch
-          entity: input_select.room_mode
-          default: Main
-          states:
-            Main:
-              type: "vertical-stack"
+        - type: "vertical-stack"
+          cards:
+            ## LG TV ###################################################################################################################
+            - type: "vertical-stack"
               cards:
-                ## Lights ###################################################################################################################
                 - type: custom:mushroom-title-card
-                  title: Lights
-                - type: "custom:auto-entities"
-                  card:
-                    type: "grid"
-                    columns: 2
-                    square: false
-                  card_param: "cards"
-                  sort:
-                    method: last-changed
-                  filter:
-                    include:
-                      - domain: "light"
-                        entity_id: "light.*_group"
-                        options:
-                          type: custom:mushroom-light-card
-                          entity: "this.entity_id"
-                          show_brightness_control: true
-                          show_color_temp_control: true
-                          show_color_control: true
-                          use_light_color: true
-                      - entity_id: "light.tv_h6199"
-                        options:
-                          type: custom:mushroom-light-card
-                          entity: "this.entity_id"
-                          show_brightness_control: true
-                          show_color_temp_control: true
-                          show_color_control: true
-                          use_light_color: true
-                          icon: mdi:led-strip-variant
-                ## Curtains/Blinds #############################################################################
-                - type: custom:mushroom-title-card
-                  title: Covers
-                - type: horizontal-stack
-                  cards:
-                    - type: "custom:auto-entities"
-                      card:
-                        type: "grid"
-                        columns: 2
-                        square: false
-                      card_param: "cards"
-                      sort:
-                        method: last-changed
-                      filter:
-                        include:
-                        - domain: cover
-                          options:
-                            type: custom:mushroom-cover-card
-                            entity: this.entity_id
-                            show_buttons_control: true
-                            show_tilt_position_control: true
-
-                ## Switches #############################################################################
-                - type: custom:mushroom-title-card
-                  title: Switches
-                - type: horizontal-stack
-                  cards:
-                    - type: "custom:auto-entities"
-                      card:
-                        type: "grid"
-                        columns: 2
-                        square: false
-                      card_param: "cards"
-                      sort:
-                        method: last-changed
-                      filter:
-                        include:
-                          - domain: "switch"
-                            options:
-                              type: custom:mushroom-entity-card
-                              entity: "this.entity_id"
-                              secondary_info: last-changed
-                              tap_action:
-                                action: toggle
-                        exclude:
-                          - state: unavailable
-                          - name: "*led"
-            Temperature:
-              type: "vertical-stack"
-              cards:
-                ## Temperature Sensor ###################################################################################################################
-                - type: custom:mushroom-title-card
-                  title: Temperature
-                - type: horizontal-stack
-                  cards:
-                    - type: "custom:auto-entities"
-                      card:
-                        type: "grid"
-                        columns: 2
-                        square: false
-                      card_param: "cards"
-                      sort:
-                        method: last-changed
-                      filter:
-                        include:
-                          - domain: "sensor"
-                            entity_id: "sensor.*temperature"
-                            options:
-                              type: custom:stack-in-card
-                              cards:
-                                - type: custom:mushroom-template-card
-                                  primary: '{{ state_attr(entity, ''friendly_name'') | regex_replace(find=''Temperature'', replace='''', ignorecase=False) }}'
-                                  icon: mdi:thermometer
-                                  tap_action:
-                                    action: more-info
-                                  icon_color: |-
-                                    {% if is_state(entity, 'unknown') %}
-                                        
-                                    {% elif states(entity) | float >= 70 %}
-                                      red
-                                    {% elif states(entity) | float >= 50 %}
-                                      green
-                                    {% else %}
-                                      blue
-                                    {% endif %}
-                                  entity: this.entity_id
-                                - type: custom:mini-graph-card
-                                  entities:
-                                    - entity: this.entity_id
-                                      state_adaptive_color: true
-                                  font_size: 75
-                                  font_size_header: 10
-                                  show:
-                                    icon: false
-                                    name: false
-                                    extrema: true
-                                    name_adaptive_color: true
-                                    icon_adaptive_color: true
-                                  color_thresholds:
-                                    - value: 0
-                                      color: '#3B4EFF'
-                                    - value: 50
-                                      color: '#47a04b'
-                                    - value: 70
-                                      color: '#f44336'
-                        exclude:
-                          - state: unavailable
-                          - entity_id: "*nas*"
-                          - name: "*Motion*"
-                          - name: "*Pixel*"
-
-                ## illuminance Sensor ###################################################################################################################
-                - type: custom:mushroom-title-card
-                  title: Illuminance
-                - type: horizontal-stack
-                  cards:
-                    - type: "custom:auto-entities"
-                      card:
-                        type: "grid"
-                        columns: 2
-                        square: false
-                      card_param: "cards"
-                      sort:
-                        method: last-changed
-                      filter:
-                        include:
-                          - domain: "sensor"
-                            entity_id: "sensor.*illuminance_lux"
-                            options:
-                              type: custom:stack-in-card
-                              cards:
-                                - type: custom:mushroom-template-card
-                                  primary: '{{ state_attr(entity, ''friendly_name'') | regex_replace(find=''illuminance lux'', replace='''', ignorecase=False)}}'
-                                  icon: mdi:weather-sunny
-                                  tap_action:
-                                    action: more-info
-                                  icon_color: amber
-                                  entity: this.entity_id
-                                - type: custom:mini-graph-card
-                                  entities:
-                                    - entity: this.entity_id
-                                      state_adaptive_color: true
-                                  font_size: 75
-                                  font_size_header: 10
-                                  show:
-                                    icon: false
-                                    name: false
-                                    extrema: true
-                                    name_adaptive_color: true
-                                    icon_adaptive_color: true
-                                  color_thresholds:
-                                    - value: 0
-                                      color: '#FFD966'
-                                    - value: 50
-                                      color: '#4cd964'
-                                    - value: 70
-                                      color: '#007aff'
-                        exclude:
-                          - state: unavailable
-
-                ## Humidity Sensor ###################################################################################################################
-                - type: custom:mushroom-title-card
-                  title: Humidity
-                - type: horizontal-stack
-                  cards:
-                    - type: "custom:auto-entities"
-                      card:
-                        type: "grid"
-                        columns: 2
-                        square: false
-                      card_param: "cards"
-                      sort:
-                        method: last-changed
-                      filter:
-                        include:
-                          - domain: "sensor"
-                            entity_id: "sensor.*humidity*"
-                            options:
-                              type: custom:stack-in-card
-                              cards:
-                                - type: custom:mushroom-template-card
-                                  primary: '{{ state_attr(entity, ''friendly_name'') | regex_replace(find=''Humidity'', replace='''', ignorecase=False)}}'
-                                  icon: mdi:water-percent
-                                  tap_action:
-                                    action: more-info
-                                  icon_color: |-
-                                    {% if is_state(entity, 'unknown') %}
-                                      disabled
-                                    {% elif states(entity) | float >= 70 %}
-                                      blue
-                                    {% elif states(entity) | float >= 50 %}
-                                      green
-                                    {% else %}
-                                      red
-                                    {% endif %}
-                                  entity: this.entity_id
-                                - type: custom:mini-graph-card
-                                  entities:
-                                    - entity: this.entity_id
-                                      state_adaptive_color: true
-                                  font_size: 75
-                                  font_size_header: 10
-                                  show:
-                                    icon: false
-                                    name: false
-                                    extrema: true
-                                    name_adaptive_color: true
-                                    icon_adaptive_color: true
-                                  color_thresholds:
-                                    - value: 0
-                                      color: '#ff3b30'
-                                    - value: 50
-                                      color: '#4cd964'
-                                    - value: 70
-                                      color: '#007aff'
-
-            Battery:
-              type: "vertical-stack"
-              cards:
-                ## Battery ###################################################################################################################
-                - type: custom:mushroom-title-card
-                  title: Battery
-                - type: horizontal-stack
-                  cards:
-                  - type: "custom:auto-entities"
-                    card:
-                      type: "grid"
-                      columns: 2
-                      square: false
-                    card_param: "cards"
-                    sort:
-                      method: last-changed
-                    filter:
-                      include:
-                        - attributes:
-                            unit_of_measurement: "%"
-                            device_class: "battery"
-                          options:
-                            type: custom:mushroom-template-card
-                            primary: '{{ state_attr(entity, ''friendly_name'') | regex_replace(find=''Battery'', replace='''', ignorecase=True) }}'
-                            secondary: |-
-                              {{ states(entity) }}
-                            entity: this.entity_id
-                            icon: mdi:battery
-                            tap_action:
-                              action: more-info
-                            icon_color: >-
-                              {% set value=states(entity)|int %}
-                              {% if (value >= 75) %}
-                                green
-                              {% elif (value >= 65) %}
-                                light-green
-                              {% elif (value >= 55) %}
-                                lime
-                              {% elif (value >= 45) %}
-                                yellow
-                              {% elif (value >= 35) %}
-                                amber
-                              {% elif (value >= 25) %}
-                                orange
-                              {% elif (value >= 15) %}
-                                deep-orange
-                              {% else %}
-                                red
-                              {% endif %}
-                      exclude:
-                        - state: unavailable
-                        - entity_id: "*tesla*"
-                        - name: "*Pixel*"
-
-                ## Motion ###################################################################################################################
-                - type: custom:mushroom-title-card
-                  title: Motion
-                - type: horizontal-stack
-                  cards:
-                  - type: "custom:auto-entities"
-                    card:
-                      type: "grid"
-                      columns: 2
-                      square: false
-                    card_param: "cards"
-                    sort:
-                      method: last-changed
-                    filter:
-                      include:
-                        - entity_id: "binary_sensor.*occupancy"
-                          options:
-                            type: custom:mushroom-entity-card
-                            secondary_info: last-changed
-                            entity: this.entity_id
-                      exclude:
-                        - state: unavailable
-
-            TV:
-              type: "vertical-stack"
-              cards:
-                ## LG TV ###################################################################################################################
-                - type: custom:mushroom-title-card
-                  title: TV Remote
-                  subtitle: LG Bedroom
+                  title: LG TV Remote
                 - type: horizontal-stack
                   cards:
                     - type: custom:fold-entity-row
@@ -422,7 +47,7 @@ cards:
                         type: section
                         label: TV
                         icon: 'si:lg'
-                      open: true
+                      open: false
                       clickable: true
                       entities:
                       - type: 'custom:lg-remote-control'
@@ -435,3 +60,230 @@ cards:
                           name: "Amazon Prime Video"
                         - icon: 'mdi:hulu'
                           name: "Hulu"
+
+            ## Lights ###################################################################################################################
+            - type: custom:mushroom-title-card
+              title: Lights
+            - type: horizontal-stack
+              cards:
+                - type: custom:mushroom-light-card
+                  entity: "light.kitchen_lights_group"
+                  show_brightness_control: true
+                  show_color_temp_control: true
+                  use_light_color: true
+                  name: 'Kitchen'
+                - type: custom:mushroom-light-card
+                  entity: "light.living_room_dining_group"
+                  show_brightness_control: true
+                  show_color_temp_control: true
+                  use_light_color: true
+                  name: 'Living room'
+            - type: horizontal-stack
+              cards:
+                - type: custom:mushroom-light-card
+                  entity: "light.office_ceiling_lights_group"
+                  show_brightness_control: true
+                  show_color_temp_control: true
+                  use_light_color: true
+                  name: 'Office'
+                - type: custom:mushroom-light-card
+                  entity: "light.landing_lights_group"
+                  show_brightness_control: true
+                  show_color_temp_control: true
+                  use_light_color: true
+                  name: 'Landing'
+
+            ## Curtains/Blinds #############################################################################
+            - type: custom:mushroom-title-card
+              title: Covers
+            - type: horizontal-stack
+              cards:
+                - type: custom:mushroom-cover-card
+                  entity: cover.bedroom_blinds
+                  show_tilt_position_control: true
+                - type: custom:mushroom-cover-card
+                  entity: cover.bedroom
+                  show_position_control: true
+            - type: horizontal-stack
+              cards:
+                - type: custom:mushroom-cover-card
+                  entity: cover.spare_bedroom_curtain
+                  show_position_control: true
+                - type: custom:mushroom-cover-card
+                  entity: cover.curtain_living_room
+                  show_position_control: true
+            - type: horizontal-stack
+              cards:
+                - type: 'custom:button-card'
+                  template: card_power_outlet
+                  variables:
+                    ulm_card_power_outlet_name: Aquarium Lights
+                  entity: switch.aquarium_lights
+                - type: 'custom:button-card'
+                  template: card_power_outlet
+                  variables:
+                    ulm_card_power_outlet_name: Aquarium Filter
+                  entity: switch.aquarium_filter
+
+            ## Temperature Sensor ###################################################################################################################
+            - type: custom:mushroom-title-card
+              title: Temperature
+            - type: horizontal-stack
+              cards:
+                - type: custom:stack-in-card
+                  cards:
+                    - type: custom:mushroom-template-card
+                      primary: "Bedroom"
+                      icon: mdi:thermometer
+                      tap_action:
+                        action: more-info
+                      icon_color: |-
+                        {% if is_state(entity, 'unknown') %}
+                            
+                        {% elif states(entity) | float >= 75 %}
+                          red
+                        {% elif states(entity) | float >= 68 %}
+                          green
+                        {% elif states(entity) | float >= 50 %}
+                          blue
+                        {% endif %}
+                      entity: sensor.bedroom_temperature
+                    - type: custom:mini-graph-card
+                      entities:
+                        - entity: sensor.bedroom_temperature
+                          state_adaptive_color: true
+                      font_size: 75
+                      font_size_header: 10
+                      hours_to_show: 12
+                      show:
+                        icon: false
+                        name: false
+                        extrema: true
+                        name_adaptive_color: true
+                        icon_adaptive_color: true
+                      color_thresholds:
+                        - value: 50
+                          color: '#3B4EFF'
+                        - value: 68
+                          color: '#47a04b'
+                        - value: 75
+                          color: '#f44336'
+                - type: custom:stack-in-card
+                  cards:
+                    - type: custom:mushroom-template-card
+                      primary: "Office area"
+                      icon: mdi:thermometer
+                      tap_action:
+                        action: more-info
+                      icon_color: |-
+                        {% if is_state(entity, 'unknown') %}
+                            
+                        {% elif states(entity) | float >= 75 %}
+                          red
+                        {% elif states(entity) | float >= 68 %}
+                          green
+                        {% elif states(entity) | float >= 50 %}
+                          blue
+                        {% endif %}
+                      entity: sensor.office_area_temperature
+                    - type: custom:mini-graph-card
+                      entities:
+                        - entity: sensor.office_area_temperature
+                          state_adaptive_color: true
+                      font_size: 75
+                      font_size_header: 10
+                      hours_to_show: 12
+                      show:
+                        icon: false
+                        name: false
+                        extrema: true
+                        name_adaptive_color: true
+                        icon_adaptive_color: true
+                      color_thresholds:
+                        - value: 50
+                          color: '#3B4EFF'
+                        - value: 68
+                          color: '#47a04b'
+                        - value: 75
+                          color: '#f44336'
+
+            ## Humidity Sensor ###################################################################################################################
+            - type: custom:mushroom-title-card
+              title: Humidity
+            - type: horizontal-stack
+              cards:
+                - type: custom:stack-in-card
+                  cards:
+                    - type: custom:mushroom-template-card
+                      primary: 'Bedroom Humidity'
+                      icon: mdi:water-percent
+                      tap_action:
+                        action: more-info
+                      icon_color: |-
+                        {% if is_state(entity, 'unknown') %}
+                          disabled
+                        {% elif states(entity) | float >= 60 %}
+                          blue
+                        {% elif states(entity) | float >= 40 %}
+                          green
+                        {% else %}
+                          red
+                        {% endif %}
+                      entity: sensor.bedroom_humidity
+                    - type: custom:mini-graph-card
+                      entities:
+                        - entity: sensor.bedroom_humidity
+                          state_adaptive_color: true
+                      font_size: 75
+                      font_size_header: 10
+                      show:
+                        icon: false
+                        name: false
+                        extrema: true
+                        name_adaptive_color: true
+                        icon_adaptive_color: true
+                      color_thresholds:
+                        - value: 0
+                          color: '#ff3b30'
+                        - value: 40
+                          color: '#4cd964'
+                        - value: 60
+                          color: '#007aff'
+                - type: custom:stack-in-card
+                  cards:
+                    - type: custom:mushroom-template-card
+                      primary: 'Current Humidity Humidifier'
+                      icon: mdi:water-percent
+                      tap_action:
+                        action: more-info
+                      icon_color: |-
+                        {% if is_state(entity, 'unknown') %}
+                          disabled
+                        {% elif states(entity) | float >= 60 %}
+                          blue
+                        {% elif states(entity) | float >= 40 %}
+                          green
+                        {% else %}
+                          red
+                        {% endif %}
+                      entity: sensor.bedroom_humidifier_current_humidity
+                    - type: custom:mini-graph-card
+                      entities:
+                        - entity: sensor.bedroom_humidifier_current_humidity
+                          state_adaptive_color: true
+                      font_size: 75
+                      font_size_header: 10
+                      show:
+                        icon: false
+                        name: false
+                        extrema: true
+                        name_adaptive_color: true
+                        icon_adaptive_color: true
+                      color_thresholds:
+                        - value: 0
+                          color: '#ff3b30'
+                        - value: 40
+                          color: '#4cd964'
+                        - value: 60
+                          color: '#007aff'
+      

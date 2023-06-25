@@ -30,12 +30,6 @@ cards:
           tap_action:
             action: navigate
             navigation_path: /lovelace/tesla
-        - type: action
-          icon_color: grey
-          icon: mdi:cog
-          tap_action:
-            action: navigate
-            navigation_path: /lovelace/system
 
     - type: vertical-stack
       cards:

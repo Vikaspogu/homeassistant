@@ -10,3 +10,12 @@ input_boolean:
   welcome_scene_collapse:
     name: Welcome Scene State
     initial: false
+
+  run_wakeup_script:
+    name: Wakeup script
+
+  run_goodnight_script:
+    name: Goodnight script
+
+  office_room_motion:
+    name: Office Room Motion

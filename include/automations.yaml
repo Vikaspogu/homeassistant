@@ -126,46 +126,6 @@ automation:
         entity_id: cover.garage_door
     id: 3d9513db194f4f44b8310e57949968d1
 
-  - alias: Set timer if teslamate reports something is open to alert us
-    initial_state: on
-    trigger:
-      - platform: mqtt
-        topic: teslamate/cars/1/windows_open
-        payload: "true"
-      - platform: mqtt
-        topic: teslamate/cars/1/doors_open
-        payload: "true"
-      - platform: mqtt
-        topic: teslamate/cars/1/trunk_open
-        payload: "true"
-      - platform: mqtt
-        topic: teslamate/cars/1/frunk_open
-        payload: "true"
-    action:
-      - service: script.turn_on
-        data_template:
-          entity_id: script.notify_tesla_{{trigger.topic.split('/')[3]}}
-
-  - alias: Cancel notification if said door/window is closed
-    initial_state: on
-    trigger:
-      - platform: mqtt
-        topic: teslamate/cars/1/windows_open
-        payload: "false"
-      - platform: mqtt
-        topic: teslamate/cars/1/doors_open
-        payload: "false"
-      - platform: mqtt
-        topic: teslamate/cars/1/trunk_open
-        payload: "false"
-      - platform: mqtt
-        topic: teslamate/cars/1/frunk_open
-        payload: "false"
-    action:
-      - service: script.turn_off
-        data_template:
-          entity_id: script.notify_tesla_{{trigger.topic.split('/')[3]}}
-
   - id: vacuum_notifications
     alias: Vacuum Notifications
     trigger:

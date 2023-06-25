@@ -18,7 +18,7 @@ homeassistant:
 
 recorder:
   db_url: !secret postgresqlDB
-  purge_keep_days: 7
+  purge_keep_days: 3
 
 # Text to speech
 tts:

@@ -27,66 +27,6 @@ cards:
             icon: mdi:weather-cloudy-clock
             icon_color: amber
           - type: template
-            entitiy: climate.living_room
-            icon: mdi:thermostat
-            icon_color:  |-
-              {% if is_state('climate.living_room', 'heat') %}
-                red
-              {% elif is_state('climate.living_room', 'cool') %}
-                blue
-              {% else %}
-                grey
-              {% endif %}
-            content: |-
-              {{ states('climate.living_room') }}
-              • 
-              {{ states('sensor.thermostat_desired_temperature') }}
-          - type: template
-            tap_action:
-              action: more-info
-            entity: sensor.bedroom_temperature
-            content: |-
-              Bedroom {{ states('sensor.bedroom_temperature') }} °F
-            icon: mdi:bed-king
-            icon_color: |-
-              {% if states('sensor.bedroom_temperature') | float >= 70 %}
-                red
-              {% elif states('sensor.bedroom_temperature') | float >= 50 %}
-                blue
-              {% else %}
-                grey
-              {% endif %}
-          - type: template
-            tap_action:
-              action: more-info
-            entity: sensor.living_room_temperature
-            content: |-
-              Living {{ states('sensor.living_room_temperature') }} °F
-            icon: mdi:sofa
-            icon_color: |-
-              {% if states('sensor.living_room_temperature') | float >= 70 %}
-                red
-              {% elif states('sensor.living_room_temperature') | float >= 50 %}
-                blue
-              {% else %}
-                grey
-              {% endif %}
-          - type: template
-            tap_action:
-              action: more-info
-            entity: sensor.office_area_temperature
-            content: |-
-              Office {{ states('sensor.office_area_temperature') }} °F
-            icon: mdi:chair-rolling
-            icon_color: |-
-              {% if states('sensor.office_area_temperature') | float >= 70 %}
-                red
-              {% elif states('sensor.office_area_temperature') | float >= 50 %}
-                blue
-              {% else %}
-                grey
-              {% endif %}
-          - type: template
             entity: binary_sensor.pogu_nas_security_status_2
             tap_action:
               action: more-info
@@ -334,25 +274,6 @@ cards:
     - type: horizontal-stack
       cards:
       - type: custom:mushroom-template-card
-        icon: mdi:lightbulb-on
-        icon_color: orange
-        layout: vertical
-        tap_action:
-          action: call-service
-          service: script.navigate_to_lights
-        primary: Rooms
-        card_mod:
-          style:
-            mushroom-shape-icon$: |
-              ha-icon {
-                --icon-animation: eureka 1.8s infinite;
-              }
-              @keyframes eureka {
-                0%, 45%, 55%, 100% { transform: translateY(0) scale(1); clip-path: polygon(20% 100%, 21% 38%, 36% 22%, 62% 21%, 79% 37%, 80% 100%, 53% 100%, 55% 67%, 62% 62%, 66% 55%, 67% 46%, 62% 38%, 55% 34%, 47% 34%, 39% 37%, 34% 44%, 33% 53%, 36% 60%, 41% 64%, 45% 66%, 45% 76%, 56% 76%, 54% 100%); }
-                10%, 40% { transform: translateY(-5px) scale(1.12); clip-path: inset(0 0 0 0); }
-                50% { transform: translateY(-2px) }
-              }
-      - type: custom:mushroom-template-card
         primary: Tesla
         icon: si:tesla
         layout: vertical
@@ -379,79 +300,132 @@ cards:
                 50% { clip-path: polygon(0% 0%, 0% 100%, 29% 100%, 30% 30%, 70% 30%, 70% 70%, 29% 70%, 29% 100%, 100% 100%, 100% 0%); }
               }
 
-    - type: horizontal-stack
-      cards:    
       - type: custom:mushroom-template-card
-        entity: media_player.lg_webos_smart_tv
-        icon: mdi:monitor
-        primary: LG TV
+        primary: Rooms
         layout: vertical
         tap_action:
-          action: call-service
-          service: script.navigate_to_remote
+          action: navigate
+          navigation_path: /lovelace/rooms
+        icon: mdi:door
+        icon_color: brown
+        card_mod:
+          style:
+            mushroom-shape-icon$: |
+              ha-icon {
+                --icon-animation: open 6s ease-in-out infinite;
+                transform-origin: 30%;
+              }
+              @keyframes open {
+                0%, 66% { transform: rotateY(0deg); }
+                33% { transform: rotateY(-120deg); }
+              }
+              .shape {
+                perspective: 45px;
+              }
+
+    - type: horizontal-stack
+      cards:
+      - type: custom:mushroom-template-card
+        icon: mdi:weather-night
+        entity: input_boolean.run_goodnight_script
         icon_color: |
           {%- if is_state(entity, 'on') %} 
-          purple
+          blue
+          {% endif %}
+        primary: Bedtime
+        layout: vertical
+        tap_action:
+          action: toggle
+        card_mod:
+          style:
+            mushroom-shape-icon$: |
+              ha-icon {
+                {% if is_state(config.entity, 'on') %}
+                --icon-animation: moon 10s linear infinite, stars 5s linear infinite;
+                {% endif %}
+              }
+              @keyframes moon {
+                0%, 100% { transform: rotate(12deg); }
+                30% { transform: rotate(-6deg); }
+                45% { transform: rotate(8deg); }
+                75% { transform: rotate(-10deg); }
+              }
+              @keyframes stars {
+                0%, 3.1%, 14.1% { clip-path: inset(0 0 0 0); }
+                3% { clip-path: polygon(1% 1%, 0% 99%, 99% 100%, 99% 62%, 68% 62%, 62% 44%, 76% 34%, 100% 34%, 99% 0%); }
+                14% { clip-path: polygon(1% 1%, 0% 99%, 99% 100%, 100% 25%, 51% 45%, 38% 34%, 36% 0); }
+              }
+      - type: custom:mushroom-template-card
+        icon: mdi:motion-sensor
+        entity: input_boolean.office_room_motion
+        icon_color: |
+          {%- if is_state(entity, 'on') %} 
+          blue
+          {% endif %}
+        primary: Office Motion 
+        layout: vertical
+        tap_action:
+          action: toggle
+        card_mod:
+          style:
+            mushroom-shape-icon$: |
+              ha-icon {
+                {% if is_state(config.entity, 'on') %}
+                --icon-animation: clip 2s linear infinite;
+                {% endif %}
+              }
+              @keyframes clip {
+                50% { clip-path: polygon(0 0, 55% 0, 100% 100%, 0 100%); }
+              }
+              .shape {
+                --shape-animation: motion 2s linear infinite;
+              }
+              @keyframes motion {
+                0%, 100% { --shape-color: rgba(var(--rgb-blue), 0.3); }
+                50% { --shape-color: rgba(var(--rgb-blue), 0.2); }
+              }
+      - type: custom:mushroom-template-card
+        entity: input_boolean.on_vacation
+        primary: Vacation
+        layout: vertical
+        tap_action:
+          action: toggle
+        icon: mdi:rocket-launch
+        icon_color: |
+          {%- if is_state(entity, 'on') %} 
+          deep-orange
           {% endif %}
         card_mod:
           style:
             mushroom-shape-icon$: |
-              {%- if is_state(entity, 'on') %} 
-              ha-icon:before {
-                content: "";
-                position: absolute;
-                width: 40%;
-                height: 30%;
-                margin: 6%;
-                animation: refresh 300ms linear infinite;
-              }
-              @keyframes refresh { 
-                0% { background: linear-gradient(180deg, rgba(var(--rgb-{{ config.icon_color }}), 0.2) 0%, transparent 50%, transparent 100%); }
-                25% { background: linear-gradient(180deg, transparent 0%, rgba(var(--rgb-{{ config.icon_color }}), 0.2) 25%, transparent 100%); }
-                50% { background: linear-gradient(180deg, transparent 0%, rgba(var(--rgb-{{ config.icon_color }}), 0.2) 50%, transparent 100%); }
-                75% { background: linear-gradient(180deg, transparent 0%, rgba(var(--rgb-{{ config.icon_color }}), 0.2) 75%, transparent 100%); }
-                100% { background: linear-gradient(180deg, transparent 0%, transparent 50%, rgba(var(--rgb-{{ config.icon_color }}), 0.2) 100%); }
-              }
-              {% endif %}
-      - type: custom:mushroom-template-card
-        icon: mdi:battery
-        icon_color: green
-        layout: vertical
-        primary: 'Battery'
-        tap_action:
-          action: call-service
-          service: script.navigate_to_battery
-        card_mod:
-          style:
-            mushroom-shape-icon$: |
               ha-icon {
-                --icon-animation: charge 3s linear infinite;
+                {% if is_state(config.entity, 'on') %}
+                  --icon-animation: thrust 100ms infinite, motion 3s ease-in-out infinite;
+                {% endif %}
               }
-              @keyframes charge {
-                0%, 80% { clip-path: inset(0 0 0 0); }
-                10% { clip-path: polygon(0% 0%, 0% 100%, 34% 100%, 34% 24%, 67% 24%, 67% 84%, 34% 84%, 34% 100%, 100% 100%, 100% 0%); }
-                20% { clip-path: polygon(0% 0%, 0% 100%, 34% 100%, 34% 24%, 67% 24%, 67% 74%, 34% 74%, 34% 100%, 100% 100%, 100% 0%); }
-                30% { clip-path: polygon(0% 0%, 0% 100%, 34% 100%, 34% 24%, 67% 24%, 67% 64%, 34% 64%, 34% 100%, 100% 100%, 100% 0%); }
-                40% { clip-path: polygon(0% 0%, 0% 100%, 34% 100%, 34% 24%, 67% 24%, 67% 54%, 34% 54%, 34% 100%, 100% 100%, 100% 0%); }
-                50% { clip-path: polygon(0% 0%, 0% 100%, 34% 100%, 34% 24%, 67% 24%, 67% 44%, 34% 44%, 34% 100%, 100% 100%, 100% 0%); }
-                60% { clip-path: polygon(0% 0%, 0% 100%, 34% 100%, 34% 24%, 67% 24%, 67% 34%, 34% 34%, 34% 100%, 100% 100%, 100% 0%); }
-                70% { clip-path: polygon(0% 0%, 0% 100%, 34% 100%, 34% 24%, 67% 24%, 67% 24%, 34% 24%, 34% 100%, 100% 100%, 100% 0%); }
+              @keyframes thrust {
+                0% { clip-path: polygon(0 0, 0 47%, 22% 57%, 28% 63%, 0 91%, 11% 100%, 37% 73%, 45% 77%, 55% 100%, 100% 100%, 100% 0%); }
+                33% { clip-path: polygon(0 0, 0 47%, 24% 59%, 42% 76%, 54% 100%, 100% 100%, 100% 0); }
+                66% { clip-path: polygon(0 0, 0 92%, 28% 64%, 36% 72%, 9% 100%, 100% 100%, 100% 0%); }
               }
-      - type: custom:mushroom-template-card
-        primary: Cog
-        icon: mdi:cog
-        layout: vertical
-        icon_color: grey
-        tap_action:
-          action: navigate
-          navigation_path: /lovelace/system
-        card_mod:
-          style:
-            mushroom-shape-icon$: |
-              ha-icon {
-                --icon-animation: spin 1.5s steps(5) infinite;
+              @keyframes motion {
+                0%, 100% { transform: translateY(-2px) translateX(-3px); }
+                50% { transform: translateY(3px) translateX(2px); }
               }
 
+    - type: "custom:button-card"
+      color_type: blank-card
+    - type: horizontal-stack
+      cards:              
+        - type: custom:mushroom-update-card
+          entity: sensor.hacs
+          name: HACS Plugins
+          show_buttons_control: true
+        - type: custom:mushroom-cover-card
+          entity: cover.garage_door
+
+    - type: "custom:button-card"
+      color_type: blank-card
     ### Office and Bedroom
     - type: horizontal-stack
       cards:
@@ -619,7 +593,7 @@ cards:
                         75% { clip-path: polygon(100% 100%, 0 100%, 0 0, 100% 0, 100% 44%, 64% 61%, 64% 73%, 100% 72%); }
                         50% { clip-path: polygon(100% 100%, 0 100%, 0 0, 100% 0, 78% 38%, 64% 43%, 64% 72%, 100% 73%); }
                       }
-    
+
     ### Kitchen
     - type: horizontal-stack
       cards:
@@ -811,54 +785,6 @@ cards:
                         50% { transform: rotate(-15deg); }
                       }
 
-    - type: horizontal-stack
-      cards:
-      - type: custom:mushroom-entity-card
-        entity: input_boolean.on_vacation
-        name: Vacation
-        vertical: true
-        tap_action:
-          action: toggle
-        icon: mdi:rocket-launch
-        icon_color: deep-orange
-        card_mod:
-          style:
-            mushroom-shape-icon$: |
-              ha-icon {
-                {% if is_state(config.entity, 'on') %}
-                  --icon-animation: thrust 100ms infinite, motion 3s ease-in-out infinite;
-                {% endif %}
-              }
-              @keyframes thrust {
-                0% { clip-path: polygon(0 0, 0 47%, 22% 57%, 28% 63%, 0 91%, 11% 100%, 37% 73%, 45% 77%, 55% 100%, 100% 100%, 100% 0%); }
-                33% { clip-path: polygon(0 0, 0 47%, 24% 59%, 42% 76%, 54% 100%, 100% 100%, 100% 0); }
-                66% { clip-path: polygon(0 0, 0 92%, 28% 64%, 36% 72%, 9% 100%, 100% 100%, 100% 0%); }
-              }
-              @keyframes motion {
-                0%, 100% { transform: translateY(-2px) translateX(-3px); }
-                50% { transform: translateY(3px) translateX(2px); }
-              }
-      - type: custom:mushroom-entity-card
-        entity: input_boolean.living_room_override
-        name: Keep Lights On
-        vertical: true
-        tap_action:
-          action: toggle
-        icon: mdi:lightbulb-on
-        icon_color: amber
-        card_mod:
-          style:
-            mushroom-shape-icon$: |
-              ha-icon {
-                {% if is_state(config.entity, 'on') %}
-                  --icon-animation: illumination 2s infinite;
-                {% endif %}
-              }
-              @keyframes illumination {
-                0%, 100% { clip-path: inset(0 0 0 0); }
-                80% { clip-path: polygon(0% 99%, 20% 55%, 22% 37%, 39% 20%, 61% 21%, 77% 35%, 79% 57%, 99% 100%); }
-              }
-
     # - type: horizontal-stack
     #   cards:
     #   - type: custom:mushroom-entity-card
@@ -868,7 +794,9 @@ cards:
     #     secondary_info: last-changed
     #     tap_action:
     #       action: toggle
-
+    
+    - type: "custom:button-card"
+      color_type: blank-card
     - type: horizontal-stack
       cards:
       - type: custom:mushroom-humidifier-card
@@ -923,11 +851,32 @@ cards:
               40%, 60% { --icon-symbol-size: 25px; }
               50% { --icon-symbol-size: 26px; }
             }
+            
+    - type: vertical-stack
+      cards:
+      - type: horizontal-stack
+        cards:              
+        - type: custom:vertical-stack-in-card
+          horizontal: true
+          cards:
+            - type: custom:mushroom-person-card
+              name: Vikas Pixel
+              picture: /local/images/myAvatar.png
+              entity: device_tracker.pixel_7_tracker
+            - entity: sensor.presence_distance
+              type: custom:mushroom-template-card
+              primary: |-
+                Distance: {{ states('sensor.presence_distance') }}
+              multiline_secondary: true
+              tap_action:
+                action: more-info
+              secondary: |-
+                Watch Battery: {{ states('sensor.google_pixel_watch_battery_level') }}
+
 
     ## Camera ###################################################################################################################   
     - type: custom:mushroom-title-card
       title: Camera
-      subtitle: Front Door
     - type: horizontal-stack
       cards:
       - type: 'custom:frigate-card'
@@ -937,7 +886,6 @@ cards:
     ## Vacuum ###################################################################################################################   
     - type: custom:mushroom-title-card
       title: Vacuum
-      subtitle: Eufy Livingroom
     - type: horizontal-stack
       cards:
       - type: custom:mushroom-vacuum-card
@@ -945,17 +893,16 @@ cards:
         commands: ["start_pause", "stop", "locate", "return_home"]
         icon_animation: true
 
-    # - type: horizontal-stack
-    #   cards:
-    #     - type: 'custom:weather-radar-card'
-    #       frame_count: 144
-    #       frame_delay: 100
-    #       marker_latitude: !secret homeassistant_latitude
-    #       marker_longitude: !secret homeassistant_longitude
-    #       show_marker: true
-    #       show_range: true
-    #       show_zoom: true
-    #       show_recenter: true
-    #       show_playback: true
-    #       zoom_level: 8
+    - type: custom:mushroom-title-card
+      title: Internet Speed
+    - type: horizontal-stack
+      cards:
+        - type: custom:button-card
+          template: custom_card_irmajavi_speedtest
+          variables:
+            ulm_custom_card_irmajavi_speedtest_download_speed_entity: sensor.speedtest_download
+            ulm_custom_card_irmajavi_speedtest_upload_speed_entity: sensor.speedtest_upload
+            ulm_custom_card_irmajavi_speedtest_color: blue
+            ulm_custom_card_irmajavi_speedtest_router_name: Pogu's Router
+            ulm_custom_card_irmajavi_speedtest_router_model: UDM
 
