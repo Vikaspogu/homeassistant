@@ -141,18 +141,18 @@ cards:
             deep-purple
             {% endif %}
           card_mod:
-            style:
-              mushroom-shape-icon$: |
-                ha-icon {
-                  {% if is_state(config.entity, 'on') %}
-                  --icon-animation: scan 5s ease-in-out infinite;
-                  transform-origin: 90% 80%
-                  {% endif %}
-                }
-                @keyframes scan {
-                  0%, 100% { transform: rotate(20deg); }
-                  50% { transform: rotate(-15deg); }
-                }
+            style: |
+              ha-state-icon {
+                {% if is_state(config.entity, 'on') %}
+                --icon-animation: scan 5s ease-in-out infinite;
+                transform-origin: 90% 80%
+                {% endif %}
+                line-height: 0.1rem;
+              }
+              @keyframes scan {
+                0%, 100% { transform: rotate(20deg); }
+                50% { transform: rotate(-15deg); }
+              }
         - type: custom:mushroom-entity-card
           entity: sensor.tesla_speed_mph
           icon_color: amber
