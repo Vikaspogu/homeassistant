@@ -527,7 +527,7 @@ cards:
                   {% endif %}
                 card_mod:
                   style: |
-                    mushroom-shape-icon {
+                    ha-state-icon {
                       {% if is_state('switch.office_area','on') %}
                         animation: rotation 1s linear infinite;
                       {%endif%}
