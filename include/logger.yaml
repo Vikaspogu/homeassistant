@@ -32,6 +32,3 @@ logger:
     requests.packages.urllib3.connectionpool: critical
     root: warn
     skybellpy: warn
-    custom_components.webrtc: debug
-    homeassistant.components.smartthings: debug
-    custom_components.powercalc: debug

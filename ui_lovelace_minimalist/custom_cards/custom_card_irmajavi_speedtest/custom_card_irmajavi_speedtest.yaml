@@ -36,7 +36,7 @@ custom_card_irmajavi_speedtest:
         card_mod:
           style: |
             ha-state-icon {
-              --icon-animation: clip 2s steps(1) infinite;
+              animation: clip 2s steps(1) infinite;
               line-height: 0.1rem;
             }
             @keyframes clip {

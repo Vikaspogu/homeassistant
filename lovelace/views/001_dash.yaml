@@ -334,7 +334,7 @@ cards:
         card_mod:
           style: |
             ha-state-icon {
-              --icon-animation: bit 250ms infinite;
+              animation: bit 250ms infinite;
               line-height: 0.1rem;
             }
             @keyframes bit {
@@ -353,7 +353,7 @@ cards:
         card_mod:
           style: |
             ha-state-icon {
-              --icon-animation: open 6s ease-in-out infinite;
+              animation: open 6s ease-in-out infinite;
               transform-origin: 30%;
               line-height: 0.1rem;
             }
@@ -382,7 +382,7 @@ cards:
           style: |
             ha-state-icon {
               {% if is_state('input_boolean.run_goodnight_script', 'on') %}
-              --icon-animation: moon 10s linear infinite, stars 5s linear infinite;
+              animation: moon 10s linear infinite, stars 5s linear infinite;
               {% endif %}
               line-height: 0.1rem;
             }
@@ -412,7 +412,7 @@ cards:
           style: |
             ha-state-icon {
               {% if is_state('input_boolean.office_room_motion', 'on') %}
-              --icon-animation: clip 2s linear infinite;
+              animation: clip 2s linear infinite;
               {% endif %}
               line-height: 0.1rem;
             }
@@ -441,7 +441,7 @@ cards:
           style: |
             ha-state-icon {
               {% if is_state('input_boolean.on_vacation', 'on') %}
-                --icon-animation: thrust 100ms infinite, motion 3s ease-in-out infinite;
+                animation: thrust 100ms infinite, motion 3s ease-in-out infinite;
               {% endif %}
               line-height: 0.1rem;
             }
@@ -509,7 +509,7 @@ cards:
                   style: |
                     {% if is_state('light.office_ceiling_lights_group', 'on') %}
                     ha-state-icon {
-                      --icon-animation: illumination 2s infinite;
+                      animation: illumination 2s infinite;
                       line-height: 0.1rem;
                     }
                     @keyframes illumination {
@@ -529,7 +529,7 @@ cards:
                   style: |
                     mushroom-shape-icon {
                       {% if is_state('switch.office_area','on') %}
-                        --icon-animation: rotation 1s linear infinite;
+                        animation: rotation 1s linear infinite;
                       {%endif%}
                         line-height: 0.1rem;
                       }
@@ -560,7 +560,7 @@ cards:
                   style: |
                     ha-state-icon {  
                       {% if is_state('switch.office_purifier', 'on') %}  
-                      --icon-animation: air 1s infinite;
+                      animation: air 1s infinite;
                       {% endif %}
                       line-height: 0.1rem;
                     }
@@ -646,7 +646,7 @@ cards:
                   style: |
                     ha-state-icon {
                       {% if is_state('switch.bedroom_purifier', 'on') %}
-                        --icon-animation: air 1s infinite;
+                        animation: air 1s infinite;
                       {% endif %}
                       line-height: 0.1rem;
                     }
@@ -696,7 +696,7 @@ cards:
                   style: |
                     ha-state-icon {
                       {% if is_state('light.kitchen_lights_group', 'on') %}
-                      --icon-animation: illumination 2s infinite;
+                      animation: illumination 2s infinite;
                       {% endif %}
                       line-height: 0.1rem;
                     }
@@ -720,7 +720,7 @@ cards:
                   style: |
                     ha-state-icon {
                       {%- if is_state('cover.garage_door', 'open') %} 
-                      --icon-animation: door 3s steps(1) infinite;
+                      animation: door 3s steps(1) infinite;
                       {% endif %}
                       line-height: 0.1rem;
                     }
@@ -744,7 +744,7 @@ cards:
                   style: |
                     ha-state-icon {
                       {%- if is_state('switch.garage', 'on') %} 
-                      --icon-animation: flash 4s linear infinite;
+                      animation: flash 4s linear infinite;
                       {% endif %}
                       line-height: 0.1rem;
                     }
@@ -799,7 +799,7 @@ cards:
                   style: |
                     ha-state-icon {
                       {% if is_state('light.living_room_dining_group', 'on') %}
-                      --icon-animation: illumination 2s infinite;
+                      animation: illumination 2s infinite;
                       {% endif %}
                       line-height: 0.1rem;
                     }
@@ -836,7 +836,7 @@ cards:
                   style: |
                     ha-state-icon {
                       {% if is_state('switch.living_room_window_socket_2', 'on') %}
-                      --icon-animation: scan 5s ease-in-out infinite;
+                      animation: scan 5s ease-in-out infinite;
                       transform-origin: 90% 80%
                       {% endif %}
                       line-height: 0.1rem;
