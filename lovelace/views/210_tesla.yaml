@@ -30,6 +30,12 @@ cards:
           tap_action:
             action: navigate
             navigation_path: /lovelace/nas
+        - type: action
+          icon_color: yellow
+          icon: si:proxmox
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/proxmox
           
     ## ROW 1 ###################################################################################################################
     - type: custom:mushroom-title-card

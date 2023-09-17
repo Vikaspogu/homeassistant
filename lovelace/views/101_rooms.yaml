@@ -30,6 +30,21 @@ cards:
           tap_action:
             action: navigate
             navigation_path: /lovelace/nas
+        - type: action
+          icon_color: yellow
+          icon: si:proxmox
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/proxmox
+        - type: template
+          entity: sensor.server_energy_price
+          tap_action:
+            action: more-info
+          content: |-
+            {{ states('sensor.server_energy_price') }}
+          icon: mdi:currency-usd
+          icon_color: green
+
 
     - type: horizontal-stack
       cards:
@@ -114,17 +129,151 @@ cards:
                   show_position_control: true
             - type: horizontal-stack
               cards:
-                - type: 'custom:button-card'
-                  template: card_power_outlet
-                  variables:
-                    ulm_card_power_outlet_name: Aquarium Lights
+                - type: custom:mushroom-template-card
+                  icon: mdi:lightbulb-on
                   entity: switch.aquarium_lights
-                - type: 'custom:button-card'
-                  template: card_power_outlet
-                  variables:
-                    ulm_card_power_outlet_name: Aquarium Filter
+                  icon_color: |
+                    {%- if is_state('switch.aquarium_lights', 'on') %} 
+                    amber
+                    {% endif %}
+                  primary: Aquarium Lights
+                  card_mod:
+                    style: |
+                      ha-state-icon {
+                        {% if is_state('switch.aquarium_lights','on') %}
+                          animation: illumination 2s infinite; 
+                        {%endif%}
+                      }
+                      @keyframes illumination {
+                        0%, 100% { clip-path: inset(0 0 0 0); }
+                        80% { clip-path: polygon(0% 99%, 20% 55%, 22% 37%, 39% 20%, 61% 21%, 77% 35%, 79% 57%, 99% 100%); }
+                      }
+                  secondary: >-
+                    {{ states('switch.aquarium_lights') | title }}
+                  tap_action:
+                    action: toggle
+                - type: custom:mushroom-template-card
+                  icon: mdi:water-pump
                   entity: switch.aquarium_filter
-
+                  icon_color: |
+                    {%- if is_state('switch.aquarium_filter', 'on') %} 
+                    light-blue
+                    {% endif %}
+                  primary: Aquarium Filter
+                  card_mod:
+                    style: |
+                      ha-state-icon {
+                        {% if is_state('switch.aquarium_filter','on') %}
+                          animation: drip 2s infinite; 
+                        {%endif%}
+                      }
+                      @keyframes drip {
+                        0%, 100% { clip-path: inset(0 0 0 0); }
+                        15%, 85% { clip-path: polygon(0 0, 100% 0, 100% 57%, 64% 57%, 64% 100%, 0 100%); }
+                      }
+                  secondary: >-
+                    {{ states('switch.aquarium_filter') | title }}
+                  tap_action:
+                    action: toggle
+            - type: horizontal-stack
+              cards:
+                - type: custom:mushroom-template-card
+                  icon: mdi:power
+                  entity: switch.serverplug_1
+                  icon_color: |
+                    {%- if is_state('switch.serverplug_1', 'on') %} 
+                    teal
+                    {% endif %}
+                  primary: Server Plug Top
+                  card_mod:
+                    style: |
+                      ha-state-icon {
+                        {% if is_state('switch.serverplug_1','on') %}
+                          animation: power 1.5s infinite; 
+                        {%endif%}
+                      }
+                      @keyframes power {
+                        0%, 100% { clip-path: inset(0 0 0 0); }
+                        50% { clip-path: polygon(0 0, 42% 0, 42% 58%, 58% 58%, 58% 0, 100% 0, 100% 100%, 0 100%); }
+                      }
+                  secondary: >-
+                    {{ states('switch.serverplug_1') | title }}
+                    • 
+                    {{ states('sensor.serverplug_1_energy') }}W
+                  tap_action:
+                    action: toggle
+                - type: custom:mushroom-template-card
+                  icon: mdi:power
+                  entity: switch.serverplug_2
+                  icon_color: |
+                    {%- if is_state('switch.serverplug_2', 'on') %} 
+                    teal
+                    {% endif %}
+                  card_mod:
+                    style: |
+                      ha-state-icon {
+                        {% if is_state('switch.serverplug_1','on') %}
+                          animation: power 1.5s infinite; 
+                        {%endif%}
+                      }
+                      @keyframes power {
+                        0%, 100% { clip-path: inset(0 0 0 0); }
+                        50% { clip-path: polygon(0 0, 42% 0, 42% 58%, 58% 58%, 58% 0, 100% 0, 100% 100%, 0 100%); }
+                      }
+                  primary: Server Plug Bottom
+                  secondary: >-
+                    {{ states('switch.serverplug_2') | title }}
+                    •
+                    {{ states('sensor.serverplug_2_energy') }}W
+                  tap_action:
+                    action: toggle
+            - type: horizontal-stack
+              cards:
+                - type: custom:mushroom-template-card
+                  icon: mdi:fan
+                  entity: switch.serverfan
+                  icon_color: |
+                    {%- if is_state('switch.serverfan', 'on') %} 
+                    blue
+                    {% endif %}
+                  primary: Server Fan
+                  card_mod:
+                    style: |
+                      ha-state-icon {
+                        {% if is_state('switch.serverfan','on') %}
+                          animation: rotation 1s linear infinite;
+                        {%endif%}
+                          line-height: 0.1rem;
+                        }
+                      @keyframes rotation {
+                        0% {
+                          transform: rotate(0deg);
+                        }
+                        100% {
+                          transform: rotate(360deg);
+                        }
+                      }
+                      ha-card { 
+                        border-width:0px;
+                      }
+                  secondary: >-
+                    {{ states('switch.serverfan') | title }}
+                  tap_action:
+                    action: toggle
+                - type: custom:mushroom-template-card
+                  icon: mdi:monitor
+                  entity: switch.workmonitor
+                  icon_color: |
+                    {%- if is_state('switch.workmonitor', 'on') %} 
+                    purple
+                    {% endif %}
+                  primary: Work Monitor
+                  secondary: >-
+                    {{ states('switch.workmonitor') | title }}
+                    •
+                    {{ states('sensor.workmonitor_power') }}W
+                  tap_action:
+                    action: toggle
             ## Temperature Sensor ###################################################################################################################
             - type: custom:mushroom-title-card
               title: Temperature

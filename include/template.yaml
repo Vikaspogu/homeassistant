@@ -7,35 +7,20 @@
 
 template:
   sensor:
+  - name: Server Energy Price
+    unique_id: server_energy_price
+    icon: mdi:counter
+    device_class: energy
+    unit_of_measurement: "$/kWh"
+    state: >
+      {% set serverplug_1=states('sensor.serverplug_1_energy')|float(0) %}
+      {% set serverplug_2=states('sensor.serverplug_2_energy')|float(0) %}
+      {{ (serverplug_1*0.13) + (serverplug_2*0.13) | float(0)|round(2) }}
+
   - unique_id: uptime_minutes
     name: UpTime Minutes
     state: >
       {{ (as_timestamp(now()) - as_timestamp(states('sensor.uptime'))) // 60| round (0)  }}
-
-  - name: "lights on"
-    unique_id: lights_on
-    icon: mdi:lightbulb-on-outline
-    state: >
-      {% set lights = [
-          states.light.kitchen_lights_group,
-          states.light.landing_lights_group,
-          states.light.living_room_dining_group,
-          states.light.office_ceiling_lights_group,
-          ] %}
-      {{ lights | selectattr('state','eq','on') | list | count }}
-
-  - name: "covers open"
-    unique_id: covers_open
-    icon: mdi:window-shutter-open
-    state: >
-      {% set covers = [
-          states.cover.bedroom_blinds,
-          states.cover.bedroom_curtain,
-          states.cover.curtain_living_room,
-          states.cover.spare_bedroom_curtain,
-          states.cover.garage_door,
-          ] %}
-      {{ covers | selectattr('state','eq','open') | list | count }}
 
   - unique_id: outside_temperature
     icon: mdi:thermometer

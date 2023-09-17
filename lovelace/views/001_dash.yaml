@@ -912,28 +912,6 @@ cards:
               40%, 60% { --icon-symbol-size: 25px; }
               50% { --icon-symbol-size: 26px; }
             }
-            
-    - type: vertical-stack
-      cards:
-      - type: horizontal-stack
-        cards:              
-        - type: custom:vertical-stack-in-card
-          horizontal: true
-          cards:
-            - type: custom:mushroom-person-card
-              name: Vikas Pixel
-              picture: /local/images/myAvatar.png
-              entity: device_tracker.pixel_7_tracker
-            - entity: sensor.presence_distance
-              type: custom:mushroom-template-card
-              primary: |-
-                Distance: {{ states('sensor.presence_distance') }}
-              multiline_secondary: true
-              tap_action:
-                action: more-info
-              secondary: |-
-                Watch Battery: {{ states('sensor.google_pixel_watch_battery_level') }}
-
 
     ## Camera ###################################################################################################################   
     - type: custom:mushroom-title-card
@@ -958,12 +936,25 @@ cards:
       title: Internet Speed
     - type: horizontal-stack
       cards:
-        - type: custom:button-card
-          template: custom_card_irmajavi_speedtest
+        - type: "custom:button-card"
+          template: "custom_card_apexcharts"
+          entity: binary_sensor.node_pve_status
           variables:
-            ulm_custom_card_irmajavi_speedtest_download_speed_entity: sensor.speedtest_download
-            ulm_custom_card_irmajavi_speedtest_upload_speed_entity: sensor.speedtest_upload
-            ulm_custom_card_irmajavi_speedtest_color: blue
-            ulm_custom_card_irmajavi_speedtest_router_name: Pogu's Router
-            ulm_custom_card_irmajavi_speedtest_router_model: UDM
+            graph_span: "6h"
+            chart_type: "line"
+            entity_1:
+              entity_id: "sensor.speedtest_download"
+              icon: 'mdi:download'
+              name: "Download"
+              color: "green"
+            entity_2:
+              entity_id: "sensor.speedtest_ping"
+              icon: ''
+              name: "Ping"
+              color: "red"
+            entity_3:
+              entity_id: "sensor.speedtest_upload"
+              icon: "mdi:upload"
+              name: "Upload"
+              color: "yellow"
 

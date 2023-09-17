@@ -30,6 +30,12 @@ cards:
           tap_action:
             action: navigate
             navigation_path: /lovelace/tesla
+        - type: action
+          icon_color: yellow
+          icon: si:proxmox
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/proxmox
 
     - type: vertical-stack
       cards:
@@ -65,7 +71,29 @@ cards:
                 icon: "mdi:harddisk"
                 name: "Disk"
                 color: "red"
-          
+                
+        - type: "custom:button-card"
+          template: "custom_card_apexcharts"
+          entity: binary_sensor.node_pve_status
+          variables:
+            graph_span: "6h"
+            chart_type: "line"
+            entity_1:
+              entity_id: "sensor.pogu_nas_download_throughput"
+              icon: 'mdi:download'
+              name: "Download"
+              color: "green"
+            entity_2:
+              entity_id: "sensor.pogu_nas_temperature"
+              icon: ''
+              name: "Temp"
+              color: "red"
+            entity_3:
+              entity_id: "sensor.pogu_nas_upload_throughput"
+              icon: "mdi:upload"
+              name: "Upload"
+              color: "yellow"
+
         - type: horizontal-stack
           cards:
           - type: "custom:auto-entities"
@@ -124,86 +152,3 @@ cards:
               exclude:
                 - state: "unavailable"
                 - state: "unknown"
-          
-        - type: horizontal-stack
-          cards:
-          - type: "custom:auto-entities"
-            card:
-              type: "grid"
-              columns: 2
-              square: false
-            card_param: "cards"
-            sort:
-              method: last-changed
-              ignore_case: true
-            filter:
-              include:
-                - entity_id: "sensor.pogu_nas*"
-                  options:
-                    type: custom:stack-in-card
-                    cards:
-                      - type: custom:mushroom-template-card
-                        primary: '{{ state_attr(entity, ''friendly_name'') | regex_replace(find=''pogu-nas'', replace='''', ignorecase=False) }}'
-                        icon: '{{ state_attr(entity, ''icon'')}}'
-                        icon_color: amber
-                        tap_action:
-                          action: more-info
-                        entity: this.entity_id
-                      - type: custom:mini-graph-card
-                        entities:
-                          - entity: this.entity_id
-                            state_adaptive_color: true
-                        font_size: 75
-                        font_size_header: 10
-                        show:
-                          icon: false
-                          name: false
-                          extrema: true
-                          name_adaptive_color: true
-                          icon_adaptive_color: true
-              exclude:
-                - state: "unavailable"
-                - state: "unknown"
-                - name: "*pogu-nas*Status*"
-                - name: "*pogu-nas*Temp*"
-          
-        - type: horizontal-stack
-          cards:
-          - type: "custom:auto-entities"
-            card:
-              type: "grid"
-              columns: 2
-              square: false
-            card_param: "cards"
-            sort:
-              method: last-changed
-              ignore_case: true
-            filter:
-              include:
-                - entity_id: "sensor.pogu_nas*temp*"
-                  options:
-                    type: custom:stack-in-card
-                    cards:
-                      - type: custom:mushroom-template-card
-                        primary: '{{ state_attr(entity, ''friendly_name'') | regex_replace(find=''pogu-nas'', replace='''', ignorecase=False) }}'
-                        icon: mdi:thermometer-high
-                        icon_color: amber
-                        tap_action:
-                          action: more-info
-                        entity: this.entity_id
-                      - type: custom:mini-graph-card
-                        entities:
-                          - entity: this.entity_id
-                            state_adaptive_color: true
-                        font_size: 75
-                        font_size_header: 10
-                        show:
-                          icon: false
-                          name: false
-                          extrema: true
-                          name_adaptive_color: true
-                          icon_adaptive_color: true
-              exclude:
-                - state: "unavailable"
-                - state: "unknown"
-        
