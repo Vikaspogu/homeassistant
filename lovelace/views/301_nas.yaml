@@ -25,13 +25,13 @@ cards:
             action: navigate
             navigation_path: /lovelace/rooms
         - type: action
-          icon_color: red
+          icon_color: var(--rgb-google-red)
           icon: si:tesla
           tap_action:
             action: navigate
             navigation_path: /lovelace/tesla
         - type: action
-          icon_color: yellow
+          icon_color: var(--rgb-google-yellow)
           icon: si:proxmox
           tap_action:
             action: navigate
@@ -119,9 +119,9 @@ cards:
                     secondary: '{{ states(entity) }}'
                     icon_color: |
                       {%- if is_state(entity, 'normal') %} 
-                      green
+                      var(--rgb-google-green)
                       {%- else %}
-                      red
+                      var(--rgb-google-red)
                       {% endif %}
                 - entity_id: "binary_sensor.pogu_nas*"
                   options:
@@ -145,9 +145,9 @@ cards:
                       {% endif %}
                     icon_color: |
                       {%- if is_state(entity, 'on') %} 
-                      red
+                      var(--rgb-google-red)
                       {%- else %}
-                      green
+                      var(--rgb-google-green)
                       {% endif %}
               exclude:
                 - state: "unavailable"

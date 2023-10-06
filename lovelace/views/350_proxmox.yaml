@@ -25,13 +25,13 @@ cards:
             action: navigate
             navigation_path: /lovelace/rooms
         - type: action
-          icon_color: red
+          icon_color: var(--rgb-google-red)
           icon: si:tesla
           tap_action:
             action: navigate
             navigation_path: /lovelace/tesla
         - type: action
-          icon_color: green
+          icon_color: var(--rgb-google-green)
           icon: mdi:nas
           tap_action:
             action: navigate
@@ -100,84 +100,3 @@ cards:
                     name: "102 Node Mem"
                     color: "red"
                     max_value: 29
-
-      
-          # - type: "custom:auto-entities"
-          #   card:
-          #     type: "grid"
-          #     columns: 2
-          #     square: false
-          #   card_param: "cards"
-          #   sort:
-          #     method: last-changed
-          #     ignore_case: true
-          #   filter:
-          #     include:
-          #       - entity_id: "sensor.qemu*"
-          #         options:
-          #           type: custom:mushroom-template-card
-          #           entity: this.entity_id
-          #           icon: '{{ state_attr(entity, ''icon'')}}'
-          #           multiline_secondary: false
-          #           tap_action:
-          #             action: more-info
-          #           primary: '{{ state_attr(entity, "friendly_name") | replace("QEMU openshift-0 ", "") | replace("QEMU openshift-1 ", "") | replace("QEMU openshift-2 ", "") | replace("QEMU pxm-sno ", "")}}'
-          #           secondary: '{{ states(entity) }}'
-          #           icon_color: green
-          #       - entity_id: "binary_sensor.qemu*health*"
-          #         options:
-          #           type: custom:mushroom-template-card
-          #           entity: this.entity_id
-          #           icon: |
-          #             {%- if is_state(entity, 'on') %} 
-          #             mdi:alert
-          #             {%- else %}
-          #             mdi:shield-check
-          #             {% endif %}
-          #           multiline_secondary: false
-          #           tap_action:
-          #             action: more-info
-          #           primary: '{{ state_attr(entity, "friendly_name") | replace("QEMU openshift-0 ", "") | replace("QEMU openshift-1 ", "") | replace("QEMU openshift-2 ", "") | replace("QEMU pxm-sno ", "")}}'
-          #           secondary: |
-          #             {%- if is_state(entity, 'on') %} 
-          #             Problem
-          #             {%- else %}
-          #             OK
-          #             {% endif %}
-          #           icon_color: |
-          #             {%- if is_state(entity, 'on') %} 
-          #             red
-          #             {%- else %}
-          #             green
-          #             {% endif %}
-          #       - entity_id: "binary_sensor.qemu*status*"
-          #         options:
-          #           type: custom:mushroom-template-card
-          #           entity: this.entity_id
-          #           icon: |
-          #             {%- if is_state(entity, 'on') %} 
-          #             mdi:play
-          #             {%- else %}
-          #             mdi:stop
-          #             {% endif %}
-          #           multiline_secondary: false
-          #           tap_action:
-          #             action: more-info
-          #           primary: '{{ state_attr(entity, "friendly_name") | replace("QEMU openshift-0 ", "") | replace("QEMU openshift-1 ", "") | replace("QEMU openshift-2 ", "") | replace("QEMU pxm-sno ", "")}}'
-          #           secondary: |
-          #             {%- if is_state(entity, 'on') %} 
-          #             Running
-          #             {%- else %}
-          #             Not Running
-          #             {% endif %}
-          #           icon_color: |
-          #             {%- if is_state(entity, 'on') %} 
-          #             green
-          #             {%- else %}
-          #             yellow
-          #             {% endif %}
-          #     exclude:
-          #       - state: "unavailable"
-          #       - state: "unknown"
-          #       - name: "* Node"
-          

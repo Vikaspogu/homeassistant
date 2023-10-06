@@ -25,13 +25,13 @@ cards:
             action: navigate
             navigation_path: /lovelace/rooms
         - type: action
-          icon_color: green
+          icon_color: var(--rgb-google-green)
           icon: mdi:nas
           tap_action:
             action: navigate
             navigation_path: /lovelace/nas
         - type: action
-          icon_color: yellow
+          icon_color: var(--rgb-google-yellow)
           icon: si:proxmox
           tap_action:
             action: navigate
@@ -78,15 +78,15 @@ cards:
             {% endif %}
           icon_color: |-
             {% if states('sensor.tesla_battery_level') | float >= 60 %}
-              green
+              var(--rgb-google-green)
             {% elif states('sensor.tesla_battery_level') | float >= 40 %}
-              yellow
+              var(--rgb-google-yellow)
             {% else %}
-              red
+              var(--rgb-google-red)
             {% endif %}
         - type: custom:mushroom-entity-card
           entity: sensor.tesla_state
-          icon_color: amber
+          icon_color: var(--rgb-google-yellow)
           name: Car State
     - type: horizontal-stack
       cards:
@@ -104,9 +104,9 @@ cards:
           icon: mdi:ev-plug-tesla
           icon_color: |-
             {% if is_state('binary_sensor.tesla_plugged_in', 'on') %}
-              green
+              var(--rgb-google-green)
             {% else %}
-              grey
+              var(--rgb-google-grey)
             {% endif %}
         - type: custom:mushroom-template-card
           primary: 'Window Status'
@@ -127,9 +127,9 @@ cards:
             {% endif %}
           icon_color: |-
             {% if is_state('binary_sensor.tesla_windows_open', 'on') %}
-              red
+              var(--rgb-google-red)
             {% else %}
-              grey
+              var(--rgb-google-grey)
             {% endif %}
     - type: horizontal-stack
       cards:
@@ -161,7 +161,7 @@ cards:
               }
         - type: custom:mushroom-entity-card
           entity: sensor.tesla_speed_mph
-          icon_color: amber
+          icon_color: var(--rgb-google-yellow)
         
     ## Auto entites Tesla ###################################################################################################################
     - type: custom:mushroom-title-card
@@ -181,12 +181,12 @@ cards:
             options:
               type: custom:mushroom-entity-card
               entity: this.entity_id
-              icon_color: amber
+              icon_color: var(--rgb-google-yellow)
           - entity_id: "binary_sensor.tesla_*"
             options:
               type: custom:mushroom-entity-card
               entity: this.entity_id
-              icon_color: amber
+              icon_color: var(--rgb-google-yellow)
         exclude:
           - state: "unavailable"
           - state: "Unknown"
@@ -217,9 +217,9 @@ cards:
             {% endif %}
           icon_color: |-
             {% if is_state('binary_sensor.tesla_wall_connector_vehicle_connected', 'on') %}
-              amber
+              var(--rgb-google-yellow)
             {% else %}
-              grey
+              var(--rgb-google-grey)
             {% endif %}
         - type: custom:mushroom-template-card
           primary: 'Contactor closed'
@@ -240,9 +240,9 @@ cards:
             {% endif %}
           icon_color: |-
             {% if is_state('binary_sensor.tesla_wall_connector_contactor_closed', 'on') %}
-              amber
+              var(--rgb-google-yellow)
             {% else %}
-              grey
+              var(--rgb-google-grey)
             {% endif %}
     - type: "custom:auto-entities"
       card:
@@ -261,7 +261,7 @@ cards:
               primary: '{{ state_attr(entity, ''friendly_name'') | regex_replace(find=''Tesla Wall Connector '', replace='''', ignorecase=False) }}'
               secondary: '{{ states(entity) }}'
               icon: fas:info-circle
-              icon_color: amber
+              icon_color: var(--rgb-google-yellow)
               tap_action:
                 action: more-info
               entity: this.entity_id

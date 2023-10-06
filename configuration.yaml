@@ -37,8 +37,7 @@ http:
     - https://google.com
     - https://www.home-assistant.io
   trusted_proxies:
-    - 10.30.30.0/24
-    - 10.42.0.0/16
+    - 10.0.0.0/8
   ip_ban_enabled: true
   login_attempts_threshold: 3
 
@@ -135,12 +134,13 @@ lovelace:
       type: module                         
     - url: /hacsfiles/lovelace-state-switch/state-switch.js
       type: module
-    - url: /hacsfiles/weather-radar-card/weather-radar-card.js
-      type: module
     - url: /hacsfiles/lovelace-mushroom/mushroom.js
       type: module
     - url: /hacsfiles/simple-weather-card/simple-weather-card-bundle.js
       type: module
+    - url: /hacsfiles/custom-brand-icons/custom-brand-icons.js
+      type: module
+                
                 
     # Styles
     - url: "https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap"
@@ -173,7 +173,12 @@ notify:
     - service: mobile_app_vpogu_pixel_7
 
 google_assistant: !include google_assistant_integ.yaml
-circadian_lighting:
+adaptive_lighting:
+  lights:
+    - light.living_room_dining_group
+    - light.kitchen_lights_group
+    - light.landing_lights_group
+    - light.office_ceiling_lights_group
 sun:
 simpleicons:
 fontawesome:

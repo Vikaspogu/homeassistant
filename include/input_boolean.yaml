@@ -19,3 +19,6 @@ input_boolean:
 
   office_room_motion:
     name: Office Room Motion
+
+  living_room_motion:
+    name: Living Room Motion
