@@ -44,59 +44,91 @@ cards:
           subtitle: Dell T7910
         - type: horizontal-stack
           cards:
-          - type: "custom:button-card"
-            template: "custom_card_apexcharts"
-            entity: binary_sensor.node_pve_status
-            variables:
-              graph_span: "1d"
-              chart_type: "radialBar"
-              entity_1:
-                entity_id: "sensor.node_pve_memory_used_percentage"
-                icon: ''
-                name: "Memory"
-                color: "blue"
-              entity_2:
-                entity_id: "sensor.node_pve_cpu_used"
-                icon: ''
-                name: "CPU"
-                color: "green"
-              entity_3:
-                entity_id: "sensor.node_pve_disk_used_percentage"
-                icon: "mdi:harddisk"
-                name: "Disk"
-                color: "red"
-          
-        
-        - type: conditional
-          conditions:
-            - entity: binary_sensor.qemu_openshift_0_100_status
-              state: "on"
-          card:
-            type: vertical-stack
-            cards:
-              - type: custom:mushroom-title-card
-                title: OpenShift Nodes
-              - type: "custom:button-card"
-                template: "custom_card_apexcharts"
-                entity: binary_sensor.qemu_openshift_0_100_status
-                variables:
-                  graph_span: "3h"
-                  chart_type: "line"
-                  entity_1:
-                    entity_id: "sensor.qemu_openshift_0_100_memory_used"
-                    icon: ''
-                    name: "100 Node Mem"
-                    color: "blue"
-                    max_value: 29
-                  entity_2:
-                    entity_id: "sensor.qemu_openshift_1_101_memory_used"
-                    icon: ''
-                    name: "101 Node Mem"
-                    color: "green"
-                    max_value: 20
-                  entity_3:
-                    entity_id: "sensor.qemu_openshift_2_102_memory_used"
-                    icon: ""
-                    name: "102 Node Mem"
-                    color: "red"
-                    max_value: 29
+            - type: custom:mushroom-entity-card
+              entity: sensor.node_proxmox_containers_running
+              name: Containers running
+            - entity: sensor.node_proxmox_cpu_used
+              name: CPU used
+              type: custom:mushroom-entity-card
+        - type: horizontal-stack
+          cards:
+            - entity: sensor.node_proxmox_disk_used_percentage
+              name: Disk used percentage
+              type: custom:mushroom-entity-card
+            - entity: sensor.node_proxmox_last_boot
+              name: Last boot
+              type: custom:mushroom-entity-card
+        - type: horizontal-stack
+          cards:
+            - entity: sensor.node_proxmox_memory_free
+              name: Memory free
+              type: custom:mushroom-entity-card
+            - entity: sensor.node_proxmox_memory_used
+              name: Memory used
+              type: custom:mushroom-entity-card
+        - type: horizontal-stack
+          cards:
+            - entity: sensor.node_proxmox_memory_used_percentage
+              name: Memory used percentage
+              type: custom:mushroom-entity-card
+            - entity: binary_sensor.node_proxmox_status
+              name: Status
+              type: custom:mushroom-entity-card
+        - type: horizontal-stack
+          cards:
+            - entity: binary_sensor.node_proxmox_updates_packages
+              name: Updates packages
+              type: custom:mushroom-entity-card
+            - entity: sensor.node_proxmox_virtual_machines_running
+              name: Virtual machines running
+              type: custom:mushroom-entity-card
+      
+        - type: vertical-stack
+          cards:
+            - type: custom:mushroom-title-card
+              title: VMs Memory Usage
+            - type: custom:auto-entities
+              filter:
+                include:
+                  - entity_id: "*qemu*memory_used"
+                exclude:
+                  - state: "unavailable"
+              card:
+                type: custom:apexcharts-card
+                graph_span: 6h
+                series:
+                  - entity: this.entity_id
+
+        - type: vertical-stack
+          cards:
+            - type: custom:mushroom-title-card
+              title: VMs CPU Usage
+            - type: custom:auto-entities
+              filter:
+                include:
+                  - entity_id: "*cpu_used"
+                exclude:
+                  - state: "unavailable"
+              card:
+                type: custom:apexcharts-card
+                graph_span: 6h
+                series:
+                  - entity: this.entity_id
+
+        - type: vertical-stack
+          cards:
+            - type: custom:mushroom-title-card
+              title: VMs Disk Usage
+            - type: custom:auto-entities
+              filter:
+                include:
+                  - entity_id: "*disk_used_percentage"
+                exclude:
+                  - state: "unavailable"
+                  - state: "0"
+              card:
+                type: custom:apexcharts-card
+                chart_type: radialBar
+                graph_span: 6h
+                series:
+                  - entity: this.entity_id

@@ -1,11 +1,1 @@
 input_select:
-  room_mode:
-    options:
-      - Main
-      - Temperature
-      - Battery
-      - TV
-  system_mode:
-    options:
-      - Main
-      - Synology

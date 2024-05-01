@@ -41,14 +41,6 @@ http:
   ip_ban_enabled: true
   login_attempts_threshold: 3
 
-proximity:
-  home_tesla:
-    zone: home
-    devices:
-      - device_tracker.tesla_location
-    tolerance: 10
-    unit_of_measurement: mi
-
 scrape:
   - resource: https://www.synology.com/en-global/releaseNote/DSM
     scan_interval: 86400
@@ -140,7 +132,8 @@ lovelace:
       type: module
     - url: /hacsfiles/custom-brand-icons/custom-brand-icons.js
       type: module
-                
+    - url: /hacsfiles/weather-radar-card/weather-radar-card.js
+      type: module
                 
     # Styles
     - url: "https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap"
@@ -158,19 +151,11 @@ lovelace:
       show_in_sidebar: true
       require_admin: true
 
-eufy_vacuum:
-  devices:
-  - name: Robovac
-    address: !secret eufy_ip
-    access_token: !secret eufy_local_key
-    id: !secret eufy_device_id
-    type: T2118
-
 notify:
   - name: notify_group
     platform: group
     services:
-    - service: mobile_app_vpogu_pixel_7
+    - service: mobile_app_vpogu_pixel_8
 
 google_assistant: !include google_assistant_integ.yaml
 adaptive_lighting:

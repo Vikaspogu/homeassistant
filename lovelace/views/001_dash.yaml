@@ -327,17 +327,6 @@ cards:
           action: navigate
           navigation_path: /lovelace/nas
       - type: custom:mushroom-template-card
-        primary: Rooms
-        layout: vertical
-        tap_action:
-          action: navigate
-          navigation_path: /lovelace/rooms
-        icon: "phu:rooms-other"
-        icon_color: "var(--rgb-google-violet)"
-
-    - type: horizontal-stack
-      cards:
-      - type: custom:mushroom-template-card
         icon: mdi:weather-night
         entity: input_boolean.run_goodnight_script
         icon_color: |
@@ -348,368 +337,127 @@ cards:
         layout: vertical
         tap_action:
           action: toggle
-      - type: custom:mushroom-template-card
-        icon: |
-          {%- if is_state('input_boolean.office_room_motion', 'off') %} 
-          mdi:lightbulb-off
-          {% else %}
-          mdi:lightbulb
-          {% endif %}
-        entity: input_boolean.office_room_motion
-        icon_color: |
-          {%- if is_state('input_boolean.office_room_motion', 'on') %} 
-          var(--rgb-google-green)
-          {% endif %}
-        primary: Office lights 
-        layout: vertical
-        tap_action:
-          action: toggle
-      - type: custom:mushroom-template-card
-        icon: |
-          {%- if is_state('input_boolean.living_room_motion', 'off') %} 
-          mdi:lightbulb-group-off-outline
-          {% else %}
-          mdi:lightbulb-group-outline
-          {% endif %}
-        entity: input_boolean.living_room_motion
-        icon_color: |
-          {%- if is_state('input_boolean.living_room_motion', 'on') %} 
-          var(--rgb-google-green)
-          {% endif %}
-        primary: Living lights
-        layout: vertical
-        tap_action:
-          action: toggle
 
-    - type: "custom:button-card"
-      color_type: blank-card
+    ## Lights ###################################################################################################################
     - type: horizontal-stack
-      cards:              
+      cards:
+        - type: custom:mushroom-light-card
+          entity: "light.kitchen_lights_group"
+          show_brightness_control: true
+          show_color_temp_control: true
+          use_light_color: true
+          name: 'Kitchen'
+        - type: custom:mushroom-light-card
+          entity: "light.living_room_dining_group"
+          show_brightness_control: true
+          show_color_temp_control: true
+          use_light_color: true
+          icon: phu:bulb-group-classic-hung-3-alt
+          name: 'Living room'
+    - type: horizontal-stack
+      cards:
+        - type: custom:mushroom-light-card
+          entity: "light.office_ceiling_lights_group"
+          show_brightness_control: true
+          show_color_temp_control: true
+          use_light_color: true
+          icon: phu:bulb-group-ceiling-round
+          name: 'Office'
+        - type: custom:mushroom-light-card
+          entity: "light.landing_lights_group"
+          icon: phu:bulb-group
+          show_brightness_control: true
+          show_color_temp_control: true
+          use_light_color: true
+          name: 'Landing'          
+
+    ## Curtains/Blinds #############################################################################
+    - type: horizontal-stack
+      cards:
+        - type: custom:mushroom-fan-card
+          entity: switch.office_area
+          name: Office Fan
+          icon: mdi:fan
+          icon_color: |
+            {%- if is_state('switch.office_area', 'on') %} 
+            var(--rgb-google-blue)
+            {% endif %}
+          card_mod:
+            style: |
+              ha-state-icon {
+                {% if is_state('switch.office_area','on') %}
+                  animation: rotation 1s linear infinite;
+                {%endif%}
+                  line-height: 0.1rem;
+                }
+              @keyframes rotation {
+                0% {
+                  transform: rotate(0deg);
+                }
+                100% {
+                  transform: rotate(360deg);
+                }
+              }
+              ha-card { 
+                border-width:0px;
+              }
+          tap_action:
+            action: toggle
+        - type: custom:mushroom-fan-card
+          entity: switch.garage
+          name: Garage Pi-Switch
+          icon:  mdi:toggle-switch-variant
+          icon_color: |
+            {%- if is_state('switch.garage', 'on') %} 
+            var(--rgb-google-yellow)
+            {% endif %}
+          tap_action:
+            action: toggle
+    - type: horizontal-stack
+      cards:
+        - type: custom:mushroom-fan-card
+          entity: switch.bedroom_purifier
+          icon: mdi:air-purifier
+          icon_color: |
+            {%- if is_state('switch.bedroom_purifier', 'on') %} 
+            var(--rgb-google-blue)
+            {% endif %}
+          tap_action:
+            action: toggle
+          card_mod:
+            style: |
+              ha-state-icon {
+                {% if is_state('switch.bedroom_purifier', 'on') %}
+                  animation: air 1s infinite;
+                {% endif %}
+                line-height: 0.1rem;
+              }
+              @keyframes air {
+                0%, 100% { clip-path: inset(0 0 0 0); }
+                25% { clip-path: polygon(100% 100%, 0 100%, 0 0, 100% 0, 98% 32%, 63% 42%, 65% 58%, 100% 43%); }
+                75% { clip-path: polygon(100% 100%, 0 100%, 0 0, 100% 0, 100% 44%, 64% 61%, 64% 73%, 100% 72%); }
+                50% { clip-path: polygon(100% 100%, 0 100%, 0 0, 100% 0, 78% 38%, 64% 43%, 64% 72%, 100% 73%); }
+              }
         - type: custom:mushroom-update-card
           entity: sensor.hacs
           name: HACS Plugins
           show_buttons_control: true
+    - type: horizontal-stack
+      cards:
         - type: custom:mushroom-cover-card
           entity: cover.garage_door
-
-    - type: "custom:button-card"
-      color_type: blank-card
-    ### Office and Bedroom
+          show_buttons_control: true
+        - type: custom:mushroom-cover-card
+          entity: cover.bedroom
+          show_position_control: true
     - type: horizontal-stack
       cards:
-      - type: custom:vertical-stack-in-card
-        mode: vertical
-        cards:
-          - type: custom:mushroom-template-card
-            primary: Office
-            icon: mdi:desktop-classic
-            layout: horizontal
-            entity: light.office_ceiling_lights_group
-            icon_color: |
-              {%- if is_state('light.office_ceiling_lights_group', 'on') %} 
-              {{ '#%02x%02x%02x' % state_attr('light.office_ceiling_lights_group', 'rgb_color') }}
-              {% endif %}
-            multiline_secondary: false
-            secondary: >-
-              {{ states('sensor.office_area_temperature') }}°F
-              • 
-              {{ states('sensor.office_area_humidity') }}
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/rooms
-            hold_action:
-              action: none
-            double_tap_action:
-              action: none
-          - type: custom:vertical-stack-in-card
-            horizontal: true
-            cards:
-              - type: custom:mushroom-template-card
-                icon: mdi:lightbulb-on
-                entity: light.office_ceiling_lights_group
-                icon_color: |
-                  {%- if is_state('light.office_ceiling_lights_group', 'on') %} 
-                  {{ '#%02x%02x%02x' % state_attr('light.office_ceiling_lights_group', 'rgb_color') }}
-                  {% endif %}
-                card_mod:
-                  style: |
-                    {% if is_state('light.office_ceiling_lights_group', 'on') %}
-                    ha-state-icon {
-                      animation: illumination 2s infinite;
-                      line-height: 0.1rem;
-                    }
-                    @keyframes illumination {
-                      0%, 100% { clip-path: inset(0 0 0 0); }
-                      80% { clip-path: polygon(0% 99%, 20% 55%, 22% 37%, 39% 20%, 61% 21%, 77% 35%, 79% 57%, 99% 100%); }
-                    }
-                    {% endif %}
-              - type: custom:mushroom-template-card
-                entity: switch.office_area
-                layout: vertical
-                icon: mdi:fan
-                icon_color: |
-                  {%- if is_state('switch.office_area', 'on') %} 
-                  var(--rgb-google-blue)
-                  {% endif %}
-                card_mod:
-                  style: |
-                    ha-state-icon {
-                      {% if is_state('switch.office_area','on') %}
-                        animation: rotation 1s linear infinite;
-                      {%endif%}
-                        line-height: 0.1rem;
-                      }
-                    @keyframes rotation {
-                      0% {
-                        transform: rotate(0deg);
-                      }
-                      100% {
-                        transform: rotate(360deg);
-                      }
-                    }
-                    ha-card { 
-                      border-width:0px;
-                    }
-                tap_action:
-                  action: toggle
-              - type: custom:mushroom-template-card
-                entity: switch.office_purifier
-                layout: vertical
-                icon: mdi:air-purifier
-                icon_color: |
-                  {%- if is_state('switch.office_purifier', 'on') %} 
-                  var(--rgb-google-blue)
-                  {% endif %}
-                tap_action:
-                  action: toggle
-                card_mod:
-                  style: |
-                    ha-state-icon {  
-                      {% if is_state('switch.office_purifier', 'on') %}  
-                      animation: air 1s infinite;
-                      {% endif %}
-                      line-height: 0.1rem;
-                    }
-                    @keyframes air {
-                      0%, 100% { clip-path: inset(0 0 0 0); }
-                      25% { clip-path: polygon(100% 100%, 0 100%, 0 0, 100% 0, 98% 32%, 63% 42%, 65% 58%, 100% 43%); }
-                      75% { clip-path: polygon(100% 100%, 0 100%, 0 0, 100% 0, 100% 44%, 64% 61%, 64% 73%, 100% 72%); }
-                      50% { clip-path: polygon(100% 100%, 0 100%, 0 0, 100% 0, 78% 38%, 64% 43%, 64% 72%, 100% 73%); }
-                    }
-      - type: custom:vertical-stack-in-card
-        mode: vertical
-        cards:
-          - type: custom:mushroom-template-card
-            primary: Bed Room
-            icon: mdi:bed-king
-            layout: horizontal
-            multiline_secondary: false
-            secondary: >-
-              {{ states('sensor.bedroom_temperature') }}°F
-              • 
-              {{ states('sensor.bedroom_humidity') }}
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/rooms
-            hold_action:
-              action: none
-            double_tap_action:
-              action: none
-          - type: custom:vertical-stack-in-card
-            horizontal: true
-            cards:
-              - type: custom:mushroom-template-card
-                entity: cover.bedroom_blinds
-                layout: vertical
-                icon: |
-                  {%- if is_state('cover.bedroom_blinds', 'open') %} 
-                  phu:blind-tilt-open
-                  {%- else %}
-                  phu:blind-tilt-closed
-                  {% endif %}
-                icon_color: |
-                  {%- if is_state('cover.bedroom_blinds', 'open') %} 
-                  var(--rgb-google-green)
-                  {% endif %}
-                tap_action:
-                  action: more-info
-                card_mod:
-                  style: |
-                    ha-state-icon {  
-                      line-height: 0.1rem;
-                    }
-              - type: custom:mushroom-template-card
-                entity: cover.bedroom
-                layout: vertical
-                icon: |
-                  {%- if is_state('cover.bedroom', 'open') %} 
-                  mdi:curtains
-                  {%- else %}
-                  mdi:curtains-closed
-                  {% endif %}
-                icon_color: |
-                  {%- if is_state('cover.bedroom', 'open') %} 
-                  var(--rgb-google-green)
-                  {% endif %}
-                tap_action:
-                  action: more-info
-                card_mod:
-                  style: |
-                    ha-state-icon {  
-                      line-height: 0.1rem;
-                    }
-              - type: custom:mushroom-template-card
-                entity: switch.bedroom_purifier
-                layout: vertical
-                icon: mdi:air-purifier
-                icon_color: |
-                  {%- if is_state('switch.bedroom_purifier', 'on') %} 
-                  var(--rgb-google-blue)
-                  {% endif %}
-                tap_action:
-                  action: toggle
-                card_mod:
-                  style: |
-                    ha-state-icon {
-                      {% if is_state('switch.bedroom_purifier', 'on') %}
-                        animation: air 1s infinite;
-                      {% endif %}
-                      line-height: 0.1rem;
-                    }
-                    @keyframes air {
-                      0%, 100% { clip-path: inset(0 0 0 0); }
-                      25% { clip-path: polygon(100% 100%, 0 100%, 0 0, 100% 0, 98% 32%, 63% 42%, 65% 58%, 100% 43%); }
-                      75% { clip-path: polygon(100% 100%, 0 100%, 0 0, 100% 0, 100% 44%, 64% 61%, 64% 73%, 100% 72%); }
-                      50% { clip-path: polygon(100% 100%, 0 100%, 0 0, 100% 0, 78% 38%, 64% 43%, 64% 72%, 100% 73%); }
-                    }
-
-    ### Kitchen
-    - type: horizontal-stack
-      cards:
-      - type: custom:vertical-stack-in-card
-        mode: vertical
-        cards:
-          - type: custom:mushroom-template-card
-            primary: Garage
-            icon: mdi:garage
-            layout: horizontal
-            multiline_secondary: false
-            secondary: >-
-              {{ states('sensor.garagedoor_device_temperature') }}°F
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/rooms
-            hold_action:
-              action: none
-            double_tap_action:
-              action: none
-          - type: custom:vertical-stack-in-card
-            horizontal: true
-            cards:
-              - type: custom:mushroom-template-card
-                entity: switch.garage
-                layout: vertical
-                icon: |
-                  {%- if is_state('switch.garage', 'on') %} 
-                  mdi:toggle-switch-variant
-                  {%- else %}
-                  mdi:toggle-switch-variant-off
-                  {% endif %}
-                icon_color: |
-                  {%- if is_state('switch.garage', 'on') %} 
-                  var(--rgb-google-yellow)
-                  {% endif %}
-                tap_action:
-                  action: toggle
-              - type: custom:mushroom-template-card
-                entity: cover.garage_door
-                layout: vertical
-                icon: mdi:garage
-                icon_color: |
-                  {%- if is_state('cover.garage_door', 'open') %} 
-                  var(--rgb-google-red)
-                  {%- else %}
-                  var(--rgb-google-green)
-                  {% endif %}
-                tap_action:
-                  action: toggle
-                card_mod:
-                  style: |
-                    ha-state-icon {
-                      {%- if is_state('cover.garage_door', 'open') %} 
-                      animation: door 3s steps(1) infinite;
-                      {% endif %}
-                      line-height: 0.1rem;
-                    }
-                    @keyframes door {
-                      0% { clip-path: inset(0 0 0 0); }
-                      25%  { clip-path: polygon(0 0, 100% 0, 100% 100%, 68% 100%, 69% 73%, 32% 73%, 31% 100%, 0 100%); }
-                      50%  { clip-path: polygon(0 0, 100% 0, 100% 100%, 68% 100%, 69% 61%, 32% 61%, 31% 100%, 0 100%); }
-                      75% { clip-path: polygon(0 0, 100% 0, 100% 100%, 68% 100%, 69% 48%, 32% 48%, 31% 100%, 0 100%); }
-                    }
-              
-
-      ### Living room          
-      - type: custom:vertical-stack-in-card
-        mode: vertical
-        cards:
-          - type: custom:mushroom-template-card
-            primary: Living Room
-            icon: mdi:sofa
-            layout: horizontal
-            entity: light.living_room_dining_group
-            icon_color: |
-              {%- if is_state('light.living_room_dining_group', 'on') %} 
-              {{ '#%02x%02x%02x' % state_attr('light.living_room_dining_group', 'rgb_color') }}
-              {% endif %}
-            multiline_secondary: false
-            secondary: >-
-              {{ states('sensor.living_room_temperature') }}°F
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/rooms
-            hold_action:
-              action: none
-            double_tap_action:
-              action: none
-          - type: custom:vertical-stack-in-card
-            horizontal: true
-            cards:
-              - type: custom:mushroom-template-card
-                icon: mdi:lightbulb-on
-                entity: light.living_room_dining_group
-                layout: vertical
-                icon_color: |
-                  {%- if is_state('light.living_room_dining_group', 'on') %} 
-                  {{ '#%02x%02x%02x' % state_attr('light.living_room_dining_group', 'rgb_color') }}
-                  {% endif %}
-                card_mod:
-                  style: |
-                    ha-state-icon {
-                      {% if is_state('light.living_room_dining_group', 'on') %}
-                      animation: illumination 2s infinite;
-                      {% endif %}
-                      line-height: 0.1rem;
-                    }
-                    @keyframes illumination {
-                      0%, 100% { clip-path: inset(0 0 0 0); }
-                      80% { clip-path: polygon(0% 99%, 20% 55%, 22% 37%, 39% 20%, 61% 21%, 77% 35%, 79% 57%, 99% 100%); }
-                    }
-              - type: custom:mushroom-template-card
-                entity: cover.curtain_living_room
-                layout: vertical
-                icon: |
-                  {%- if is_state('cover.curtain_living_room', 'open') %} 
-                  mdi:curtains
-                  {%- else %}
-                  mdi:curtains-closed
-                  {% endif %}
-                icon_color: |
-                  {%- if is_state('cover.curtain_living_room', 'open') %} 
-                   var(--rgb-google-green)
-                  {% endif %}
-                tap_action:
-                  action: more-info
+        - type: custom:mushroom-cover-card
+          entity: cover.spare_bedroom_curtain
+          show_position_control: true
+        - type: custom:mushroom-cover-card
+          entity: cover.curtain_living_room
+          show_position_control: true
 
     # - type: horizontal-stack
     #   cards:
@@ -726,7 +474,7 @@ cards:
     - type: horizontal-stack
       cards:
       - type: custom:mushroom-humidifier-card
-        entity: humidifier.bedroom_humidifier
+        entity: humidifier.luh_a602s_wus
         name: Bedroom Humidifier
         show_target_humidity_control: true
       - type: custom:mushroom-climate-card
@@ -785,17 +533,17 @@ cards:
       cards:
       - type: 'custom:frigate-card'
         cameras:
-        - camera_entity: camera.doorbell
+        - camera_entity: camera.frigate_frontdoor
 
     ## Vacuum ###################################################################################################################   
-    - type: custom:mushroom-title-card
-      title: Vacuum
-    - type: horizontal-stack
-      cards:
-      - type: custom:mushroom-vacuum-card
-        entity: "vacuum.robovac"
-        commands: ["start_pause", "stop", "locate", "return_home"]
-        icon_animation: true
+    # - type: custom:mushroom-title-card
+    #   title: Vacuum
+    # - type: horizontal-stack
+    #   cards:
+    #   - type: custom:mushroom-vacuum-card
+    #     entity: "vacuum.robovac"
+    #     commands: ["start_pause", "stop", "locate", "return_home"]
+    #     icon_animation: true
 
     - type: custom:mushroom-title-card
       title: Internet Speed

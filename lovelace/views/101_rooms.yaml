@@ -76,101 +76,49 @@ cards:
                         - icon: 'mdi:hulu'
                           name: "Hulu"
 
-            ## Lights ###################################################################################################################
-            - type: custom:mushroom-title-card
-              title: Lights
-            - type: horizontal-stack
-              cards:
-                - type: custom:mushroom-light-card
-                  entity: "light.kitchen_lights_group"
-                  show_brightness_control: true
-                  show_color_temp_control: true
-                  use_light_color: true
-                  name: 'Kitchen'
-                - type: custom:mushroom-light-card
-                  entity: "light.living_room_dining_group"
-                  show_brightness_control: true
-                  show_color_temp_control: true
-                  use_light_color: true
-                  icon: phu:bulb-group-classic-hung-3-alt
-                  name: 'Living room'
-            - type: horizontal-stack
-              cards:
-                - type: custom:mushroom-light-card
-                  entity: "light.office_ceiling_lights_group"
-                  show_brightness_control: true
-                  show_color_temp_control: true
-                  use_light_color: true
-                  icon: phu:bulb-group-ceiling-round
-                  name: 'Office'
-                - type: custom:mushroom-light-card
-                  entity: "light.landing_lights_group"
-                  icon: phu:bulb-group
-                  show_brightness_control: true
-                  show_color_temp_control: true
-                  use_light_color: true
-                  name: 'Landing'
 
-            ## Curtains/Blinds #############################################################################
-            - type: custom:mushroom-title-card
-              title: Covers
+
             - type: horizontal-stack
               cards:
-                - type: custom:mushroom-cover-card
-                  entity: cover.bedroom_blinds
-                  show_tilt_position_control: true
-                - type: custom:mushroom-cover-card
-                  entity: cover.bedroom
-                  show_position_control: true
-            - type: horizontal-stack
-              cards:
-                - type: custom:mushroom-cover-card
-                  entity: cover.spare_bedroom_curtain
-                  show_position_control: true
-                - type: custom:mushroom-cover-card
-                  entity: cover.curtain_living_room
-                  show_position_control: true
-            - type: horizontal-stack
-              cards:
-                - type: custom:vertical-stack-in-card
-                  mode: vertical
-                  cards:
-                    - type: custom:mushroom-template-card
-                      primary: Aquarium
-                      icon: mdi:fishbowl-outline
-                      layout: horizontal
-                      entity: switch.aquarium_lights
-                      icon_color: |
-                        {%- if is_state('switch.aquarium_lights', 'on') %} 
-                        var(--rgb-google-green)
-                        {% endif %}
-                      multiline_secondary: false
-                      tap_action:
-                        action: toogle
-                      hold_action:
-                        action: none
-                      double_tap_action:
-                        action: none
-                    - type: custom:vertical-stack-in-card
-                      horizontal: true
-                      cards:
-                        - type: custom:mushroom-template-card
-                          icon: 'phu:dome-light'
-                          entity: switch.aquarium_lights
-                          icon_color: |
-                            {%- if is_state('switch.aquarium_lights', 'on') %} 
-                            var(--rgb-google-green)
-                            {% endif %}
-                        - type: custom:mushroom-template-card
-                          entity: switch.aquarium_filter
-                          layout: vertical
-                          icon: mdi:air-filter
-                          icon_color: |
-                            {%- if is_state('switch.aquarium_filter', 'on') %} 
-                            var(--rgb-google-green)
-                            {% endif %}
-                          tap_action:
-                            action: toggle
+                # - type: custom:vertical-stack-in-card
+                #   mode: vertical
+                #   cards:
+                #     - type: custom:mushroom-template-card
+                #       primary: Aquarium
+                #       icon: mdi:fishbowl-outline
+                #       layout: horizontal
+                #       entity: switch.aquarium_lights
+                #       icon_color: |
+                #         {%- if is_state('switch.aquarium_lights', 'on') %} 
+                #         var(--rgb-google-green)
+                #         {% endif %}
+                #       multiline_secondary: false
+                #       tap_action:
+                #         action: toogle
+                #       hold_action:
+                #         action: none
+                #       double_tap_action:
+                #         action: none
+                #     - type: custom:vertical-stack-in-card
+                #       horizontal: true
+                #       cards:
+                #         - type: custom:mushroom-template-card
+                #           icon: 'phu:dome-light'
+                #           entity: switch.aquarium_lights
+                #           icon_color: |
+                #             {%- if is_state('switch.aquarium_lights', 'on') %} 
+                #             var(--rgb-google-green)
+                #             {% endif %}
+                #         - type: custom:mushroom-template-card
+                #           entity: switch.aquarium_filter
+                #           layout: vertical
+                #           icon: mdi:air-filter
+                #           icon_color: |
+                #             {%- if is_state('switch.aquarium_filter', 'on') %} 
+                #             var(--rgb-google-green)
+                #             {% endif %}
+                #           tap_action:
+                #             action: toggle
                 - type: custom:vertical-stack-in-card
                   mode: vertical
                   cards:
@@ -225,36 +173,6 @@ cards:
                             {% endif %}
                           tap_action:
                             action: toggle
-                        - type: custom:mushroom-template-card
-                          icon: mdi:fan
-                          entity: switch.serverfan
-                          icon_color: |
-                            {%- if is_state('switch.serverfan', 'on') %} 
-                            var(--rgb-google-blue)
-                            {% endif %}
-                          card_mod:
-                            style: |
-                              ha-state-icon {
-                                {% if is_state('switch.serverfan','on') %}
-                                  animation: rotation 1s linear infinite;
-                                {%endif%}
-                                  line-height: 0.1rem;
-                                }
-                              @keyframes rotation {
-                                0% {
-                                  transform: rotate(0deg);
-                                }
-                                100% {
-                                  transform: rotate(360deg);
-                                }
-                              }
-                              ha-card { 
-                                border-width:0px;
-                              }
-                          tap_action:
-                            action: toggle
-            - type: horizontal-stack
-              cards:
                 - type: "custom:button-card"
                   template: custom_card_community_switch_card
                   variables:
@@ -265,7 +183,7 @@ cards:
                 - type: "custom:button-card"
                   template: custom_card_community_switch_card
                   variables:
-                    ulm_custom_card_community_switch_card_entity: input_boolean.run_wakeup_script
+                    ulm_custom_card_community_switch_card_entity: input_boolean.on_vacation
                     ulm_custom_card_community_switch_card_name: Vacation
                     ulm_custom_card_community_switch_card_icon: 'mdi:beach'
                     ulm_custom_card_community_switch_card_color: "var(--google-green)"
@@ -286,63 +204,4 @@ cards:
                     ulm_custom_card_community_switch_card_icon: 'mdi:cctv'
                     ulm_custom_card_community_switch_card_color: "var(--google-green)"
 
-            ## Temperature Sensor ###################################################################################################################
-            - type: custom:mushroom-title-card
-              title: Temperature
-            - type: horizontal-stack
-              cards:
-                - type: 'custom:button-card'
-                  template: card_graph
-                  entity: sensor.bedroom_temperature
-                  variables:
-                    ulm_card_graph_color: "var(--google-red)"
-                    ulm_card_graph_name: Temperature Bedroom
-                    ulm_card_graph_entity: sensor.bedroom_temperature
-                    ulm_card_graph_icon_color: "red"
-                    ulm_card_graph_type: fill
-                    ulm_card_graph_hours: 12
-                    ulm_card_graph_group_by: interval
-                    ulm_card_graph_line_width: 5
-                - type: 'custom:button-card'
-                  template: card_graph
-                  entity: sensor.office_area_temperature
-                  variables:
-                    ulm_card_graph_color: "var(--google-red)"
-                    ulm_card_graph_name: Temperature Office
-                    ulm_card_graph_entity: sensor.office_area_temperature
-                    ulm_card_graph_icon_color: "red"
-                    ulm_card_graph_type: fill
-                    ulm_card_graph_hours: 12
-                    ulm_card_graph_group_by: interval
-                    ulm_card_graph_line_width: 5
-                    
-            ## Humidity Sensor ###################################################################################################################
-            - type: custom:mushroom-title-card
-              title: Humidity
-            - type: horizontal-stack
-              cards:
-                - type: 'custom:button-card'
-                  template: card_graph
-                  entity: sensor.bedroom_humidity
-                  variables:
-                    ulm_card_graph_color: "var(--google-green)"
-                    ulm_card_graph_name: Humidity Bedroom
-                    ulm_card_graph_entity: sensor.bedroom_humidity
-                    ulm_card_graph_icon_color: "green"
-                    ulm_card_graph_type: fill
-                    ulm_card_graph_hours: 6
-                    ulm_card_graph_group_by: interval
-                    ulm_card_graph_line_width: 5
-                - type: 'custom:button-card'
-                  template: card_graph
-                  entity: sensor.bedroom_humidifier_current_humidity
-                  variables:
-                    ulm_card_graph_color: "var(--google-green)"
-                    ulm_card_graph_name: Humidifier Bedroom
-                    ulm_card_graph_entity: sensor.bedroom_humidifier_current_humidity
-                    ulm_card_graph_icon_color: "green"
-                    ulm_card_graph_type: fill
-                    ulm_card_graph_hours: 6
-                    ulm_card_graph_group_by: interval
-                    ulm_card_graph_line_width: 5
                 

@@ -111,12 +111,17 @@ cards:
                   options:
                     type: custom:mushroom-template-card
                     entity: this.entity_id
-                    icon: '{{ state_attr(entity, ''icon'')}}'
+                    icon: |
+                      {%- if is_state(entity, 'on') %} 
+                      mdi:alert
+                      {%- else %}
+                      mdi:shield-check
+                      {% endif %}
                     multiline_secondary: false
                     tap_action:
                       action: more-info
                     primary: '{{ state_attr(entity, "friendly_name") | replace("pogu-nas ", "") }}'
-                    secondary: '{{ states(entity) }}'
+                    secondary: '{{ states(entity) | title}}'
                     icon_color: |
                       {%- if is_state(entity, 'normal') %} 
                       var(--rgb-google-green)
