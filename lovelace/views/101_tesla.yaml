@@ -18,24 +18,6 @@ cards:
           tap_action:
             action: navigate
             navigation_path: /lovelace/dash
-        - type: action
-          icon_color: indigo
-          icon: mdi:bed
-          tap_action:
-            action: navigate
-            navigation_path: /lovelace/rooms
-        - type: action
-          icon_color: var(--rgb-google-green)
-          icon: mdi:nas
-          tap_action:
-            action: navigate
-            navigation_path: /lovelace/nas
-        - type: action
-          icon_color: var(--rgb-google-yellow)
-          icon: si:proxmox
-          tap_action:
-            action: navigate
-            navigation_path: /lovelace/proxmox
           
     ## ROW 1 ###################################################################################################################
     - type: custom:mushroom-title-card
@@ -78,15 +60,15 @@ cards:
             {% endif %}
           icon_color: |-
             {% if states('sensor.tesla_battery_level') | float >= 60 %}
-              var(--rgb-google-green)
+              var(--mush-rgb-green)
             {% elif states('sensor.tesla_battery_level') | float >= 40 %}
-              var(--rgb-google-yellow)
+              var(--mush-rgb-yellow)
             {% else %}
-              var(--rgb-google-red)
+              var(--mush-rgb-red)
             {% endif %}
         - type: custom:mushroom-entity-card
           entity: sensor.tesla_state
-          icon_color: var(--rgb-google-yellow)
+          icon_color: var(--mush-rgb-yellow)
           name: Car State
     - type: horizontal-stack
       cards:
@@ -104,9 +86,9 @@ cards:
           icon: mdi:ev-plug-tesla
           icon_color: |-
             {% if is_state('binary_sensor.tesla_plugged_in', 'on') %}
-              var(--rgb-google-green)
+              var(--mush-rgb-green)
             {% else %}
-              var(--rgb-google-grey)
+              var(--mush-rgb-grey)
             {% endif %}
         - type: custom:mushroom-template-card
           primary: 'Window Status'
@@ -127,9 +109,9 @@ cards:
             {% endif %}
           icon_color: |-
             {% if is_state('binary_sensor.tesla_windows_open', 'on') %}
-              var(--rgb-google-red)
+              var(--mush-rgb-red)
             {% else %}
-              var(--rgb-google-grey)
+              var(--mush-rgb-grey)
             {% endif %}
     - type: horizontal-stack
       cards:
@@ -161,7 +143,7 @@ cards:
               }
         - type: custom:mushroom-entity-card
           entity: sensor.tesla_speed_mph
-          icon_color: var(--rgb-google-yellow)
+          icon_color: var(--mush-rgb-yellow)
         
     ## Auto entites Tesla ###################################################################################################################
     - type: custom:mushroom-title-card
@@ -179,14 +161,16 @@ cards:
         include:
           - entity_id: "sensor.tesla_*"
             options:
-              type: custom:mushroom-entity-card
+              type: custom:bubble-card
+              card_type: button
+              show_state: true
               entity: this.entity_id
-              icon_color: var(--rgb-google-yellow)
           - entity_id: "binary_sensor.tesla_*"
             options:
-              type: custom:mushroom-entity-card
+              type: custom:bubble-card
+              card_type: button
+              show_state: true
               entity: this.entity_id
-              icon_color: var(--rgb-google-yellow)
         exclude:
           - state: "unavailable"
           - state: "Unknown"
@@ -194,78 +178,78 @@ cards:
           - entity_id: "binary_sensor.tesla_wall_*"
 
     ## Auto entities Tesla wall connector ###################################################################################################################
-    - type: custom:mushroom-title-card
-      title: Tesla Wall Connector
-    - type: horizontal-stack
-      cards:
-        - type: custom:mushroom-template-card
-          primary: 'Vehicle Connected'
-          entity: binary_sensor.tesla_wall_connector_vehicle_connected
-          tap_action:
-            action: more-info
-          secondary: |-
-            {% if is_state('binary_sensor.tesla_wall_connector_vehicle_connected', 'on') %}
-              Plugged In
-            {% else %}
-              Unplugged
-            {% endif %}
-          icon: |-
-            {% if is_state('binary_sensor.tesla_wall_connector_vehicle_connected', 'on') %}
-              mdi:power-plug
-            {% else %}
-              mdi:power-plug-off
-            {% endif %}
-          icon_color: |-
-            {% if is_state('binary_sensor.tesla_wall_connector_vehicle_connected', 'on') %}
-              var(--rgb-google-yellow)
-            {% else %}
-              var(--rgb-google-grey)
-            {% endif %}
-        - type: custom:mushroom-template-card
-          primary: 'Contactor closed'
-          entity: binary_sensor.tesla_wall_connector_contactor_closed
-          tap_action:
-            action: more-info
-          secondary: |-
-            {% if is_state('binary_sensor.tesla_wall_connector_contactor_closed', 'on') %}
-              Charging
-            {% else %}
-              Not charging
-            {% endif %}
-          icon: |-
-            {% if is_state('binary_sensor.tesla_wall_connector_contactor_closed', 'on') %}
-              mdi:power-plug
-            {% else %}
-              mdi:power-plug-off
-            {% endif %}
-          icon_color: |-
-            {% if is_state('binary_sensor.tesla_wall_connector_contactor_closed', 'on') %}
-              var(--rgb-google-yellow)
-            {% else %}
-              var(--rgb-google-grey)
-            {% endif %}
-    - type: "custom:auto-entities"
-      card:
-        type: "grid"
-        columns: 2
-        square: false
-      card_param: "cards"
-      sort:
-        method: last-changed
-        ignore_case: true
-      filter:
-        include:
-          - entity_id: "sensor.tesla_wall_*"
-            options:
-              type: custom:mushroom-template-card
-              primary: '{{ state_attr(entity, ''friendly_name'') | regex_replace(find=''Tesla Wall Connector '', replace='''', ignorecase=False) }}'
-              secondary: '{{ states(entity) }}'
-              icon: fas:info-circle
-              icon_color: var(--rgb-google-yellow)
-              tap_action:
-                action: more-info
-              entity: this.entity_id
-        exclude:
-          - state: "unavailable"
-          - state: "Unknown"
+    # - type: custom:mushroom-title-card
+    #   title: Tesla Wall Connector
+    # - type: horizontal-stack
+    #   cards:
+    #     - type: custom:mushroom-template-card
+    #       primary: 'Vehicle Connected'
+    #       entity: binary_sensor.tesla_wall_connector_vehicle_connected
+    #       tap_action:
+    #         action: more-info
+    #       secondary: |-
+    #         {% if is_state('binary_sensor.tesla_wall_connector_vehicle_connected', 'on') %}
+    #           Plugged In
+    #         {% else %}
+    #           Unplugged
+    #         {% endif %}
+    #       icon: |-
+    #         {% if is_state('binary_sensor.tesla_wall_connector_vehicle_connected', 'on') %}
+    #           mdi:power-plug
+    #         {% else %}
+    #           mdi:power-plug-off
+    #         {% endif %}
+    #       icon_color: |-
+    #         {% if is_state('binary_sensor.tesla_wall_connector_vehicle_connected', 'on') %}
+    #           var(--mush-rgb-yellow)
+    #         {% else %}
+    #           var(--mush-rgb-grey)
+    #         {% endif %}
+    #     - type: custom:mushroom-template-card
+    #       primary: 'Contactor closed'
+    #       entity: binary_sensor.tesla_wall_connector_contactor_closed
+    #       tap_action:
+    #         action: more-info
+    #       secondary: |-
+    #         {% if is_state('binary_sensor.tesla_wall_connector_contactor_closed', 'on') %}
+    #           Charging
+    #         {% else %}
+    #           Not charging
+    #         {% endif %}
+    #       icon: |-
+    #         {% if is_state('binary_sensor.tesla_wall_connector_contactor_closed', 'on') %}
+    #           mdi:power-plug
+    #         {% else %}
+    #           mdi:power-plug-off
+    #         {% endif %}
+    #       icon_color: |-
+    #         {% if is_state('binary_sensor.tesla_wall_connector_contactor_closed', 'on') %}
+    #           var(--mush-rgb-yellow)
+    #         {% else %}
+    #           var(--mush-rgb-grey)
+    #         {% endif %}
+    # - type: "custom:auto-entities"
+    #   card:
+    #     type: "grid"
+    #     columns: 2
+    #     square: false
+    #   card_param: "cards"
+    #   sort:
+    #     method: last-changed
+    #     ignore_case: true
+    #   filter:
+    #     include:
+    #       - entity_id: "sensor.tesla_wall_*"
+    #         options:
+    #           type: custom:mushroom-template-card
+    #           primary: '{{ state_attr(entity, ''friendly_name'') | regex_replace(find=''Tesla Wall Connector '', replace='''', ignorecase=False) }}'
+    #           secondary: '{{ states(entity) }}'
+    #           icon: fas:info-circle
+    #           icon_color: var(--mush-rgb-yellow)
+    #           tap_action:
+    #             action: more-info
+    #           entity: this.entity_id
+    #     exclude:
+    #       - state: "unavailable"
+    #       - state: "Unknown"
     

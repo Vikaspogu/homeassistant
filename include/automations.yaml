@@ -19,11 +19,11 @@ automation:
     alias: Garage Door Opened
     trigger:
       - platform: state
-        entity_id: cover.garage_door
+        entity_id: cover.garage_door_controller
         to: open
     condition:
       condition: state
-      entity_id: cover.garage_door
+      entity_id: cover.garage_door_controller
       state: open
     action:
       - service: timer.start
@@ -33,7 +33,7 @@ automation:
     alias: Garage Door Closed
     trigger:
     - platform: state
-      entity_id: cover.garage_door
+      entity_id: cover.garage_door_controller
       to: closed
     action:
       - service: timer.cancel
@@ -48,7 +48,7 @@ automation:
         entity_id: timer.garage_door_2
     condition:
       condition: state
-      entity_id: cover.garage_door
+      entity_id: cover.garage_door_controller
       state: open
     action:
       - service: timer.start
@@ -69,7 +69,7 @@ automation:
         action: close_garage
     action:
       service: cover.close_cover
-      entity_id: cover.garage_door
+      entity_id: cover.garage_door_controller
       data: {}
     id: c696dd277c6546ecb1f4e0f82052822f
 
@@ -103,11 +103,11 @@ automation:
         entity_id: sensor.uptime_minutes
         above: 2
       - condition: state
-        entity_id: cover.garage_door
+        entity_id: cover.garage_door_controller
         state: "closed"
     action:
       - service: cover.open_cover
-        entity_id: cover.garage_door
+        entity_id: cover.garage_door_controller
     id: 78aa903d4f1d4085b77726ac84b0faeb
 
   - alias: Close garage if car is away
@@ -119,18 +119,18 @@ automation:
         to: not_home
     condition:
       - condition: state
-        entity_id: cover.garage_door
+        entity_id: cover.garage_door_controller
         state: "open"
     action:
       - service: cover.close_cover
-        entity_id: cover.garage_door
+        entity_id: cover.garage_door_controller
     id: 3d9513db194f4f44b8310e57949968d1
 
   - id: vacuum_notifications
     alias: Vacuum Notifications
     trigger:
       - platform: state
-        entity_id: vacuum.robovac
+        entity_id: vacuum.valetudo_wall_e
     condition:
       condition: template
       value_template: '{{ not (trigger.to_state.state == trigger.from_state.state) }}'

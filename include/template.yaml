@@ -25,12 +25,7 @@ template:
   - unique_id: outside_temperature
     icon: mdi:thermometer
     name : "Outside Temperature"
-    state: "{{ states.weather.home.attributes.temperature }}"
-  
-  - unique_id: presence_distance
-    icon: mdi:map-marker-distance
-    name : "Presence Distance"
-    state: "{{ states.sensor.pixel_7_room_presence.attributes.distance }}"
+    state: "{{ states.weather.forecast_home.attributes.temperature }}"
 
   - unique_id: thermostat_desired_temperature
     icon: mdi:thermometer
