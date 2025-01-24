@@ -53,7 +53,7 @@ cards:
             content: |-
               {{ states.weather.forecast_home.attributes.temperature}} {{states.weather.forecast_home.attributes.temperature_unit}}
             icon: mdi:temperature-fahrenheit
-            icon_color: var(--mush-rgb-purple)
+            icon_color: purple
           
           - type: template
             tap_action:
@@ -62,7 +62,7 @@ cards:
             content: |-
               Uptime {{ states('sensor.uptime') | as_datetime | relative_time }}
             icon: mdi:weather-cloudy-clock
-            icon_color: var(--mush-rgb-purple)
+            icon_color: purple
           - type: template
             entity: binary_sensor.pogu_nas_security_status
             tap_action:
@@ -81,9 +81,9 @@ cards:
               {% endif %}
             icon_color: |-
               {% if is_state('binary_sensor.pogu_nas_security_status', 'on') %}
-                var(--mush-rgb-amber)
+                amber
               {% else %}
-                var(--mush-rgb-green)
+                green
               {% endif %}
           - type: template
             tap_action:
@@ -103,9 +103,9 @@ cards:
               {% endif %}
             icon_color: |-
               {% if states('sensor.tesla_battery_level') | float >= 50 %}
-                var(--mush-rgb-green)
+                green
               {% else %}
-                var(--mush-rgb-amber)
+                amber
               {% endif %}
           - type: template
             tap_action:
@@ -116,9 +116,9 @@ cards:
             icon: mdi:ev-station
             icon_color: |-
               {% if states('sensor.tesla_ideal_battery_range_mi') | float >= 50 %}
-                var(--mush-rgb-green)
+                green
               {% else %}
-                var(--mush-rgb-amber)
+                amber
               {% endif %}
           - type: template
             tap_action:
@@ -138,22 +138,22 @@ cards:
               {% endif %}
             icon_color: |-
               {% if is_state('sensor.tesla_state', 'online') %}
-                var(--mush-rgb-green)
+                green
               {% elif is_state('sensor.tesla_state', 'charging') %}
-                var(--mush-rgb-teal)
+                teal
               {% elif is_state('sensor.tesla_state', 'driving') %}
-                var(--mush-rgb-brown)
+                brown
               {% else %}
-                var(--mush-rgb-grey)
+                grey
               {% endif %}
           - type: template
-            entitiy: device_tracker.tesla_location
+            entitiy: device_tracker.tesla_location_2
             icon: si:tesla
-            icon_color: "var(--mush-rgb-amber)"
+            icon_color: "amber"
             content: |-
               {{ states('sensor.pogu_s_tesla_location_distance') }}mi
               • 
-              {{ states('device_tracker.tesla_location') | regex_replace(find='_', replace=' ', ignorecase=False)}}
+              {{ states('device_tracker.tesla_location_2') | regex_replace(find='_', replace=' ', ignorecase=False)}}
             tap_action:
               action: "fire-dom-event"
               browser_mod:
@@ -237,7 +237,7 @@ cards:
                               font-family: var(--primary-font-family);
                             }
                         entities:
-                          - entity: "device_tracker.tesla_location"
+                          - entity: "device_tracker.tesla_location_2"
                             secondary_info: "last-changed"
                       - type: "history-graph"
                         card_mod:
@@ -246,7 +246,7 @@ cards:
                               font-family: var(--primary-font-family);
                             }
                         entities:
-                          - entity: "device_tracker.tesla_location"
+                          - entity: "device_tracker.tesla_location_2"
                       - type: "glance"
                         card_mod:
                           style: |
@@ -270,39 +270,8 @@ cards:
                         aspect_ratio: "12x10"
                         default_zoom: 16
                         entities: 
-                          - "device_tracker.tesla_location"
-          - type: template
-            entity: sensor.air_quality_index
-            icon: mdi:leaf
-            content: >-
-              {% set aqi = states('sensor.air_quality_index') | float %}
+                          - "device_tracker.tesla_location_2"
 
-              {% if aqi <= 50 %} Air Quality Index - Good
-              ({{states('sensor.air_quality_index')}})
-
-              {% elif 51 >= aqi <= 100 %} Air Quality Index - Moderate
-              {{states('sensor.air_quality_index')}} - Moderate
-
-              {% elif 101 >= aqi <= 150 %} Air Quality Index - Unhealthy for
-              Sensitive Groups {{states('sensor.air_quality_index')}} - Unhealthy
-              for Sensitive Groups
-
-              {% elif 151 >= aqi <= 200 %} Air Quality Index - Unhealthy
-              {{states('sensor.air_quality_index')}} - Unhealthy
-
-              {% elif 201 >= aqi <= 300 %} Air Quality Index - Very Unhealthy
-              {{states('sensor.air_quality_index')}} - Very Unhealthy
-
-              {% elif aqi > 300 %} Air Quality Index - Hazardous
-
-              {% endif %}
-            icon_color: |-
-              {% set aqi = states('sensor.air_quality_index') | float %}
-              {% if aqi <= 50 %} var(--mush-rgb-green)
-              {% elif 51 >= aqi <= 100 %} var(--mush-rgb-purple)
-              {% elif 100 >= aqi <= 300 %} var(--mush-rgb-brown)
-              {% elif aqi > 300 %} "var(--mush-rgb-amber)"
-              {% endif %}
     - type: custom:simple-weather-card
       entity: weather.forecast_home
       name: at home
@@ -333,137 +302,24 @@ cards:
         entity: input_boolean.on_vacation
         name: Vacation
         show_state: true
+
     - type: custom:bubble-card
-      card_type: button
-      button_type: state
-      entity: weather.forecast_home
-      name: Weather
-      show_state: true
-      card_layout: large-2-rows
+      card_type: separator
+      name: Master Bedroom
+      icon: mdi:home-thermometer-outline
       sub_button:
         - name: Bedroom temperature
-          icon: mdi:home-thermometer-outline
           entity: sensor.bedroom_temperature_temperature
           show_state: true
-          show_icon: true
-          show_background: false
-        - name: Callie's Room temperature
+    - type: custom:bubble-card
+      card_type: separator
+      name: Callie' Bedroom
+      icon: mdi:home-thermometer-outline
+      sub_button:
+        - name: Bedroom temperature
           entity: sensor.callies_room_temperature_temperature
-          icon: mdi:home-thermometer-outline
           show_state: true
-          show_background: false
-        # - name: Today
-        #   entity: sensor.home_realfeel_temperature_max_0d
-        #   show_name: true
-        #   show_state: true
-        #   tap_action:
-        #     action: more-info
-        # - name: Tomorrow
-        #   entity: sensor.home_realfeel_temperature_max_1d
-        #   show_name: true
-        #   show_state: true
-        #   show_background: false
-      # styles: >-
-      #   /* Change the third and fourth sub-button icon based on the forecast.condition attribute, more details in the styles template section */
-      #   ${subButtonIcon[2].setAttribute("icon", getWeatherIcon(hass.states['sensor.weather_forecast_daily'].attributes.forecast[0]?.condition))}
-      #   ${subButtonIcon[3].setAttribute("icon", getWeatherIcon(hass.states['sensor.weather_forecast_daily'].attributes.forecast[1]?.condition))}   
-    ## Lights ###################################################################################################################
-    # - type: custom:decluttering-card
-    #   template: title_card
-    #   variables:
-    #     - name: Lights
-    # - type: horizontal-stack
-    #   cards:
-    #     - type: custom:decluttering-card
-    #       template: lights_card
-    #       variables:
-    #         - name: Kitchen
-    #         - entity_1: "light.kitchen_lights_group"
-    #         - icon: mdi:track-light
-    #     - type: custom:decluttering-card
-    #       template: lights_card
-    #       variables:
-    #         - name: Living Room
-    #         - entity_1: "light.living_room_dining_group"
-    #         - icon: phu:bulb-group-classic-hung-3-alt
-    # - type: horizontal-stack
-    #   cards:
-    #     - type: custom:decluttering-card
-    #       template: lights_card
-    #       variables:
-    #         - name: Office
-    #         - entity_1: "light.office_ceiling_lights_group"
-    #         - icon: phu:bulb-group-ceiling-round
-    #     - type: custom:decluttering-card
-    #       template: lights_card
-    #       variables:
-    #         - name: Landing
-    #         - entity_1: "light.landing_lights_group"
-    #         - icon: phu:bulb-group
-    # - type: custom:button-card
-    #   name: More Lights
-    #   show_icon: false
-    #   styles:
-    #     card:
-    #       - background: var(--contrast2)
-    #       - border-radius: 24px
-    #       - color: var(--contrast20)
-    #       - margin-top: 8px
-    #       - padding: 18px 0px
-    #       - font-size: 16px
-    #       - border: 2px solid var(--contrast5)
-    #   tap_action:
-    #     haptic: light
-    #     action: "fire-dom-event"
-    #     browser_mod:
-    #       service: browser_mod.popup
-    #       data:
-    #         title: ' '
-    #         content:
-    #           type: custom:stack-in-card
-    #           mode: vertical
-    #           keep:
-    #             margin: true
-    #             border_radius: true
-    #             background: true
-    #             outer_padding: false
-    #           card_mod:
-    #             style: |
-    #               ha-card {
-    #                 background-color: var(--contrast3);
-    #                 border-radius: 25px;
-    #                 font-family: "Nunito";
-    #               }
-    #           cards:
-    #             - type: custom:gap-card
-    #               height: 2
-    #             - type: vertical-stack
-    #               cards:
-    #                 - type: custom:button-card
-    #                   name: Lights 💡
-    #                   styles:
-    #                     card:
-    #                       - background: none
-    #                       - box-shadow: none
-    #                       - padding: 30px 0px 60px 0px
-    #                       - '--mdc-ripple-press-opacity': 0
-    #                     name:
-    #                       - font-size: 30px
-    #                       - color: var(--contrast20)
-    #                       - font-family: Nunito
-    #                 - square: false
-    #                   type: grid
-    #                   columns: 2
-    #                   cards:
-    #                     - type: custom:decluttering-card
-    #                       template: lights_card
-    #                       variables:
-    #                         - name: TV LED
-    #                         - entity_1: "light.tv_h6199"
-    #                         - icon: phu:lightstrip-tv
 
-    - type: custom:mushroom-title-card
-      title: Media
     - type: custom:bubble-card
       card_type: media-player
       name: Loft TV
@@ -489,23 +345,6 @@ cards:
                     name: "Hulu"     
     
     ## Curtains/Blinds #############################################################################
-    - type: custom:mushroom-title-card
-      title: Rooms
-    - type: horizontal-stack
-      cards: 
-        - type: custom:decluttering-card
-          template: lock_card
-          variables:
-            - name: Back Door
-            - entity_1: "lock.home_connect_620_connected_smart_lock"
-            - icon: mdi:shield-lock
-        - type: custom:decluttering-card
-          template: lock_card
-          variables:
-            - name: Front Door
-            - entity_1: "lock.front_door"
-            - icon: mdi:shield-lock
-        
     - type: horizontal-stack
       cards:
         - type: custom:bubble-card
@@ -518,12 +357,57 @@ cards:
           styles: |
             .bubble-button-background {
               opacity: 1 !important;
-              background-color: ${state === 'closed' ? 'var(--blue)' : 'var(--red)'} !important;
+              background-color: ${state === 'closed' ? '' : 'var(--red)'} !important;
             }
             .bubble-icon {
-              color: ${hass.states['cover.garage_door_controller'].state === 'closed' ? 'var(--blue)' : 'var(--red)'} !important;
+              color: ${hass.states['cover.garage_door_controller'].state === 'closed' ? '' : 'var(--red)'} !important;
             }
+    - type: horizontal-stack
+      cards:
+        - type: custom:bubble-card
+          card_type: climate
+          entity: climate.thermostat
+          show_state: true
+          state_color: true
+          sub_button:
+            - name: HVAC modes menu
+              select_attribute: hvac_modes
+              show_arrow: false
+              state_background: false
 
+    - type: horizontal-stack
+      cards: 
+        - type: custom:bubble-card
+          card_type: button
+          entity: lock.home_connect_620_connected_smart_lock
+          name: Back Door
+          icon: mdi:shield-lock
+          show_state: true
+          styles: |
+            .bubble-icon  {
+              opacity: 1 !important;
+              color: ${state === 'locked' ? '' : 'brown'} !important;
+            }
+            .bubble-button-card-container {
+              opacity: 1 !important;
+              background: ${state === 'locked' ? '' : 'brown'} !important;
+            }
+        - type: custom:bubble-card
+          card_type: button
+          entity: "lock.front_door"
+          name: Front Door
+          icon: mdi:shield-lock
+          show_state: true
+          styles: |
+            .bubble-icon  {
+              opacity: 1 !important;
+              color: ${state === 'locked' ? '' : 'brown'} !important;
+            }
+            .bubble-button-card-container {
+              opacity: 1 !important;
+              background: ${state === 'locked' ? '' : 'brown'} !important;
+            }
+        
     - type: horizontal-stack
       cards:
         - type: custom:bubble-card
@@ -576,91 +460,87 @@ cards:
         - type: custom:bubble-card
           card_type: empty-column
 
-    - type: horizontal-stack
-      cards:
-        - type: custom:bubble-card
-          card_type: button
-          entity: switch.frontwatervalve
-          name: Front Sprinklers
-          icon: mdi:sprinkler
-          show_state: true
-        - type: custom:bubble-card
-          card_type: button
-          entity: switch.backwatervalve
-          name: Back Sprinklers
-          icon: mdi:sprinkler
-          show_state: true
+    # - type: horizontal-stack
+    #   cards:
+    #     - type: custom:bubble-card
+    #       card_type: button
+    #       entity: switch.frontwatervalve
+    #       name: Front Sprinklers
+    #       icon: mdi:sprinkler
+    #       show_state: true
+    #     - type: custom:bubble-card
+    #       card_type: button
+    #       entity: switch.backwatervalve
+    #       name: Back Sprinklers
+    #       icon: mdi:sprinkler
+    #       show_state: true
+
+    # - type: horizontal-stack
+    #   cards:
+    #     - type: custom:bubble-card
+    #       card_type: button
+    #       entity: switch.frontoutdoorlights
+    #       name: Outdoor light
+    #       icon: mdi:string-lights
+    #       show_state: true
+    #     - type: custom:bubble-card
+    #       card_type: button
+    #       entity: switch.officeroom
+    #       name: Christmas light
+    #       icon: mdi:pine-tree
+    #       show_state: true
 
     - type: horizontal-stack
       cards:
         - type: custom:bubble-card
           card_type: button
-          entity: switch.frontoutdoorlights
-          name: Outdoor light
-          icon: mdi:string-lights
+          entity: humidifier.callie_roo_humidifier_2
+          name: Callie's Room Humidifer
+          icon: mdi:air-humidifier
           show_state: true
         - type: custom:bubble-card
-          card_type: empty-column
+          card_type: button
+          entity: humidifier.luh_a602s_wus
+          name: Bedroom Humidifier
+          icon: mdi:air-humidifier
+          show_state: true
 
-    #   - type: custom:mushroom-humidifier-card
-    #     entity: humidifier.luh_a602s_wus
-    #     name: Bedroom Humidifier
-    #     show_target_humidity_control: true
-
-    - type: custom:mushroom-title-card
-      title: Thermostat
     - type: horizontal-stack
       cards:
-      - type: custom:mushroom-climate-card
-        entity: climate.thermostat
-        hvac_modes:
-          - heat_cool
-          - heat
-          - cool
-          - 'off'
-        show_temperature_control: true
-        collapsible_controls: false
-        name: Air Conditioner
-        card_mod:
-          style: |
-            ha-state-icon {
-              {% if is_state(config.entity, 'heat_cool') %}
-                --card-mod-icon: mdi:autorenew;
-                animation: spin 3s ease-in-out infinite alternate;
-              {% elif is_state(config.entity, 'heat') %}
-                --card-mod-icon: mdi:fire;
-                animation: heat 2s infinite;
-              {% elif is_state(config.entity, 'cool') %}
-                --card-mod-icon: mdi:snowflake;
-                animation: cool 6s ease-in-out infinite;
-              {% else %}
-                --card-mod-icon: mdi:air-conditioner; 
-              {% endif %}
-              display: flex;
+        - type: custom:bubble-card
+          card_type: button
+          button_type: state
+          name: Kettle
+          entity: switch.smart_kettle_power_switch
+          icon: mdi:kettle
+          show_state: true
+          show_last_changed: true
+          button_action:
+            tap_action:
+              action: toggle
+          tap_action:
+            action: toggle
+          styles: |
+            .bubble-button-card-container {
+              opacity: 1 !important;
+              background: ${state === 'off' ? '' : 'brown'} !important;
             }
-            @keyframes cool {
-              0%, 100% { transform: rotate(25deg); }
-              25% { transform: rotate(-25deg); }
-              50% { transform: rotate(50deg); }
-              75% { transform: rotate(-50deg); }
+            .bubble-icon  {
+              opacity: 1 !important;
+              color: ${state === 'off' ? '' : 'brown'} !important;
             }
-            @keyframes heat {
-              0%, 100% { --icon-color: rgba(var(--rgb-red), 1); }
-              10%, 90% { --icon-color: rgba(var(--rgb-red), 0.8); }
-              20%, 80% { --icon-color: rgba(var(--rgb-red), 0.6); }
-              30%, 70% { --icon-color: rgba(var(--rgb-red), 0.4); }
-              40%, 60% { --icon-color: rgba(var(--rgb-red), 0.2); }
-              50% { --icon-color: rgba(var(--rgb-red), 0); }
+            .bubble-sub-button-1 {
+              background-color: teal !important;
             }
-            @keyframes dry {
-              0%, 100% { --icon-symbol-size: 21px; }
-              10%, 90% { --icon-symbol-size: 22px; }
-              20%, 80% { --icon-symbol-size: 23px; }
-              30%, 70% { --icon-symbol-size: 24px; }
-              40%, 60% { --icon-symbol-size: 25px; }
-              50% { --icon-symbol-size: 26px; }
-            }
-
+          sub_button:
+            - type: custom:bubble-card
+              card_type: select
+              name: Kettle Mode
+              entity: select.smart_kettle_mode
+              icon: mdi:menu
+              show_state: true
+              show_background: true
+                
     ## Camera ###################################################################################################################   
     - type: custom:mushroom-title-card
       title: Cameras

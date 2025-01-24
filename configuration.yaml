@@ -2,19 +2,17 @@
 default_config:
 
 homeassistant:
-  # Name of the location where Home Assistant is running
   name: Pogu's
-  # Location required to calculate the time the sun rises and sets
   latitude: !secret homeassistant_latitude
   longitude: !secret homeassistant_longitude
   elevation: 5
-  # 'metric' for Metric, 'imperial' for Imperial
-  unit_system: imperial
-  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  time_zone: America/Chicago
+  unit_system: us_customary
+  temperature_unit: F
+  time_zone: America/New_York
   external_url: !secret homeassistant_external_url
   packages: !include_dir_named include
   country: US
+  currency: USD
 
 recorder:
   db_url: !secret postgresqlDB
@@ -33,54 +31,12 @@ frontend:
 
 http:
   use_x_forwarded_for: true
-  cors_allowed_origins:
-    - https://google.com
-    - https://www.home-assistant.io
   trusted_proxies:
-    - 10.69.0.0/16
-    - 10.96.0.0/16
-  ip_ban_enabled: true
+    - 10.0.0.0/8
+  ip_ban_enabled: false
   login_attempts_threshold: 3
 
-scrape:
-  - resource: https://www.synology.com/en-global/releaseNote/DSM
-    scan_interval: 86400
-    sensor:
-      - name: "Synology DSM Latest"
-        select: >
-          #release_notes_content > div:first-child > h3
-        value_template: >
-          {{ value.split(' ')[1] }}
-
-mqtt:
-  sensor: !include mqtt/sensor.yaml
-  binary_sensor: !include mqtt/binary_sensor.yaml
-  cover:
-    - name: "Garage Door"
-      unique_id: "12345677"
-      command_topic: "garage/set"
-      state_topic: "zigbee2mqtt/GarageDoor"
-      availability:
-        - topic: "garage/availability"
-      qos: 1
-      optimistic: false
-      retain: false
-      payload_open: "OPEN"
-      payload_close: "CLOSE"
-      state_open: "open"
-      state_opening: "opening"
-      state_closed: "closed"
-      state_closing: "closing"
-      payload_available: "online"
-      payload_not_available: "offline"
-      value_template: >-
-        {% if value_json.contact == true %}
-          closed
-        {% elif  value_json.contact == false %}
-          open
-        {% else %} 
-          Unknown 
-        {% endif %}
+mqtt: !include mqtt_sensors.yaml
 
 ## LOVELACE UI ##########################################################################
 # OLD ?
@@ -160,7 +116,7 @@ notify:
   - name: notify_group
     platform: group
     services:
-    - service: mobile_app_vpogu_pixel_9
+    - service: mobile_app_vikas_pixel_9
 
 google_assistant: !include google_assistant_integ.yaml
 adaptive_lighting:

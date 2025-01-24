@@ -86,8 +86,8 @@ automation:
           dev_id: tesla_location
           gps:
             [
-              "{{ states.sensor.tesla_latitude.state }}",
-              "{{ states.sensor.tesla_longitude.state }}",
+              "{{ states.device_tracker.tesla_location_2.attributes.latitude }}",
+              "{{ states.device_tracker.tesla_location_2.attributes.longitude }}",
             ]
     id: 77069c1dd26b4913b7fbbb00ae85b688
 
@@ -95,7 +95,7 @@ automation:
     initial_state: on
     trigger:
       - platform: state
-        entity_id: device_tracker.tesla_location
+        entity_id: device_tracker.tesla_location_2
         from: not_home
         to: home
     condition:
@@ -114,7 +114,7 @@ automation:
     initial_state: on
     trigger:
       - platform: state
-        entity_id: device_tracker.tesla_location
+        entity_id: device_tracker.tesla_location_2
         from: home
         to: not_home
     condition:

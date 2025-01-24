@@ -11,7 +11,7 @@ template:
     unique_id: server_energy_price
     icon: mdi:counter
     device_class: energy
-    unit_of_measurement: "$/kWh"
+    unit_of_measurement: "kWh"
     state: >
       {% set serverplug_1=states('sensor.serverplug_1_energy')|float(0) %}
       {% set serverplug_2=states('sensor.serverplug_2_energy')|float(0) %}
@@ -30,19 +30,19 @@ template:
   - unique_id: thermostat_desired_temperature
     icon: mdi:thermometer
     name : "Thermostat desired temperature"
-    state: "{{ states.climate.living_room.attributes.temperature }}"
+    state: "{{ states.climate.thermostat.attributes.temperature }}"
 
   - unique_id: living_room_temperature
     icon: mdi:thermometer
     name : "Living room temperature"
-    state: "{{ states.climate.living_room.attributes.current_temperature }}"
+    state: "{{ states.climate.thermostat.attributes.current_temperature }}"
 
   - unique_id: thermostat_eco_mode
     icon: mdi:leaf
     name : "Thermostat eco mode"
-    state: "{{ states.climate.living_room.attributes.preset_mode }}"
+    state: "{{ states.climate.thermostat.attributes.preset_mode }}"
 
   - unique_id: thermostat_eco_state
     icon: mdi:leaf
     name : "Thermostat eco state"
-    state: "{{ states.climate.living_room.attributes.preset_mode }}"
+    state: "{{ states.climate.thermostat.attributes.preset_mode }}"

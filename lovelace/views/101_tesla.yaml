@@ -34,7 +34,7 @@ cards:
       aspect_ratio: 16:9
       auto_fit: true
       entities:
-        - device_tracker.tesla_location
+        - device_tracker.tesla_location_2
 
     ## Car glance stats ###################################################################################################################
     - type: custom:mushroom-title-card

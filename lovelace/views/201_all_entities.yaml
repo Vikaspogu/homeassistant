@@ -1,0 +1,87 @@
+icon: mdi:auto-mode
+title: All Entities
+path: entities
+id: entities
+cards:
+  - type: "vertical-stack"
+    cards:
+      - type: custom:mushroom-title-card
+        title: Input Buttons
+      - type: horizontal-stack
+        cards:
+          - type: "custom:auto-entities"
+            card:
+              type: "grid"
+              columns: 2
+              square: false
+            card_param: "cards"
+            sort:
+              method: last-changed
+              ignore_case: true
+            filter:
+              include:
+                - entity_id: "input_boolean*"
+                  options:
+                    type: custom:bubble-card
+                    card_type: button
+                    show_state: true
+                    entity: this.entity_id
+              exclude:
+                - state: "unavailable"
+                - state: "unknown"
+      - type: custom:mushroom-title-card
+        title: Button
+      - type: horizontal-stack
+        cards:
+          - type: "custom:auto-entities"
+            card:
+              type: "grid"
+              columns: 2
+              square: false
+            card_param: "cards"
+            sort:
+              method: last-changed
+              ignore_case: true
+            filter:
+              include:
+                - entity_id: "button.*"
+                  options:
+                    type: custom:bubble-card
+                    card_type: button
+                    show_state: true
+                    entity: this.entity_id
+              exclude:
+                - state: "unavailable"
+                - state: "unknown"
+      - type: custom:mushroom-title-card
+        title: Sensors
+      - type: horizontal-stack
+        cards:
+          - type: "custom:auto-entities"
+            card:
+              type: "grid"
+              columns: 2
+              square: false
+            card_param: "cards"
+            sort:
+              method: last-changed
+              ignore_case: true
+            filter:
+              include:
+                - entity_id: "sensor.*smoke*"
+                  options:
+                    type: custom:bubble-card
+                    card_type: button
+                    show_state: true
+                    entity: this.entity_id
+                - entity_id: "binary_sensor.*smoke*"
+                  options:
+                    type: custom:bubble-card
+                    card_type: button
+                    show_state: true
+                    entity: this.entity_id
+              exclude:
+                - state: "unavailable"
+                - state: "unknown"
+                - entity_id: "sensor.tesla*"
+                - entity_id: "binary_sensor.tesla*"

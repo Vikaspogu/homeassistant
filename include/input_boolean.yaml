@@ -2,6 +2,10 @@ input_boolean:
   on_vacation:
     name: On Vacation
     icon: "mdi:airplane"
+  
+  working:
+    name: Working
+    icon: mdi:laptop-account
 
   run_wakeup_script:
     name: Wakeup script
