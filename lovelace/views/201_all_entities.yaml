@@ -6,6 +6,94 @@ cards:
   - type: "vertical-stack"
     cards:
       - type: custom:mushroom-title-card
+        title: TVs
+      - type: horizontal-stack
+        cards:
+          - type: "custom:auto-entities"
+            card:
+              type: "grid"
+              columns: 1
+              square: false
+            card_param: "cards"
+            sort:
+              method: last-changed
+              ignore_case: true
+            filter:
+              include:
+                - entity_id: "media_player.*"
+                  options:
+                    type: custom:bubble-card
+                    card_type: media-player
+                    entity: this.entity_id
+                    show_state: true
+                    show_last_updated: true
+                    show_attribute: true
+                    attribute: assumed_state
+                    card_layout: large
+                    scrolling_effect: false
+                    force_icon: true
+                    columns: 2
+                    rows: 1
+                    tap_action:
+                      action: toggle
+                    hide:
+                      previous_button: true
+                      next_button: true
+              exclude:
+                - state: "unavailable"
+                - state: "unknown"
+                - entity_id: "media_player.g4*"
+
+      - type: custom:mushroom-title-card
+        title: Switches
+      - type: horizontal-stack
+        cards:
+          - type: "custom:auto-entities"
+            card:
+              type: "grid"
+              columns: 2
+              square: false
+            card_param: "cards"
+            sort:
+              method: last-changed
+              ignore_case: true
+            filter:
+              include:
+                - entity_id: "switch.*"
+                  options:
+                    type: custom:bubble-card
+                    card_type: button
+                    show_state: true
+                    entity: this.entity_id
+              exclude:
+                - state: "unavailable"
+                - state: "unknown"
+      - type: custom:mushroom-title-card
+        title: Covers
+      - type: horizontal-stack
+        cards:
+          - type: "custom:auto-entities"
+            card:
+              type: "grid"
+              columns: 2
+              square: false
+            card_param: "cards"
+            sort:
+              method: last-changed
+              ignore_case: true
+            filter:
+              include:
+                - entity_id: "cover.*"
+                  options:
+                    type: custom:bubble-card
+                    card_type: button
+                    show_state: true
+                    entity: this.entity_id
+              exclude:
+                - state: "unavailable"
+                - state: "unknown"
+                - entity_id: "*garage*"
+      - type: custom:mushroom-title-card
         title: Input Buttons
       - type: horizontal-stack
         cards:
@@ -83,5 +171,3 @@ cards:
               exclude:
                 - state: "unavailable"
                 - state: "unknown"
-                - entity_id: "sensor.tesla*"
-                - entity_id: "binary_sensor.tesla*"

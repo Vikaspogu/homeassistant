@@ -12,3 +12,6 @@ input_boolean:
 
   run_goodnight_script:
     name: Goodnight script
+
+  override_temperature_control:
+    name: Manual Override Tempearture

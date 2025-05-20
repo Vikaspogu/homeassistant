@@ -73,29 +73,11 @@ automation:
       data: {}
     id: c696dd277c6546ecb1f4e0f82052822f
 
-  - alias: Update Tesla location as MQTT location updates
-    initial_state: on
-    trigger:
-      - platform: mqtt
-        topic: teslamate/cars/1/latitude
-      - platform: mqtt
-        topic: teslamate/cars/1/longitude
-    action:
-      - service: device_tracker.see
-        data_template:
-          dev_id: tesla_location
-          gps:
-            [
-              "{{ states.device_tracker.tesla_location_2.attributes.latitude }}",
-              "{{ states.device_tracker.tesla_location_2.attributes.longitude }}",
-            ]
-    id: 77069c1dd26b4913b7fbbb00ae85b688
-
   - alias: Open garage if car returns home
     initial_state: on
     trigger:
       - platform: state
-        entity_id: device_tracker.tesla_location_2
+        entity_id: device_tracker.2025_cadillac_optiq_super_cruise
         from: not_home
         to: home
     condition:
@@ -114,7 +96,7 @@ automation:
     initial_state: on
     trigger:
       - platform: state
-        entity_id: device_tracker.tesla_location_2
+        entity_id: device_tracker.2025_cadillac_optiq_super_cruise
         from: home
         to: not_home
     condition:
@@ -125,6 +107,54 @@ automation:
       - service: cover.close_cover
         entity_id: cover.garage_door_controller
     id: 3d9513db194f4f44b8310e57949968d1
+
+  - alias: Open garage if VW returns home
+    initial_state: on
+    trigger:
+      - platform: state
+        entity_id: device_tracker.vpogu_pixel_9
+        from: not_home
+        to: home
+    condition:
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: binary_sensor.vpogu_pixel9_android_auto
+            state: "on"
+          - condition: state
+            entity_id: binary_sensor.spogu_pixel_9_android_auto
+            state: "on"
+      - condition: state
+        entity_id: cover.garage_door_controller
+        state: "closed"
+    action:
+      - service: cover.open_cover
+        entity_id: cover.garage_door_controller
+    id: 3d9513db194f4f44b8310e57949968e6
+
+  - alias: Close garage if VW is away
+    initial_state: on
+    trigger:
+      - platform: state
+        entity_id: device_tracker.vpogu_pixel_9
+        from: home
+        to: not_home
+    condition:
+      - condition: state
+        entity_id: cover.garage_door_controller
+        state: "open"
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: binary_sensor.vpogu_pixel9_android_auto
+            state: "on"
+          - condition: state
+            entity_id: binary_sensor.spogu_pixel_9_android_auto
+            state: "on"
+    action:
+      - service: cover.close_cover
+        entity_id: cover.garage_door_controller
+    id: 3d9513db194f4f44b8310e57949968s2
 
   - id: vacuum_notifications
     alias: Vacuum Notifications
@@ -140,3 +170,4 @@ automation:
           title: Vacuum
           message: '🧹 {{ trigger.to_state.name }} vacuum has been turned {{ trigger.to_state.state
             }}'
+

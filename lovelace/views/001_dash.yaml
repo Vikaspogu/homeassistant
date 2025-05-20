@@ -88,21 +88,21 @@ cards:
           - type: template
             tap_action:
               action: more-info
-            entity: sensor.tesla_battery_level
+            entity: sensor.2025_cadillac_optiq_super_cruise_ev_battery_level
             content: |-
-              {{ states('sensor.tesla_battery_level') }}%
+              {{ states('sensor.2025_cadillac_optiq_super_cruise_ev_battery_level') }}%
             icon: |-
-              {% if states('sensor.tesla_battery_level') | float >= 80 %}
+              {% if states('sensor.2025_cadillac_optiq_super_cruise_ev_battery_level') | float >= 80 %}
                 mdi:battery-80
-              {% elif states('sensor.tesla_battery_level') | float >= 60 %}
+              {% elif states('sensor.2025_cadillac_optiq_super_cruise_ev_battery_level') | float >= 60 %}
                 mdi:battery-60
-              {% elif states('sensor.tesla_battery_level') | float >= 40 %}
+              {% elif states('sensor.2025_cadillac_optiq_super_cruise_ev_battery_level') | float >= 40 %}
                 mdi:battery-40
               {% else %}
                 mdi:battery-alert
               {% endif %}
             icon_color: |-
-              {% if states('sensor.tesla_battery_level') | float >= 50 %}
+              {% if states('sensor.2025_cadillac_optiq_super_cruise_ev_battery_level') | float >= 50 %}
                 green
               {% else %}
                 amber
@@ -110,56 +110,30 @@ cards:
           - type: template
             tap_action:
               action: more-info
-            entity: sensor.tesla_ideal_battery_range_mi
+            entity: sensor.2025_cadillac_optiq_super_cruise_ev_range
             content: |-
-              {{ states('sensor.tesla_ideal_battery_range_mi') }}mi
+              {{ states('sensor.2025_cadillac_optiq_super_cruise_ev_range') }}mi
             icon: mdi:ev-station
             icon_color: |-
-              {% if states('sensor.tesla_ideal_battery_range_mi') | float >= 50 %}
+              {% if states('sensor.2025_cadillac_optiq_super_cruise_ev_range') | float >= 50 %}
                 green
               {% else %}
                 amber
               {% endif %}
           - type: template
-            tap_action:
-              action: more-info
-            entity: sensor.tesla_state
-            content: |-
-              {{ states('sensor.tesla_state') }}
-            icon: |-
-              {% if is_state('sensor.tesla_state', 'online') %}
-                mdi:car-connected
-              {% elif is_state('sensor.tesla_state', 'charging') %}
-                mdi:car-electric-outline
-              {% elif is_state('sensor.tesla_state', 'driving') %}
-                mdi:car-wireless
-              {% else %}
-                mdi:car-clock
-              {% endif %}
-            icon_color: |-
-              {% if is_state('sensor.tesla_state', 'online') %}
-                green
-              {% elif is_state('sensor.tesla_state', 'charging') %}
-                teal
-              {% elif is_state('sensor.tesla_state', 'driving') %}
-                brown
-              {% else %}
-                grey
-              {% endif %}
-          - type: template
-            entitiy: device_tracker.tesla_location_2
-            icon: si:tesla
+            entitiy: device_tracker.2025_cadillac_optiq_super_cruise
+            icon: si:cadillac
             icon_color: "amber"
             content: |-
-              {{ states('sensor.pogu_s_tesla_location_distance') }}mi
+              {{ states('sensor.pogu_s_2025_cadillac_optiq_super_cruise_distance') }}mi
               • 
-              {{ states('device_tracker.tesla_location_2') | regex_replace(find='_', replace=' ', ignorecase=False)}}
+              {{ states('device_tracker.2025_cadillac_optiq_super_cruise') | regex_replace(find='_', replace=' ', ignorecase=False)}}
             tap_action:
               action: "fire-dom-event"
               browser_mod:
                 service: browser_mod.popup
                 data:
-                  title: Tesla Location
+                  title: Optiq Location
                   style:
                     $: >
                       [[[
@@ -237,30 +211,8 @@ cards:
                               font-family: var(--primary-font-family);
                             }
                         entities:
-                          - entity: "device_tracker.tesla_location_2"
+                          - entity: "device_tracker.2025_cadillac_optiq_super_cruise"
                             secondary_info: "last-changed"
-                      - type: "history-graph"
-                        card_mod:
-                          style: |
-                            :host {
-                              font-family: var(--primary-font-family);
-                            }
-                        entities:
-                          - entity: "device_tracker.tesla_location_2"
-                      - type: "glance"
-                        card_mod:
-                          style: |
-                            :host {
-                              font-family: var(--primary-font-family);
-                            }
-                        show_state: true
-                        entities:
-                          - type: custom:mushroom-entity-card
-                            entity: sensor.tesla_odometer_mi
-                          - type: custom:mushroom-entity-card
-                            entity: sensor.tesla_version
-                          - type: custom:mushroom-entity-card
-                            entity: sensor.tesla_speed_mph
                       - type: "map"
                         card_mod:
                           style: |
@@ -270,7 +222,7 @@ cards:
                         aspect_ratio: "12x10"
                         default_zoom: 16
                         entities: 
-                          - "device_tracker.tesla_location_2"
+                          - "device_tracker.2025_cadillac_optiq_super_cruise"
 
     - type: custom:simple-weather-card
       entity: weather.forecast_home
@@ -281,6 +233,17 @@ cards:
       secondary_info:
         - precipitation
         - precipitation_probability
+
+    - type: horizontal-stack
+      cards:
+      - type: custom:mushroom-person-card
+        entity: person.vikas_pogu
+        name: Vikas
+        show_state: true
+      - type: custom:mushroom-person-card
+        entity: person.spogu
+        name: Summer
+        show_state: true
 
     - type: horizontal-stack
       cards:
@@ -320,30 +283,6 @@ cards:
           entity: sensor.callies_room_temperature_temperature
           show_state: true
 
-    - type: custom:bubble-card
-      card_type: media-player
-      name: Loft TV
-      entity: media_player.lg_webos_smart_tv
-      tap_action:
-        action: "fire-dom-event"
-        browser_mod:
-          service: browser_mod.popup
-          data:
-            title: LG Remote
-            content:
-              type: "vertical-stack"
-              cards:
-                - type: 'custom:lg-remote-control'
-                  entity: media_player.lg_webos_smart_tv
-                  mac: !secret lg_tv_mac
-                  sources:
-                  - icon: 'mdi:plex'
-                    name: "Plex"
-                  - icon: 'si:amazon'
-                    name: "Amazon Prime Video"
-                  - icon: 'mdi:hulu'
-                    name: "Hulu"     
-    
     ## Curtains/Blinds #############################################################################
     - type: horizontal-stack
       cards:
@@ -364,16 +303,20 @@ cards:
             }
     - type: horizontal-stack
       cards:
-        - type: custom:bubble-card
-          card_type: climate
+        - type: custom:mushroom-climate-card
           entity: climate.thermostat
-          show_state: true
-          state_color: true
-          sub_button:
-            - name: HVAC modes menu
-              select_attribute: hvac_modes
-              show_arrow: false
-              state_background: false
+          hvac_modes: ["heat","cool","off"]
+          show_temperature_control: true
+        # - type: custom:bubble-card
+        #   card_type: climate
+        #   entity: climate.thermostat
+        #   show_state: true
+        #   state_color: true
+        #   sub_button:
+        #     - name: HVAC modes menu
+        #       select_attribute: hvac_modes
+        #       show_arrow: false
+        #       state_background: false
 
     - type: horizontal-stack
       cards: 
@@ -418,47 +361,248 @@ cards:
           show_state: true
         - type: custom:bubble-card
           card_type: button
+          entity: switch.callies_room_purifier_power_switch
+          name: Callie's Room Purifier
+          icon: mdi:air-purifier
+          show_state: true
+
+    - type: horizontal-stack
+      cards:
+        - type: custom:bubble-card
+          card_type: button
+          name: Office
+          entity: sensor.both_slideposition_c0d616da83fc
+          show_last_updated: true
+          show_state: true
+          icon: mdi:curtains
+          styles: >-
+            .bubble-button-background {
+              opacity: 1 !important;
+              background-color: ${state == 0.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+            }
+            .bubble-icon {
+              color: ${state == 0.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+            }
+            .bubble-sub-button-1 {
+              display: ${state == 0.0 ? '' : 'none'} !important;
+            }
+            .bubble-sub-button-2 {
+              display: ${state >= 60.0 ? '' : 'none'} !important;
+            }
+          sub_button:
+            - show_state: false
+              entity: button.btn_2_cmd_c0d616da83fc
+              tap_action:
+                action: call-service
+                service: button.press
+                target:
+                  entity_id: button.btn_2_cmd_c0d616da83fc
+            - show_state: false
+              entity: button.btn_3_cmd_c0d616da83fc
+              tap_action:
+                action: call-service
+                service: button.press
+                target: 
+                  entity_id: button.btn_3_cmd_c0d616da83fc
+        - type: custom:bubble-card
+          card_type: button
+          entity: sensor.loft_position
+          name: Loft Blinds
+          icon: mdi:blinds-horizontal
+          show_state: true
+          styles: >-
+            .bubble-button-background {
+              opacity: 1 !important;
+              background-color: ${state <= 50.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+            }
+            .bubble-icon {
+              color: ${state <= 50.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+            }
+            .bubble-sub-button-1 {
+              display: ${state <= 50.0 ? '' : 'none'} !important;
+            }
+            .bubble-sub-button-2 {
+              display: ${state > 50.0 ? '' : 'none'} !important;
+            }
+          sub_button:
+            - show_state: false
+              entity: button.loft_blinds_closeup
+              tap_action:
+                action: call-service
+                service: button.press
+                target:
+                  entity_id: button.loft_blinds_closeup
+            - show_state: false
+              entity: button.loft_blinds_open
+              tap_action:
+                action: call-service
+                service: button.press
+                target:
+                  entity_id: button.loft_blinds_open
+
+    - type: horizontal-stack
+      cards:
+        - type: custom:bubble-card
+          card_type: button
+          name: Callies Room
+          entity: sensor.both_slideposition_ce6b1c6e974e
+          show_last_updated: true
+          show_state: true
+          icon: mdi:curtains
+          styles: >-
+            .bubble-button-background {
+              opacity: 1 !important;
+              background-color: ${state == 0.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+            }
+            .bubble-icon {
+              color: ${state == 0.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+            }
+            .bubble-sub-button-1 {
+              display: ${state == 0.0 ? '' : 'none'} !important;
+            }
+            .bubble-sub-button-2 {
+              display: ${state >= 60.0 ? '' : 'none'} !important;
+            }
+          sub_button:
+            - show_state: false
+              entity: button.btn_2_cmd_ce6b1c6e974e
+              tap_action:
+                action: call-service
+                service: button.press
+                target:
+                  entity_id: button.btn_2_cmd_ce6b1c6e974e
+            - show_state: false
+              entity: button.btn_3_cmd_ce6b1c6e974e
+              tap_action:
+                action: call-service
+                service: button.press
+                target: 
+                  entity_id: button.btn_3_cmd_ce6b1c6e974e
+        - type: custom:bubble-card
+          card_type: button
+          entity: sensor.status_slideposition_dc7773a00456
+          name: Callies Room Blinds
+          icon: mdi:blinds-horizontal
+          show_state: true
+          styles: >-
+            .bubble-button-background {
+              opacity: 1 !important;
+              background-color: ${state <= 50.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+            }
+            .bubble-icon {
+              color: ${state <= 50.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+            }
+            .bubble-sub-button-1 {
+              display: ${state <= 50.0 ? '' : 'none'} !important;
+            }
+            .bubble-sub-button-2 {
+              display: ${state > 50.0 ? '' : 'none'} !important;
+            }
+          sub_button:
+            - show_state: false
+              entity: button.btn_3_cmd_dc7773a00456
+              tap_action:
+                action: call-service
+                service: button.press
+                target:
+                  entity_id: button.btn_3_cmd_dc7773a00456
+            - show_state: false
+              entity: button.btn_2_cmd_dc7773a00456
+              tap_action:
+                action: call-service
+                service: button.press
+                target:
+                  entity_id: button.btn_2_cmd_dc7773a00456
+
+    - type: horizontal-stack
+      cards:
+        - type: custom:bubble-card
+          card_type: button
+          entity: sensor.living_room_position
+          name: Living Room Blinds
+          icon: mdi:blinds-horizontal
+          show_state: true
+          styles: >-
+            .bubble-button-background {
+              opacity: 1 !important;
+              background-color: ${state <= 50.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+            }
+            .bubble-icon {
+              color: ${state <= 50.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+            }
+            .bubble-sub-button-1 {
+              display: ${state <= 50.0 ? '' : 'none'} !important;
+            }
+            .bubble-sub-button-2 {
+              display: ${state > 50.0 ? '' : 'none'} !important;
+            }
+          sub_button:
+            - show_state: false
+              entity: button.living_room_blinds_closeup
+              tap_action:
+                action: call-service
+                service: button.press
+                target:
+                  entity_id: button.living_room_blinds_closeup
+            - show_state: false
+              entity: button.living_room_blinds_open
+              tap_action:
+                action: call-service
+                service: button.press
+                target:
+                  entity_id: button.living_room_blinds_open
+
+        - type: custom:bubble-card
+          card_type: button
+          button_type: switch
+          entity: sensor.bedroom_position
+          name: Bedroom Blinds
+          icon: mdi:blinds-horizontal
+          show_state: true
+          styles: >-
+            .bubble-button-background {
+              opacity: 1 !important;
+              background-color: ${state <= 50.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+            }
+            .bubble-icon {
+              color: ${state <= 50.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+            }
+            .bubble-sub-button-1 {
+              display: ${state <= 50.0 ? '' : 'none'} !important;
+            }
+            .bubble-sub-button-2 {
+              display: ${state > 50.0 ? '' : 'none'} !important;
+            }
+          sub_button:
+            - show_state: false
+              entity: button.bedroom_blinds_closeup
+              tap_action:
+                action: call-service
+                service: button.press
+                target:
+                  entity_id: button.bedroom_blinds_closeup
+            - show_state: false
+              entity: button.bedroom_blinds_open
+              tap_action:
+                action: call-service
+                service: button.press
+                target:
+                  entity_id: button.bedroom_blinds_open
+
+    - type: horizontal-stack
+      cards:
+        - type: custom:bubble-card
+          card_type: button
+          entity: switch.tv_stand_led
+          name: TV Stand Led
+          icon: mdi:string-lights
+          show_state: true
+        - type: custom:bubble-card
+          card_type: button
           entity: switch.unificamera
           name: Unifi Camera Switch
           icon: mdi:switch
           show_state: true
-
-    - type: horizontal-stack
-      cards:
-        - type: custom:bubble-card
-          card_type: button
-          entity: cover.office_rest_curtain
-          name: Office Room Curtains
-          icon: mdi:curtains
-          show_state: true
-        - type: custom:bubble-card
-          card_type: button
-          entity: cover.loft
-          name: Loft Blinds
-          icon: mdi:blinds-horizontal
-          show_state: true
-
-    - type: horizontal-stack
-      cards:
-        - type: custom:bubble-card
-          card_type: button
-          entity: cover.living_room_blinds
-          name: Living Room Blinds
-          icon: mdi:blinds-horizontal
-          show_state: true
-          card_layout: large
-        - type: custom:bubble-card
-          card_type: button
-          entity: cover.bedroom_blinds
-          name: Bedroom Blinds
-          icon: mdi:blinds-horizontal
-          show_state: true
-          card_layout: large
-
-    - type: horizontal-stack
-      cards:
-        - type: custom:bubble-card
-          card_type: empty-column
 
     # - type: horizontal-stack
     #   cards:
@@ -511,7 +655,7 @@ cards:
           card_type: button
           button_type: state
           name: Kettle
-          entity: switch.smart_kettle_power_switch
+          entity: switch.smart_kettle_power_switch_2
           icon: mdi:kettle
           show_state: true
           show_last_changed: true
@@ -536,7 +680,7 @@ cards:
             - type: custom:bubble-card
               card_type: select
               name: Kettle Mode
-              entity: select.smart_kettle_mode
+              entity: select.smart_kettle_mode_2
               icon: mdi:menu
               show_state: true
               show_background: true

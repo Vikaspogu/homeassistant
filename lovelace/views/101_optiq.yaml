@@ -1,0 +1,183 @@
+icon: si:cadillac
+title: Optiq
+path: optiq
+id: optiq
+cards:
+  - type: "vertical-stack"
+    cards:
+    - type: custom:mushroom-chips-card
+      card_mod:
+          style: |
+            ha-card {
+              --chip-font-size: 14px;
+            }
+      chips:
+        - type: back
+        - type: action
+          icon: mdi:home
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/dash
+          
+    ## ROW 1 ###################################################################################################################
+    - type: custom:mushroom-title-card
+      title: Quinjet
+    - type: horizontal-stack
+      cards:
+      - !include '../includes/optiq.yaml'
+
+    ## Location ###################################################################################################################
+    - type: custom:mushroom-title-card
+      title: Location
+    - type: map
+      dark_mode: true
+      aspect_ratio: 16:9
+      auto_fit: true
+      entities:
+        - device_tracker.2025_cadillac_optiq_super_cruise
+
+    - type: custom:mushroom-title-card
+      title: Commands
+    - type: horizontal-stack
+      cards:
+        - type: custom:bubble-card
+          card_type: button
+          entity: button.2025_cadillac_optiq_super_cruise_command_start
+          name: Start
+        - type: custom:bubble-card
+          card_type: button
+          entity: button.2025_cadillac_optiq_super_cruise_command_getlocation
+          name: Get Location
+    - type: horizontal-stack
+      cards:
+        - type: custom:bubble-card
+          card_type: button
+          entity: button.2025_cadillac_optiq_super_cruise_command_unlockdoor
+          name: Unlock Doors
+        - type: custom:bubble-card
+          card_type: button
+          entity: button.2025_cadillac_optiq_super_cruise_command_lockdoor
+          name: Lock Doors
+    - type: horizontal-stack
+      cards:
+        - type: custom:bubble-card
+          card_type: button
+          entity: button.2025_cadillac_optiq_super_cruise_command_locktrunk
+          name: Unlock Trunk
+        - type: custom:bubble-card
+          card_type: button
+          entity: button.2025_cadillac_optiq_super_cruise_command_unlocktrunk
+          name: Lock Trunk
+
+    ## Car glance stats ###################################################################################################################
+    - type: horizontal-stack
+      cards:
+        - type: gauge
+          entity: sensor.2025_cadillac_optiq_super_cruise_ev_battery_level
+          min: 0
+          max: 100
+          name: Battery
+          severity:
+            green: 60
+            yellow: 40
+            red: 15
+        - type: gauge
+          entity: sensor.2025_cadillac_optiq_super_cruise_ev_range
+          min: 0
+          max: 420
+          name: Range
+          severity:
+            green: 250
+            yellow: 150
+            red: 75
+    - type: glance
+      entities:
+        - entity: sensor.2025_cadillac_optiq_super_cruise_tire_pressure_left_front
+          name: Left Front
+          icon: "mdi:car-tire-alert"
+        - entity: sensor.2025_cadillac_optiq_super_cruise_tire_pressure_right_front
+          name: Right Front
+          icon: "mdi:car-tire-alert"
+        - entity: sensor.2025_cadillac_optiq_super_cruise_tire_pressure_left_rear
+          name: Left Rear
+          icon: "mdi:car-tire-alert"
+        - entity: sensor.2025_cadillac_optiq_super_cruise_tire_pressure_right_rear
+          name: Right Rear
+          icon: "mdi:car-tire-alert"
+      columns: 2
+      title: Tires
+    - type: entities
+      title: Mileage
+      entities:
+        - entity: sensor.2025_cadillac_optiq_super_cruise_lifetime_mpge
+        - entity: sensor.2025_cadillac_optiq_super_cruise_lifetime_efficiency
+        - entity: sensor.2025_cadillac_optiq_super_cruise_electric_economy
+      state_color: true
+      footer:
+        type: "custom:mini-graph-card"
+        entities:
+          - entity: sensor.2025_cadillac_optiq_super_cruise_odometer
+          - entity: sensor.2025_cadillac_optiq_super_cruise_lifetime_energy_used
+            y_axis: secondary
+            show_state: true
+        hours_to_show: 672
+        group_by: date
+        decimals: 0
+        show:
+          graph: bar
+          name: false
+          icon: false
+    - type: entities
+      entities:
+        - entity: binary_sensor.2025_cadillac_optiq_super_cruise_ev_plug_state
+          secondary_info: last-changed
+        - entity: binary_sensor.2025_cadillac_optiq_super_cruise_ev_charge_state
+          secondary_info: last-changed
+        - entity: sensor.2025_cadillac_optiq_super_cruise_ev_plug_voltage
+        - entity: sensor.2025_cadillac_optiq_super_cruise_charger_power_level
+      title: Charging
+      state_color: true
+    - type: "custom:mini-graph-card"
+      entities:
+        - entity: sensor.2025_cadillac_optiq_super_cruise_last_trip_total_distance
+        - entity: sensor.2025_cadillac_optiq_super_cruise_last_trip_electric_econ
+          y_axis: secondary
+          show_state: true
+      name: Last Trip
+      hours_to_show: 672
+      group_by: date
+      aggregate_func: null
+      show:
+        graph: bar
+        icon: false
+        
+    ## Auto entites Optiq ###################################################################################################################
+    - type: custom:mushroom-title-card
+      title: Detailed View
+    - type: "custom:auto-entities"
+      card:
+        type: "grid"
+        columns: 2
+        square: false
+      card_param: "cards"
+      sort:
+        method: last-changed
+        ignore_case: true
+      filter:
+        include:
+          - entity_id: "sensor.2025_cadillac_optiq_super_cruise_*"
+            options:
+              type: custom:bubble-card
+              card_type: button
+              show_state: true
+              entity: this.entity_id
+          - entity_id: "binary_sensor.2025_cadillac_optiq_super_cruise_*"
+            options:
+              type: custom:bubble-card
+              card_type: button
+              show_state: true
+              entity: this.entity_id
+        exclude:
+          - state: "unavailable"
+          - state: "unknown"
+    

@@ -1,24 +1,23 @@
 # lovelace_gen
 
 type: picture-elements
-image: !file /local/images/other/teslay.png
+image: !file /local/images/other/optiq.png
 elements:
 {% set battery_sensors = [
-  ('Battery', 'sensor.tesla_battery_level'),
-  ('Range', 'sensor.tesla_ideal_battery_range_mi')
+  ('Battery', 'sensor.2025_cadillac_optiq_super_cruise_ev_battery_level')
 ]
 %}
-{% set status_sensors = [
-  ('Status', 'sensor.tesla_state')
+{% set range_sensors = [
+  
 ]
 %}
 {% set odometer_sensors = [
-  ('Odometer', 'sensor.tesla_odometer_mi')
+  ('Range', 'sensor.2025_cadillac_optiq_super_cruise_ev_range_mi'),
+  ('Odometer', 'sensor.2025_cadillac_optiq_super_cruise_odometer_mi')
 ]
 %}
 {% set temp_sensors = [
-  ('Inside', 'sensor.tesla_inside_temp'),
-  ('Outside' ,'sensor.tesla_outside_temp')
+  ('Inside', 'sensor.2025_cadillac_optiq_super_cruise_estimated_cabin_temperature_f')
 ] 
 %}
 {% for g in battery_sensors %}
@@ -45,7 +44,7 @@ elements:
     margin-top: {{ loop.index0*32 }}px
     color: var(--info-color)
 {% endfor -%}
-{% for g in status_sensors %}
+{% for g in range_sensors %}
 - type: state-icon
   entity: {{ g.1 }}
   style:

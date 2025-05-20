@@ -116,7 +116,7 @@ notify:
   - name: notify_group
     platform: group
     services:
-    - service: mobile_app_vikas_pixel_9
+    - service: mobile_app_vpogu_pixel9
 
 google_assistant: !include google_assistant_integ.yaml
 adaptive_lighting:
