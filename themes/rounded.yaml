@@ -109,6 +109,8 @@ Rounded:
   yellow-color: var(--yellow)
   grey-color: var(--contrast10)
 
+  bubble-color: "#0066b3"
+
   #######################################################
   ############### Custom global variables ###############
   #######################################################

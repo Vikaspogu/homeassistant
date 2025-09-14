@@ -16,7 +16,7 @@ homeassistant:
 
 recorder:
   db_url: !secret postgresqlDB
-  purge_keep_days: 3
+  purge_keep_days: 2
 
 # Text to speech
 tts:
@@ -85,8 +85,6 @@ lovelace:
       type: module
     - url: /hacsfiles/weather-radar-card/weather-radar-card.js
       type: module
-    - url: https://cdn.jsdelivr.net/gh/bramkragten/custom-ui@master/swipe-card/swipe-card.js
-      type: module
     - url: /hacsfiles/decluttering-card/decluttering-card.js
       type: module
     - url: /hacsfiles/lovelace-valetudo-map-card/valetudo-map-card.js
@@ -94,6 +92,16 @@ lovelace:
     - url: /hacsfiles/swipe-card/swipe-card.js
       type: module
     - url: /hacsfiles/Bubble-Card/bubble-card.js
+      type: module
+    - url: /hacsfiles/bar-card/bar-card.js
+      type: module
+    - url: /hacsfiles/lovelace-hourly-weather/hourly-weather.js
+      type: module
+    - url: /hacsfiles/lovelace-navbar-card/navbar-card.js
+      type: module            
+    - url: /hacsfiles/lovelace-state-switch/state-switch.js
+      type: module              
+    - url: /hacsfiles/vehicle-status-card/vehicle-status-card.js
       type: module
 
     # Styles
@@ -126,5 +134,4 @@ adaptive_lighting:
     - light.landing_lights_group
     - light.office_ceiling_lights_group
 sun:
-simpleicons:
 fontawesome:

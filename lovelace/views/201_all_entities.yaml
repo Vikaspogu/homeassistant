@@ -2,7 +2,7 @@ icon: mdi:auto-mode
 title: All Entities
 path: entities
 id: entities
-cards:
+cards:        
   - type: "vertical-stack"
     cards:
       - type: custom:mushroom-title-card

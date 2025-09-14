@@ -1,0 +1,591 @@
+# This file is a partial copy from the HA UI editor.
+# I don’t use YAML mode because it’s more convenient for me to maintain my dashboard in the UI.
+
+
+side-nav:
+  card:
+    type: custom:stack-in-card
+    cards:
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: template
+            icon: |
+              {% if '[[active-view]]' == 'home' %}
+                mdi:home-assistant
+              {% else %}
+                mdi:home-outline
+              {% endif %}
+            icon_color: |
+              {% if '[[active-view]]' == 'home' %}
+                var(--cstm-rgb-bottom-nav)
+              {% else %}
+                disabled
+              {% endif %}
+            content: ''
+            tap_action:
+              action: navigate
+              navigation_path: /[[dashboard-name]]/home
+            card_mod:
+              style: |
+                ha-card {
+                  {% if '[[active-view]]' == 'home' %}
+                  --chip-background: rgba(var(--cstm-rgb-on), 0.8);
+                  {% endif %}
+                }
+          - type: template
+            icon: mdi:devices
+            icon_color: |
+              {% if '[[active-view]]' == 'apparaten' %}
+                var(--cstm-rgb-bottom-nav)
+              {% else %}
+                disabled
+              {% endif %}
+            content: ''
+            tap_action:
+              action: navigate
+              navigation_path: /[[dashboard-name]]/apparaten
+            card_mod:
+              style: |
+                ha-card {
+                  {% if '[[active-view]]' == 'apparaten' %}
+                  --chip-background: rgba(var(--cstm-rgb-on), 0.8);
+                  {% endif %}
+                }
+          - type: template
+            icon: |
+              {% if '[[active-view]]' == 'nieuws' %}
+                mdi:bell
+              {% else %}
+                mdi:bell-outline
+              {% endif %}
+            icon_color: |
+              {% if '[[active-view]]' == 'nieuws' %}
+                var(--cstm-rgb-bottom-nav)
+              {% else %}
+                disabled
+              {% endif %}
+            content: ''
+            tap_action:
+              action: navigate
+              navigation_path: /[[dashboard-name]]/nieuws
+            card_mod:
+              style: |
+                ha-card {
+                  {% if '[[active-view]]' == 'nieuws' %}
+                  --chip-background: rgba(var(--cstm-rgb-on), 0.8);
+                  {% endif %}
+                }
+          - type: template
+            icon: |
+              {% if '[[active-view]]' == 'automatiseringen' %}
+                mdi:creation
+              {% else %}
+                mdi:creation-outline
+              {% endif %}
+            icon_color: |
+              {% if '[[active-view]]' == 'automatiseringen' %}
+                var(--cstm-rgb-bottom-nav)
+              {% else %}
+                disabled
+              {% endif %}
+            content: ''
+            tap_action:
+              action: navigate
+              navigation_path: /[[dashboard-name]]/automatiseringen
+            card_mod:
+              style: |
+                ha-card {
+                  {% if '[[active-view]]' == 'automatiseringen' %}
+                  --chip-background: rgba(var(--cstm-rgb-on), 0.8);
+                  {% endif %}
+                }
+          - type: template
+            icon: |
+              {% if '[[active-view]]' == 'instellingen' %}
+                mdi:cog
+              {% else %}
+                mdi:cog-outline
+              {% endif %}
+            icon_color: |
+              {% if '[[active-view]]' == 'instellingen' %}
+                var(--cstm-rgb-bottom-nav)
+              {% else %}
+                disabled
+              {% endif %}
+            content: ''
+            tap_action:
+              action: navigate
+              navigation_path: /[[dashboard-name]]/instellingen
+            card_mod:
+              style: |
+                ha-card {
+                  {% if '[[active-view]]' == 'instellingen' %}
+                  --chip-background: rgba(var(--cstm-rgb-on), 0.8);
+                  {% endif %}
+                }
+        alignment: start
+        card_mod:
+          style: |
+            .chip-container {
+              flex-flow: column !important;
+            }
+            ha-card {
+              --chip-background: rgba(var(--cstm-rgb-on-secondary), 0.05);
+              --chip-box-shadow: none;
+              --ha-card-box-shadow: none;
+              --chip-border-radius: var(--mush-control-border-radius);
+              --chip-height: 50px;
+            }
+    card_mod:
+      style: |
+        ha-card {
+          border-radius: 20px;
+          padding: 8px;
+          width: auto;
+        }
+bottom-nav:
+  card:
+    type: custom:stack-in-card
+    mode: horizontal
+    cards:
+      - type: custom:mushroom-template-card
+        primary: ''
+        secondary: Home
+        icon: |
+          {% if '[[active-view]]' == 'home' %}
+            mdi:home-assistant
+          {% else %}
+            mdi:home-outline
+          {% endif %}
+        icon_color: |
+          {% if '[[active-view]]' == 'home' %}
+            var(--cstm-rgb-on)
+          {% else %}
+            grey
+          {% endif %}
+        layout: vertical
+        tap_action:
+          action: navigate
+          navigation_path: /[[dashboard-name]]/home
+        card_mod:
+          style:
+            mushroom-shape-icon$: |
+              .shape {
+                width: 60px !important;
+                height: 36px !important;
+                {% if '[[active-view]]' != 'home' %}
+                --shape-color: none;
+                {% endif %}
+              }
+            .: |
+              ha-card {    
+                background: none;
+              }
+              :host {
+                --mush-icon-border-radius: 16px;
+              }
+      - type: custom:mushroom-template-card
+        primary: ''
+        secondary: Apparaten
+        icon: mdi:devices
+        icon_color: |
+          {% if '[[active-view]]' == 'apparaten' %}
+            var(--cstm-rgb-on)
+          {% else %}
+            grey
+          {% endif %}
+        layout: vertical
+        tap_action:
+          action: navigate
+          navigation_path: /[[dashboard-name]]/apparaten
+        card_mod:
+          style:
+            mushroom-shape-icon$: |
+              .shape {
+                width: 60px !important;
+                height: 36px !important;
+                {% if '[[active-view]]' != 'apparaten' %}
+                --shape-color: none;
+                {% endif %}
+              }
+            .: |
+              ha-card {    
+                background: none;
+              }
+              :host {
+                --mush-icon-border-radius: 16px;
+              }
+      - type: custom:mushroom-template-card
+        primary: ''
+        secondary: Nieuws
+        icon: |
+          {% if '[[active-view]]' == 'nieuws' %}
+            mdi:bell
+          {% else %}
+            mdi:bell-outline
+          {% endif %}
+        icon_color: |
+          {% if '[[active-view]]' == 'nieuws' %}
+            var(--cstm-rgb-on)
+          {% else %}
+            grey
+          {% endif %}
+        layout: vertical
+        tap_action:
+          action: navigate
+          navigation_path: /[[dashboard-name]]/nieuws
+        card_mod:
+          style:
+            mushroom-shape-icon$: |
+              .shape {
+                width: 60px !important;
+                height: 36px !important;
+                {% if '[[active-view]]' != 'nieuws' %}
+                --shape-color: none;
+                {% endif %}
+              }
+            .: |
+              ha-card {    
+                background: none;
+              }
+              :host {
+                --mush-icon-border-radius: 16px;
+              }
+      - type: custom:mushroom-template-card
+        primary: ''
+        secondary: Automatiseringen
+        icon: |
+          {% if '[[active-view]]' == 'automatiseringenv' %}
+            mdi:creation
+          {% else %}
+            mdi:creation-outline
+          {% endif %}
+        icon_color: |
+          {% if '[[active-view]]' == 'automatiseringen' %}
+            var(--cstm-rgb-on)
+          {% else %}
+            grey
+          {% endif %}
+        layout: vertical
+        tap_action:
+          action: navigate
+          navigation_path: /[[dashboard-name]]/automatiseringen
+        card_mod:
+          style:
+            mushroom-shape-icon$: |
+              .shape {
+                width: 60px !important;
+                height: 36px !important;
+                {% if '[[active-view]]' != 'automatiseringen' %}
+                --shape-color: none;
+                {% endif %}
+              }
+            .: |
+              ha-card {    
+                background: none;
+              }
+              :host {
+                --mush-icon-border-radius: 16px;
+              }
+      - type: custom:mushroom-template-card
+        primary: ''
+        secondary: Systeem
+        icon: |
+          {% if '[[active-view]]' == 'instellingen' %}
+            mdi:cog
+          {% else %}
+            mdi:cog-outline
+          {% endif %}
+        icon_color: |
+          {% if '[[active-view]]' == 'instellingen' %}
+            var(--cstm-rgb-on)
+          {% else %}
+            grey
+          {% endif %}
+        layout: vertical
+        tap_action:
+          action: navigate
+          navigation_path: /[[dashboard-name]]/instellingen
+        card_mod:
+          style:
+            mushroom-shape-icon$: |
+              .shape {
+                width: 60px !important;
+                height: 36px !important;
+                {% if '[[active-view]]' != 'instellingen' %}
+                --shape-color: none;
+                {% endif %}
+              }
+            .: |
+              ha-card {    
+                background: none;
+              }
+              :host {
+                --mush-icon-border-radius: 16px;
+              }
+    card_mod:
+      style: |
+        ha-card {
+          background: rgb(var(--cstm-rgb-bottom-nav));
+          box-shadow: none;
+        }
+weather_now_template:
+  card:
+    type: custom:mushroom-template-card
+    primary: 'Nu: {{states(''sensor.openweathermap_weather'')}}'
+    secondary: '[[secondary]]'
+    icon: mdi:weather-partly-cloudy
+    entity: sensor.openweathermap_condition
+    picture: >-
+      {% set entity = states("sensor.openweathermap_condition") %} {% set
+      cloud = states("sensor.openweathermap_cloud_coverage")|int %}  {% set
+      rain = states("sensor.buienalarm_precipitation")|float %}  {% if entity
+      == "exceptional" %}
+        {% set slug = "isolated_scattered_tstorms_day" %}
+      {% elif entity == "fog" %}
+        {% set slug = "haze_fog_dust_smoke" %}
+      {% elif entity == "hail" %}
+        {% set slug = "wintry_mix_rain_snow" %}
+      {% elif entity == "lightning" or entity == "lightning-rainy"%}
+        {% set slug = "strong_tstorms" %} 
+      {% elif entity == "snowy" %}
+        {% set slug = "flurries" %}
+      {% elif entity == "snowy-rainy" %}
+        {% set slug = "wintry_mix_rain_snow" %}
+      {% elif rain > 0 and rain <= 0.5 %}
+        {% set slug = "drizzle" %}
+      {% elif rain > 0.5 and rain <= 1.5 %}
+        {% set slug = "showers_rain" %}
+      {% elif rain > 1.5 %}
+        {% set slug = "heavy_rain" %}
+      {% elif states("sun.sun") == "below_horizon" %} 
+        {% if cloud < 20 %}
+        {% set slug = "clear_night" %}
+        {% elif cloud < 40 %}
+        {% set slug = "mostly_clear_night" %}
+        {% elif cloud < 60 %}
+        {% set slug = "partly_cloudy_night" %}
+        {% elif cloud < 80 %}
+        {% set slug = "mostly_cloudy_night" %}
+        {% elif cloud <= 100 %}
+        {% set slug = "cloudy" %}
+        {% endif %}
+      {% else %}  
+        {% if cloud < 20 %}
+        {% set slug = "sunny" %}
+        {% elif cloud < 40 %}
+        {% set slug = "mostly_sunny" %}
+        {% elif cloud < 60 %}
+        {% set slug = "partly_cloudy" %}
+        {% elif cloud < 80 %}
+        {% set slug = "mostly_cloudy_day" %}
+        {% elif cloud <= 100 %}
+        {% set slug = "cloudy" %}
+        {% endif %}
+      {% endif %}
+      http://www.gstatic.com/images/icons/material/apps/weather/2x/{{slug}}_dark_color_96dp.png
+    multiline_secondary: false
+    icon_color: grey
+    tap_action:
+      action: navigate
+      navigation_path: /dashboard-view/nieuws
+    badge_icon: ''
+    badge_color: ''
+    card_mod:
+      style: |
+        ha-card {
+          background: none;
+          box-shadow: none;
+            --card-primary-color: rgb(240,240,240);  # In previous HA OS versions, this was '--primary-text-color'
+            --card-secondary-color: rgb(220,220,220);  # In previous HA OS versions, this was '--secondary-text-color'
+        }
+weather_day_template:
+  card:
+    type: vertical-stack
+    cards:
+      - type: custom:mushroom-template-card
+        layout: vertical
+        card_mod:
+          style: |
+            ha-card {
+              box-shadow: none;
+              background: none;
+              margin-bottom: -18px;
+            }
+        primary: ''
+        secondary: >
+          {% set dict = {'Mon': 'ma', 'Tue': 'di', 'Wed': 'wo', 'Thu': 'do',
+          'Fri': 'vr', 'Sat': 'za', 'Sun': 'zo'} %}
+
+          {% set str = as_timestamp(state_attr('weather.buienradar',
+          'forecast')[[[index]]].datetime) | timestamp_custom("%a") %}
+
+          {{ dict[str] }}
+      - type: custom:mushroom-template-card
+        layout: vertical
+        entity: weather.buienradar
+        tap_action:
+          action: more-info
+        icon: mdi:weather-partly-cloudy
+        picture: >-
+          {% set cloud = 100 - states("sensor.buienradar_sunchance_[[day]]d")
+          | int %} {% set rain = states("sensor.buienradar_rain_[[day]]d") |
+          float %} {% set entity =
+          states("sensor.buienradar_detailed_condition_[[day]]d") %} {% if
+          entity == "exceptional" %}
+            {% set slug = "isolated_scattered_tstorms_day" %}
+          {% elif entity == "fog" %}
+            {% set slug = "haze_fog_dust_smoke" %}
+          {% elif entity == "hail" %}
+            {% set slug = "wintry_mix_rain_snow" %}
+          {% elif entity == "lightning" or entity == "lightning-rainy"%}
+            {% set slug = "strong_tstorms" %} 
+          {% elif entity == "snowy" %}
+            {% set slug = "flurries" %}
+          {% elif entity == "snowy-rainy" %}
+            {% set slug = "wintry_mix_rain_snow" %}
+          {% elif rain > 0.6 and rain <= 1.5 %}
+            {% set slug = "drizzle" %}
+          {% elif rain > 1.5 and rain <= 5 %}
+            {% set slug = "showers_rain" %}
+          {% elif rain > 5 %}
+            {% set slug = "heavy_rain" %}
+          {% else %}  
+            {% if cloud < 20 %}
+            {% set slug = "sunny" %}
+            {% elif cloud < 40 %}
+            {% set slug = "mostly_sunny" %}
+            {% elif cloud < 60 %}
+            {% set slug = "partly_cloudy" %}
+            {% elif cloud < 80 %}
+            {% set slug = "mostly_cloudy_day" %}
+            {% elif cloud <= 100 %}
+            {% set slug = "cloudy" %}
+            {% endif %}
+          {% endif %}
+          http://www.gstatic.com/images/icons/material/apps/weather/2x/{{slug}}_light_color_96dp.png
+        primary: '{{states(''sensor.buienradar_temperature_[[day]]d'')}},'
+        secondary: '{{states(''sensor.buienradar_minimum_temperature_[[day]]d'')}},'
+        multiline_secondary: true
+        card_mod:
+          style: |
+            ha-card {
+              box-shadow: none;
+              background: none;
+            }
+plug_template:
+  default:
+    - color: blue
+    - icon_on: mdi:power-plug
+    - icon_off: mdi:power-plug-off
+  card:
+    type: custom:mushroom-template-card
+    entity: '[[entity]]'
+    primary: '{{state_attr("[[entity]]", "friendly_name")}}'
+    secondary: |-
+      {% if is_state(entity, 'on') %}
+        Aan
+      {% elif is_state(entity, 'off') %}
+        Uit
+      {% else %}
+        Niet beschikbaar
+      {% endif %}
+    icon: |-
+      {% if is_state(entity, 'on') %}
+        [[icon_on]]
+      {% else %}
+        [[icon_off]]
+      {% endif %}
+    icon_color: |-
+      {% if is_state(entity, 'on') %}
+        var(--cstm-rgb-plug-on-icon)
+      {% else %}
+        disabled
+      {% endif %}
+    tap_action:
+      action: more-info
+    hold_action:
+      action: more-info
+    double_tap_action:
+      action: toggle
+    badge_icon: |-
+      {% if not is_state(entity, ['on', 'off']) %}
+        mdi:help
+      {% endif %}
+    badge_color: orange
+    card_mod:
+      style:
+        mushroom-state-info$: |
+          .primary {
+            white-space: normal !important;
+            overflow: hidden;
+          }
+        .: |
+          ha-card {
+            {% if is_state(config.entity, 'on') %}
+              background: rgba(var(--mush-rgb-[[color]]), 0.8);
+              --card-primary-color: rgb(var(--mush-rgb-white));
+              --card-secondary-color: rgb(230,230,230);
+            {% endif %}
+          }
+          ha-card:active {
+            transform: scale(0.95);
+            transition: 0s;
+          }
+automation_template:
+  card:
+    type: custom:mushroom-template-card
+    entity: '[[entity]]'
+    primary: '[[primary]]'
+    secondary: |-
+      {% if is_state(entity, 'on') %}
+        Aan
+      {% elif is_state(entity, 'off') %}
+        Uit
+      {% else %}
+        Niet beschikbaar
+      {% endif %}
+    icon: |-
+      {% if is_state(entity, 'on') %}
+        mdi:creation
+      {% else %}
+        mdi:creation-outline
+      {% endif %}
+    icon_color: |-
+      {% if is_state(entity, 'on') %}
+        var(--cstm-rgb-automation-on-icon)
+      {% else %}
+        disabled
+      {% endif %}
+    double_tap_action:
+      action: call-service
+      service: automation.toggle
+      data: {}
+      target:
+        entity_id: '[[entity]]'
+    tap_action:
+      action: more-info
+    badge_icon: |-
+      {% if not is_state(entity, ['on', 'off']) %}
+        mdi:help
+      {% endif %}
+    badge_color: orange
+    card_mod:
+      style:
+        mushroom-state-info$: |
+          .primary {
+            white-space: normal !important;
+            overflow: hidden;
+          }
+        .: |
+          ha-card {
+            {% if is_state(config.entity, 'on') %}
+                background: var(--cstm-rgb-automation-on-background);
+                --card-primary-color: rgb(var(--cstm-rgb-on-primary-text));
+                --card-secondary-color: rgb(var(--cstm-rgb-on-secondary-text));
+            {% endif %}
+          }
+          ha-card:active {
+            transform: scale(0.95);
+            transition: 0s;
+          }

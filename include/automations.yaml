@@ -19,11 +19,11 @@ automation:
     alias: Garage Door Opened
     trigger:
       - platform: state
-        entity_id: cover.garage_door_controller
+        entity_id: cover.garage_door_opener
         to: open
     condition:
       condition: state
-      entity_id: cover.garage_door_controller
+      entity_id: cover.garage_door_opener
       state: open
     action:
       - service: timer.start
@@ -33,7 +33,7 @@ automation:
     alias: Garage Door Closed
     trigger:
     - platform: state
-      entity_id: cover.garage_door_controller
+      entity_id: cover.garage_door_opener
       to: closed
     action:
       - service: timer.cancel
@@ -48,7 +48,7 @@ automation:
         entity_id: timer.garage_door_2
     condition:
       condition: state
-      entity_id: cover.garage_door_controller
+      entity_id: cover.garage_door_opener
       state: open
     action:
       - service: timer.start
@@ -69,7 +69,7 @@ automation:
         action: close_garage
     action:
       service: cover.close_cover
-      entity_id: cover.garage_door_controller
+      entity_id: cover.garage_door_opener
       data: {}
     id: c696dd277c6546ecb1f4e0f82052822f
 
@@ -85,11 +85,11 @@ automation:
         entity_id: sensor.uptime_minutes
         above: 2
       - condition: state
-        entity_id: cover.garage_door_controller
+        entity_id: cover.garage_door_opener
         state: "closed"
     action:
       - service: cover.open_cover
-        entity_id: cover.garage_door_controller
+        entity_id: cover.garage_door_opener
     id: 78aa903d4f1d4085b77726ac84b0faeb
 
   - alias: Close garage if car is away
@@ -101,11 +101,11 @@ automation:
         to: not_home
     condition:
       - condition: state
-        entity_id: cover.garage_door_controller
+        entity_id: cover.garage_door_opener
         state: "open"
     action:
       - service: cover.close_cover
-        entity_id: cover.garage_door_controller
+        entity_id: cover.garage_door_opener
     id: 3d9513db194f4f44b8310e57949968d1
 
   - alias: Open garage if VW returns home
@@ -125,11 +125,11 @@ automation:
             entity_id: binary_sensor.spogu_pixel_9_android_auto
             state: "on"
       - condition: state
-        entity_id: cover.garage_door_controller
+        entity_id: cover.garage_door_opener
         state: "closed"
     action:
       - service: cover.open_cover
-        entity_id: cover.garage_door_controller
+        entity_id: cover.garage_door_opener
     id: 3d9513db194f4f44b8310e57949968e6
 
   - alias: Close garage if VW is away
@@ -141,7 +141,7 @@ automation:
         to: not_home
     condition:
       - condition: state
-        entity_id: cover.garage_door_controller
+        entity_id: cover.garage_door_opener
         state: "open"
       - condition: or
         conditions:
@@ -153,21 +153,115 @@ automation:
             state: "on"
     action:
       - service: cover.close_cover
-        entity_id: cover.garage_door_controller
+        entity_id: cover.garage_door_opener
     id: 3d9513db194f4f44b8310e57949968s2
 
-  - id: vacuum_notifications
-    alias: Vacuum Notifications
+  - id: smart_thermostat_control
+    alias: Smart Thermostat Control
+    description: >
+      Automatically control thermostat based on time, bedroom temperature, and season.
     trigger:
-      - platform: state
-        entity_id: vacuum.valetudo_wall_e
+      - platform: time_pattern
+        minutes: "/25"  # Check every 5 minutes
     condition:
-      condition: template
-      value_template: '{{ not (trigger.to_state.state == trigger.from_state.state) }}'
+      - condition: state
+        entity_id: input_boolean.override_temperature_control
+        state: "off"
     action:
-      - service: notify.pushover
-        data_template:
-          title: Vacuum
-          message: '🧹 {{ trigger.to_state.name }} vacuum has been turned {{ trigger.to_state.state
-            }}'
+      - variables:
+          bedroom_temp: "{{ states('sensor.bedroom_temperature_temperature') | float }}"
+          outdoor_temp: "{{ states('sensor.outside_temperature') | float }}"
+          hvac_mode: "{{ states('climate.thermostat') }}"
+          current_temp: "{{ state_attr('climate.thermostat', 'current_temperature') | float }}"
+          hour: "{{ now().hour }}"
+          is_summer: "{{ states('sensor.season') == 'summer'}}"
+      - choose:
+          # Turn off thermostat from 8 AM to 4 PM
+          - conditions:
+              - condition: numeric_state
+                entity_id: sensor.bedroom_temperature_temperature
+                above: 0  # Just to ensure it's available
+              - condition: template
+                value_template: "{{ 9 <= hour < 15 }}"
+              - condition: template
+                value_template: "{{ hvac_mode != 'off' }}"
+            sequence:
+              - service: climate.turn_off
+                target:
+                  entity_id: climate.thermostat
+              - service: notify.mobile_app_vpogu_pixel9
+                data:
+                  message: >
+                    Bedroom: {{ bedroom_temp }}°F | Outside: {{ outdoor_temp }}°F
+                    → Set thermostat to off
 
+          # SUMMER: If bedroom temp > 74, set to 73°F cool
+          - conditions:
+              - condition: template
+                value_template: "{{ is_summer and bedroom_temp > 74 and not (9 <= hour < 15) }}"
+              - condition: template
+                value_template: "{{ hvac_mode == 'off' }}"
+            sequence:
+              - service: climate.set_temperature
+                target:
+                  entity_id: climate.thermostat
+                data:
+                  temperature: 73
+                  hvac_mode: cool
+              - service: notify.mobile_app_vpogu_pixel9
+                data:
+                  message: >
+                    Bedroom: {{ bedroom_temp }}°F | Outside: {{ outdoor_temp }}°F
+                    → Set thermostat to 73°F (cool mode)
+
+          # SUMMER: If bedroom temp < 73, turn off
+          - conditions:
+              - condition: template
+                value_template: "{{ is_summer and bedroom_temp < 73 and not (9 <= hour < 15) }}"
+              - condition: template
+                value_template: "{{ hvac_mode != 'off' }}"
+            sequence:
+              - service: climate.turn_off
+                target:
+                  entity_id: climate.thermostat
+              - service: notify.mobile_app_vpogu_pixel9
+                data:
+                  message: >
+                    Bedroom: {{ bedroom_temp }}°F | Outside: {{ outdoor_temp }}°F
+                    → Set thermostat to off
+
+          # WINTER: If bedroom temp < 69, set to 70°F heat
+          - conditions:
+              - condition: template
+                value_template: "{{ not is_summer and bedroom_temp < 69 and not (9 <= hour < 15) }}"
+              - condition: template
+                value_template: "{{ hvac_mode == 'off' }}"
+            sequence:
+              - service: climate.set_temperature
+                target:
+                  entity_id: climate.thermostat
+                data:
+                  temperature: 70
+                  hvac_mode: heat
+              - service: notify.mobile_app_vpogu_pixel9
+                data:
+                  message: >
+                    Bedroom: {{ bedroom_temp }}°F | Outside: {{ outdoor_temp }}°F
+                    → Set thermostat to 70°F (heat mode)
+
+          # WINTER: If bedroom temp > 71, turn off
+          - conditions:
+              - condition: template
+                value_template: "{{ not is_summer and bedroom_temp > 71 and not (9 <= hour < 15) }}"
+              - condition: template
+                value_template: "{{ hvac_mode != 'off' }}"
+            sequence:
+              - service: climate.turn_off
+                target:
+                  entity_id: climate.thermostat
+              - service: notify.mobile_app_vpogu_pixel9
+                data:
+                  message: >
+                    Bedroom: {{ bedroom_temp }}°F | Outside: {{ outdoor_temp }}°F
+                    → Set thermostat to off
+    mode: single

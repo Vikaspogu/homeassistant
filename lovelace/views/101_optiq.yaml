@@ -5,26 +5,228 @@ id: optiq
 cards:
   - type: "vertical-stack"
     cards:
-    - type: custom:mushroom-chips-card
-      card_mod:
-          style: |
-            ha-card {
-              --chip-font-size: 14px;
-            }
-      chips:
-        - type: back
-        - type: action
-          icon: mdi:home
-          tap_action:
-            action: navigate
-            navigation_path: /lovelace/dash
-          
-    ## ROW 1 ###################################################################################################################
-    - type: custom:mushroom-title-card
-      title: Quinjet
-    - type: horizontal-stack
-      cards:
-      - !include '../includes/optiq.yaml'
+    - type: custom:vehicle-status-card
+      entity: binary_sensor.2025_cadillac_optiq_super_cruise_ev_plug_state
+      name: Cadillac Optiq
+      button_card:
+        - button:
+            primary: Get Location
+            secondary:
+              - entity: ""
+                attribute: ""
+                state_template: ""
+            icon: mdi:car-wireless
+            notify: ""
+          button_type: action
+          hide_button: false
+          card_type: default
+          default_card: []
+          custom_card: []
+          button_action:
+            entity: button.2025_cadillac_optiq_super_cruise_command_getlocation
+            tap_action:
+              action: perform-action
+              perform_action: button.press
+              target:
+                entity_id: button.2025_cadillac_optiq_super_cruise_command_getlocation
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+        - button:
+            icon: mdi:power
+            primary: Start
+            secondary:
+              entity: ""
+              attribute: ""
+              state_template: ""
+          button_type: action
+          hide_button: false
+          card_type: default
+          default_card: []
+          custom_card: []
+          button_action:
+            entity: button.2025_cadillac_optiq_super_cruise_command_start
+            tap_action:
+              action: perform-action
+              perform_action: button.press
+              target:
+                entity_id: button.2025_cadillac_optiq_super_cruise_command_start
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+        - button:
+            primary: Lock Doors
+            secondary:
+              - entity: ""
+                attribute: ""
+                state_template: ""
+            icon: mdi:car-door-lock
+            notify: ""
+          button_type: action
+          hide_button: false
+          card_type: default
+          default_card: []
+          custom_card: []
+          button_action:
+            entity: button.2025_cadillac_optiq_super_cruise_command_lockdoor
+            tap_action:
+              action: perform-action
+              perform_action: button.press
+              target:
+                entity_id: button.2025_cadillac_optiq_super_cruise_command_lockdoor
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+        - button:
+            icon: mdi:car-door-lock-open
+            primary: Unlock Doors
+            secondary:
+              entity: ""
+              attribute: ""
+              state_template: ""
+          button_type: action
+          hide_button: false
+          card_type: default
+          default_card: []
+          custom_card: []
+          button_action:
+            entity: button.2025_cadillac_optiq_super_cruise_command_unlockdoor
+            tap_action:
+              action: perform-action
+              perform_action: button.press
+              target:
+                entity_id: button.2025_cadillac_optiq_super_cruise_command_unlockdoor
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+        - button:
+            icon: mdi:lock
+            primary: Lock Trunk
+            secondary:
+              entity: ""
+              attribute: ""
+              state_template: ""
+          button_type: action
+          hide_button: false
+          card_type: default
+          default_card: []
+          custom_card: []
+          button_action:
+            entity: button.2025_cadillac_optiq_super_cruise_command_locktrunk
+            tap_action:
+              action: perform-action
+              perform_action: button.press
+              target:
+                entity_id: button.2025_cadillac_optiq_super_cruise_command_locktrunk
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+        - button:
+            icon: mdi:lock-open
+            primary: Unlock Trunk
+            secondary:
+              entity: ""
+              attribute: ""
+              state_template: ""
+          button_type: action
+          hide_button: false
+          card_type: default
+          default_card: []
+          custom_card: []
+          button_action:
+            entity: button.2025_cadillac_optiq_super_cruise_command_unlocktrunk
+            tap_action:
+              action: perform-action
+              perform_action: button.press
+              target:
+                entity_id: button.2025_cadillac_optiq_super_cruise_command_unlocktrunk
+            hold_action:
+              action: none
+            double_tap_action:
+              action: none
+      images:
+        - url: /local/images/other/optiq.png
+      indicators:
+        single:
+          - entity: sensor.2025_cadillac_optiq_super_cruise_odometer_mi
+            icon: mdi:counter
+            action_config:
+              tap_action:
+                action: more-info
+          - entity: sensor.2025_cadillac_optiq_super_cruise_ev_range_mi
+            icon: mdi:map-marker-distance
+            action_config:
+              tap_action:
+                action: more-info
+          - entity: sensor.2025_cadillac_optiq_super_cruise_ev_battery_level
+            action_config:
+              tap_action:
+                action: more-info
+        group:
+          - name: Tires
+            items:
+              - entity: sensor.2025_cadillac_optiq_super_cruise_tire_pressure_left_front
+                name: Front left
+              - entity: sensor.2025_cadillac_optiq_super_cruise_tire_pressure_right_front
+                name: Front right
+              - entity: sensor.2025_cadillac_optiq_super_cruise_tire_pressure_left_rear
+                name: Rear left
+              - entity: sensor.2025_cadillac_optiq_super_cruise_tire_pressure_right_rear
+                name: Rear right
+            icon: mdi:car-tire-alert
+
+      range_info:
+        - energy_level:
+            entity: sensor.2025_cadillac_optiq_super_cruise_ev_battery_level
+            icon: mdi:battery
+            tap_action:
+              action: more-info
+            value_position: inside
+          range_level:
+            entity: sensor.2025_cadillac_optiq_super_cruise_ev_range_mi
+            value_position: inside
+          charging_entity: binary_sensor.2025_cadillac_optiq_super_cruise_ev_charge_state
+          progress_color: "#2196f3"
+          bar_height: 16
+          bar_radius: 8
+        - energy_level:
+            entity: binary_sensor.2025_cadillac_optiq_super_cruise_ev_charge_state
+            icon: mdi:battery
+            tap_action:
+              action: more-info
+          range_level:
+            entity: sensor.2025_cadillac_optiq_super_cruise_ev_range
+          charging_entity: binary_sensor.2025_cadillac_optiq_super_cruise_ev_charge_state
+          progress_color: "#4caf50"
+          bar_height: 16
+          bar_radius: 8
+      layout_config:
+        range_info_config:
+          layout: row
+        button_grid:
+          rows: 2
+          columns: 2
+          swipe: true
+          button_layout: horizontal
+          transparent: false
+        hide:
+          button_notify: false
+          buttons: false
+          images: false
+          indicators: false
+          range_info: false
+          mini_map: false
+          card_name: false
+          map_address: false
+        section_order:
+          - header_info
+          - images
+          - buttons
 
     ## Location ###################################################################################################################
     - type: custom:mushroom-title-card
@@ -35,39 +237,6 @@ cards:
       auto_fit: true
       entities:
         - device_tracker.2025_cadillac_optiq_super_cruise
-
-    - type: custom:mushroom-title-card
-      title: Commands
-    - type: horizontal-stack
-      cards:
-        - type: custom:bubble-card
-          card_type: button
-          entity: button.2025_cadillac_optiq_super_cruise_command_start
-          name: Start
-        - type: custom:bubble-card
-          card_type: button
-          entity: button.2025_cadillac_optiq_super_cruise_command_getlocation
-          name: Get Location
-    - type: horizontal-stack
-      cards:
-        - type: custom:bubble-card
-          card_type: button
-          entity: button.2025_cadillac_optiq_super_cruise_command_unlockdoor
-          name: Unlock Doors
-        - type: custom:bubble-card
-          card_type: button
-          entity: button.2025_cadillac_optiq_super_cruise_command_lockdoor
-          name: Lock Doors
-    - type: horizontal-stack
-      cards:
-        - type: custom:bubble-card
-          card_type: button
-          entity: button.2025_cadillac_optiq_super_cruise_command_locktrunk
-          name: Unlock Trunk
-        - type: custom:bubble-card
-          card_type: button
-          entity: button.2025_cadillac_optiq_super_cruise_command_unlocktrunk
-          name: Lock Trunk
 
     ## Car glance stats ###################################################################################################################
     - type: horizontal-stack
@@ -90,22 +259,6 @@ cards:
             green: 250
             yellow: 150
             red: 75
-    - type: glance
-      entities:
-        - entity: sensor.2025_cadillac_optiq_super_cruise_tire_pressure_left_front
-          name: Left Front
-          icon: "mdi:car-tire-alert"
-        - entity: sensor.2025_cadillac_optiq_super_cruise_tire_pressure_right_front
-          name: Right Front
-          icon: "mdi:car-tire-alert"
-        - entity: sensor.2025_cadillac_optiq_super_cruise_tire_pressure_left_rear
-          name: Left Rear
-          icon: "mdi:car-tire-alert"
-        - entity: sensor.2025_cadillac_optiq_super_cruise_tire_pressure_right_rear
-          name: Right Rear
-          icon: "mdi:car-tire-alert"
-      columns: 2
-      title: Tires
     - type: entities
       title: Mileage
       entities:

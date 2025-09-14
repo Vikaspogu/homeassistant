@@ -3,6 +3,43 @@ title: Dashboard
 path: dashboard
 id: dash
 cards:
+  # - type: custom:navbar-card
+  #   hidden: true
+  #   routes:
+  #     - url: /lovelace/menu
+  #       icon: mdi:menu
+  #       tap_action:
+  #         action: toggle-menu
+  #     - url: /lovelace/home
+  #       icon: mdi:home-assistant
+  #       label: Home
+  #     - url: /lovelace/optiq
+  #       icon: si:cadillac
+  #       label: Optiq
+  #     - url: /lovelace/entities
+  #       icon: mdi:auto-mode
+  #       label: Entities
+  #     - tap_action:
+  #         action: call-service
+  #         service: browser_mod.refresh
+  #         service_data: {}
+  #       icon: mdi:refresh
+  #     - icon: mdi:dots-horizontal
+  #       label: More
+  #       tap_action:
+  #         action: open-popup
+  #       popup:
+  #         - icon: mdi:cog
+  #           url: /config/dashboard
+  #         - icon: mdi:hammer
+  #           url: /developer-tools/yaml
+  #         - icon: mdi:restart
+  #           name: restart
+  #           tap_action:
+  #             action: call-service
+  #             service: homeassistant.restart
+  #             service_data: {}
+          
   - type: "vertical-stack"
     cards:
     ## Chips Temperature ###################################################################################################################
@@ -288,19 +325,12 @@ cards:
       cards:
         - type: custom:bubble-card
           card_type: button
-          entity: cover.garage_door_controller
+          entity: cover.garage_door_opener
           name: Garage Door
           icon: mdi:garage
           show_state: true
           card_layout: large
-          styles: |
-            .bubble-button-background {
-              opacity: 1 !important;
-              background-color: ${state === 'closed' ? '' : 'var(--red)'} !important;
-            }
-            .bubble-icon {
-              color: ${hass.states['cover.garage_door_controller'].state === 'closed' ? '' : 'var(--red)'} !important;
-            }
+
     - type: horizontal-stack
       cards:
         - type: custom:mushroom-climate-card
@@ -319,7 +349,7 @@ cards:
         #       state_background: false
 
     - type: horizontal-stack
-      cards: 
+      cards:
         - type: custom:bubble-card
           card_type: button
           entity: lock.home_connect_620_connected_smart_lock
@@ -378,10 +408,10 @@ cards:
           styles: >-
             .bubble-button-background {
               opacity: 1 !important;
-              background-color: ${state == 0.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+              background-color: ${state == 0.0 ? 'var(--paper-toggle-button-checked-button-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
             }
             .bubble-icon {
-              color: ${state == 0.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+              color: ${state == 0.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
             }
             .bubble-sub-button-1 {
               display: ${state == 0.0 ? '' : 'none'} !important;
@@ -413,10 +443,10 @@ cards:
           styles: >-
             .bubble-button-background {
               opacity: 1 !important;
-              background-color: ${state <= 50.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+              background-color: ${state <= 50.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
             }
             .bubble-icon {
-              color: ${state <= 50.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+              color: ${state <= 50.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
             }
             .bubble-sub-button-1 {
               display: ${state <= 50.0 ? '' : 'none'} !important;
@@ -452,10 +482,10 @@ cards:
           styles: >-
             .bubble-button-background {
               opacity: 1 !important;
-              background-color: ${state == 0.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+              background-color: ${state == 0.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
             }
             .bubble-icon {
-              color: ${state == 0.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+              color: ${state == 0.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
             }
             .bubble-sub-button-1 {
               display: ${state == 0.0 ? '' : 'none'} !important;
@@ -487,10 +517,10 @@ cards:
           styles: >-
             .bubble-button-background {
               opacity: 1 !important;
-              background-color: ${state <= 50.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+              background-color: ${state <= 50.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
             }
             .bubble-icon {
-              color: ${state <= 50.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+              color: ${state <= 50.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
             }
             .bubble-sub-button-1 {
               display: ${state <= 50.0 ? '' : 'none'} !important;
@@ -525,10 +555,10 @@ cards:
           styles: >-
             .bubble-button-background {
               opacity: 1 !important;
-              background-color: ${state <= 50.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+              background-color: ${state <= 50.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
             }
             .bubble-icon {
-              color: ${state <= 50.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+              color: ${state <= 50.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
             }
             .bubble-sub-button-1 {
               display: ${state <= 50.0 ? '' : 'none'} !important;
@@ -562,10 +592,10 @@ cards:
           styles: >-
             .bubble-button-background {
               opacity: 1 !important;
-              background-color: ${state <= 50.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+              background-color: ${state <= 50.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
             }
             .bubble-icon {
-              color: ${state <= 50.0 ? 'var(--blue)' : 'var(--black10)'} !important;
+              color: ${state <= 50.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
             }
             .bubble-sub-button-1 {
               display: ${state <= 50.0 ? '' : 'none'} !important;
