@@ -4,7 +4,7 @@ type: picture-elements
 image: !file /local/images/other/optiq.png
 elements:
 {% set battery_sensors = [
-  ('Battery', 'sensor.2025_cadillac_optiq_super_cruise_ev_battery_level')
+  ('Battery', 'sensor.2025_cadillac_optiq_ev_battery_level')
 ]
 %}
 {% set range_sensors = [
@@ -12,12 +12,12 @@ elements:
 ]
 %}
 {% set odometer_sensors = [
-  ('Range', 'sensor.2025_cadillac_optiq_super_cruise_ev_range_mi'),
-  ('Odometer', 'sensor.2025_cadillac_optiq_super_cruise_odometer_mi')
+  ('Range', 'sensor.2025_cadillac_optiq_ev_range_mi'),
+  ('Odometer', 'sensor.2025_cadillac_optiq_odometer_mi')
 ]
 %}
 {% set temp_sensors = [
-  ('Inside', 'sensor.2025_cadillac_optiq_super_cruise_estimated_cabin_temperature_f')
+  ('Inside', 'sensor.2025_cadillac_optiq_estimated_cabin_temperature_f')
 ] 
 %}
 {% for g in battery_sensors %}

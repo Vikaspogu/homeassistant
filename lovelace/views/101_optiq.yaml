@@ -6,7 +6,7 @@ cards:
   - type: "vertical-stack"
     cards:
     - type: custom:vehicle-status-card
-      entity: binary_sensor.2025_cadillac_optiq_super_cruise_ev_plug_state
+      entity: binary_sensor.2025_cadillac_optiq_ev_plug_state
       name: Cadillac Optiq
       button_card:
         - button:
@@ -153,55 +153,51 @@ cards:
         - url: /local/images/other/optiq.png
       indicators:
         single:
-          - entity: sensor.2025_cadillac_optiq_super_cruise_odometer_mi
+          - entity: sensor.2025_cadillac_optiq_odometer_mi
             icon: mdi:counter
             action_config:
               tap_action:
                 action: more-info
-          - entity: sensor.2025_cadillac_optiq_super_cruise_ev_range_mi
+          - entity: sensor.2025_cadillac_optiq_ev_range_mi
             icon: mdi:map-marker-distance
-            action_config:
-              tap_action:
-                action: more-info
-          - entity: sensor.2025_cadillac_optiq_super_cruise_ev_battery_level
             action_config:
               tap_action:
                 action: more-info
         group:
           - name: Tires
             items:
-              - entity: sensor.2025_cadillac_optiq_super_cruise_tire_pressure_left_front
+              - entity: sensor.2025_cadillac_optiq_tire_pressure_left_front
                 name: Front left
-              - entity: sensor.2025_cadillac_optiq_super_cruise_tire_pressure_right_front
+              - entity: sensor.2025_cadillac_optiq_tire_pressure_right_front
                 name: Front right
-              - entity: sensor.2025_cadillac_optiq_super_cruise_tire_pressure_left_rear
+              - entity: sensor.2025_cadillac_optiq_tire_pressure_left_rear
                 name: Rear left
-              - entity: sensor.2025_cadillac_optiq_super_cruise_tire_pressure_right_rear
+              - entity: sensor.2025_cadillac_optiq_tire_pressure_right_rear
                 name: Rear right
             icon: mdi:car-tire-alert
 
       range_info:
         - energy_level:
-            entity: sensor.2025_cadillac_optiq_super_cruise_ev_battery_level
+            entity: sensor.2025_cadillac_optiq_ev_battery_level
             icon: mdi:battery
             tap_action:
               action: more-info
             value_position: inside
           range_level:
-            entity: sensor.2025_cadillac_optiq_super_cruise_ev_range_mi
+            entity: sensor.2025_cadillac_optiq_ev_range_mi
             value_position: inside
-          charging_entity: binary_sensor.2025_cadillac_optiq_super_cruise_ev_charge_state
+          charging_entity: binary_sensor.2025_cadillac_optiq_ev_charge_state
           progress_color: "#2196f3"
           bar_height: 16
           bar_radius: 8
         - energy_level:
-            entity: binary_sensor.2025_cadillac_optiq_super_cruise_ev_charge_state
+            entity: binary_sensor.2025_cadillac_optiq_ev_charge_state
             icon: mdi:battery
             tap_action:
               action: more-info
           range_level:
-            entity: sensor.2025_cadillac_optiq_super_cruise_ev_range
-          charging_entity: binary_sensor.2025_cadillac_optiq_super_cruise_ev_charge_state
+            entity: sensor.2025_cadillac_optiq_ev_range
+          charging_entity: binary_sensor.2025_cadillac_optiq_ev_charge_state
           progress_color: "#4caf50"
           bar_height: 16
           bar_radius: 8
@@ -209,7 +205,7 @@ cards:
         range_info_config:
           layout: row
         button_grid:
-          rows: 2
+          rows: 3
           columns: 2
           swipe: true
           button_layout: horizontal
@@ -220,38 +216,32 @@ cards:
           images: false
           indicators: false
           range_info: false
-          mini_map: false
+          mini_map: true
           card_name: false
-          map_address: false
+          map_address: true
         section_order:
           - header_info
           - images
+          - indicators
+          - range_info
           - buttons
 
     ## Location ###################################################################################################################
-    - type: custom:mushroom-title-card
+    - type: 'custom:button-card'
+      template: card_title
       title: Location
     - type: map
       dark_mode: true
       aspect_ratio: 16:9
       auto_fit: true
       entities:
-        - device_tracker.2025_cadillac_optiq_super_cruise
+        - device_tracker.2025_cadillac_optiq
 
     ## Car glance stats ###################################################################################################################
     - type: horizontal-stack
       cards:
         - type: gauge
-          entity: sensor.2025_cadillac_optiq_super_cruise_ev_battery_level
-          min: 0
-          max: 100
-          name: Battery
-          severity:
-            green: 60
-            yellow: 40
-            red: 15
-        - type: gauge
-          entity: sensor.2025_cadillac_optiq_super_cruise_ev_range
+          entity: sensor.2025_cadillac_optiq_ev_range
           min: 0
           max: 420
           name: Range
@@ -262,15 +252,13 @@ cards:
     - type: entities
       title: Mileage
       entities:
-        - entity: sensor.2025_cadillac_optiq_super_cruise_lifetime_mpge
-        - entity: sensor.2025_cadillac_optiq_super_cruise_lifetime_efficiency
-        - entity: sensor.2025_cadillac_optiq_super_cruise_electric_economy
+        - entity: sensor.2025_cadillac_optiq_lifetime_energy_used
       state_color: true
       footer:
         type: "custom:mini-graph-card"
         entities:
-          - entity: sensor.2025_cadillac_optiq_super_cruise_odometer
-          - entity: sensor.2025_cadillac_optiq_super_cruise_lifetime_energy_used
+          - entity: sensor.2025_cadillac_optiq_odo_read_mi
+          - entity: sensor.2025_cadillac_optiq_lifetime_energy_used
             y_axis: secondary
             show_state: true
         hours_to_show: 672
@@ -282,35 +270,22 @@ cards:
           icon: false
     - type: entities
       entities:
-        - entity: binary_sensor.2025_cadillac_optiq_super_cruise_ev_plug_state
+        - entity: binary_sensor.2025_cadillac_optiq_ev_plug_state
           secondary_info: last-changed
-        - entity: binary_sensor.2025_cadillac_optiq_super_cruise_ev_charge_state
+        - entity: binary_sensor.2025_cadillac_optiq_ev_charge_state
           secondary_info: last-changed
-        - entity: sensor.2025_cadillac_optiq_super_cruise_ev_plug_voltage
-        - entity: sensor.2025_cadillac_optiq_super_cruise_charger_power_level
+        - entity: sensor.2025_cadillac_optiq_charge_voltage
       title: Charging
       state_color: true
-    - type: "custom:mini-graph-card"
-      entities:
-        - entity: sensor.2025_cadillac_optiq_super_cruise_last_trip_total_distance
-        - entity: sensor.2025_cadillac_optiq_super_cruise_last_trip_electric_econ
-          y_axis: secondary
-          show_state: true
-      name: Last Trip
-      hours_to_show: 672
-      group_by: date
-      aggregate_func: null
-      show:
-        graph: bar
-        icon: false
         
     ## Auto entites Optiq ###################################################################################################################
-    - type: custom:mushroom-title-card
+    - type: 'custom:button-card'
+      template: card_title
       title: Detailed View
     - type: "custom:auto-entities"
       card:
         type: "grid"
-        columns: 2
+        columns: 1
         square: false
       card_param: "cards"
       sort:
@@ -318,17 +293,15 @@ cards:
         ignore_case: true
       filter:
         include:
-          - entity_id: "sensor.2025_cadillac_optiq_super_cruise_*"
+          - entity_id: "sensor.2025_cadillac_optiq_*"
             options:
-              type: custom:bubble-card
-              card_type: button
-              show_state: true
+              type: "custom:button-card"
+              template: card_generic_swap
               entity: this.entity_id
-          - entity_id: "binary_sensor.2025_cadillac_optiq_super_cruise_*"
+          - entity_id: "binary_sensor.2025_cadillac_optiq_*"
             options:
-              type: custom:bubble-card
-              card_type: button
-              show_state: true
+              type: "custom:button-card"
+              template: card_generic_swap
               entity: this.entity_id
         exclude:
           - state: "unavailable"

@@ -54,46 +54,6 @@ cards:
         chips:
           - type: template
             tap_action:
-              haptic: light
-              action: "fire-dom-event"
-              browser_mod:
-                service: browser_mod.popup
-                data:
-                  title: ' '
-                  content:
-                    type: custom:stack-in-card
-                    mode: vertical
-                    keep:
-                      margin: true
-                      border_radius: true
-                      background: true
-                      outer_padding: false
-                    card_mod:
-                      style: |
-                        ha-card {
-                          background-color: var(--contrast3);
-                          border-radius: 25px;
-                          font-family: "Nunito";
-                        }
-                    cards:
-                      - type: 'custom:weather-radar-card'
-                        frame_count: 10
-                        marker_latitude: !secret homeassistant_latitude
-                        marker_longitude: !secret homeassistant_longitude
-                        show_marker: true
-                        show_range: true
-                        show_zoom: true
-                        show_recenter: true
-                        show_playback: true
-                        zoom_level: 8
-            entity: weather.forecast_home
-            content: |-
-              {{ states.weather.forecast_home.attributes.temperature}} {{states.weather.forecast_home.attributes.temperature_unit}}
-            icon: mdi:temperature-fahrenheit
-            icon_color: purple
-          
-          - type: template
-            tap_action:
               action: more-info
             entity: sensor.uptime
             content: |-
@@ -125,21 +85,21 @@ cards:
           - type: template
             tap_action:
               action: more-info
-            entity: sensor.2025_cadillac_optiq_super_cruise_ev_battery_level
+            entity: sensor.2025_cadillac_optiq_charge_state
             content: |-
-              {{ states('sensor.2025_cadillac_optiq_super_cruise_ev_battery_level') }}%
+              {{ states('sensor.2025_cadillac_optiq_charge_state') }}%
             icon: |-
-              {% if states('sensor.2025_cadillac_optiq_super_cruise_ev_battery_level') | float >= 80 %}
+              {% if states('sensor.2025_cadillac_optiq_charge_state') | float >= 80 %}
                 mdi:battery-80
-              {% elif states('sensor.2025_cadillac_optiq_super_cruise_ev_battery_level') | float >= 60 %}
+              {% elif states('sensor.2025_cadillac_optiq_charge_state') | float >= 60 %}
                 mdi:battery-60
-              {% elif states('sensor.2025_cadillac_optiq_super_cruise_ev_battery_level') | float >= 40 %}
+              {% elif states('sensor.2025_cadillac_optiq_charge_state') | float >= 40 %}
                 mdi:battery-40
               {% else %}
                 mdi:battery-alert
               {% endif %}
             icon_color: |-
-              {% if states('sensor.2025_cadillac_optiq_super_cruise_ev_battery_level') | float >= 50 %}
+              {% if states('sensor.2025_cadillac_optiq_charge_state') | float >= 50 %}
                 green
               {% else %}
                 amber
@@ -147,24 +107,24 @@ cards:
           - type: template
             tap_action:
               action: more-info
-            entity: sensor.2025_cadillac_optiq_super_cruise_ev_range
+            entity: sensor.2025_cadillac_optiq_ev_range
             content: |-
-              {{ states('sensor.2025_cadillac_optiq_super_cruise_ev_range') }}mi
+              {{ states('sensor.2025_cadillac_optiq_ev_range') }}mi
             icon: mdi:ev-station
             icon_color: |-
-              {% if states('sensor.2025_cadillac_optiq_super_cruise_ev_range') | float >= 50 %}
+              {% if states('sensor.2025_cadillac_optiq_ev_range') | float >= 50 %}
                 green
               {% else %}
                 amber
               {% endif %}
           - type: template
-            entitiy: device_tracker.2025_cadillac_optiq_super_cruise
+            entitiy: device_tracker.2025_cadillac_optiq
             icon: si:cadillac
             icon_color: "amber"
             content: |-
-              {{ states('sensor.pogu_s_2025_cadillac_optiq_super_cruise_distance') }}mi
+              {{ states('sensor.pogu_s_2025_cadillac_optiq_distance') }} mi
               • 
-              {{ states('device_tracker.2025_cadillac_optiq_super_cruise') | regex_replace(find='_', replace=' ', ignorecase=False)}}
+              {{ states('device_tracker.2025_cadillac_optiq') | regex_replace(find='_', replace=' ', ignorecase=False)}}
             tap_action:
               action: "fire-dom-event"
               browser_mod:
@@ -248,7 +208,7 @@ cards:
                               font-family: var(--primary-font-family);
                             }
                         entities:
-                          - entity: "device_tracker.2025_cadillac_optiq_super_cruise"
+                          - entity: "device_tracker.2025_cadillac_optiq"
                             secondary_info: "last-changed"
                       - type: "map"
                         card_mod:
@@ -259,464 +219,210 @@ cards:
                         aspect_ratio: "12x10"
                         default_zoom: 16
                         entities: 
-                          - "device_tracker.2025_cadillac_optiq_super_cruise"
-
-    - type: custom:simple-weather-card
+                          - "device_tracker.2025_cadillac_optiq"
+    - type: "custom:button-card"
+      template: card_weather
       entity: weather.forecast_home
-      name: at home
-      primary_info:
-        - wind_bearing
-        - humidity
-      secondary_info:
-        - precipitation
-        - precipitation_probability
+      variables:
+        ulm_card_weather_name: " "
+        ulm_card_weather_primary_info:
+          - wind_speed
+          - precipitation_probability
+        ulm_card_weather_backdrop:
+          fade: true
+        ulm_card_weather_custom:
+          - temp: sensor.outside_temperature
+
+    - type: "custom:button-card"
+      template: "card_scenes_welcome"
+      variables:
+        entity_1:
+          entity_id: "input_boolean.run_wakeup_script"
+          icon: "mdi:white-balance-sunny"
+          name: "Morning"
+          color: "blue"
+        entity_2:
+          entity_id: "input_boolean.run_goodnight_script"
+          icon: "mdi:weather-night"
+          name: "Night"
+          color: "red"
+        entity_3:
+          entity_id: "input_boolean.on_vacation"
+          icon: "mdi:beach"
+          name: "Vacation"
+          color: "green"
+        entity_4:
+          entity_id: "input_boolean.override_temperature_control"
+          icon: "mdi:thermostat"
+          name: "Thermostat"
+          color: "purple"
+        entity_5:
+          entity_id: "input_boolean.working"
+          icon: "mdi:laptop-account"
+          name: "Working"
+          color: "pink"
 
     - type: horizontal-stack
       cards:
-      - type: custom:mushroom-person-card
+      - type: 'custom:button-card'
+        template: card_person
         entity: person.vikas_pogu
+        variables:
+          ulm_card_person_entity: person.vikas_pogu
+          ulm_card_person_use_entity_picture: true
+          ulm_card_person_icon: mdi:face-man
         name: Vikas
-        show_state: true
-      - type: custom:mushroom-person-card
+      - type: 'custom:button-card'
+        template: card_person
         entity: person.spogu
-        name: Summer
-        show_state: true
-
-    - type: horizontal-stack
-      cards:
-      - type: custom:bubble-card
-        card_type: button
-        entity: input_boolean.run_wakeup_script
-        name: Wakeup
-        icon: mdi:white-balance-sunny
-        show_state: true
-      - type: custom:bubble-card
-        card_type: button
-        icon: mdi:weather-night
-        entity: input_boolean.run_goodnight_script
-        name: Good Night
-        show_state: true
-      - type: custom:bubble-card
-        card_type: button
-        icon: mdi:beach
-        entity: input_boolean.on_vacation
-        name: Vacation
-        show_state: true
-
-    - type: custom:bubble-card
-      card_type: separator
-      name: Master Bedroom
-      icon: mdi:home-thermometer-outline
-      sub_button:
-        - name: Bedroom temperature
-          entity: sensor.bedroom_temperature_temperature
-          show_state: true
-    - type: custom:bubble-card
-      card_type: separator
-      name: Callie' Bedroom
-      icon: mdi:home-thermometer-outline
-      sub_button:
-        - name: Bedroom temperature
-          entity: sensor.callies_room_temperature_temperature
-          show_state: true
+        variables:
+          ulm_card_person_entity: person.spogu
+          ulm_card_person_use_entity_picture: true
+          ulm_card_person_icon: mdi:face-woman
 
     ## Curtains/Blinds #############################################################################
     - type: horizontal-stack
       cards:
-        - type: custom:bubble-card
-          card_type: button
+        - type: "custom:button-card"
+          template: card_cover
           entity: cover.garage_door_opener
-          name: Garage Door
-          icon: mdi:garage
-          show_state: true
-          card_layout: large
+          variables:
+            ulm_card_cover_name: Optiq Garage Door
+            ulm_card_cover_enable_controls: true
+            ulm_card_cover_color: "green"
+
 
     - type: horizontal-stack
       cards:
-        - type: custom:mushroom-climate-card
+        - type: "custom:button-card"
+          entity: lock.sidedoor_yale_assure_2_lock
+          template: "custom_card_eraycetinay_lock"
+          name: "Side Door Lock"
+          variables:
+            ulm_custom_card_eraycetinay_lock_tap_control: true
+            ulm_custom_card_eraycetinay_lock_battery_level: sensor.sidedoor_yale_assure_2_lock_battery_level
+            ulm_custom_card_eraycetinay_lock_door_open: binary_sensor.sidedoor_yale_assure_2_lock_window_door_is_open
+          triggers_update:
+            - "sensor.sidedoor_yale_assure_2_lock_battery_level"
+            - "binary_sensor.sidedoor_yale_assure_2_lock_window_door_is_open"
+
+
+    - type: horizontal-stack
+      cards:
+        - type: "custom:button-card"
+          template: card_thermostat
           entity: climate.thermostat
-          hvac_modes: ["heat","cool","off"]
-          show_temperature_control: true
-        # - type: custom:bubble-card
-        #   card_type: climate
-        #   entity: climate.thermostat
-        #   show_state: true
-        #   state_color: true
-        #   sub_button:
-        #     - name: HVAC modes menu
-        #       select_attribute: hvac_modes
-        #       show_arrow: false
-        #       state_background: false
+          variables:
+            ulm_card_thermostat_enable_collapse: true
+            ulm_card_thermostat_enable_controls: true
+            ulm_card_thermostat_enable_hvac_modes: true
+            ulm_card_thermostat_enable_popup: true
 
     - type: horizontal-stack
       cards:
-        - type: custom:bubble-card
-          card_type: button
-          entity: lock.home_connect_620_connected_smart_lock
-          name: Back Door
-          icon: mdi:shield-lock
-          show_state: true
-          styles: |
-            .bubble-icon  {
-              opacity: 1 !important;
-              color: ${state === 'locked' ? '' : 'brown'} !important;
-            }
-            .bubble-button-card-container {
-              opacity: 1 !important;
-              background: ${state === 'locked' ? '' : 'brown'} !important;
-            }
-        - type: custom:bubble-card
-          card_type: button
-          entity: "lock.front_door"
-          name: Front Door
-          icon: mdi:shield-lock
-          show_state: true
-          styles: |
-            .bubble-icon  {
-              opacity: 1 !important;
-              color: ${state === 'locked' ? '' : 'brown'} !important;
-            }
-            .bubble-button-card-container {
-              opacity: 1 !important;
-              background: ${state === 'locked' ? '' : 'brown'} !important;
-            }
-        
-    - type: horizontal-stack
-      cards:
-        - type: custom:bubble-card
-          card_type: button
-          entity: switch.bedroom_purifier
-          name: Bedroom Purifier
-          icon: mdi:air-purifier
-          show_state: true
-        - type: custom:bubble-card
-          card_type: button
-          entity: switch.callies_room_purifier_power_switch
-          name: Callie's Room Purifier
-          icon: mdi:air-purifier
-          show_state: true
-
-    - type: horizontal-stack
-      cards:
-        - type: custom:bubble-card
-          card_type: button
-          name: Office
-          entity: sensor.both_slideposition_c0d616da83fc
-          show_last_updated: true
-          show_state: true
-          icon: mdi:curtains
-          styles: >-
-            .bubble-button-background {
-              opacity: 1 !important;
-              background-color: ${state == 0.0 ? 'var(--paper-toggle-button-checked-button-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
-            }
-            .bubble-icon {
-              color: ${state == 0.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
-            }
-            .bubble-sub-button-1 {
-              display: ${state == 0.0 ? '' : 'none'} !important;
-            }
-            .bubble-sub-button-2 {
-              display: ${state >= 60.0 ? '' : 'none'} !important;
-            }
-          sub_button:
-            - show_state: false
-              entity: button.btn_2_cmd_c0d616da83fc
-              tap_action:
-                action: call-service
-                service: button.press
-                target:
-                  entity_id: button.btn_2_cmd_c0d616da83fc
-            - show_state: false
-              entity: button.btn_3_cmd_c0d616da83fc
-              tap_action:
-                action: call-service
-                service: button.press
-                target: 
-                  entity_id: button.btn_3_cmd_c0d616da83fc
-        - type: custom:bubble-card
-          card_type: button
-          entity: sensor.loft_position
-          name: Loft Blinds
-          icon: mdi:blinds-horizontal
-          show_state: true
-          styles: >-
-            .bubble-button-background {
-              opacity: 1 !important;
-              background-color: ${state <= 50.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
-            }
-            .bubble-icon {
-              color: ${state <= 50.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
-            }
-            .bubble-sub-button-1 {
-              display: ${state <= 50.0 ? '' : 'none'} !important;
-            }
-            .bubble-sub-button-2 {
-              display: ${state > 50.0 ? '' : 'none'} !important;
-            }
-          sub_button:
-            - show_state: false
-              entity: button.loft_blinds_closeup
-              tap_action:
-                action: call-service
-                service: button.press
-                target:
-                  entity_id: button.loft_blinds_closeup
-            - show_state: false
-              entity: button.loft_blinds_open
-              tap_action:
-                action: call-service
-                service: button.press
-                target:
-                  entity_id: button.loft_blinds_open
-
-    - type: horizontal-stack
-      cards:
-        - type: custom:bubble-card
-          card_type: button
-          name: Callies Room
-          entity: sensor.both_slideposition_ce6b1c6e974e
-          show_last_updated: true
-          show_state: true
-          icon: mdi:curtains
-          styles: >-
-            .bubble-button-background {
-              opacity: 1 !important;
-              background-color: ${state == 0.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
-            }
-            .bubble-icon {
-              color: ${state == 0.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
-            }
-            .bubble-sub-button-1 {
-              display: ${state == 0.0 ? '' : 'none'} !important;
-            }
-            .bubble-sub-button-2 {
-              display: ${state >= 60.0 ? '' : 'none'} !important;
-            }
-          sub_button:
-            - show_state: false
-              entity: button.btn_2_cmd_ce6b1c6e974e
-              tap_action:
-                action: call-service
-                service: button.press
-                target:
-                  entity_id: button.btn_2_cmd_ce6b1c6e974e
-            - show_state: false
-              entity: button.btn_3_cmd_ce6b1c6e974e
-              tap_action:
-                action: call-service
-                service: button.press
-                target: 
-                  entity_id: button.btn_3_cmd_ce6b1c6e974e
-        - type: custom:bubble-card
-          card_type: button
-          entity: sensor.status_slideposition_dc7773a00456
-          name: Callies Room Blinds
-          icon: mdi:blinds-horizontal
-          show_state: true
-          styles: >-
-            .bubble-button-background {
-              opacity: 1 !important;
-              background-color: ${state <= 50.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
-            }
-            .bubble-icon {
-              color: ${state <= 50.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
-            }
-            .bubble-sub-button-1 {
-              display: ${state <= 50.0 ? '' : 'none'} !important;
-            }
-            .bubble-sub-button-2 {
-              display: ${state > 50.0 ? '' : 'none'} !important;
-            }
-          sub_button:
-            - show_state: false
-              entity: button.btn_3_cmd_dc7773a00456
-              tap_action:
-                action: call-service
-                service: button.press
-                target:
-                  entity_id: button.btn_3_cmd_dc7773a00456
-            - show_state: false
-              entity: button.btn_2_cmd_dc7773a00456
-              tap_action:
-                action: call-service
-                service: button.press
-                target:
-                  entity_id: button.btn_2_cmd_dc7773a00456
-
-    - type: horizontal-stack
-      cards:
-        - type: custom:bubble-card
-          card_type: button
-          entity: sensor.living_room_position
-          name: Living Room Blinds
-          icon: mdi:blinds-horizontal
-          show_state: true
-          styles: >-
-            .bubble-button-background {
-              opacity: 1 !important;
-              background-color: ${state <= 50.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
-            }
-            .bubble-icon {
-              color: ${state <= 50.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
-            }
-            .bubble-sub-button-1 {
-              display: ${state <= 50.0 ? '' : 'none'} !important;
-            }
-            .bubble-sub-button-2 {
-              display: ${state > 50.0 ? '' : 'none'} !important;
-            }
-          sub_button:
-            - show_state: false
-              entity: button.living_room_blinds_closeup
-              tap_action:
-                action: call-service
-                service: button.press
-                target:
-                  entity_id: button.living_room_blinds_closeup
-            - show_state: false
-              entity: button.living_room_blinds_open
-              tap_action:
-                action: call-service
-                service: button.press
-                target:
-                  entity_id: button.living_room_blinds_open
-
-        - type: custom:bubble-card
-          card_type: button
-          button_type: switch
-          entity: sensor.bedroom_position
-          name: Bedroom Blinds
-          icon: mdi:blinds-horizontal
-          show_state: true
-          styles: >-
-            .bubble-button-background {
-              opacity: 1 !important;
-              background-color: ${state <= 50.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
-            }
-            .bubble-icon {
-              color: ${state <= 50.0 ? 'var(--paper-toggle-button-checked-bar-color)' : 'var(--paper-toggle-button-unchecked-bar-color)'} !important;
-            }
-            .bubble-sub-button-1 {
-              display: ${state <= 50.0 ? '' : 'none'} !important;
-            }
-            .bubble-sub-button-2 {
-              display: ${state > 50.0 ? '' : 'none'} !important;
-            }
-          sub_button:
-            - show_state: false
-              entity: button.bedroom_blinds_closeup
-              tap_action:
-                action: call-service
-                service: button.press
-                target:
-                  entity_id: button.bedroom_blinds_closeup
-            - show_state: false
-              entity: button.bedroom_blinds_open
-              tap_action:
-                action: call-service
-                service: button.press
-                target:
-                  entity_id: button.bedroom_blinds_open
-
-    - type: horizontal-stack
-      cards:
-        - type: custom:bubble-card
-          card_type: button
-          entity: switch.tv_stand_led
-          name: TV Stand Led
-          icon: mdi:string-lights
-          show_state: true
-        - type: custom:bubble-card
-          card_type: button
-          entity: switch.unificamera
-          name: Unifi Camera Switch
-          icon: mdi:switch
-          show_state: true
+        - type: "custom:button-card"
+          template: card_graph
+          entity: sensor.bedroom_temperature_temperature
+          variables:
+            ulm_card_graph_color: "var(--google-blue)"
+            ulm_card_graph_name: Master Bedroom
+            ulm_card_graph_entity: sensor.bedroom_temperature_temperature
+            ulm_card_graph_type: fill
+            ulm_card_graph_hours: 24
+            ulm_card_graph_group_by: interval
+            ulm_card_graph_line_width: 5
+        - type: "custom:button-card"
+          template: card_graph
+          entity: sensor.callies_room_temperature_temperature
+          variables:
+            ulm_card_graph_color: "var(--google-blue)"
+            ulm_card_graph_name: Callie's Bedroom
+            ulm_card_graph_entity: sensor.callies_room_temperature_temperature
+            ulm_card_graph_type: fill
+            ulm_card_graph_hours: 24
+            ulm_card_graph_group_by: interval
+            ulm_card_graph_line_width: 5
 
     # - type: horizontal-stack
     #   cards:
-    #     - type: custom:bubble-card
-    #       card_type: button
-    #       entity: switch.frontwatervalve
-    #       name: Front Sprinklers
-    #       icon: mdi:sprinkler
-    #       show_state: true
-    #     - type: custom:bubble-card
-    #       card_type: button
-    #       entity: switch.backwatervalve
-    #       name: Back Sprinklers
-    #       icon: mdi:sprinkler
-    #       show_state: true
+    #     - type: "custom:button-card"
+    #       template:
+    #         - card_curtain_room
+    #       name: Office Curtains
+    #       entity: sensor.both_slideposition_c0d616da83fc
+    #       icon: mdi:blinds-horizontal
+    #       variables:
+    #         ulm_custom_card_curtain_position: sensor.both_slideposition_c0d616da83fc
+    #         ulm_custom_card_curtain_open_entity: button.btn_3_cmd_c0d616da83fc
+    #         ulm_custom_card_curtain_close_entity: button.btn_2_cmd_c0d616da83fc
+    #         ulm_custom_card_curtain_name: Office Curtains
+    #         ulm_custom_card_curtain_type: curtains
+    #     - type: "custom:button-card"
+    #       template:
+    #         - card_blinds_room
+    #       name: Loft Blinds
+    #       entity: sensor.loft_position
+    #       icon: mdi:blinds-horizontal
+    #       variables:
+    #         ulm_custom_card_blinds_position: sensor.loft_position
+    #         ulm_custom_card_blinds_open_entity: button.loft_blinds_open
+    #         ulm_custom_card_blinds_close_entity: button.loft_blinds_closeup
+    #         ulm_custom_card_blinds_name: Loft Blinds
 
     # - type: horizontal-stack
     #   cards:
-    #     - type: custom:bubble-card
-    #       card_type: button
-    #       entity: switch.frontoutdoorlights
-    #       name: Outdoor light
-    #       icon: mdi:string-lights
-    #       show_state: true
-    #     - type: custom:bubble-card
-    #       card_type: button
-    #       entity: switch.officeroom
-    #       name: Christmas light
-    #       icon: mdi:pine-tree
-    #       show_state: true
+    #     - type: "custom:button-card"
+    #       template:
+    #         - card_curtain_room
+    #       name: Callies Room Curtains
+    #       entity: sensor.both_slideposition_ce6b1c6e974e
+    #       icon: mdi:blinds-horizontal
+    #       variables:
+    #         ulm_custom_card_curtain_position: sensor.both_slideposition_ce6b1c6e974e
+    #         ulm_custom_card_curtain_open_entity: button.btn_3_cmd_ce6b1c6e974e
+    #         ulm_custom_card_curtain_close_entity: button.btn_2_cmd_ce6b1c6e974e
+    #         ulm_custom_card_curtain_name: Callies Room Curtains
+    #         ulm_custom_card_curtain_type: curtains
+    #     - type: "custom:button-card"
+    #       template:
+    #         - card_blinds_room
+    #       name: Callies Room Blinds
+    #       entity: sensor.status_slideposition_dc7773a00456
+    #       icon: mdi:blinds-horizontal
+    #       variables:
+    #         ulm_custom_card_blinds_position: sensor.status_slideposition_dc7773a00456
+    #         ulm_custom_card_blinds_open_entity: button.btn_2_cmd_dc7773a00456
+    #         ulm_custom_card_blinds_close_entity: button.btn_3_cmd_dc7773a00456
+    #         ulm_custom_card_blinds_name: Callies Room Blinds
 
-    - type: horizontal-stack
-      cards:
-        - type: custom:bubble-card
-          card_type: button
-          entity: humidifier.callie_roo_humidifier_2
-          name: Callie's Room Humidifer
-          icon: mdi:air-humidifier
-          show_state: true
-        - type: custom:bubble-card
-          card_type: button
-          entity: humidifier.luh_a602s_wus
-          name: Bedroom Humidifier
-          icon: mdi:air-humidifier
-          show_state: true
+    # - type: horizontal-stack
+    #   cards:
+    #     - type: "custom:button-card"
+    #       template:
+    #         - card_blinds_room
+    #       name: Living Room Blinds
+    #       entity: sensor.living_room_position
+    #       icon: mdi:blinds-horizontal
+    #       variables:
+    #         ulm_custom_card_blinds_position: sensor.living_room_position
+    #         ulm_custom_card_blinds_open_entity: button.living_room_blinds_open
+    #         ulm_custom_card_blinds_close_entity: button.living_room_blinds_closeup
+    #         ulm_custom_card_blinds_name: Living Room Blinds
+    #     - type: "custom:button-card"
+    #       template:
+    #         - card_blinds_room
+    #       name: Bedroom Blinds
+    #       entity: sensor.bedroom_position
+    #       icon: mdi:blinds-horizontal
+    #       variables:
+    #         ulm_custom_card_blinds_position: sensor.bedroom_position
+    #         ulm_custom_card_blinds_open_entity: button.bedroom_blinds_open
+    #         ulm_custom_card_blinds_close_entity: button.bedroom_blinds_closeup
+    #         ulm_custom_card_blinds_name: Bedroom Blinds
 
-    - type: horizontal-stack
-      cards:
-        - type: custom:bubble-card
-          card_type: button
-          button_type: state
-          name: Kettle
-          entity: switch.smart_kettle_power_switch_2
-          icon: mdi:kettle
-          show_state: true
-          show_last_changed: true
-          button_action:
-            tap_action:
-              action: toggle
-          tap_action:
-            action: toggle
-          styles: |
-            .bubble-button-card-container {
-              opacity: 1 !important;
-              background: ${state === 'off' ? '' : 'brown'} !important;
-            }
-            .bubble-icon  {
-              opacity: 1 !important;
-              color: ${state === 'off' ? '' : 'brown'} !important;
-            }
-            .bubble-sub-button-1 {
-              background-color: teal !important;
-            }
-          sub_button:
-            - type: custom:bubble-card
-              card_type: select
-              name: Kettle Mode
-              entity: select.smart_kettle_mode_2
-              icon: mdi:menu
-              show_state: true
-              show_background: true
-                
     ## Camera ###################################################################################################################   
-    - type: custom:mushroom-title-card
+    - type: 'custom:button-card'
+      template: card_title
       title: Cameras
     - type: horizontal-stack
       cards:
@@ -727,7 +433,8 @@ cards:
         - camera_entity: camera.g4_instant_medium_resolution_channel
 
     ## Vacuum ###################################################################################################################  
-    - type: custom:mushroom-title-card
+    - type: 'custom:button-card'
+      template: card_title
       title: Wall-E
     - type: horizontal-stack
       cards:

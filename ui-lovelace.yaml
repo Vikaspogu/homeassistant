@@ -1,6 +1,5 @@
 # !toggle word-wrap
 title: ""
-button_card_templates: !include_dir_merge_named "lovelace/rounded-templates"
 views: !include_dir_list lovelace/views/
 background: "var(--background-image)"
-decluttering_templates: !include_dir_merge_named lovelace/decluttering-templates
+button_card_templates: !include_dir_merge_named "custom_components/ui_lovelace_minimalist/__ui_minimalist__/ulm_templates/"

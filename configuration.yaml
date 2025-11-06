@@ -103,9 +103,12 @@ lovelace:
       type: module              
     - url: /hacsfiles/vehicle-status-card/vehicle-status-card.js
       type: module
+    - url: /hacsfiles/tabbed-card/tabbed-card.js
+      type: module
+                
 
     # Styles
-    - url: "https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap"
+    - url: "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
       type: css
     - url: "https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
       type: css

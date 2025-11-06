@@ -5,169 +5,121 @@ id: entities
 cards:        
   - type: "vertical-stack"
     cards:
-      - type: custom:mushroom-title-card
-        title: TVs
-      - type: horizontal-stack
-        cards:
-          - type: "custom:auto-entities"
+      - type: custom:tabbed-card
+        styles:
+          --mdc-theme-primary: var(--switch-checked-button-color)
+          --mdc-tab-text-label-color-default: var(--switch-unchecked-button-color)
+          --mdc-typography-button-font-size: 10
+        tabs:
+          - attributes:
+              label: TVs
             card:
-              type: "grid"
-              columns: 1
-              square: false
-            card_param: "cards"
-            sort:
-              method: last-changed
-              ignore_case: true
-            filter:
-              include:
-                - entity_id: "media_player.*"
-                  options:
-                    type: custom:bubble-card
-                    card_type: media-player
-                    entity: this.entity_id
-                    show_state: true
-                    show_last_updated: true
-                    show_attribute: true
-                    attribute: assumed_state
-                    card_layout: large
-                    scrolling_effect: false
-                    force_icon: true
-                    columns: 2
-                    rows: 1
-                    tap_action:
-                      action: toggle
-                    hide:
-                      previous_button: true
-                      next_button: true
-              exclude:
-                - state: "unavailable"
-                - state: "unknown"
-                - entity_id: "media_player.g4*"
-
-      - type: custom:mushroom-title-card
-        title: Switches
-      - type: horizontal-stack
-        cards:
-          - type: "custom:auto-entities"
+              type: "custom:auto-entities"
+              card:
+                type: "grid"
+                columns: 1
+                square: false
+              card_param: "cards"
+              sort:
+                method: last-changed
+                ignore_case: true
+              filter:
+                include:
+                  - entity_id: "media_player.*"
+                    options:
+                      type: "custom:button-card"
+                      template: card_media_player
+                      entity: this.entity_id
+                      variables:
+                        ulm_card_media_player_enable_controls: true
+                        ulm_card_media_player_enable_volume_slider: true
+                        ulm_card_media_player_enable_popup: true
+                        ulm_card_media_player_power_button: true
+                        ulm_card_media_player_collapsible: true
+                exclude:
+                  - state: "unavailable"
+                  - state: "unknown"
+                  - entity_id: "media_player.g4*"
+                  - entity_id: "media_player.browser_mod*"
+          - attributes:
+              label: Switches
             card:
-              type: "grid"
-              columns: 2
-              square: false
-            card_param: "cards"
-            sort:
-              method: last-changed
-              ignore_case: true
-            filter:
-              include:
-                - entity_id: "switch.*"
-                  options:
-                    type: custom:bubble-card
-                    card_type: button
-                    show_state: true
-                    entity: this.entity_id
-              exclude:
-                - state: "unavailable"
-                - state: "unknown"
-      - type: custom:mushroom-title-card
-        title: Covers
-      - type: horizontal-stack
-        cards:
-          - type: "custom:auto-entities"
+              type: "custom:auto-entities"
+              card:
+                type: "grid"
+                columns: 1
+                square: false
+              card_param: "cards"
+              sort:
+                method: last-changed
+                ignore_case: true
+              filter:
+                include:
+                  - entity_id: "switch.*"
+                    options:
+                      type: "custom:button-card"
+                      template: card_input_boolean
+                      entity: this.entity_id
+                exclude:
+                  - state: "unavailable"
+                  - state: "unknown"
+          - attributes:
+              label: Buttons
             card:
-              type: "grid"
-              columns: 2
-              square: false
-            card_param: "cards"
-            sort:
-              method: last-changed
-              ignore_case: true
-            filter:
-              include:
-                - entity_id: "cover.*"
-                  options:
-                    type: custom:bubble-card
-                    card_type: button
-                    show_state: true
-                    entity: this.entity_id
-              exclude:
-                - state: "unavailable"
-                - state: "unknown"
-                - entity_id: "*garage*"
-      - type: custom:mushroom-title-card
-        title: Input Buttons
-      - type: horizontal-stack
-        cards:
-          - type: "custom:auto-entities"
+              type: "custom:auto-entities"
+              card:
+                type: "grid"
+                columns: 1
+                square: false
+              card_param: "cards"
+              sort:
+                method: last-changed
+                ignore_case: true
+              filter:
+                include:
+                  - entity_id: "input_boolean*"
+                    options:
+                      type: "custom:button-card"
+                      template: card_input_boolean
+                      entity: this.entity_id
+                  - entity_id: "button.*"
+                    options:
+                      entity: this.entity_id
+                      type: 'custom:button-card'
+                      template: card_cover
+                exclude:
+                  - state: "unavailable"
+                  - state: "unknown"
+          - attributes:
+              label: Sensors              
             card:
-              type: "grid"
-              columns: 2
-              square: false
-            card_param: "cards"
-            sort:
-              method: last-changed
-              ignore_case: true
-            filter:
-              include:
-                - entity_id: "input_boolean*"
-                  options:
-                    type: custom:bubble-card
-                    card_type: button
-                    show_state: true
-                    entity: this.entity_id
-              exclude:
-                - state: "unavailable"
-                - state: "unknown"
-      - type: custom:mushroom-title-card
-        title: Button
-      - type: horizontal-stack
-        cards:
-          - type: "custom:auto-entities"
-            card:
-              type: "grid"
-              columns: 2
-              square: false
-            card_param: "cards"
-            sort:
-              method: last-changed
-              ignore_case: true
-            filter:
-              include:
-                - entity_id: "button.*"
-                  options:
-                    type: custom:bubble-card
-                    card_type: button
-                    show_state: true
-                    entity: this.entity_id
-              exclude:
-                - state: "unavailable"
-                - state: "unknown"
-      - type: custom:mushroom-title-card
-        title: Sensors
-      - type: horizontal-stack
-        cards:
-          - type: "custom:auto-entities"
-            card:
-              type: "grid"
-              columns: 2
-              square: false
-            card_param: "cards"
-            sort:
-              method: last-changed
-              ignore_case: true
-            filter:
-              include:
-                - entity_id: "sensor.*smoke*"
-                  options:
-                    type: custom:bubble-card
-                    card_type: button
-                    show_state: true
-                    entity: this.entity_id
-                - entity_id: "binary_sensor.*smoke*"
-                  options:
-                    type: custom:bubble-card
-                    card_type: button
-                    show_state: true
-                    entity: this.entity_id
-              exclude:
-                - state: "unavailable"
-                - state: "unknown"
+              type: "custom:auto-entities"
+              card:
+                type: "grid"
+                columns: 1
+                square: false
+              card_param: "cards"
+              sort:
+                method: last-changed
+                ignore_case: true
+              filter:
+                include:
+                  - entity_id: "sensor.*smoke*"
+                    options:
+                      type: "custom:button-card"
+                      template: card_binary_sensor
+                      variables:
+                        ulm_card_binary_sensor_alert: true
+                        ulm_card_binary_sensor_show_last_changed: true
+                      entity: this.entity_id
+                  - entity_id: "binary_sensor.*smoke*"
+                    options:
+                      type: "custom:button-card"
+                      template: card_binary_sensor
+                      variables:
+                        ulm_card_binary_sensor_alert: true
+                        ulm_card_binary_sensor_show_last_changed: true
+                      entity: this.entity_id
+                exclude:
+                  - state: "unavailable"
+                  - state: "unknown"

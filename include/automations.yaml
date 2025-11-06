@@ -77,7 +77,7 @@ automation:
     initial_state: on
     trigger:
       - platform: state
-        entity_id: device_tracker.2025_cadillac_optiq_super_cruise
+        entity_id: device_tracker.2025_cadillac_optiq
         from: not_home
         to: home
     condition:
@@ -96,7 +96,7 @@ automation:
     initial_state: on
     trigger:
       - platform: state
-        entity_id: device_tracker.2025_cadillac_optiq_super_cruise
+        entity_id: device_tracker.2025_cadillac_optiq
         from: home
         to: not_home
     condition:
@@ -108,29 +108,29 @@ automation:
         entity_id: cover.garage_door_opener
     id: 3d9513db194f4f44b8310e57949968d1
 
-  - alias: Open garage if VW returns home
-    initial_state: on
-    trigger:
-      - platform: state
-        entity_id: device_tracker.vpogu_pixel_9
-        from: not_home
-        to: home
-    condition:
-      - condition: or
-        conditions:
-          - condition: state
-            entity_id: binary_sensor.vpogu_pixel9_android_auto
-            state: "on"
-          - condition: state
-            entity_id: binary_sensor.spogu_pixel_9_android_auto
-            state: "on"
-      - condition: state
-        entity_id: cover.garage_door_opener
-        state: "closed"
-    action:
-      - service: cover.open_cover
-        entity_id: cover.garage_door_opener
-    id: 3d9513db194f4f44b8310e57949968e6
+  # - alias: Open garage if VW returns home
+  #   initial_state: on
+  #   trigger:
+  #     - platform: state
+  #       entity_id: device_tracker.vpogu_pixel_9
+  #       from: not_home
+  #       to: home
+  #   condition:
+  #     - condition: or
+  #       conditions:
+  #         - condition: state
+  #           entity_id: binary_sensor.vpogu_pixel9_android_auto
+  #           state: "on"
+  #         - condition: state
+  #           entity_id: binary_sensor.spogu_pixel_9_android_auto
+  #           state: "on"
+  #     - condition: state
+  #       entity_id: cover.garage_door_opener
+  #       state: "closed"
+  #   action:
+  #     - service: cover.open_cover
+  #       entity_id: cover.garage_door_opener
+  #   id: 3d9513db194f4f44b8310e57949968e6
 
   - alias: Close garage if VW is away
     initial_state: on

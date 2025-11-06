@@ -1,5 +1,102 @@
 Graphite Auto:
   card-mod-theme: Graphite Auto
+  google-red: "#F18B82"
+  google-green: "#80C994"
+  google-yellow: "#FCD663"
+  google-blue: "#89B3F8"
+  google-violet: "#BB86FC"
+  google-grey: "#BBBBBB"
+  color-red: "241, 139, 130"
+  color-green: "128, 201, 148"
+  color-yellow: "252, 214, 99"
+  color-blue: "137, 179, 248"
+  color-theme: "221,221,221"
+  color-purple: "102, 31, 255"
+  color-grey: "187, 187, 187"
+  color-pink: "233, 30, 99"
+  color-background-yellow: "var(--color-yellow)"
+  color-background-blue: "var(--color-blue)"
+  color-background-green: "var(--color-green)"
+  color-background-red: "var(--color-red)"
+  color-background-pink: "var(--color-pink)"
+  color-background-purple: "var(--color-purple)"
+  color-yellow-text: "var(--color-yellow)"
+  color-blue-text: "var(--color-blue)"
+  color-green-text: "var(--color-green)"
+  color-red-text: "var(--color-red)"
+  color-pink-text: "var(--color-pink)"
+  color-purple-text: "var(--color-purple)"
+  opacity-bg: "0.1"
+  # floating button text color
+  mdc-theme-on-secondary: "var(--card-background-color)"
+
+  # header
+  app-header-text-color: "var(--primary-text-color)"
+  app-header-background-color: "var(--primary-background-color)"
+  paper-tabs-selection-bar-color: "var(--primary-text-color)"
+  # Sidebar
+  sidebar-selected-text-color: "rgb(var(--color-blue))"
+  sidebar-selected-icon-color: "rgb(var(--color-blue))"
+  # Slider
+  slider-color: "rgb(var(--color-blue))"
+  slider-bar-color: "rgba(var(--color-blue),0.38)"
+  # card
+  box-shadow: "none"
+  # media player
+  mini-media-player-accent-color: "var(--google-blue)"
+  # Journal
+  state-icon-color: "rgb(var(--color-theme))"
+  
+  card-mod-card-yaml: |
+
+    .: |
+
+      /* General changes */ 
+
+      ha-card {
+        transition: none !important;
+        font-family: 'Figtree' !important;
+      }
+
+      /* Graph card style */
+
+      .graph {
+        background: var(--blue-tint);
+        display: flex;
+        overflow: hidden; /* Temporary fix for graph overflow bug */
+      }
+      
+      .graph .name {
+        font-size: 12px;
+        line-height: 18px;
+        background: var(--black);
+        color: var(--white);
+        padding: 6px 10px;
+        border-radius: 100px;
+        z-index: 1;
+      }
+
+      .graph .icon {
+        display: none;
+      }
+
+      .graph .info {
+        margin-top: 0;
+        padding: 24px 24px 0 24px;
+        order: 1;
+      }
+
+      .graph hui-graph-header-footer {
+        order: 3;
+      }
+
+      .graph .header {
+        padding: 0 24px;
+        order: 2;
+        margin: 4px 0 -16px 0;
+        z-index: 1;
+      }
+
   modes:
     light:
 
