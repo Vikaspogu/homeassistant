@@ -19,17 +19,21 @@ cards:
           --mdc-tab-text-label-color-default: var(--switch-unchecked-button-color)
           --mdc-typography-button-font-size: 10
         tabs:
+          ## Media Players Tab
           - attributes:
-              label: TVs
+              label: Media
             card:
               type: "custom:auto-entities"
+              show_empty: false
+              unique: true
               card:
                 type: "grid"
                 columns: 1
                 square: false
               card_param: "cards"
               sort:
-                method: last-changed
+                method: state
+                reverse: true
                 ignore_case: true
               filter:
                 include:
@@ -49,77 +53,109 @@ cards:
                   - state: "unknown"
                   - entity_id: "media_player.g4*"
                   - entity_id: "media_player.browser_mod*"
+          
+          ## Switches Tab
           - attributes:
               label: Switches
             card:
               type: "custom:auto-entities"
+              show_empty: false
+              unique: true
               card:
                 type: "grid"
-                columns: 1
+                columns: 2
                 square: false
               card_param: "cards"
               sort:
-                method: last-changed
+                method: state
+                reverse: true
                 ignore_case: true
               filter:
                 include:
                   - entity_id: "switch.*"
                     options:
                       type: "custom:button-card"
-                      template: card_input_boolean
+                      template: card_generic_swap
                       entity: this.entity_id
                 exclude:
                   - state: "unavailable"
                   - state: "unknown"
+          
+          ## Lights Tab
           - attributes:
-              label: Buttons
+              label: Lights
             card:
               type: "custom:auto-entities"
+              show_empty: false
+              unique: true
               card:
                 type: "grid"
-                columns: 1
+                columns: 2
                 square: false
               card_param: "cards"
               sort:
-                method: last-changed
+                method: state
+                reverse: true
                 ignore_case: true
               filter:
                 include:
-                  - entity_id: "input_boolean*"
+                  - entity_id: "light.*"
                     options:
                       type: "custom:button-card"
-                      template: card_input_boolean
+                      template: card_light
                       entity: this.entity_id
-                  - entity_id: "button.*"
-                    options:
-                      entity: this.entity_id
-                      type: 'custom:button-card'
-                      template: card_cover
-                exclude:
-                  - state: "unavailable"
-                  - state: "unknown"
-          - attributes:
-              label: Sensors              
-            card:
-              type: "custom:auto-entities"
-              card:
-                type: "grid"
-                columns: 1
-                square: false
-              card_param: "cards"
-              sort:
-                method: last-changed
-                ignore_case: true
-              filter:
-                include:
-                  - entity_id: "sensor.*smoke*"
-                    options:
-                      type: "custom:button-card"
-                      template: card_binary_sensor
                       variables:
-                        ulm_card_binary_sensor_alert: true
-                        ulm_card_binary_sensor_show_last_changed: true
+                        ulm_card_light_enable_slider: true
+                        ulm_card_light_enable_color: true
+                exclude:
+                  - state: "unavailable"
+                  - state: "unknown"
+          
+          ## Input Booleans Tab
+          - attributes:
+              label: Toggles
+            card:
+              type: "custom:auto-entities"
+              show_empty: false
+              unique: true
+              card:
+                type: "grid"
+                columns: 2
+                square: false
+              card_param: "cards"
+              sort:
+                method: state
+                reverse: true
+                ignore_case: true
+              filter:
+                include:
+                  - entity_id: "input_boolean.*"
+                    options:
+                      type: "custom:button-card"
+                      template: card_input_boolean
                       entity: this.entity_id
+                exclude:
+                  - state: "unavailable"
+                  - state: "unknown"
+          
+          ## Binary Sensors Tab (Security/Safety)
+          - attributes:
+              label: Security
+            card:
+              type: "custom:auto-entities"
+              show_empty: false
+              unique: true
+              card:
+                type: "grid"
+                columns: 2
+                square: false
+              card_param: "cards"
+              sort:
+                method: state
+                reverse: true
+                ignore_case: true
+              filter:
+                include:
                   - entity_id: "binary_sensor.*smoke*"
                     options:
                       type: "custom:button-card"
@@ -128,6 +164,75 @@ cards:
                         ulm_card_binary_sensor_alert: true
                         ulm_card_binary_sensor_show_last_changed: true
                       entity: this.entity_id
+                  - entity_id: "binary_sensor.*door*"
+                    options:
+                      type: "custom:button-card"
+                      template: card_binary_sensor
+                      variables:
+                        ulm_card_binary_sensor_alert: true
+                        ulm_card_binary_sensor_show_last_changed: true
+                      entity: this.entity_id
+                  - entity_id: "binary_sensor.*window*"
+                    options:
+                      type: "custom:button-card"
+                      template: card_binary_sensor
+                      variables:
+                        ulm_card_binary_sensor_alert: true
+                        ulm_card_binary_sensor_show_last_changed: true
+                      entity: this.entity_id
+                  - entity_id: "binary_sensor.*motion*"
+                    options:
+                      type: "custom:button-card"
+                      template: card_binary_sensor
+                      variables:
+                        ulm_card_binary_sensor_show_last_changed: true
+                      entity: this.entity_id
+                  - entity_id: "binary_sensor.*occupancy*"
+                    options:
+                      type: "custom:button-card"
+                      template: card_binary_sensor
+                      variables:
+                        ulm_card_binary_sensor_show_last_changed: true
+                      entity: this.entity_id
                 exclude:
                   - state: "unavailable"
                   - state: "unknown"
+          
+          ## Sensors Tab (Temperature, Humidity, Battery)
+          - attributes:
+              label: Sensors
+            card:
+              type: "custom:auto-entities"
+              show_empty: false
+              unique: true
+              card:
+                type: "grid"
+                columns: 2
+                square: false
+              card_param: "cards"
+              sort:
+                method: name
+                ignore_case: true
+              filter:
+                include:
+                  - entity_id: "sensor.*temperature*"
+                    options:
+                      type: "custom:button-card"
+                      template: card_generic_swap
+                      entity: this.entity_id
+                  - entity_id: "sensor.*humidity*"
+                    options:
+                      type: "custom:button-card"
+                      template: card_generic_swap
+                      entity: this.entity_id
+                  - entity_id: "sensor.*battery*"
+                    options:
+                      type: "custom:button-card"
+                      template: card_battery
+                      entity: this.entity_id
+                      variables:
+                        ulm_card_battery_attribute: "battery_level"
+                exclude:
+                  - state: "unavailable"
+                  - state: "unknown"
+                  - entity_id: "*cadillac*"

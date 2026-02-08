@@ -270,15 +270,19 @@ cards:
     ## Auto entites Optiq ###################################################################################################################
     - type: 'custom:button-card'
       template: card_title
-      title: Detailed View
+      name: Detailed View
+      card_mod:
+        class: ulm-title
     - type: "custom:auto-entities"
+      show_empty: false
+      unique: true
       card:
         type: "grid"
-        columns: 1
+        columns: 2
         square: false
       card_param: "cards"
       sort:
-        method: last-changed
+        method: name
         ignore_case: true
       filter:
         include:
@@ -302,4 +306,8 @@ cards:
           - entity_id: "*_recalls"
           - entity_id: "*_sev_lvl"
           - entity_id: "*_mode_counter"
+          - entity_id: "*_vin"
+          - entity_id: "*_last_trip*"
+          - entity_id: "*_lifetime*"
+          - entity_id: "*hotspot*"
     
