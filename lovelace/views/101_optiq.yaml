@@ -295,4 +295,11 @@ cards:
         exclude:
           - state: "unavailable"
           - state: "unknown"
+          - entity_id: "*_color"
+          - entity_id: "*_status_color"
+          - entity_id: "*_polling*"
+          - entity_id: "*_command_*"
+          - entity_id: "*_recalls"
+          - entity_id: "*_sev_lvl"
+          - entity_id: "*_mode_counter"
     

@@ -195,6 +195,13 @@ cards:
           fade: true
         ulm_card_weather_custom:
           - temp: sensor.outside_temperature
+      styles:
+        card:
+          - "--text-color-sensor": "rgba(255, 255, 255, 0.9)"
+        name:
+          - color: "white"
+        label:
+          - color: "rgba(255, 255, 255, 0.8)"
 
     - type: "custom:button-card"
       template: "card_scenes_welcome"
@@ -224,6 +231,18 @@ cards:
           icon: "mdi:laptop-account"
           name: "Working"
           color: "pink"
+      styles:
+        custom_fields:
+          item1:
+            - "--text-color-sensor": "white"
+          item2:
+            - "--text-color-sensor": "white"
+          item3:
+            - "--text-color-sensor": "white"
+          item4:
+            - "--text-color-sensor": "white"
+          item5:
+            - "--text-color-sensor": "white"
 
     - type: horizontal-stack
       cards:
@@ -235,6 +254,11 @@ cards:
           ulm_card_person_use_entity_picture: true
           ulm_card_person_icon: mdi:face-man
         name: Vikas
+        styles:
+          name:
+            - color: "white"
+          label:
+            - color: "rgba(255, 255, 255, 0.7)"
       - type: 'custom:button-card'
         template: card_person
         entity: person.spogu
@@ -242,11 +266,19 @@ cards:
           ulm_card_person_entity: person.spogu
           ulm_card_person_use_entity_picture: true
           ulm_card_person_icon: mdi:face-woman
+        styles:
+          name:
+            - color: "white"
+          label:
+            - color: "rgba(255, 255, 255, 0.7)"
 
     ## Access Control #############################################################################
     - type: 'custom:button-card'
       template: card_title
       title: Access Control
+      styles:
+        name:
+          - color: "white"
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
@@ -256,6 +288,13 @@ cards:
             ulm_card_cover_name: Optiq Garage
             ulm_card_cover_enable_controls: true
             ulm_card_cover_color: "green"
+          styles:
+            name:
+              - color: "white"
+            label:
+              - color: "rgba(255, 255, 255, 0.7)"
+            card:
+              - "--text-color-sensor": "white"
         - type: "custom:button-card"
           template: card_cover
           entity: cover.ratgdo32_7b2420_door
@@ -263,6 +302,15 @@ cards:
             ulm_card_cover_name: VW Garage
             ulm_card_cover_enable_controls: true
             ulm_card_cover_color: "green"
+          styles:
+            name:
+              - color: "white"
+            label:
+              - color: "rgba(255, 255, 255, 0.7)"
+            card:
+              - "--text-color-sensor": "white"
+    - type: horizontal-stack
+      cards:
         - type: "custom:button-card"
           entity: lock.sidedoor_yale_assure_2_lock
           template: "custom_card_eraycetinay_lock"
@@ -274,11 +322,21 @@ cards:
           triggers_update:
             - "sensor.sidedoor_yale_assure_2_lock_battery_level"
             - "binary_sensor.sidedoor_yale_assure_2_lock_window_door_is_open"
+          styles:
+            name:
+              - color: "white"
+            label:
+              - color: "rgba(255, 255, 255, 0.7)"
+            card:
+              - "--text-color-sensor": "white"
 
     ## Climate Control #############################################################################
     - type: 'custom:button-card'
       template: card_title
       title: Climate
+      styles:
+        name:
+          - color: "white"
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
@@ -289,6 +347,13 @@ cards:
             ulm_card_thermostat_enable_controls: true
             ulm_card_thermostat_enable_hvac_modes: true
             ulm_card_thermostat_enable_popup: true
+          styles:
+            name:
+              - color: "white"
+            label:
+              - color: "rgba(255, 255, 255, 0.7)"
+            card:
+              - "--text-color-sensor": "white"
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
@@ -302,6 +367,13 @@ cards:
             ulm_card_graph_hours: 24
             ulm_card_graph_group_by: interval
             ulm_card_graph_line_width: 5
+          styles:
+            name:
+              - color: "white"
+            label:
+              - color: "rgba(255, 255, 255, 0.7)"
+            card:
+              - "--text-color-sensor": "white"
         - type: "custom:button-card"
           template: card_graph
           entity: sensor.callies_room_temperature_temperature
@@ -313,11 +385,21 @@ cards:
             ulm_card_graph_hours: 24
             ulm_card_graph_group_by: interval
             ulm_card_graph_line_width: 5
+          styles:
+            name:
+              - color: "white"
+            label:
+              - color: "rgba(255, 255, 255, 0.7)"
+            card:
+              - "--text-color-sensor": "white"
 
     ## Camera ###################################################################################################################   
     - type: 'custom:button-card'
       template: card_title
       title: Cameras
+      styles:
+        name:
+          - color: "white"
     - type: horizontal-stack
       cards:
       - type: 'custom:frigate-card'
@@ -330,6 +412,9 @@ cards:
     - type: 'custom:button-card'
       template: card_title
       title: Vacuums
+      styles:
+        name:
+          - color: "white"
     - type: custom:swipe-card
       cards:
         - type: vertical-stack
@@ -337,6 +422,9 @@ cards:
             - type: 'custom:button-card'
               template: card_title
               title: Wall-E
+              styles:
+                name:
+                  - color: "white"
             - vacuum: valetudo_wall_e
               type: custom:valetudo-map-card
               title: Cleaning Map
@@ -345,6 +433,15 @@ cards:
             - type: 'custom:button-card'
               template: card_title
               title: E-Vac
-            - vacuum: vacuum.e_vac
-              type: custom:valetudo-map-card
-              title: Cleaning Map
+              styles:
+                name:
+                  - color: "white"
+            - type: custom:mushroom-vacuum-card
+              entity: vacuum.e_vac
+              name: E-Vac
+              icon_animation: true
+              commands:
+                - start_pause
+                - stop
+                - locate
+                - return_home
