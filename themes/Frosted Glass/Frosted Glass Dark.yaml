@@ -131,7 +131,11 @@ Frosted Glass Dark:
 
     /* === Exclude NESTED button-cards from frosted glass (ULM compatibility) ===       # Custom - Fix for UI Lovelace Minimalist cards */
     /* Top-level button-cards have class .type-custom-button-card wrapper, nested ones are just button-card elements */
-    /* Only disable the frosted glass ::before effect on nested button-cards, keep their natural styling */
+    /* Disable the frosted glass ::before effect AND border/shadow on nested button-cards */
+    :host(button-card:not(.type-custom-button-card)) ha-card {
+      border: none !important;
+      box-shadow: none !important;
+    }
     :host(button-card:not(.type-custom-button-card)) ha-card::before {
       content: none !important;
       display: none !important;
