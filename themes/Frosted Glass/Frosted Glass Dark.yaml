@@ -144,6 +144,18 @@ Frosted Glass Dark:
       -webkit-backdrop-filter: none !important;
       box-shadow: none !important;
     }
+    
+    /* === Exclude card_title button-cards (ULM title cards) ===                        # Custom - Fix for ULM card_title template */
+    /* Use ulm-title class added via card_mod to identify title cards */
+    :host(.ulm-title) ha-card {
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    :host(.ulm-title) ha-card::before {
+      content: none !important;
+      display: none !important;
+    }
 
     /* === Prevent frosted/glass on mushroom-chips-card outer container ===             # 1.1.9 Change - Outer mushroom chips no longer applied */
     :host(mushroom-chips-card) ha-card {

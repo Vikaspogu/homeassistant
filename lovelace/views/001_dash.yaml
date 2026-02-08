@@ -246,7 +246,9 @@ cards:
     ## Access Control #############################################################################
     - type: 'custom:button-card'
       template: card_title
-      title: Access Control
+      name: Access Control
+      card_mod:
+        class: ulm-title
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
@@ -280,7 +282,9 @@ cards:
     ## Climate Control #############################################################################
     - type: 'custom:button-card'
       template: card_title
-      title: Climate
+      name: Climate
+      card_mod:
+        class: ulm-title
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
@@ -319,7 +323,9 @@ cards:
     ## Camera ###################################################################################################################   
     - type: 'custom:button-card'
       template: card_title
-      title: Cameras
+      name: Cameras
+      card_mod:
+        class: ulm-title
     - type: horizontal-stack
       cards:
       - type: 'custom:frigate-card'
@@ -331,28 +337,23 @@ cards:
     ## Vacuum ###################################################################################################################  
     - type: 'custom:button-card'
       template: card_title
-      title: Vacuums
-    - type: custom:swipe-card
-      cards:
-        - type: vertical-stack
-          cards:
-            - type: 'custom:button-card'
-              template: card_title
-              title: Wall-E
-            - vacuum: valetudo_wall_e
-              type: custom:valetudo-map-card
-              title: Cleaning Map
-        - type: vertical-stack
-          cards:
-            - type: 'custom:button-card'
-              template: card_title
-              title: E-Vac
-            - type: custom:mushroom-vacuum-card
-              entity: vacuum.e_vac
-              name: E-Vac
-              icon_animation: true
-              commands:
-                - start_pause
-                - stop
-                - locate
-                - return_home
+      name: Wall-E
+      card_mod:
+        class: ulm-title
+    - vacuum: valetudo_wall_e
+      type: custom:valetudo-map-card
+      title: Cleaning Map
+    - type: 'custom:button-card'
+      template: card_title
+      name: E-Vac
+      card_mod:
+        class: ulm-title
+    - type: custom:mushroom-vacuum-card
+      entity: vacuum.e_vac
+      name: E-Vac
+      icon_animation: true
+      commands:
+        - start_pause
+        - stop
+        - locate
+        - return_home
