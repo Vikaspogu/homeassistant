@@ -5,23 +5,103 @@ id: dash
 cards:
   - type: "vertical-stack"
     cards:
-    ## Chips Temperature ###################################################################################################################
-    - type: horizontal-stack
-      cards:
-      - type: custom:mushroom-chips-card
-        card_mod:
-          style: |
-            ha-card {
-              --chip-font-size: 14px;
-            }
-        chips:
+    ## Status Chips ###################################################################################################################
+    - type: custom:mushroom-chips-card
+      card_mod:
+        style: |
+          ha-card {
+            --chip-font-size: 14px;
+          }
+          .chip-container {
+            flex-wrap: wrap;
+            justify-content: flex-start;
+          }
+      alignment: start
+      chips:
+          ## Conditional Alert: Garage Door Open
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: cover.garage_door_opener
+                state_not: closed
+            chip:
+              type: template
+              entity: cover.garage_door_opener
+              tap_action:
+                action: more-info
+              content: "Optiq Garage Open!"
+              icon: mdi:garage-alert
+              icon_color: red
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: cover.ratgdo32_7b2420_door
+                state_not: closed
+            chip:
+              type: template
+              entity: cover.ratgdo32_7b2420_door
+              tap_action:
+                action: more-info
+              content: "VW Garage Open!"
+              icon: mdi:garage-alert
+              icon_color: red
+          ## Conditional Alert: Door Open
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: binary_sensor.sidedoor_yale_assure_2_lock_window_door_is_open
+                state: "on"
+            chip:
+              type: template
+              entity: binary_sensor.sidedoor_yale_assure_2_lock_window_door_is_open
+              tap_action:
+                action: more-info
+              content: "Side Door Open!"
+              icon: mdi:door-open
+              icon_color: red
+          ## Conditional Alert: Lock Unlocked
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: lock.sidedoor_yale_assure_2_lock
+                state: unlocked
+            chip:
+              type: template
+              entity: lock.sidedoor_yale_assure_2_lock
+              tap_action:
+                action: more-info
+              content: "Door Unlocked!"
+              icon: mdi:lock-open-alert
+              icon_color: amber
+          ## Lock Battery (always show, color changes based on level)
+          - type: template
+            entity: sensor.sidedoor_yale_assure_2_lock_battery_level
+            tap_action:
+              action: more-info
+            content: |-
+              Lock {{ states('sensor.sidedoor_yale_assure_2_lock_battery_level') }}%
+            icon: |-
+              {% set level = states('sensor.sidedoor_yale_assure_2_lock_battery_level') | float(0) %}
+              {% if level >= 80 %}mdi:battery
+              {% elif level >= 60 %}mdi:battery-60
+              {% elif level >= 40 %}mdi:battery-40
+              {% elif level >= 20 %}mdi:battery-20
+              {% else %}mdi:battery-alert
+              {% endif %}
+            icon_color: |-
+              {% set level = states('sensor.sidedoor_yale_assure_2_lock_battery_level') | float(0) %}
+              {% if level >= 50 %}green
+              {% elif level >= 20 %}amber
+              {% else %}red
+              {% endif %}
+          ## System Status
           - type: template
             tap_action:
               action: more-info
             entity: sensor.uptime
             content: |-
               Uptime {{ states('sensor.uptime') | as_datetime | relative_time }}
-            icon: mdi:weather-cloudy-clock
+            icon: mdi:server
             icon_color: purple
           - type: template
             entity: binary_sensor.pogu_nas_security_status
@@ -45,6 +125,7 @@ cards:
               {% else %}
                 green
               {% endif %}
+          ## Vehicle Status
           - type: template
             tap_action:
               action: more-info
@@ -81,7 +162,7 @@ cards:
                 amber
               {% endif %}
           - type: template
-            entitiy: device_tracker.2025_cadillac_optiq
+            entity: device_tracker.2025_cadillac_optiq
             icon: si:cadillac
             icon_color: "amber"
             content: |-
@@ -243,6 +324,72 @@ cards:
           ulm_card_person_use_entity_picture: true
           ulm_card_person_icon: mdi:face-woman
 
+    ## Quick Actions #############################################################################
+    - type: grid
+      columns: 3
+      square: false
+      cards:
+        - type: 'custom:button-card'
+          icon: mdi:lightbulb-group-off
+          name: All Lights Off
+          color: grey
+          styles:
+            card:
+              - background: "rgba(var(--color-theme),0.05)"
+              - padding: "12px"
+              - border-radius: "var(--border-radius)"
+            icon:
+              - color: "rgba(var(--color-red),1)"
+              - width: "24px"
+            name:
+              - font-size: "12px"
+              - color: "rgba(var(--color-theme),0.9)"
+          tap_action:
+            action: perform-action
+            perform_action: light.turn_off
+            target:
+              entity_id: all
+        - type: 'custom:button-card'
+          icon: mdi:home-lock
+          name: Lock All
+          styles:
+            card:
+              - background: "rgba(var(--color-theme),0.05)"
+              - padding: "12px"
+              - border-radius: "var(--border-radius)"
+            icon:
+              - color: "rgba(var(--color-green),1)"
+              - width: "24px"
+            name:
+              - font-size: "12px"
+              - color: "rgba(var(--color-theme),0.9)"
+          tap_action:
+            action: perform-action
+            perform_action: lock.lock
+            target:
+              entity_id: lock.sidedoor_yale_assure_2_lock
+        - type: 'custom:button-card'
+          icon: mdi:garage
+          name: Close Garages
+          styles:
+            card:
+              - background: "rgba(var(--color-theme),0.05)"
+              - padding: "12px"
+              - border-radius: "var(--border-radius)"
+            icon:
+              - color: "rgba(var(--color-blue),1)"
+              - width: "24px"
+            name:
+              - font-size: "12px"
+              - color: "rgba(var(--color-theme),0.9)"
+          tap_action:
+            action: perform-action
+            perform_action: cover.close_cover
+            target:
+              entity_id:
+                - cover.garage_door_opener
+                - cover.ratgdo32_7b2420_door
+
     ## Access Control #############################################################################
     - type: 'custom:button-card'
       template: card_title
@@ -265,19 +412,17 @@ cards:
             ulm_card_cover_name: VW Garage
             ulm_card_cover_enable_controls: true
             ulm_card_cover_color: "green"
-    - type: horizontal-stack
-      cards:
-        - type: "custom:button-card"
-          entity: lock.sidedoor_yale_assure_2_lock
-          template: "custom_card_eraycetinay_lock"
-          name: "Side Door"
-          variables:
-            ulm_custom_card_eraycetinay_lock_tap_control: true
-            ulm_custom_card_eraycetinay_lock_battery_level: sensor.sidedoor_yale_assure_2_lock_battery_level
-            ulm_custom_card_eraycetinay_lock_door_open: binary_sensor.sidedoor_yale_assure_2_lock_window_door_is_open
-          triggers_update:
-            - "sensor.sidedoor_yale_assure_2_lock_battery_level"
-            - "binary_sensor.sidedoor_yale_assure_2_lock_window_door_is_open"
+    - type: "custom:button-card"
+      entity: lock.sidedoor_yale_assure_2_lock
+      template: "custom_card_eraycetinay_lock"
+      name: "Side Door"
+      variables:
+        ulm_custom_card_eraycetinay_lock_tap_control: true
+        ulm_custom_card_eraycetinay_lock_battery_level: sensor.sidedoor_yale_assure_2_lock_battery_level
+        ulm_custom_card_eraycetinay_lock_door_open: binary_sensor.sidedoor_yale_assure_2_lock_window_door_is_open
+      triggers_update:
+        - "sensor.sidedoor_yale_assure_2_lock_battery_level"
+        - "binary_sensor.sidedoor_yale_assure_2_lock_window_door_is_open"
 
     ## Climate Control #############################################################################
     - type: 'custom:button-card'
@@ -285,18 +430,30 @@ cards:
       name: Climate
       card_mod:
         class: ulm-title
-    - type: horizontal-stack
+    - type: "custom:button-card"
+      template: card_thermostat
+      entity: climate.thermostat
+      variables:
+        ulm_card_thermostat_enable_collapse: true
+        ulm_card_thermostat_enable_controls: true
+        ulm_card_thermostat_enable_hvac_modes: true
+        ulm_card_thermostat_enable_popup: true
+    ## Temperature Graphs - 2 per row for mobile compatibility
+    - type: grid
+      columns: 2
+      square: false
       cards:
         - type: "custom:button-card"
-          template: card_thermostat
-          entity: climate.thermostat
+          template: card_graph
+          entity: sensor.outside_temperature
           variables:
-            ulm_card_thermostat_enable_collapse: true
-            ulm_card_thermostat_enable_controls: true
-            ulm_card_thermostat_enable_hvac_modes: true
-            ulm_card_thermostat_enable_popup: true
-    - type: horizontal-stack
-      cards:
+            ulm_card_graph_color: "var(--google-green)"
+            ulm_card_graph_name: Outside
+            ulm_card_graph_entity: sensor.outside_temperature
+            ulm_card_graph_type: fill
+            ulm_card_graph_hours: 24
+            ulm_card_graph_group_by: interval
+            ulm_card_graph_line_width: 6
         - type: "custom:button-card"
           template: card_graph
           entity: sensor.bedroom_temperature_temperature
@@ -307,18 +464,18 @@ cards:
             ulm_card_graph_type: fill
             ulm_card_graph_hours: 24
             ulm_card_graph_group_by: interval
-            ulm_card_graph_line_width: 5
+            ulm_card_graph_line_width: 6
         - type: "custom:button-card"
           template: card_graph
           entity: sensor.callies_room_temperature_temperature
           variables:
-            ulm_card_graph_color: "var(--google-blue)"
-            ulm_card_graph_name: Callie's Bedroom
+            ulm_card_graph_color: "var(--google-red)"
+            ulm_card_graph_name: Callie's Room
             ulm_card_graph_entity: sensor.callies_room_temperature_temperature
             ulm_card_graph_type: fill
             ulm_card_graph_hours: 24
             ulm_card_graph_group_by: interval
-            ulm_card_graph_line_width: 5
+            ulm_card_graph_line_width: 6
 
     ## Camera ###################################################################################################################   
     - type: 'custom:button-card'
@@ -337,23 +494,36 @@ cards:
     ## Vacuum ###################################################################################################################  
     - type: 'custom:button-card'
       template: card_title
-      name: Wall-E
+      name: Vacuums
+      card_mod:
+        class: ulm-title
+    - type: grid
+      columns: 2
+      square: false
+      cards:
+        - type: custom:mushroom-vacuum-card
+          entity: vacuum.valetudo_wall_e
+          name: Wall-E
+          icon_animation: true
+          commands:
+            - start_pause
+            - stop
+            - locate
+            - return_home
+        - type: custom:mushroom-vacuum-card
+          entity: vacuum.e_vac
+          name: E-Vac
+          icon_animation: true
+          commands:
+            - start_pause
+            - stop
+            - locate
+            - return_home
+    - type: 'custom:button-card'
+      template: card_title
+      name: Wall-E Map
       card_mod:
         class: ulm-title
     - vacuum: valetudo_wall_e
       type: custom:valetudo-map-card
       title: Cleaning Map
-    - type: 'custom:button-card'
-      template: card_title
-      name: E-Vac
-      card_mod:
-        class: ulm-title
-    - type: custom:mushroom-vacuum-card
-      entity: vacuum.e_vac
-      name: E-Vac
-      icon_animation: true
-      commands:
-        - start_pause
-        - stop
-        - locate
-        - return_home
