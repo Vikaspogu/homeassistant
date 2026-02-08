@@ -267,10 +267,34 @@ cards:
       title: Charging
       state_color: true
         
-    ## Auto entites Optiq ###################################################################################################################
+    ## Auto entities Optiq - Grouped by Category ###################################################################################################################
     - type: 'custom:button-card'
       template: card_title
       name: Detailed View
+      card_mod:
+        class: ulm-title
+    
+    ## Status Summary Chips
+    - type: "custom:mushroom-chips-card"
+      alignment: center
+      chips:
+        - type: template
+          icon: mdi:car-electric
+          icon_color: >
+            {% if is_state('binary_sensor.2025_cadillac_optiq_ev_charge_state', 'on') %}green{% else %}blue{% endif %}
+          content: >
+            {% if is_state('binary_sensor.2025_cadillac_optiq_ev_charge_state', 'on') %}Charging{% else %}Ready{% endif %}
+        - type: template
+          icon: mdi:ev-plug-type2
+          icon_color: >
+            {% if is_state('binary_sensor.2025_cadillac_optiq_ev_plug_state', 'on') %}green{% else %}grey{% endif %}
+          content: >
+            {% if is_state('binary_sensor.2025_cadillac_optiq_ev_plug_state', 'on') %}Plugged In{% else %}Unplugged{% endif %}
+
+    ## Battery & Range
+    - type: 'custom:button-card'
+      template: card_title
+      name: Battery & Range
       card_mod:
         class: ulm-title
     - type: "custom:auto-entities"
@@ -278,20 +302,142 @@ cards:
       unique: true
       card:
         type: "grid"
-        columns: 2
+        columns: 1
         square: false
       card_param: "cards"
       sort:
-        method: name
-        ignore_case: true
+        method: friendly_name
       filter:
         include:
-          - entity_id: "sensor.2025_cadillac_optiq_*"
+          - entity_id: "sensor.2025_cadillac_optiq_ev_battery*"
             options:
               type: "custom:button-card"
               template: card_generic_swap
               entity: this.entity_id
+          - entity_id: "sensor.2025_cadillac_optiq_ev_range*"
+            options:
+              type: "custom:button-card"
+              template: card_generic_swap
+              entity: this.entity_id
+          - entity_id: "sensor.2025_cadillac_optiq_charge*"
+            options:
+              type: "custom:button-card"
+              template: card_generic_swap
+              entity: this.entity_id
+        exclude:
+          - state: "unavailable"
+          - state: "unknown"
+
+    ## Tire Pressure
+    - type: 'custom:button-card'
+      template: card_title
+      name: Tire Pressure
+      card_mod:
+        class: ulm-title
+    - type: "custom:auto-entities"
+      show_empty: false
+      unique: true
+      card:
+        type: "grid"
+        columns: 1
+        square: false
+      card_param: "cards"
+      sort:
+        method: friendly_name
+      filter:
+        include:
+          - entity_id: "sensor.2025_cadillac_optiq_tire*"
+            options:
+              type: "custom:button-card"
+              template: card_generic_swap
+              entity: this.entity_id
+        exclude:
+          - state: "unavailable"
+          - state: "unknown"
+
+    ## Odometer & Distance
+    - type: 'custom:button-card'
+      template: card_title
+      name: Odometer & Distance
+      card_mod:
+        class: ulm-title
+    - type: "custom:auto-entities"
+      show_empty: false
+      unique: true
+      card:
+        type: "grid"
+        columns: 1
+        square: false
+      card_param: "cards"
+      sort:
+        method: friendly_name
+      filter:
+        include:
+          - entity_id: "sensor.2025_cadillac_optiq_odo*"
+            options:
+              type: "custom:button-card"
+              template: card_generic_swap
+              entity: this.entity_id
+          - entity_id: "sensor.2025_cadillac_optiq_*distance*"
+            options:
+              type: "custom:button-card"
+              template: card_generic_swap
+              entity: this.entity_id
+        exclude:
+          - state: "unavailable"
+          - state: "unknown"
+
+    ## Vehicle Status (Binary Sensors)
+    - type: 'custom:button-card'
+      template: card_title
+      name: Vehicle Status
+      card_mod:
+        class: ulm-title
+    - type: "custom:auto-entities"
+      show_empty: false
+      unique: true
+      card:
+        type: "grid"
+        columns: 1
+        square: false
+      card_param: "cards"
+      sort:
+        method: state
+        reverse: true
+      filter:
+        include:
           - entity_id: "binary_sensor.2025_cadillac_optiq_*"
+            options:
+              type: "custom:button-card"
+              template: card_binary_sensor
+              entity: this.entity_id
+              variables:
+                ulm_card_binary_sensor_show_last_changed: true
+        exclude:
+          - state: "unavailable"
+          - state: "unknown"
+          - entity_id: "*_color"
+          - entity_id: "*_polling*"
+
+    ## Other Sensors
+    - type: 'custom:button-card'
+      template: card_title
+      name: Other Info
+      card_mod:
+        class: ulm-title
+    - type: "custom:auto-entities"
+      show_empty: false
+      unique: true
+      card:
+        type: "grid"
+        columns: 1
+        square: false
+      card_param: "cards"
+      sort:
+        method: friendly_name
+      filter:
+        include:
+          - entity_id: "sensor.2025_cadillac_optiq_*"
             options:
               type: "custom:button-card"
               template: card_generic_swap
@@ -310,4 +456,10 @@ cards:
           - entity_id: "*_last_trip*"
           - entity_id: "*_lifetime*"
           - entity_id: "*hotspot*"
+          - entity_id: "*ev_battery*"
+          - entity_id: "*ev_range*"
+          - entity_id: "*charge*"
+          - entity_id: "*tire*"
+          - entity_id: "*odo*"
+          - entity_id: "*distance*"
     

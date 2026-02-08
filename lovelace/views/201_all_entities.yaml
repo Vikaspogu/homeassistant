@@ -19,7 +19,7 @@ cards:
           --mdc-tab-text-label-color-default: var(--switch-unchecked-button-color)
           --mdc-typography-button-font-size: 10
         tabs:
-          ## Media Players Tab
+          ## Media Players Tab - Active players first
           - attributes:
               label: Media
             card:
@@ -38,6 +38,8 @@ cards:
               filter:
                 include:
                   - entity_id: "media_player.*"
+                    not:
+                      state: "off"
                     options:
                       type: "custom:button-card"
                       template: card_media_player
@@ -48,70 +50,122 @@ cards:
                         ulm_card_media_player_enable_popup: true
                         ulm_card_media_player_power_button: true
                         ulm_card_media_player_collapsible: true
+                  - entity_id: "media_player.*"
+                    state: "off"
+                    options:
+                      type: "custom:button-card"
+                      template: card_media_player
+                      entity: this.entity_id
+                      variables:
+                        ulm_card_media_player_enable_controls: true
+                        ulm_card_media_player_enable_popup: true
+                        ulm_card_media_player_power_button: true
+                        ulm_card_media_player_collapsible: true
                 exclude:
                   - state: "unavailable"
                   - state: "unknown"
                   - entity_id: "media_player.g4*"
                   - entity_id: "media_player.browser_mod*"
           
-          ## Switches Tab
-          - attributes:
-              label: Switches
-            card:
-              type: "custom:auto-entities"
-              show_empty: false
-              unique: true
-              card:
-                type: "grid"
-                columns: 2
-                square: false
-              card_param: "cards"
-              sort:
-                method: state
-                reverse: true
-                ignore_case: true
-              filter:
-                include:
-                  - entity_id: "switch.*"
-                    options:
-                      type: "custom:button-card"
-                      template: card_generic_swap
-                      entity: this.entity_id
-                exclude:
-                  - state: "unavailable"
-                  - state: "unknown"
-          
-          ## Lights Tab
+          ## Lights Tab - On lights first, grouped by area
           - attributes:
               label: Lights
             card:
-              type: "custom:auto-entities"
-              show_empty: false
-              unique: true
-              card:
-                type: "grid"
-                columns: 2
-                square: false
-              card_param: "cards"
-              sort:
-                method: state
-                reverse: true
-                ignore_case: true
-              filter:
-                include:
-                  - entity_id: "light.*"
-                    options:
-                      type: "custom:button-card"
-                      template: card_light
-                      entity: this.entity_id
-                      variables:
-                        ulm_card_light_enable_slider: true
-                        ulm_card_light_enable_color: true
-                exclude:
-                  - state: "unavailable"
-                  - state: "unknown"
+              type: "vertical-stack"
+              cards:
+                - type: "custom:mushroom-chips-card"
+                  alignment: center
+                  chips:
+                    - type: template
+                      icon: mdi:lightbulb-group
+                      icon_color: yellow
+                      content: >
+                        {{ states.light | selectattr('state', 'eq', 'on') | list | count }} lights on
+                      tap_action:
+                        action: perform-action
+                        perform_action: light.turn_off
+                        target:
+                          entity_id: all
+                - type: "custom:auto-entities"
+                  show_empty: false
+                  unique: true
+                  card:
+                    type: "grid"
+                    columns: 1
+                    square: false
+                  card_param: "cards"
+                  sort:
+                    method: state
+                    reverse: true
+                    ignore_case: true
+                  filter:
+                    include:
+                      - entity_id: "light.*"
+                        state: "on"
+                        options:
+                          type: "custom:button-card"
+                          template: card_light
+                          entity: this.entity_id
+                          variables:
+                            ulm_card_light_enable_slider: true
+                            ulm_card_light_enable_color: true
+                      - entity_id: "light.*"
+                        state: "off"
+                        options:
+                          type: "custom:button-card"
+                          template: card_light
+                          entity: this.entity_id
+                    exclude:
+                      - state: "unavailable"
+                      - state: "unknown"
+                      - entity_id: "*group*"
           
-          ## Input Booleans Tab
+          ## Switches Tab - On switches first
+          - attributes:
+              label: Switches
+            card:
+              type: "vertical-stack"
+              cards:
+                - type: "custom:mushroom-chips-card"
+                  alignment: center
+                  chips:
+                    - type: template
+                      icon: mdi:toggle-switch
+                      icon_color: blue
+                      content: >
+                        {{ states.switch | selectattr('state', 'eq', 'on') | list | count }} switches on
+                - type: "custom:auto-entities"
+                  show_empty: false
+                  unique: true
+                  card:
+                    type: "grid"
+                    columns: 1
+                    square: false
+                  card_param: "cards"
+                  sort:
+                    method: state
+                    reverse: true
+                    ignore_case: true
+                  filter:
+                    include:
+                      - entity_id: "switch.*"
+                        state: "on"
+                        options:
+                          type: "custom:button-card"
+                          template: card_generic_swap
+                          entity: this.entity_id
+                      - entity_id: "switch.*"
+                        state: "off"
+                        options:
+                          type: "custom:button-card"
+                          template: card_generic_swap
+                          entity: this.entity_id
+                    exclude:
+                      - state: "unavailable"
+                      - state: "unknown"
+                      - entity_id: "*adaptive_lighting*"
+          
+          ## Toggles Tab - Active toggles first
           - attributes:
               label: Toggles
             card:
@@ -120,7 +174,7 @@ cards:
               unique: true
               card:
                 type: "grid"
-                columns: 2
+                columns: 1
                 square: false
               card_param: "cards"
               sort:
@@ -130,6 +184,13 @@ cards:
               filter:
                 include:
                   - entity_id: "input_boolean.*"
+                    state: "on"
+                    options:
+                      type: "custom:button-card"
+                      template: card_input_boolean
+                      entity: this.entity_id
+                  - entity_id: "input_boolean.*"
+                    state: "off"
                     options:
                       type: "custom:button-card"
                       template: card_input_boolean
@@ -138,101 +199,355 @@ cards:
                   - state: "unavailable"
                   - state: "unknown"
           
-          ## Binary Sensors Tab (Security/Safety)
+          ## Security Tab - Problem states first (doors open, motion detected)
           - attributes:
               label: Security
             card:
-              type: "custom:auto-entities"
-              show_empty: false
-              unique: true
-              card:
-                type: "grid"
-                columns: 2
-                square: false
-              card_param: "cards"
-              sort:
-                method: state
-                reverse: true
-                ignore_case: true
-              filter:
-                include:
-                  - entity_id: "binary_sensor.*smoke*"
-                    options:
-                      type: "custom:button-card"
-                      template: card_binary_sensor
-                      variables:
-                        ulm_card_binary_sensor_alert: true
-                        ulm_card_binary_sensor_show_last_changed: true
-                      entity: this.entity_id
-                  - entity_id: "binary_sensor.*door*"
-                    options:
-                      type: "custom:button-card"
-                      template: card_binary_sensor
-                      variables:
-                        ulm_card_binary_sensor_alert: true
-                        ulm_card_binary_sensor_show_last_changed: true
-                      entity: this.entity_id
-                  - entity_id: "binary_sensor.*window*"
-                    options:
-                      type: "custom:button-card"
-                      template: card_binary_sensor
-                      variables:
-                        ulm_card_binary_sensor_alert: true
-                        ulm_card_binary_sensor_show_last_changed: true
-                      entity: this.entity_id
-                  - entity_id: "binary_sensor.*motion*"
-                    options:
-                      type: "custom:button-card"
-                      template: card_binary_sensor
-                      variables:
-                        ulm_card_binary_sensor_show_last_changed: true
-                      entity: this.entity_id
-                  - entity_id: "binary_sensor.*occupancy*"
-                    options:
-                      type: "custom:button-card"
-                      template: card_binary_sensor
-                      variables:
-                        ulm_card_binary_sensor_show_last_changed: true
-                      entity: this.entity_id
-                exclude:
-                  - state: "unavailable"
-                  - state: "unknown"
+              type: "vertical-stack"
+              cards:
+                - type: "custom:mushroom-chips-card"
+                  alignment: center
+                  chips:
+                    - type: template
+                      icon: >
+                        {% set open_count = states.binary_sensor | selectattr('attributes.device_class', 'defined') | selectattr('attributes.device_class', 'in', ['door', 'window', 'opening']) | selectattr('state', 'eq', 'on') | list | count %}
+                        {% if open_count > 0 %}mdi:door-open{% else %}mdi:door-closed-lock{% endif %}
+                      icon_color: >
+                        {% set open_count = states.binary_sensor | selectattr('attributes.device_class', 'defined') | selectattr('attributes.device_class', 'in', ['door', 'window', 'opening']) | selectattr('state', 'eq', 'on') | list | count %}
+                        {% if open_count > 0 %}red{% else %}green{% endif %}
+                      content: >
+                        {% set open_count = states.binary_sensor | selectattr('attributes.device_class', 'defined') | selectattr('attributes.device_class', 'in', ['door', 'window', 'opening']) | selectattr('state', 'eq', 'on') | list | count %}
+                        {% if open_count > 0 %}{{ open_count }} open{% else %}All secure{% endif %}
+                    - type: template
+                      icon: mdi:motion-sensor
+                      icon_color: >
+                        {% set motion_count = states.binary_sensor | selectattr('attributes.device_class', 'defined') | selectattr('attributes.device_class', 'in', ['motion', 'occupancy']) | selectattr('state', 'eq', 'on') | list | count %}
+                        {% if motion_count > 0 %}amber{% else %}grey{% endif %}
+                      content: >
+                        {% set motion_count = states.binary_sensor | selectattr('attributes.device_class', 'defined') | selectattr('attributes.device_class', 'in', ['motion', 'occupancy']) | selectattr('state', 'eq', 'on') | list | count %}
+                        {% if motion_count > 0 %}{{ motion_count }} motion{% else %}No motion{% endif %}
+                ## Doors/Windows - Open ones first
+                - type: 'custom:button-card'
+                  template: card_title
+                  name: Doors & Windows
+                  card_mod:
+                    class: ulm-title
+                - type: "custom:auto-entities"
+                  show_empty: false
+                  unique: true
+                  card:
+                    type: "grid"
+                    columns: 1
+                    square: false
+                  card_param: "cards"
+                  sort:
+                    method: state
+                    reverse: true
+                  filter:
+                    include:
+                      - entity_id: "binary_sensor.*door*"
+                        options:
+                          type: "custom:button-card"
+                          template: card_binary_sensor
+                          entity: this.entity_id
+                          variables:
+                            ulm_card_binary_sensor_alert: true
+                            ulm_card_binary_sensor_show_last_changed: true
+                      - entity_id: "binary_sensor.*window*"
+                        options:
+                          type: "custom:button-card"
+                          template: card_binary_sensor
+                          entity: this.entity_id
+                          variables:
+                            ulm_card_binary_sensor_alert: true
+                            ulm_card_binary_sensor_show_last_changed: true
+                    exclude:
+                      - state: "unavailable"
+                      - state: "unknown"
+                ## Motion Sensors
+                - type: 'custom:button-card'
+                  template: card_title
+                  name: Motion & Occupancy
+                  card_mod:
+                    class: ulm-title
+                - type: "custom:auto-entities"
+                  show_empty: false
+                  unique: true
+                  card:
+                    type: "grid"
+                    columns: 1
+                    square: false
+                  card_param: "cards"
+                  sort:
+                    method: state
+                    reverse: true
+                  filter:
+                    include:
+                      - entity_id: "binary_sensor.*motion*"
+                        options:
+                          type: "custom:button-card"
+                          template: card_binary_sensor
+                          entity: this.entity_id
+                          variables:
+                            ulm_card_binary_sensor_show_last_changed: true
+                      - entity_id: "binary_sensor.*occupancy*"
+                        options:
+                          type: "custom:button-card"
+                          template: card_binary_sensor
+                          entity: this.entity_id
+                          variables:
+                            ulm_card_binary_sensor_show_last_changed: true
+                    exclude:
+                      - state: "unavailable"
+                      - state: "unknown"
+                ## Smoke/Safety Sensors
+                - type: 'custom:button-card'
+                  template: card_title
+                  name: Safety Sensors
+                  card_mod:
+                    class: ulm-title
+                - type: "custom:auto-entities"
+                  show_empty: false
+                  unique: true
+                  card:
+                    type: "grid"
+                    columns: 1
+                    square: false
+                  card_param: "cards"
+                  sort:
+                    method: state
+                    reverse: true
+                  filter:
+                    include:
+                      - entity_id: "binary_sensor.*smoke*"
+                        options:
+                          type: "custom:button-card"
+                          template: card_binary_sensor
+                          entity: this.entity_id
+                          variables:
+                            ulm_card_binary_sensor_alert: true
+                            ulm_card_binary_sensor_show_last_changed: true
+                      - entity_id: "binary_sensor.*carbon*"
+                        options:
+                          type: "custom:button-card"
+                          template: card_binary_sensor
+                          entity: this.entity_id
+                          variables:
+                            ulm_card_binary_sensor_alert: true
+                            ulm_card_binary_sensor_show_last_changed: true
+                    exclude:
+                      - state: "unavailable"
+                      - state: "unknown"
           
-          ## Sensors Tab (Temperature, Humidity, Battery)
+          ## Sensors Tab - Grouped by type
           - attributes:
               label: Sensors
             card:
-              type: "custom:auto-entities"
-              show_empty: false
-              unique: true
-              card:
-                type: "grid"
-                columns: 2
-                square: false
-              card_param: "cards"
-              sort:
-                method: name
-                ignore_case: true
-              filter:
-                include:
-                  - entity_id: "sensor.*temperature*"
-                    options:
-                      type: "custom:button-card"
-                      template: card_generic_swap
-                      entity: this.entity_id
-                  - entity_id: "sensor.*humidity*"
-                    options:
-                      type: "custom:button-card"
-                      template: card_generic_swap
-                      entity: this.entity_id
-                  - entity_id: "sensor.*battery*"
-                    options:
-                      type: "custom:button-card"
-                      template: card_battery
-                      entity: this.entity_id
-                      variables:
-                        ulm_card_battery_attribute: "battery_level"
-                exclude:
-                  - state: "unavailable"
-                  - state: "unknown"
-                  - entity_id: "*cadillac*"
+              type: "vertical-stack"
+              cards:
+                ## Temperature Sensors
+                - type: 'custom:button-card'
+                  template: card_title
+                  name: Temperature
+                  card_mod:
+                    class: ulm-title
+                - type: "custom:auto-entities"
+                  show_empty: false
+                  unique: true
+                  card:
+                    type: "grid"
+                    columns: 1
+                    square: false
+                  card_param: "cards"
+                  sort:
+                    method: state
+                    numeric: true
+                    reverse: true
+                  filter:
+                    include:
+                      - entity_id: "sensor.*temperature*"
+                        options:
+                          type: "custom:button-card"
+                          template: card_generic_swap
+                          entity: this.entity_id
+                    exclude:
+                      - state: "unavailable"
+                      - state: "unknown"
+                      - entity_id: "*cadillac*"
+                      - entity_id: "*optiq*"
+                ## Humidity Sensors
+                - type: 'custom:button-card'
+                  template: card_title
+                  name: Humidity
+                  card_mod:
+                    class: ulm-title
+                - type: "custom:auto-entities"
+                  show_empty: false
+                  unique: true
+                  card:
+                    type: "grid"
+                    columns: 1
+                    square: false
+                  card_param: "cards"
+                  sort:
+                    method: state
+                    numeric: true
+                    reverse: true
+                  filter:
+                    include:
+                      - entity_id: "sensor.*humidity*"
+                        options:
+                          type: "custom:button-card"
+                          template: card_generic_swap
+                          entity: this.entity_id
+                    exclude:
+                      - state: "unavailable"
+                      - state: "unknown"
+                ## Battery Levels
+                - type: 'custom:button-card'
+                  template: card_title
+                  name: Battery Levels
+                  card_mod:
+                    class: ulm-title
+                - type: "custom:auto-entities"
+                  show_empty: false
+                  unique: true
+                  card:
+                    type: "grid"
+                    columns: 1
+                    square: false
+                  card_param: "cards"
+                  sort:
+                    method: state
+                    numeric: true
+                  filter:
+                    include:
+                      - entity_id: "sensor.*battery*"
+                        options:
+                          type: "custom:button-card"
+                          template: card_generic_swap
+                          entity: this.entity_id
+                    exclude:
+                      - state: "unavailable"
+                      - state: "unknown"
+                      - entity_id: "*cadillac*"
+                      - entity_id: "*optiq*"
+          
+          ## Cameras Tab - Grouped by location
+          - attributes:
+              label: Cameras
+            card:
+              type: "vertical-stack"
+              cards:
+                - type: "custom:mushroom-chips-card"
+                  alignment: center
+                  chips:
+                    - type: template
+                      icon: mdi:cctv
+                      icon_color: blue
+                      content: Camera Settings
+                ## G4 Doorbell
+                - type: 'custom:button-card'
+                  template: card_title
+                  name: G4 Doorbell Pro
+                  card_mod:
+                    class: ulm-title
+                - type: "custom:auto-entities"
+                  show_empty: false
+                  unique: true
+                  card:
+                    type: "grid"
+                    columns: 1
+                    square: false
+                  card_param: "cards"
+                  sort:
+                    method: friendly_name
+                  filter:
+                    include:
+                      - entity_id: "*g4_doorbell*"
+                        domain: switch
+                        options:
+                          type: "custom:button-card"
+                          template: card_generic_swap
+                          entity: this.entity_id
+                      - entity_id: "*g4_doorbell*"
+                        domain: binary_sensor
+                        options:
+                          type: "custom:button-card"
+                          template: card_binary_sensor
+                          entity: this.entity_id
+                    exclude:
+                      - state: "unavailable"
+                      - state: "unknown"
+                      - entity_id: "*medium*"
+                      - entity_id: "*high*"
+                ## G4 Instant
+                - type: 'custom:button-card'
+                  template: card_title
+                  name: G4 Instant
+                  card_mod:
+                    class: ulm-title
+                - type: "custom:auto-entities"
+                  show_empty: false
+                  unique: true
+                  card:
+                    type: "grid"
+                    columns: 1
+                    square: false
+                  card_param: "cards"
+                  sort:
+                    method: friendly_name
+                  filter:
+                    include:
+                      - entity_id: "*g4_instant*"
+                        domain: switch
+                        options:
+                          type: "custom:button-card"
+                          template: card_generic_swap
+                          entity: this.entity_id
+                      - entity_id: "*g4_instant*"
+                        domain: binary_sensor
+                        options:
+                          type: "custom:button-card"
+                          template: card_binary_sensor
+                          entity: this.entity_id
+                    exclude:
+                      - state: "unavailable"
+                      - state: "unknown"
+                      - entity_id: "*medium*"
+                      - entity_id: "*high*"
+                ## G5 Bullet
+                - type: 'custom:button-card'
+                  template: card_title
+                  name: G5 Bullet
+                  card_mod:
+                    class: ulm-title
+                - type: "custom:auto-entities"
+                  show_empty: false
+                  unique: true
+                  card:
+                    type: "grid"
+                    columns: 1
+                    square: false
+                  card_param: "cards"
+                  sort:
+                    method: friendly_name
+                  filter:
+                    include:
+                      - entity_id: "*g5_bullet*"
+                        domain: switch
+                        options:
+                          type: "custom:button-card"
+                          template: card_generic_swap
+                          entity: this.entity_id
+                      - entity_id: "*g5_bullet*"
+                        domain: binary_sensor
+                        options:
+                          type: "custom:button-card"
+                          template: card_binary_sensor
+                          entity: this.entity_id
+                    exclude:
+                      - state: "unavailable"
+                      - state: "unknown"
+                      - entity_id: "*medium*"
+                      - entity_id: "*high*"
