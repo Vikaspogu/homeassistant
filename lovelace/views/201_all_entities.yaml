@@ -11,6 +11,9 @@ cards:
             ha-card {
               margin-top: 12px;
             }
+            mwc-tab-bar {
+              margin-bottom: 12px;
+            }
         styles:
           --mdc-theme-primary: var(--switch-checked-button-color)
           --mdc-tab-text-label-color-default: var(--switch-unchecked-button-color)
