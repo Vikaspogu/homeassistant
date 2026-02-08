@@ -129,6 +129,23 @@ Frosted Glass Dark:
       -webkit-backdrop-filter: none !important;
     }
 
+    /* === Prevent frosted/glass on button-card (ULM templates) ===                      # Custom - Fix for UI Lovelace Minimalist cards */
+    :host(button-card) ha-card,
+    button-card ha-card {
+      background: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      box-shadow: none !important;
+      border: none !important;
+    }
+    :host(button-card) ha-card::before,
+    button-card ha-card::before {
+      content: none !important;
+      background: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
     /* === Prevent frosted/glass on mushroom-chips-card outer container ===             # 1.1.9 Change - Outer mushroom chips no longer applied */
     :host(mushroom-chips-card) ha-card {
       background: none !important;
