@@ -254,7 +254,7 @@ Frosted Glass Dark:
       --token-color-black: rgb(0, 0, 0);
       --token-color-white: rgb(234, 235, 238);
       --token-opacity-ripple-hover: 0.1;
-      --token-font-family-primary: 'Figtree', -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --token-font-family-primary: -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
       --token-weight-font-title-card: 500;
       
       # Additional color variables
@@ -335,25 +335,24 @@ Frosted Glass Dark:
     }
 
   # =========================
-  # TYPOGRAPHY
+  # TYPOGRAPHY (Modified: Figtree font)
   # =========================
-  # MODIFIED: Changed to Figtree font
-  ha-font-family-body: "'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-  ha-font-family-heading: "'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-  ha-font-family-code: "'Figtree', monospace"
-  ha-font-family-longform: "'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-  ha-card-header-font-family: "'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-  mdc-typography-font-family: "'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-  mdc-typography-button-font-family: "'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-  mdc-typography-body1-font-family: "'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-  md-list-item-label-text-font: "'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-  paper-font-common-base_-_font-family: "'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-  paper-font-common-code_-_font-family: "'Figtree', monospace"
-  paper-font-body1_-_font-family: "'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-  paper-font-subhead_-_font-family: "'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-  paper-font-headline_-_font-family: "'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-  paper-font-caption_-_font-family: "'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-  paper-font-title_-_font-family: "'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+  ha-font-family-body: '"Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+  ha-font-family-heading: '"Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+  ha-font-family-code: '"Figtree", monospace'
+  ha-font-family-longform: '"Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+  ha-card-header-font-family: '"Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+  mdc-typography-font-family: '"Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+  mdc-typography-button-font-family: '"Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+  mdc-typography-body1-font-family: '"Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+  md-list-item-label-text-font: '"Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+  paper-font-common-base_-_font-family: '"Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+  paper-font-common-code_-_font-family: '"Figtree", monospace'
+  paper-font-body1_-_font-family: '"Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+  paper-font-subhead_-_font-family: '"Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+  paper-font-headline_-_font-family: '"Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+  paper-font-caption_-_font-family: '"Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+  paper-font-title_-_font-family: '"Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
 
   ha-font-weight-normal: '400'
   ha-font-weight-medium: '500'
@@ -504,13 +503,10 @@ Frosted Glass Dark:
   border-radius: '18px'
 
   # =========================
-  # UI LOVELACE MINIMALIST (ULM) COLOR VARIABLES
-  # Added for button-card template compatibility
+  # UI LOVELACE MINIMALIST (ULM) COLORS
   # =========================
   color-theme: "234, 235, 238"
   opacity-bg: "0.15"
-  
-  # ULM RGB colors
   color-red: "255, 97, 116"
   color-green: "141, 253, 166"
   color-yellow: "255, 235, 99"
@@ -519,8 +515,6 @@ Frosted Glass Dark:
   color-pink: "255, 98, 192"
   color-grey: "158, 158, 158"
   color-orange: "255, 158, 64"
-  
-  # ULM background colors
   color-background-red: "var(--color-red)"
   color-background-green: "var(--color-green)"
   color-background-yellow: "var(--color-yellow)"
@@ -528,16 +522,12 @@ Frosted Glass Dark:
   color-background-purple: "var(--color-purple)"
   color-background-pink: "var(--color-pink)"
   color-background-grey: "var(--color-grey)"
-  
-  # ULM text colors
   color-red-text: "var(--color-red)"
   color-green-text: "var(--color-green)"
   color-yellow-text: "var(--color-yellow)"
   color-blue-text: "var(--color-blue)"
   color-purple-text: "var(--color-purple)"
   color-pink-text: "var(--color-pink)"
-  
-  # Google colors for ULM
   google-red: "#FF6174"
   google-green: "#8DFDA6"
   google-yellow: "#FFEB63"
