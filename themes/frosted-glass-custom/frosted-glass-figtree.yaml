@@ -1,91 +1,33 @@
 Frosted Glass Figtree:
-  # Custom Frosted Glass theme with Figtree font and ULM compatibility
-  
-  # =============================================================================
-  # FONT FAMILY - Figtree
-  # =============================================================================
+  # Extends Frosted Glass Dark with Figtree font and ULM fixes
+  # ============================================================================
+  # FONT FAMILY - Figtree (overrides system fonts)
+  # ============================================================================
   primary-font-family: "'Figtree', sans-serif"
   ha-font-family-body: "'Figtree', sans-serif"
   ha-font-family-heading: "'Figtree', sans-serif"
+  ha-font-family-code: "'Figtree', monospace"
+  ha-font-family-longform: "'Figtree', sans-serif"
   ha-card-header-font-family: "'Figtree', sans-serif"
   mdc-typography-font-family: "'Figtree', sans-serif"
   mdc-typography-button-font-family: "'Figtree', sans-serif"
   mdc-typography-body1-font-family: "'Figtree', sans-serif"
+  md-list-item-label-text-font: "'Figtree', sans-serif"
   paper-font-common-base_-_font-family: "'Figtree', sans-serif"
+  paper-font-common-code_-_font-family: "'Figtree', monospace"
   paper-font-body1_-_font-family: "'Figtree', sans-serif"
   paper-font-subhead_-_font-family: "'Figtree', sans-serif"
   paper-font-headline_-_font-family: "'Figtree', sans-serif"
   paper-font-caption_-_font-family: "'Figtree', sans-serif"
   paper-font-title_-_font-family: "'Figtree', sans-serif"
-
-  # =============================================================================
-  # PRIMARY COLORS
-  # =============================================================================
-  primary-color: "#7C4DFF"
-  accent-color: "#7C4DFF"
   
-  # =============================================================================
-  # TEXT COLORS - High contrast for glass backgrounds
-  # =============================================================================
-  primary-text-color: "#FFFFFF"
-  secondary-text-color: "rgba(255, 255, 255, 0.75)"
-  text-primary-color: "#FFFFFF"
-  disabled-text-color: "rgba(255, 255, 255, 0.45)"
-  text-light-primary-color: "#FFFFFF"
-  
-  # =============================================================================
-  # BACKGROUND COLORS
-  # =============================================================================
-  primary-background-color: "rgba(15, 15, 20, 0.92)"
-  secondary-background-color: "rgba(25, 25, 35, 0.85)"
-  card-background-color: "rgba(35, 35, 50, 0.65)"
-  ha-card-background: "rgba(35, 35, 50, 0.65)"
-  
-  # Lovelace background
-  lovelace-background: >
-    center / cover no-repeat fixed
-    linear-gradient(
-      160deg,
-      rgba(15, 15, 25, 0.97) 0%,
-      rgba(25, 30, 45, 0.95) 40%,
-      rgba(20, 25, 40, 0.97) 100%
-    )
-  
-  # =============================================================================
-  # ICON COLORS
-  # =============================================================================
-  state-icon-color: "#FFFFFF"
-  paper-item-icon-color: "#FFFFFF"
-  state-icon-active-color: "var(--primary-color)"
-  
-  # =============================================================================
-  # SIDEBAR
-  # =============================================================================
-  sidebar-background-color: "rgba(12, 12, 18, 0.98)"
-  sidebar-icon-color: "rgba(255, 255, 255, 0.75)"
-  sidebar-text-color: "rgba(255, 255, 255, 0.75)"
-  sidebar-selected-icon-color: "var(--primary-color)"
-  sidebar-selected-text-color: "#FFFFFF"
-  
-  # =============================================================================
-  # CARDS
-  # =============================================================================
-  ha-card-border-radius: "16px"
-  ha-card-box-shadow: "0 4px 20px rgba(0, 0, 0, 0.4)"
-  ha-card-border-width: "1px"
-  ha-card-border-color: "rgba(255, 255, 255, 0.08)"
-  
-  # =============================================================================
-  # UI LOVELACE MINIMALIST (ULM) COLOR OVERRIDES
-  # These are critical for button-card templates to display correctly
-  # =============================================================================
-  # Main theme color (RGB format for ULM)
+  # ============================================================================
+  # UI LOVELACE MINIMALIST (ULM) - Critical for button-card visibility
+  # ============================================================================
   color-theme: "255, 255, 255"
-  
-  # Background opacity for ULM cards
   opacity-bg: "0.15"
   
-  # ULM specific colors
+  # ULM RGB colors
   color-red: "255, 97, 116"
   color-green: "141, 253, 166"
   color-yellow: "255, 235, 99"
@@ -101,160 +43,21 @@ Frosted Glass Figtree:
   google-blue: "#89B3F8"
   google-grey: "#9E9E9E"
   
-  # =============================================================================
+  # ============================================================================
   # MUSHROOM CARD COLORS
-  # =============================================================================
+  # ============================================================================
   mush-rgb-white: "255, 255, 255"
   mush-rgb-black: "0, 0, 0"
-  mush-rgb-red: "255, 97, 116"
-  mush-rgb-green: "141, 253, 166"
-  mush-rgb-blue: "137, 179, 248"
-  mush-rgb-yellow: "255, 235, 99"
-  mush-rgb-orange: "255, 158, 64"
-  mush-rgb-purple: "189, 157, 255"
-  mush-rgb-pink: "255, 98, 192"
-  mush-rgb-grey: "158, 158, 158"
   mush-rgb-disabled: "100, 100, 110"
-  mush-rgb-state-cover: "var(--mush-rgb-blue)"
-  mush-rgb-state-light: "var(--mush-rgb-yellow)"
-  mush-rgb-state-climate: "var(--mush-rgb-orange)"
-  mush-rgb-state-vacuum: "var(--mush-rgb-green)"
-  mush-rgb-state-lock: "var(--mush-rgb-red)"
-  mush-rgb-state-person: "var(--mush-rgb-blue)"
-  
-  # Mushroom card styling
   mush-card-primary-color: "#FFFFFF"
   mush-card-secondary-color: "rgba(255, 255, 255, 0.7)"
   
-  # =============================================================================
-  # CHIP STYLING
-  # =============================================================================
-  ha-chip-text-color: "#FFFFFF"
-  chip-background-color: "rgba(50, 50, 65, 0.7)"
-  
-  # =============================================================================
-  # SLIDER / SWITCH COLORS
-  # =============================================================================
-  switch-checked-button-color: "var(--primary-color)"
-  switch-checked-track-color: "var(--primary-color)"
-  switch-unchecked-button-color: "rgba(255, 255, 255, 0.6)"
-  switch-unchecked-track-color: "rgba(255, 255, 255, 0.3)"
-  paper-slider-knob-color: "var(--primary-color)"
-  paper-slider-active-color: "var(--primary-color)"
-  
-  # =============================================================================
-  # DIVIDER / BORDERS
-  # =============================================================================
-  divider-color: "rgba(255, 255, 255, 0.1)"
-  
-  # =============================================================================
-  # STATES
-  # =============================================================================
-  state-on-color: "var(--google-green)"
-  state-off-color: "rgba(255, 255, 255, 0.4)"
-  state-unavailable-color: "rgba(255, 255, 255, 0.25)"
-  state-inactive-color: "rgba(255, 255, 255, 0.5)"
-  
-  # =============================================================================
-  # CARD-MOD THEME STYLING
-  # =============================================================================
+  # ============================================================================
+  # CARD-MOD - Figtree font injection
+  # ============================================================================
   card-mod-theme: Frosted Glass Figtree
   card-mod-card-yaml: |
     .: |
       ha-card {
         font-family: 'Figtree', sans-serif !important;
-        backdrop-filter: blur(12px) saturate(180%);
-        -webkit-backdrop-filter: blur(12px) saturate(180%);
-        background: rgba(35, 35, 50, 0.65) !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        transition: all 0.3s ease;
-      }
-      
-      ha-card:hover {
-        border-color: rgba(255, 255, 255, 0.15) !important;
-      }
-      
-      /* ===== FIX ULM BUTTON-CARD TEXT VISIBILITY ===== */
-      
-      /* Main container text */
-      .button-card-main {
-        color: #FFFFFF !important;
-      }
-      
-      /* Name, label, state text */
-      .name, .label, .state, .secondary {
-        color: rgba(255, 255, 255, 0.9) !important;
-      }
-      
-      /* Entity name in cards */
-      .entity__info__name, .info__name {
-        color: #FFFFFF !important;
-      }
-      
-      /* Secondary info */
-      .entity__info__status, .info__status, .secondary-info {
-        color: rgba(255, 255, 255, 0.65) !important;
-      }
-      
-      /* ===== FIX ICONS ===== */
-      ha-icon, ha-state-icon, ha-svg-icon {
-        color: #FFFFFF !important;
-      }
-      
-      /* Active state icons get color */
-      ha-icon[data-state="on"], ha-state-icon[data-state="on"] {
-        color: var(--state-icon-active-color, var(--primary-color)) !important;
-      }
-      
-      /* ===== FIX WEATHER CARD ===== */
-      .weather, .weather-card {
-        color: #FFFFFF !important;
-      }
-      
-      .weather .temp, .weather .tempc {
-        color: #FFFFFF !important;
-      }
-      
-      /* ===== FIX PERSON CARD ===== */
-      .person, .person-card {
-        color: #FFFFFF !important;
-      }
-      
-      /* ===== FIX TITLES ===== */
-      .card-header, .header, h1, h2, h3 {
-        color: #FFFFFF !important;
-      }
-      
-      /* ===== FIX CHIP CARDS ===== */
-      .chip, ha-chip, .mushroom-chip {
-        color: #FFFFFF !important;
-        background: rgba(50, 50, 65, 0.7) !important;
-      }
-  
-  card-mod-view-yaml: |
-    .: |
-      /* Global view styles */
-      hui-view {
-        background: transparent !important;
-      }
-      
-      /* Ensure all text is visible */
-      * {
-        --primary-text-color: #FFFFFF;
-        --secondary-text-color: rgba(255, 255, 255, 0.75);
-      }
-  
-  card-mod-more-info-yaml: |
-    .: |
-      /* More info dialog styling */
-      ha-dialog {
-        --mdc-dialog-scrim-color: rgba(0, 0, 0, 0.7);
-      }
-      
-      .mdc-dialog__surface {
-        backdrop-filter: blur(20px) saturate(180%);
-        -webkit-backdrop-filter: blur(20px) saturate(180%);
-        background: rgba(25, 25, 35, 0.9) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 20px;
       }
