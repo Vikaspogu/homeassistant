@@ -73,40 +73,94 @@ automation:
       data: {}
     id: c696dd277c6546ecb1f4e0f82052822f
 
-  - alias: Open garage if car returns home
-    initial_state: on
+  - alias: VW Garage Door Opened
     trigger:
       - platform: state
-        entity_id: device_tracker.2025_cadillac_optiq
-        from: not_home
-        to: home
+        entity_id: cover.ratgdo32_7b2420_door
+        to: open
     condition:
-      - condition: numeric_state
-        entity_id: sensor.uptime_minutes
-        above: 2
-      - condition: state
-        entity_id: cover.garage_door_opener
-        state: "closed"
+      condition: state
+      entity_id: cover.ratgdo32_7b2420_door
+      state: open
     action:
-      - service: cover.open_cover
-        entity_id: cover.garage_door_opener
-    id: 78aa903d4f1d4085b77726ac84b0faeb
+      - service: timer.start
+        entity_id: timer.garage_door_vw
 
-  - alias: Close garage if car is away
-    initial_state: on
+  - alias: VW Garage Door Closed
     trigger:
-      - platform: state
-        entity_id: device_tracker.2025_cadillac_optiq
-        from: home
-        to: not_home
-    condition:
-      - condition: state
-        entity_id: cover.garage_door_opener
-        state: "open"
+    - platform: state
+      entity_id: cover.ratgdo32_7b2420_door
+      to: closed
     action:
-      - service: cover.close_cover
-        entity_id: cover.garage_door_opener
-    id: 3d9513db194f4f44b8310e57949968d1
+      - service: timer.cancel
+        entity_id: timer.garage_door_vw
+
+  - alias: VW Garage Opened Timer Finished
+    trigger:
+    - platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.garage_door_vw
+    condition:
+      condition: state
+      entity_id: cover.ratgdo32_7b2420_door
+      state: open
+    action:
+      - service: timer.start
+        entity_id: timer.garage_door_vw
+      - service: notify.notify_group
+        data:
+          message: "⚠️ The VW garage door has been open"
+          data:
+            actions:
+              - action: close_garage_vw
+                title: Close Garage Door
+
+  - alias: Actionable notification - close garage door VW
+    trigger:
+      platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: close_garage_vw
+    action:
+      service: cover.close_cover
+      entity_id: cover.ratgdo32_7b2420_door
+      data: {}
+    
+  # - alias: Open garage if car returns home
+  #   initial_state: on
+  #   trigger:
+  #     - platform: state
+  #       entity_id: device_tracker.2025_cadillac_optiq
+  #       from: not_home
+  #       to: home
+  #   condition:
+  #     - condition: numeric_state
+  #       entity_id: sensor.uptime_minutes
+  #       above: 2
+  #     - condition: state
+  #       entity_id: cover.garage_door_opener
+  #       state: "closed"
+  #   action:
+  #     - service: cover.open_cover
+  #       entity_id: cover.garage_door_opener
+  #   id: 78aa903d4f1d4085b77726ac84b0faeb
+
+  # - alias: Close garage if car is away
+  #   initial_state: on
+  #   trigger:
+  #     - platform: state
+  #       entity_id: device_tracker.2025_cadillac_optiq
+  #       from: home
+  #       to: not_home
+  #   condition:
+  #     - condition: state
+  #       entity_id: cover.garage_door_opener
+  #       state: "open"
+  #   action:
+  #     - service: cover.close_cover
+  #       entity_id: cover.garage_door_opener
+  #   id: 3d9513db194f4f44b8310e57949968d1
 
   # - alias: Open garage if VW returns home
   #   initial_state: on
@@ -132,29 +186,29 @@ automation:
   #       entity_id: cover.garage_door_opener
   #   id: 3d9513db194f4f44b8310e57949968e6
 
-  - alias: Close garage if VW is away
-    initial_state: on
-    trigger:
-      - platform: state
-        entity_id: device_tracker.vpogu_pixel_9
-        from: home
-        to: not_home
-    condition:
-      - condition: state
-        entity_id: cover.garage_door_opener
-        state: "open"
-      - condition: or
-        conditions:
-          - condition: state
-            entity_id: binary_sensor.vpogu_pixel9_android_auto
-            state: "on"
-          - condition: state
-            entity_id: binary_sensor.spogu_pixel_9_android_auto
-            state: "on"
-    action:
-      - service: cover.close_cover
-        entity_id: cover.garage_door_opener
-    id: 3d9513db194f4f44b8310e57949968s2
+  # - alias: Close garage if VW is away
+  #   initial_state: on
+  #   trigger:
+  #     - platform: state
+  #       entity_id: device_tracker.vpogu_pixel_9
+  #       from: home
+  #       to: not_home
+  #   condition:
+  #     - condition: state
+  #       entity_id: cover.garage_door_opener
+  #       state: "open"
+  #     - condition: or
+  #       conditions:
+  #         - condition: state
+  #           entity_id: binary_sensor.vpogu_pixel9_android_auto
+  #           state: "on"
+  #         - condition: state
+  #           entity_id: binary_sensor.spogu_pixel_9_android_auto
+  #           state: "on"
+  #   action:
+  #     - service: cover.close_cover
+  #       entity_id: cover.garage_door_opener
+  #   id: 3d9513db194f4f44b8310e57949968s2
 
   - id: smart_thermostat_control
     alias: Smart Thermostat Control

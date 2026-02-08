@@ -291,6 +291,13 @@ cards:
             ulm_card_cover_enable_controls: true
             ulm_card_cover_color: "green"
 
+        - type: "custom:button-card"
+          template: card_cover
+          entity: cover.ratgdo32_7b2420_door
+          variables:
+            ulm_card_cover_name: VW Garage Door
+            ulm_card_cover_enable_controls: true
+            ulm_card_cover_color: "green"
 
     - type: horizontal-stack
       cards:
