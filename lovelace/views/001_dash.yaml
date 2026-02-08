@@ -195,18 +195,6 @@ cards:
           fade: true
         ulm_card_weather_custom:
           - temp: sensor.outside_temperature
-      card_mod:
-        style: |
-          ha-card {
-            background: none !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            box-shadow: none !important;
-            border: none !important;
-          }
-          ha-card::before {
-            content: none !important;
-          }
 
     - type: "custom:button-card"
       template: "card_scenes_welcome"
@@ -236,18 +224,6 @@ cards:
           icon: "mdi:laptop-account"
           name: "Working"
           color: "pink"
-      card_mod:
-        style: |
-          ha-card {
-            background: none !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            box-shadow: none !important;
-            border: none !important;
-          }
-          ha-card::before {
-            content: none !important;
-          }
 
     - type: horizontal-stack
       cards:
@@ -259,18 +235,6 @@ cards:
           ulm_card_person_use_entity_picture: true
           ulm_card_person_icon: mdi:face-man
         name: Vikas
-        card_mod:
-          style: |
-            ha-card {
-              background: none !important;
-              backdrop-filter: none !important;
-              -webkit-backdrop-filter: none !important;
-              box-shadow: none !important;
-              border: none !important;
-            }
-            ha-card::before {
-              content: none !important;
-            }
       - type: 'custom:button-card'
         template: card_person
         entity: person.spogu
@@ -278,35 +242,11 @@ cards:
           ulm_card_person_entity: person.spogu
           ulm_card_person_use_entity_picture: true
           ulm_card_person_icon: mdi:face-woman
-        card_mod:
-          style: |
-            ha-card {
-              background: none !important;
-              backdrop-filter: none !important;
-              -webkit-backdrop-filter: none !important;
-              box-shadow: none !important;
-              border: none !important;
-            }
-            ha-card::before {
-              content: none !important;
-            }
 
     ## Access Control #############################################################################
     - type: 'custom:button-card'
       template: card_title
       title: Access Control
-      card_mod:
-        style: |
-          ha-card {
-            background: none !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            box-shadow: none !important;
-            border: none !important;
-          }
-          ha-card::before {
-            content: none !important;
-          }
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
@@ -316,24 +256,6 @@ cards:
             ulm_card_cover_name: Optiq Garage
             ulm_card_cover_enable_controls: true
             ulm_card_cover_color: "green"
-          styles:
-            card:
-              - background: "none"
-              - backdrop-filter: "none"
-              - "-webkit-backdrop-filter": "none"
-              - box-shadow: "none"
-              - border: "none"
-            custom_fields:
-              item1:
-                - background: "none"
-                - backdrop-filter: "none"
-                - box-shadow: "none"
-                - border: "none"
-              item2:
-                - background: "none"
-                - backdrop-filter: "none"
-                - box-shadow: "none"
-                - border: "none"
         - type: "custom:button-card"
           template: card_cover
           entity: cover.ratgdo32_7b2420_door
@@ -341,24 +263,6 @@ cards:
             ulm_card_cover_name: VW Garage
             ulm_card_cover_enable_controls: true
             ulm_card_cover_color: "green"
-          styles:
-            card:
-              - background: "none"
-              - backdrop-filter: "none"
-              - "-webkit-backdrop-filter": "none"
-              - box-shadow: "none"
-              - border: "none"
-            custom_fields:
-              item1:
-                - background: "none"
-                - backdrop-filter: "none"
-                - box-shadow: "none"
-                - border: "none"
-              item2:
-                - background: "none"
-                - backdrop-filter: "none"
-                - box-shadow: "none"
-                - border: "none"
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
@@ -372,35 +276,11 @@ cards:
           triggers_update:
             - "sensor.sidedoor_yale_assure_2_lock_battery_level"
             - "binary_sensor.sidedoor_yale_assure_2_lock_window_door_is_open"
-          card_mod:
-            style: |
-              ha-card {
-                background: none !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                box-shadow: none !important;
-                border: none !important;
-              }
-              ha-card::before {
-                content: none !important;
-              }
 
     ## Climate Control #############################################################################
     - type: 'custom:button-card'
       template: card_title
       title: Climate
-      card_mod:
-        style: |
-          ha-card {
-            background: none !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            box-shadow: none !important;
-            border: none !important;
-          }
-          ha-card::before {
-            content: none !important;
-          }
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
@@ -411,34 +291,6 @@ cards:
             ulm_card_thermostat_enable_controls: true
             ulm_card_thermostat_enable_hvac_modes: true
             ulm_card_thermostat_enable_popup: true
-          styles:
-            card:
-              - background: "none"
-              - backdrop-filter: "none"
-              - "-webkit-backdrop-filter": "none"
-              - box-shadow: "none"
-              - border: "none"
-            custom_fields:
-              item1:
-                - background: "none"
-                - backdrop-filter: "none"
-                - box-shadow: "none"
-                - border: "none"
-              item2:
-                - background: "none"
-                - backdrop-filter: "none"
-                - box-shadow: "none"
-                - border: "none"
-              item3:
-                - background: "none"
-                - backdrop-filter: "none"
-                - box-shadow: "none"
-                - border: "none"
-              item4:
-                - background: "none"
-                - backdrop-filter: "none"
-                - box-shadow: "none"
-                - border: "none"
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
@@ -452,24 +304,6 @@ cards:
             ulm_card_graph_hours: 24
             ulm_card_graph_group_by: interval
             ulm_card_graph_line_width: 5
-          styles:
-            card:
-              - background: "none"
-              - backdrop-filter: "none"
-              - "-webkit-backdrop-filter": "none"
-              - box-shadow: "none"
-              - border: "none"
-            custom_fields:
-              item1:
-                - background: "none"
-                - backdrop-filter: "none"
-                - box-shadow: "none"
-                - border: "none"
-              graph:
-                - background: "none"
-                - backdrop-filter: "none"
-                - box-shadow: "none"
-                - border: "none"
         - type: "custom:button-card"
           template: card_graph
           entity: sensor.callies_room_temperature_temperature
@@ -481,41 +315,11 @@ cards:
             ulm_card_graph_hours: 24
             ulm_card_graph_group_by: interval
             ulm_card_graph_line_width: 5
-          styles:
-            card:
-              - background: "none"
-              - backdrop-filter: "none"
-              - "-webkit-backdrop-filter": "none"
-              - box-shadow: "none"
-              - border: "none"
-            custom_fields:
-              item1:
-                - background: "none"
-                - backdrop-filter: "none"
-                - box-shadow: "none"
-                - border: "none"
-              graph:
-                - background: "none"
-                - backdrop-filter: "none"
-                - box-shadow: "none"
-                - border: "none"
 
     ## Camera ###################################################################################################################   
     - type: 'custom:button-card'
       template: card_title
       title: Cameras
-      card_mod:
-        style: |
-          ha-card {
-            background: none !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            box-shadow: none !important;
-            border: none !important;
-          }
-          ha-card::before {
-            content: none !important;
-          }
     - type: horizontal-stack
       cards:
       - type: 'custom:frigate-card'
@@ -528,18 +332,6 @@ cards:
     - type: 'custom:button-card'
       template: card_title
       title: Vacuums
-      card_mod:
-        style: |
-          ha-card {
-            background: none !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            box-shadow: none !important;
-            border: none !important;
-          }
-          ha-card::before {
-            content: none !important;
-          }
     - type: custom:swipe-card
       cards:
         - type: vertical-stack
@@ -547,18 +339,6 @@ cards:
             - type: 'custom:button-card'
               template: card_title
               title: Wall-E
-              card_mod:
-                style: |
-                  ha-card {
-                    background: none !important;
-                    backdrop-filter: none !important;
-                    -webkit-backdrop-filter: none !important;
-                    box-shadow: none !important;
-                    border: none !important;
-                  }
-                  ha-card::before {
-                    content: none !important;
-                  }
             - vacuum: valetudo_wall_e
               type: custom:valetudo-map-card
               title: Cleaning Map
@@ -567,18 +347,6 @@ cards:
             - type: 'custom:button-card'
               template: card_title
               title: E-Vac
-              card_mod:
-                style: |
-                  ha-card {
-                    background: none !important;
-                    backdrop-filter: none !important;
-                    -webkit-backdrop-filter: none !important;
-                    box-shadow: none !important;
-                    border: none !important;
-                  }
-                  ha-card::before {
-                    content: none !important;
-                  }
             - type: custom:mushroom-vacuum-card
               entity: vacuum.e_vac
               name: E-Vac
