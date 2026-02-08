@@ -129,37 +129,17 @@ Frosted Glass Dark:
       -webkit-backdrop-filter: none !important;
     }
 
-    /* === Prevent frosted/glass on nested button-card elements (ULM templates) ===     # Custom - Fix for UI Lovelace Minimalist cards */
-    /* Detect nested button-card context and disable frosted glass on those */
-    :host-context(button-card) :host(button-card) ha-card,
-    :host-context(button-card button-card) ha-card,
-    :host-context(div[class*="item"]) ha-card,
-    :host-context(div[class*="custom-field"]) ha-card {
+    /* === Exclude NESTED button-cards from frosted glass (ULM compatibility) ===       # Custom - Fix for UI Lovelace Minimalist cards */
+    /* Top-level button-cards have class .type-custom-button-card wrapper, nested ones are just button-card elements */
+    /* Only disable frosted glass on nested button-cards (those without .type-custom-button-card wrapper) */
+    :host(button-card:not(.type-custom-button-card)) ha-card {
       background: none !important;
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
       box-shadow: none !important;
       border: none !important;
     }
-    :host-context(button-card) :host(button-card) ha-card::before,
-    :host-context(button-card button-card) ha-card::before,
-    :host-context(div[class*="item"]) ha-card::before,
-    :host-context(div[class*="custom-field"]) ha-card::before {
-      content: none !important;
-      display: none !important;
-    }
-    
-    /* Exclude button-card type via class */
-    :host(.type-custom-button-card):host-context(.type-custom-button-card) ha-card,
-    :host(.type-custom-button-card):host-context(button-card) ha-card {
-      background: none !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      box-shadow: none !important;
-      border: none !important;
-    }
-    :host(.type-custom-button-card):host-context(.type-custom-button-card) ha-card::before,
-    :host(.type-custom-button-card):host-context(button-card) ha-card::before {
+    :host(button-card:not(.type-custom-button-card)) ha-card::before {
       content: none !important;
       display: none !important;
     }
