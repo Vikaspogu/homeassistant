@@ -131,17 +131,14 @@ Frosted Glass Dark:
 
     /* === Exclude NESTED button-cards from frosted glass (ULM compatibility) ===       # Custom - Fix for UI Lovelace Minimalist cards */
     /* Top-level button-cards have class .type-custom-button-card wrapper, nested ones are just button-card elements */
-    /* Only disable frosted glass on nested button-cards (those without .type-custom-button-card wrapper) */
-    :host(button-card:not(.type-custom-button-card)) ha-card {
+    /* Only disable the frosted glass ::before effect on nested button-cards, keep their natural styling */
+    :host(button-card:not(.type-custom-button-card)) ha-card::before {
+      content: none !important;
+      display: none !important;
       background: none !important;
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
       box-shadow: none !important;
-      border: none !important;
-    }
-    :host(button-card:not(.type-custom-button-card)) ha-card::before {
-      content: none !important;
-      display: none !important;
     }
 
     /* === Prevent frosted/glass on mushroom-chips-card outer container ===             # 1.1.9 Change - Outer mushroom chips no longer applied */
