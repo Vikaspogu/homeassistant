@@ -6,6 +6,11 @@ cards:
   - type: "vertical-stack"
     cards:
       - type: custom:tabbed-card
+        card_mod:
+          style: |
+            ha-card {
+              margin-top: 12px;
+            }
         styles:
           --mdc-theme-primary: var(--switch-checked-button-color)
           --mdc-tab-text-label-color-default: var(--switch-unchecked-button-color)

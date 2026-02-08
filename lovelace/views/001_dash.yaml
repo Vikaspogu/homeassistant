@@ -203,12 +203,12 @@ cards:
           entity_id: "input_boolean.run_wakeup_script"
           icon: "mdi:white-balance-sunny"
           name: "Morning"
-          color: "blue"
+          color: "yellow"
         entity_2:
           entity_id: "input_boolean.run_goodnight_script"
           icon: "mdi:weather-night"
           name: "Night"
-          color: "red"
+          color: "blue"
         entity_3:
           entity_id: "input_boolean.on_vacation"
           icon: "mdi:beach"
@@ -218,12 +218,12 @@ cards:
           entity_id: "input_boolean.override_temperature_control"
           icon: "mdi:thermostat"
           name: "Thermostat"
-          color: "purple"
+          color: "red"
         entity_5:
           entity_id: "input_boolean.working"
           icon: "mdi:laptop-account"
           name: "Working"
-          color: "pink"
+          color: "purple"
 
     - type: horizontal-stack
       cards:
