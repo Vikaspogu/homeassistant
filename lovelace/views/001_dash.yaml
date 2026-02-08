@@ -125,10 +125,70 @@ cards:
               {% else %}
                 green
               {% endif %}
-          ## Vehicle Status
+          ## Lights Summary
+          - type: template
+            icon: mdi:lightbulb-group
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/entities
+            icon_color: |-
+              {% set on_count = states.light | selectattr('state', 'eq', 'on') | list | count %}
+              {% if on_count > 0 %}yellow{% else %}grey{% endif %}
+            content: |-
+              {{ states.light | selectattr('state', 'eq', 'on') | list | count }} lights
+          ## Switches Summary
+          - type: template
+            icon: mdi:toggle-switch
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/entities
+            icon_color: |-
+              {% set on_count = states.switch | selectattr('state', 'eq', 'on') | list | count %}
+              {% if on_count > 0 %}blue{% else %}grey{% endif %}
+            content: |-
+              {{ states.switch | selectattr('state', 'eq', 'on') | list | count }} switches
+          ## Security Summary (Doors/Windows)
+          - type: template
+            icon: |-
+              {% set open_count = states.binary_sensor | selectattr('attributes.device_class', 'defined') | selectattr('attributes.device_class', 'in', ['door', 'window', 'opening']) | selectattr('state', 'eq', 'on') | list | count %}
+              {% if open_count > 0 %}mdi:door-open{% else %}mdi:door-closed-lock{% endif %}
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/entities
+            icon_color: |-
+              {% set open_count = states.binary_sensor | selectattr('attributes.device_class', 'defined') | selectattr('attributes.device_class', 'in', ['door', 'window', 'opening']) | selectattr('state', 'eq', 'on') | list | count %}
+              {% if open_count > 0 %}red{% else %}green{% endif %}
+            content: |-
+              {% set open_count = states.binary_sensor | selectattr('attributes.device_class', 'defined') | selectattr('attributes.device_class', 'in', ['door', 'window', 'opening']) | selectattr('state', 'eq', 'on') | list | count %}
+              {% if open_count > 0 %}{{ open_count }} open{% else %}Secure{% endif %}
+          ## Motion Summary
+          - type: template
+            icon: mdi:motion-sensor
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/entities
+            icon_color: |-
+              {% set motion_count = states.binary_sensor | selectattr('attributes.device_class', 'defined') | selectattr('attributes.device_class', 'in', ['motion', 'occupancy']) | selectattr('state', 'eq', 'on') | list | count %}
+              {% if motion_count > 0 %}amber{% else %}grey{% endif %}
+            content: |-
+              {% set motion_count = states.binary_sensor | selectattr('attributes.device_class', 'defined') | selectattr('attributes.device_class', 'in', ['motion', 'occupancy']) | selectattr('state', 'eq', 'on') | list | count %}
+              {% if motion_count > 0 %}{{ motion_count }} motion{% else %}Clear{% endif %}
+          ## Vehicle Status - Charging
           - type: template
             tap_action:
-              action: more-info
+              action: navigate
+              navigation_path: /lovelace/optiq
+            entity: binary_sensor.2025_cadillac_optiq_ev_charge_state
+            icon: mdi:ev-plug-type2
+            icon_color: |-
+              {% if is_state('binary_sensor.2025_cadillac_optiq_ev_charge_state', 'on') %}green{% elif is_state('binary_sensor.2025_cadillac_optiq_ev_plug_state', 'on') %}blue{% else %}grey{% endif %}
+            content: |-
+              {% if is_state('binary_sensor.2025_cadillac_optiq_ev_charge_state', 'on') %}Charging{% elif is_state('binary_sensor.2025_cadillac_optiq_ev_plug_state', 'on') %}Plugged{% else %}Unplugged{% endif %}
+          ## Vehicle Battery %
+          - type: template
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/optiq
             entity: sensor.2025_cadillac_optiq_charge_state
             content: |-
               {{ states('sensor.2025_cadillac_optiq_charge_state') }}%
@@ -148,9 +208,11 @@ cards:
               {% else %}
                 amber
               {% endif %}
+          ## Vehicle Range
           - type: template
             tap_action:
-              action: more-info
+              action: navigate
+              navigation_path: /lovelace/optiq
             entity: sensor.2025_cadillac_optiq_ev_range
             content: |-
               {{ states('sensor.2025_cadillac_optiq_ev_range') }}mi
@@ -161,6 +223,7 @@ cards:
               {% else %}
                 amber
               {% endif %}
+          ## Vehicle Location
           - type: template
             entity: device_tracker.2025_cadillac_optiq
             icon: si:cadillac

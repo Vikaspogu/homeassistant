@@ -268,29 +268,6 @@ cards:
       state_color: true
         
     ## Auto entities Optiq - Grouped by Category ###################################################################################################################
-    - type: 'custom:button-card'
-      template: card_title
-      name: Detailed View
-      card_mod:
-        class: ulm-title
-    
-    ## Status Summary Chips
-    - type: "custom:mushroom-chips-card"
-      alignment: center
-      chips:
-        - type: template
-          icon: mdi:car-electric
-          icon_color: >
-            {% if is_state('binary_sensor.2025_cadillac_optiq_ev_charge_state', 'on') %}green{% else %}blue{% endif %}
-          content: >
-            {% if is_state('binary_sensor.2025_cadillac_optiq_ev_charge_state', 'on') %}Charging{% else %}Ready{% endif %}
-        - type: template
-          icon: mdi:ev-plug-type2
-          icon_color: >
-            {% if is_state('binary_sensor.2025_cadillac_optiq_ev_plug_state', 'on') %}green{% else %}grey{% endif %}
-          content: >
-            {% if is_state('binary_sensor.2025_cadillac_optiq_ev_plug_state', 'on') %}Plugged In{% else %}Unplugged{% endif %}
-
     ## Battery & Range
     - type: 'custom:button-card'
       template: card_title
