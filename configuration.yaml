@@ -43,25 +43,16 @@ mqtt: !include mqtt_sensors.yaml
 lovelace_gen:
 
 lovelace:
-  mode: yaml
-  # Include external resources only add when mode is yaml
+  resource_mode: yaml
   resources:
     # Plugins
     - url: /hacsfiles/lovelace-auto-entities/auto-entities.js
       type: module
     - url: /hacsfiles/button-card/button-card.js
       type: module
-    - url: /hacsfiles/light-entity-card/light-entity-card.js
-      type: module
-    - url: /hacsfiles/light-popup-card/light-popup-card.js
-      type: module
     - url: /hacsfiles/lovelace-card-mod/card-mod.js
       type: module
     - url: /hacsfiles/lovelace-card-tools/card-tools.js
-      type: module
-    - url: /hacsfiles/lovelace-layout-card/layout-card.js
-      type: module
-    - url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js
       type: module
     - url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
       type: module
@@ -72,11 +63,9 @@ lovelace:
     - url: /hacsfiles/stack-in-card/stack-in-card.js
       type: module
     - url: /hacsfiles/my-cards/my-cards.js
-      type: module      
-    - url: /hacsfiles/apexcharts-card/apexcharts-card.js
       type: module
     - url: /hacsfiles/LG-WebOS-Remote-Control/lg-remote-control.js
-      type: module                         
+      type: module
     - url: /hacsfiles/lovelace-mushroom/mushroom.js
       type: module
     - url: /hacsfiles/simple-weather-card/simple-weather-card-bundle.js
@@ -93,28 +82,26 @@ lovelace:
       type: module
     - url: /hacsfiles/Bubble-Card/bubble-card.js
       type: module
-    - url: /hacsfiles/bar-card/bar-card.js
-      type: module
-    - url: /hacsfiles/lovelace-hourly-weather/hourly-weather.js
-      type: module
     - url: /hacsfiles/lovelace-navbar-card/navbar-card.js
-      type: module            
+      type: module
     - url: /hacsfiles/lovelace-state-switch/state-switch.js
-      type: module              
+      type: module
     - url: /hacsfiles/vehicle-status-card/vehicle-status-card.js
       type: module
     - url: /hacsfiles/tabbed-card/tabbed-card.js
       type: module
-                
-
     # Styles
     - url: "https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
       type: css
     - url: "https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
       type: css
-
-  # Add yaml dashboards
   dashboards:
+    lovelace:
+      mode: yaml
+      filename: ui-lovelace.yaml
+      title: Overview
+      icon: mdi:view-dashboard
+      show_in_sidebar: true
     lovelace-generated:
       mode: yaml
       filename: notexist.yaml

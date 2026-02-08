@@ -3,43 +3,6 @@ title: Dashboard
 path: dashboard
 id: dash
 cards:
-  # - type: custom:navbar-card
-  #   hidden: true
-  #   routes:
-  #     - url: /lovelace/menu
-  #       icon: mdi:menu
-  #       tap_action:
-  #         action: toggle-menu
-  #     - url: /lovelace/home
-  #       icon: mdi:home-assistant
-  #       label: Home
-  #     - url: /lovelace/optiq
-  #       icon: si:cadillac
-  #       label: Optiq
-  #     - url: /lovelace/entities
-  #       icon: mdi:auto-mode
-  #       label: Entities
-  #     - tap_action:
-  #         action: call-service
-  #         service: browser_mod.refresh
-  #         service_data: {}
-  #       icon: mdi:refresh
-  #     - icon: mdi:dots-horizontal
-  #       label: More
-  #       tap_action:
-  #         action: open-popup
-  #       popup:
-  #         - icon: mdi:cog
-  #           url: /config/dashboard
-  #         - icon: mdi:hammer
-  #           url: /developer-tools/yaml
-  #         - icon: mdi:restart
-  #           name: restart
-  #           tap_action:
-  #             action: call-service
-  #             service: homeassistant.restart
-  #             service_data: {}
-          
   - type: "vertical-stack"
     cards:
     ## Chips Temperature ###################################################################################################################
@@ -280,31 +243,30 @@ cards:
           ulm_card_person_use_entity_picture: true
           ulm_card_person_icon: mdi:face-woman
 
-    ## Curtains/Blinds #############################################################################
+    ## Access Control #############################################################################
+    - type: 'custom:button-card'
+      template: card_title
+      title: Access Control
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
           template: card_cover
           entity: cover.garage_door_opener
           variables:
-            ulm_card_cover_name: Optiq Garage Door
+            ulm_card_cover_name: Optiq Garage
             ulm_card_cover_enable_controls: true
             ulm_card_cover_color: "green"
-
         - type: "custom:button-card"
           template: card_cover
           entity: cover.ratgdo32_7b2420_door
           variables:
-            ulm_card_cover_name: VW Garage Door
+            ulm_card_cover_name: VW Garage
             ulm_card_cover_enable_controls: true
             ulm_card_cover_color: "green"
-
-    - type: horizontal-stack
-      cards:
         - type: "custom:button-card"
           entity: lock.sidedoor_yale_assure_2_lock
           template: "custom_card_eraycetinay_lock"
-          name: "Side Door Lock"
+          name: "Side Door"
           variables:
             ulm_custom_card_eraycetinay_lock_tap_control: true
             ulm_custom_card_eraycetinay_lock_battery_level: sensor.sidedoor_yale_assure_2_lock_battery_level
@@ -313,7 +275,10 @@ cards:
             - "sensor.sidedoor_yale_assure_2_lock_battery_level"
             - "binary_sensor.sidedoor_yale_assure_2_lock_window_door_is_open"
 
-
+    ## Climate Control #############################################################################
+    - type: 'custom:button-card'
+      template: card_title
+      title: Climate
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
@@ -324,7 +289,6 @@ cards:
             ulm_card_thermostat_enable_controls: true
             ulm_card_thermostat_enable_hvac_modes: true
             ulm_card_thermostat_enable_popup: true
-
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
@@ -350,83 +314,6 @@ cards:
             ulm_card_graph_group_by: interval
             ulm_card_graph_line_width: 5
 
-    # - type: horizontal-stack
-    #   cards:
-    #     - type: "custom:button-card"
-    #       template:
-    #         - card_curtain_room
-    #       name: Office Curtains
-    #       entity: sensor.both_slideposition_c0d616da83fc
-    #       icon: mdi:blinds-horizontal
-    #       variables:
-    #         ulm_custom_card_curtain_position: sensor.both_slideposition_c0d616da83fc
-    #         ulm_custom_card_curtain_open_entity: button.btn_3_cmd_c0d616da83fc
-    #         ulm_custom_card_curtain_close_entity: button.btn_2_cmd_c0d616da83fc
-    #         ulm_custom_card_curtain_name: Office Curtains
-    #         ulm_custom_card_curtain_type: curtains
-    #     - type: "custom:button-card"
-    #       template:
-    #         - card_blinds_room
-    #       name: Loft Blinds
-    #       entity: sensor.loft_position
-    #       icon: mdi:blinds-horizontal
-    #       variables:
-    #         ulm_custom_card_blinds_position: sensor.loft_position
-    #         ulm_custom_card_blinds_open_entity: button.loft_blinds_open
-    #         ulm_custom_card_blinds_close_entity: button.loft_blinds_closeup
-    #         ulm_custom_card_blinds_name: Loft Blinds
-
-    # - type: horizontal-stack
-    #   cards:
-    #     - type: "custom:button-card"
-    #       template:
-    #         - card_curtain_room
-    #       name: Callies Room Curtains
-    #       entity: sensor.both_slideposition_ce6b1c6e974e
-    #       icon: mdi:blinds-horizontal
-    #       variables:
-    #         ulm_custom_card_curtain_position: sensor.both_slideposition_ce6b1c6e974e
-    #         ulm_custom_card_curtain_open_entity: button.btn_3_cmd_ce6b1c6e974e
-    #         ulm_custom_card_curtain_close_entity: button.btn_2_cmd_ce6b1c6e974e
-    #         ulm_custom_card_curtain_name: Callies Room Curtains
-    #         ulm_custom_card_curtain_type: curtains
-    #     - type: "custom:button-card"
-    #       template:
-    #         - card_blinds_room
-    #       name: Callies Room Blinds
-    #       entity: sensor.status_slideposition_dc7773a00456
-    #       icon: mdi:blinds-horizontal
-    #       variables:
-    #         ulm_custom_card_blinds_position: sensor.status_slideposition_dc7773a00456
-    #         ulm_custom_card_blinds_open_entity: button.btn_2_cmd_dc7773a00456
-    #         ulm_custom_card_blinds_close_entity: button.btn_3_cmd_dc7773a00456
-    #         ulm_custom_card_blinds_name: Callies Room Blinds
-
-    # - type: horizontal-stack
-    #   cards:
-    #     - type: "custom:button-card"
-    #       template:
-    #         - card_blinds_room
-    #       name: Living Room Blinds
-    #       entity: sensor.living_room_position
-    #       icon: mdi:blinds-horizontal
-    #       variables:
-    #         ulm_custom_card_blinds_position: sensor.living_room_position
-    #         ulm_custom_card_blinds_open_entity: button.living_room_blinds_open
-    #         ulm_custom_card_blinds_close_entity: button.living_room_blinds_closeup
-    #         ulm_custom_card_blinds_name: Living Room Blinds
-    #     - type: "custom:button-card"
-    #       template:
-    #         - card_blinds_room
-    #       name: Bedroom Blinds
-    #       entity: sensor.bedroom_position
-    #       icon: mdi:blinds-horizontal
-    #       variables:
-    #         ulm_custom_card_blinds_position: sensor.bedroom_position
-    #         ulm_custom_card_blinds_open_entity: button.bedroom_blinds_open
-    #         ulm_custom_card_blinds_close_entity: button.bedroom_blinds_closeup
-    #         ulm_custom_card_blinds_name: Bedroom Blinds
-
     ## Camera ###################################################################################################################   
     - type: 'custom:button-card'
       template: card_title
@@ -442,11 +329,22 @@ cards:
     ## Vacuum ###################################################################################################################  
     - type: 'custom:button-card'
       template: card_title
-      title: Wall-E
-    - type: horizontal-stack
+      title: Vacuums
+    - type: custom:swipe-card
       cards:
-      - type: vertical-stack
-        cards:
-          - vacuum: valetudo_wall_e
-            type: custom:valetudo-map-card
-            title: Cleaning Map
+        - type: vertical-stack
+          cards:
+            - type: 'custom:button-card'
+              template: card_title
+              title: Wall-E
+            - vacuum: valetudo_wall_e
+              type: custom:valetudo-map-card
+              title: Cleaning Map
+        - type: vertical-stack
+          cards:
+            - type: 'custom:button-card'
+              template: card_title
+              title: E-Vac
+            - vacuum: vacuum.e_vac
+              type: custom:valetudo-map-card
+              title: Cleaning Map

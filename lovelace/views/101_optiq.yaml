@@ -190,17 +190,6 @@ cards:
           progress_color: "#2196f3"
           bar_height: 16
           bar_radius: 8
-        - energy_level:
-            entity: binary_sensor.2025_cadillac_optiq_ev_charge_state
-            icon: mdi:battery
-            tap_action:
-              action: more-info
-          range_level:
-            entity: sensor.2025_cadillac_optiq_ev_range
-          charging_entity: binary_sensor.2025_cadillac_optiq_ev_charge_state
-          progress_color: "#4caf50"
-          bar_height: 16
-          bar_radius: 8
       layout_config:
         range_info_config:
           layout: row
