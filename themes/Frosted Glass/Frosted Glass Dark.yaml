@@ -157,6 +157,12 @@ Frosted Glass Dark:
       display: none !important;
     }
 
+    /* === Vehicle Status Card - transparent background for frosted glass ===          # Custom - Fix for vehicle-status-card */
+    :host(.type-custom-vehicle-status-card) ha-card,
+    :host(vehicle-status-card) ha-card {
+      background: transparent !important;
+    }
+
     /* === Prevent frosted/glass on mushroom-chips-card outer container ===             # 1.1.9 Change - Outer mushroom chips no longer applied */
     :host(mushroom-chips-card) ha-card {
       background: none !important;
