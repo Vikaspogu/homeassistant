@@ -7,74 +7,92 @@ script:
   ####################################################
 
   navigate_to_nas:
+    alias: Navigate to NAS
+    description: Switch to Synology view on system page
+    mode: single
     sequence:
-      - service: input_select.select_option
-        data:
-          option: Synology
+      - action: input_select.select_option
         target:
           entity_id: input_select.system_mode
-      - service: browser_mod.navigate
+        data:
+          option: Synology
+      - action: browser_mod.navigate
         data:
           path: /lovelace/system
 
   navigate_to_system:
+    alias: Navigate to System
+    description: Switch to main system view
+    mode: single
     sequence:
-      - service: input_select.select_option
-        data:
-          option: Main
+      - action: input_select.select_option
         target:
           entity_id: input_select.system_mode
-      - service: browser_mod.navigate
+        data:
+          option: Main
+      - action: browser_mod.navigate
         data:
           path: /lovelace/system
-  
+
   navigate_to_temperature:
+    alias: Navigate to Temperature
+    description: Switch to temperature view on rooms page
+    mode: single
     sequence:
-      - service: input_select.select_option
-        data:
-          option: Temperature
+      - action: input_select.select_option
         target:
           entity_id: input_select.room_mode
-      - service: browser_mod.navigate
+        data:
+          option: Temperature
+      - action: browser_mod.navigate
         data:
           path: /lovelace/rooms
 
   navigate_to_remote:
+    alias: Navigate to Remote
+    description: Switch to TV remote view on rooms page
+    mode: single
     sequence:
-      - service: input_select.select_option
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.room_mode
         data:
           option: TV
-        target:
-          entity_id: input_select.room_mode
-      - service: browser_mod.navigate
-        data:
-          path: /lovelace/rooms
+      - action: browser_mod.navigate
         target:
           device_id: THIS
-  
+        data:
+          path: /lovelace/rooms
+
   navigate_to_lights:
+    alias: Navigate to Lights
+    description: Switch to main lights view on rooms page
+    mode: single
     sequence:
-      - service: input_select.select_option
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.room_mode
         data:
           option: Main
-        target:
-          entity_id: input_select.room_mode
-      - service: browser_mod.navigate
-        data:
-          path: /lovelace/rooms
+      - action: browser_mod.navigate
         target:
           device_id: THIS
-  
+        data:
+          path: /lovelace/rooms
+
   navigate_to_battery:
+    alias: Navigate to Battery
+    description: Switch to battery view on rooms page
+    mode: single
     sequence:
-      - service: input_select.select_option
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.room_mode
         data:
           option: Battery
-        target:
-          entity_id: input_select.room_mode
-      - service: browser_mod.navigate
-        data:
-          path: /lovelace/rooms
+      - action: browser_mod.navigate
         target:
           device_id: THIS
+        data:
+          path: /lovelace/rooms
   

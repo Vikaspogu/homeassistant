@@ -5,127 +5,85 @@ automation:
     #                   AUTOMATIONS                    #
     #                                                  #
     ####################################################
-  - alias: Set input entity for welcome on restart
+
+  - id: set_welcome_scene_on_restart
+    alias: Set input entity for welcome on restart
+    description: Enable welcome scene collapse on Home Assistant startup
     trigger:
-      platform: homeassistant
-      event: start
+      - trigger: homeassistant
+        event: start
     action:
-      - service: input_boolean.turn_on
-        data: {}
+      - action: input_boolean.turn_on
         target:
           entity_id: input_boolean.welcome_scene_collapse
 
-  - id: 769638308a0a4973b8930f7a6f2a2693
-    alias: Garage Door Opened
+  - id: garage_door_open_reminder
+    alias: Garage Door Open Reminder
+    description: Send notification every 30 minutes while garage door is open
+    mode: single
     trigger:
-      - platform: state
+      - trigger: time_pattern
+        minutes: "/30"
+    condition:
+      - condition: state
         entity_id: cover.garage_door_opener
-        to: open
-    condition:
-      condition: state
-      entity_id: cover.garage_door_opener
-      state: open
+        state: open
     action:
-      - service: timer.start
-        entity_id: timer.garage_door_2
-
-  - id: garage_closed
-    alias: Garage Door Closed
-    trigger:
-    - platform: state
-      entity_id: cover.garage_door_opener
-      to: closed
-    action:
-      - service: timer.cancel
-        entity_id: timer.garage_door_2
-
-  - id: garage_opened_timer_finished
-    alias: Garage Opened Timer Finished
-    trigger:
-    - platform: event
-      event_type: timer.finished
-      event_data:
-        entity_id: timer.garage_door_2
-    condition:
-      condition: state
-      entity_id: cover.garage_door_opener
-      state: open
-    action:
-      - service: timer.start
-        entity_id: timer.garage_door_2
-      - service: notify.notify_group
+      - action: notify.notify_group
         data:
-          message: "⚠️ The garage door has been open"
+          message: "The garage door has been open"
           data:
             actions:
               - action: close_garage
                 title: Close Garage Door
 
-  - alias: Actionable notification - close garage door
+  - id: close_garage_door_action
+    alias: Actionable notification - close garage door
+    description: Handle actionable notification to close main garage door
+    mode: single
     trigger:
-      platform: event
-      event_type: mobile_app_notification_action
-      event_data:
-        action: close_garage
+      - trigger: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: close_garage
     action:
-      service: cover.close_cover
-      entity_id: cover.garage_door_opener
-      data: {}
-    id: c696dd277c6546ecb1f4e0f82052822f
+      - action: cover.close_cover
+        target:
+          entity_id: cover.garage_door_opener
 
-  - alias: VW Garage Door Opened
+  - id: vw_garage_door_open_reminder
+    alias: VW Garage Door Open Reminder
+    description: Send notification every 30 minutes while VW garage door is open
+    mode: single
     trigger:
-      - platform: state
+      - trigger: time_pattern
+        minutes: "/30"
+    condition:
+      - condition: state
         entity_id: cover.ratgdo32_7b2420_door
-        to: open
-    condition:
-      condition: state
-      entity_id: cover.ratgdo32_7b2420_door
-      state: open
+        state: open
     action:
-      - service: timer.start
-        entity_id: timer.garage_door_vw
-
-  - alias: VW Garage Door Closed
-    trigger:
-    - platform: state
-      entity_id: cover.ratgdo32_7b2420_door
-      to: closed
-    action:
-      - service: timer.cancel
-        entity_id: timer.garage_door_vw
-
-  - alias: VW Garage Opened Timer Finished
-    trigger:
-    - platform: event
-      event_type: timer.finished
-      event_data:
-        entity_id: timer.garage_door_vw
-    condition:
-      condition: state
-      entity_id: cover.ratgdo32_7b2420_door
-      state: open
-    action:
-      - service: timer.start
-        entity_id: timer.garage_door_vw
-      - service: notify.notify_group
+      - action: notify.notify_group
         data:
-          message: "⚠️ The VW garage door has been open"
+          message: "The VW garage door has been open"
           data:
             actions:
               - action: close_garage_vw
                 title: Close Garage Door
 
-  - alias: Actionable notification - close garage door VW
+  - id: close_vw_garage_door_action
+    alias: Actionable notification - close garage door VW
+    description: Handle actionable notification to close VW garage door
+    mode: single
     trigger:
-      platform: event
-      event_type: mobile_app_notification_action
-      event_data:
-        action: close_garage_vw
+      - trigger: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: close_garage_vw
     action:
-      service: cover.close_cover
-      entity_id: cover.ratgdo32_7b2420_door
-      data: {}
+      - action: cover.close_cover
+        target:
+          entity_id: cover.ratgdo32_7b2420_door
     
   # - alias: Open garage if car returns home
   #   initial_state: on
@@ -214,59 +172,58 @@ automation:
     alias: Smart Thermostat Control
     description: >
       Automatically control thermostat based on time, bedroom temperature, and season.
+    mode: single
     trigger:
-      - platform: time_pattern
-        minutes: "/25"  # Check every 5 minutes
+      - trigger: time_pattern
+        minutes: "/25"
     condition:
       - condition: state
         entity_id: input_boolean.override_temperature_control
         state: "off"
     action:
       - variables:
-          bedroom_temp: "{{ states('sensor.bedroom_temperature_temperature') | float }}"
-          outdoor_temp: "{{ states('sensor.outside_temperature') | float }}"
+          bedroom_temp: "{{ states('sensor.bedroom_temperature_temperature') | float(0) }}"
+          outdoor_temp: "{{ states('sensor.outside_temperature') | float(0) }}"
           hvac_mode: "{{ states('climate.thermostat') }}"
-          current_temp: "{{ state_attr('climate.thermostat', 'current_temperature') | float }}"
+          current_temp: "{{ state_attr('climate.thermostat', 'current_temperature') | float(0) }}"
           hour: "{{ now().hour }}"
-          is_summer: "{{ states('sensor.season') == 'summer'}}"
+          is_summer: "{{ states('sensor.season') == 'summer' }}"
       - choose:
-          # Turn off thermostat from 8 AM to 4 PM
+          # Turn off thermostat from 9 AM to 3 PM
           - conditions:
               - condition: numeric_state
                 entity_id: sensor.bedroom_temperature_temperature
-                above: 0  # Just to ensure it's available
+                above: 0
               - condition: template
                 value_template: "{{ 9 <= hour < 15 }}"
               - condition: template
                 value_template: "{{ hvac_mode != 'off' }}"
             sequence:
-              - service: climate.turn_off
+              - action: climate.turn_off
                 target:
                   entity_id: climate.thermostat
-              - service: notify.mobile_app_vpogu_pixel9
+              - action: notify.mobile_app_vpogu_pixel9
                 data:
                   message: >
-                    Bedroom: {{ bedroom_temp }}°F | Outside: {{ outdoor_temp }}°F
-                    → Set thermostat to off
+                    Bedroom: {{ bedroom_temp }}F | Outside: {{ outdoor_temp }}F - Set thermostat to off
 
-          # SUMMER: If bedroom temp > 74, set to 73°F cool
+          # SUMMER: If bedroom temp > 74, set to 73F cool
           - conditions:
               - condition: template
                 value_template: "{{ is_summer and bedroom_temp > 74 and not (9 <= hour < 15) }}"
               - condition: template
                 value_template: "{{ hvac_mode == 'off' }}"
             sequence:
-              - service: climate.set_temperature
+              - action: climate.set_temperature
                 target:
                   entity_id: climate.thermostat
                 data:
                   temperature: 73
                   hvac_mode: cool
-              - service: notify.mobile_app_vpogu_pixel9
+              - action: notify.mobile_app_vpogu_pixel9
                 data:
                   message: >
-                    Bedroom: {{ bedroom_temp }}°F | Outside: {{ outdoor_temp }}°F
-                    → Set thermostat to 73°F (cool mode)
+                    Bedroom: {{ bedroom_temp }}F | Outside: {{ outdoor_temp }}F - Set thermostat to 73F (cool mode)
 
           # SUMMER: If bedroom temp < 73, turn off
           - conditions:
@@ -275,33 +232,31 @@ automation:
               - condition: template
                 value_template: "{{ hvac_mode != 'off' }}"
             sequence:
-              - service: climate.turn_off
+              - action: climate.turn_off
                 target:
                   entity_id: climate.thermostat
-              - service: notify.mobile_app_vpogu_pixel9
+              - action: notify.mobile_app_vpogu_pixel9
                 data:
                   message: >
-                    Bedroom: {{ bedroom_temp }}°F | Outside: {{ outdoor_temp }}°F
-                    → Set thermostat to off
+                    Bedroom: {{ bedroom_temp }}F | Outside: {{ outdoor_temp }}F - Set thermostat to off
 
-          # WINTER: If bedroom temp < 69, set to 70°F heat
+          # WINTER: If bedroom temp < 69, set to 70F heat
           - conditions:
               - condition: template
                 value_template: "{{ not is_summer and bedroom_temp < 69 and not (9 <= hour < 15) }}"
               - condition: template
                 value_template: "{{ hvac_mode == 'off' }}"
             sequence:
-              - service: climate.set_temperature
+              - action: climate.set_temperature
                 target:
                   entity_id: climate.thermostat
                 data:
                   temperature: 70
                   hvac_mode: heat
-              - service: notify.mobile_app_vpogu_pixel9
+              - action: notify.mobile_app_vpogu_pixel9
                 data:
                   message: >
-                    Bedroom: {{ bedroom_temp }}°F | Outside: {{ outdoor_temp }}°F
-                    → Set thermostat to 70°F (heat mode)
+                    Bedroom: {{ bedroom_temp }}F | Outside: {{ outdoor_temp }}F - Set thermostat to 70F (heat mode)
 
           # WINTER: If bedroom temp > 71, turn off
           - conditions:
@@ -310,12 +265,10 @@ automation:
               - condition: template
                 value_template: "{{ hvac_mode != 'off' }}"
             sequence:
-              - service: climate.turn_off
+              - action: climate.turn_off
                 target:
                   entity_id: climate.thermostat
-              - service: notify.mobile_app_vpogu_pixel9
+              - action: notify.mobile_app_vpogu_pixel9
                 data:
                   message: >
-                    Bedroom: {{ bedroom_temp }}°F | Outside: {{ outdoor_temp }}°F
-                    → Set thermostat to off
-    mode: single
+                    Bedroom: {{ bedroom_temp }}F | Outside: {{ outdoor_temp }}F - Set thermostat to off
